@@ -6,7 +6,7 @@ import styles from './homeNavbar.module.css'
 import Button from '../../Button/Button'
 import Link from 'next/link'
 import { GiHamburgerMenu } from 'react-icons/gi'
-// import { MobileNavbarViewHome } from '../mobileViewMenu'
+import { MobileNavbarViewHome } from '../mobileViewMenu'
 // import { usePathname } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
@@ -14,8 +14,7 @@ interface Props {
   noFixedNavbar?: boolean
 }
 const HomeNavbar = ({ noFixedNavbar }: Props) => {
-  // const token = useSelector((state) => state?.user?.currentUser?.token?.token)
-  const token = null
+  const token = false
   const [colorChange, setColorchange] = useState(false)
   const [open, setOpen] = useState(false)
   // const pathname = usePathname()
@@ -63,7 +62,7 @@ const HomeNavbar = ({ noFixedNavbar }: Props) => {
             />
 
             {/* WHEN SCREEN IS REDUCED TO MOBILE VIEW */}
-            {/* <MobileNavbarViewHome open={open} setOpen={setOpen} /> */}
+            <MobileNavbarViewHome open={open} setOpen={setOpen} />
           </div>
         </nav>
       ) : (
@@ -93,7 +92,7 @@ const HomeNavbar = ({ noFixedNavbar }: Props) => {
             />
 
             {/* WHEN SCREEN IS REDUCED TO MOBILE VIEW */}
-            {/* <MobileNavbarViewHome open={open} setOpen={setOpen} /> */}
+            <MobileNavbarViewHome open={open} setOpen={setOpen} />
           </div>
         </nav>
       )}
