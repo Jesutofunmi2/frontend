@@ -1,0 +1,36 @@
+/* .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+} */
+
+.container{
+    display: grid;
+    gap: 20px;
+}
+
+.inputwrap{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input{
+    max-width: 600px;
+    height: 35px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.attachment{
+    display: flex;
+    align-items:baseline;
+    gap: 10px;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}

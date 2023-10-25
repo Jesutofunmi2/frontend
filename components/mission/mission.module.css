@@ -1,0 +1,89 @@
+.missionContainer{
+    margin-top: 150px;
+      background-image: url(/assets/images/background.png);
+    background-size: cover;
+    background-repeat: no-repeat; 
+    min-height:100vh;
+   display: flex;
+   flex-direction: column;
+   /* align-items: center; */
+   justify-content: center;
+
+}
+
+.marquee{
+  z-index: -4;
+   
+}
+
+.birdImage{
+ /* max-width: 150px; */
+width: 50px;
+height: 44px;
+
+}
+
+
+
+.textAndImgWrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    height: 100%;
+}
+
+.textWrap{
+    max-width: 500px;
+    width: 100%;
+    font-size: 30px;
+}
+
+.textWrap p{
+    line-height: 40px;
+}
+
+.imgWrap{
+    max-width: 650px;
+    width: 100%; 
+}
+
+.tribeImage{
+   width: 100%;
+    height: unset !important;
+}
+
+
+/* MEDIA QUERIES */
+@media (max-width: 1300px){
+
+    .textAndImgWrap{
+        padding: 0 50px;
+    }
+
+    .textAndImgWrap h2{
+        font-size: 35px;
+    }
+
+    .textAndImgWrap p{
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 980px){
+
+    .textAndImgWrap{
+        padding: 0 20px;
+    } 
+}
+
+@media (max-width: 750px){
+    .missionContainer{
+        height: unset;
+    }
+
+   .textAndImgWrap{
+    gap: 50px;
+    flex-direction: column;
+   }
+}

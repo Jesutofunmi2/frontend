@@ -1,0 +1,57 @@
+.overlay{
+    visibility: visible;
+    position:fixed;
+    height: 100vh;
+    overflow-y: auto;
+    display: block;
+    justify-content:center;
+    padding: 10px;
+    background: rgba(51, 51, 51, 0.759);
+    z-index: 50;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.ov{
+    visibility: hidden;
+    position:fixed;
+    height: 100vh;
+    display: flex;
+    justify-content:center;
+    /* align-items: center; */
+    padding-top: 25px;
+    background: rgba(51, 51, 51, 0.5);
+    z-index: -20;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+
+.cont{
+    transform: translateY(1);
+    width: 100%;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    /* width: 500px;
+    height: 400px;
+    background-color: aliceblue; */
+    transition: .3s ;
+    /* opacity: 1; */
+}
+
+.close{
+    width: 100%;
+    transform: translateY(-80%);
+}
+
+.closeIcon{
+    cursor: pointer;
+    margin-bottom: 10px;
+}

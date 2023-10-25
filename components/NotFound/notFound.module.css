@@ -1,0 +1,8 @@
+.notfound{
+    font-size: 17px;
+    font-weight: 1000 !important;
+    color: gray;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}

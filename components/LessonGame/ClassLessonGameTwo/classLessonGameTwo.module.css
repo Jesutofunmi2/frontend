@@ -1,0 +1,167 @@
+.LGTwoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topWrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 600px;
+    width: 100%;
+    gap: 50px;
+
+}
+
+.topWrap .percentage{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.progressBar{
+    width: 100%;
+    height: 30px;
+    background-color: red;
+}
+
+
+.textWrap{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.questionWrap{
+    margin-top: 50px;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    gap: 50px;
+    margin-bottom: 100px;
+}
+
+.imgAndSpeaker{
+    margin-top: 50px;
+   display: flex;
+   /* gap: 20px; */
+   margin-bottom: 100px;
+
+}
+
+.speakerWrap{
+    display: flex;
+    justify-content: flex-end;
+    width: fit-content; 
+}
+
+.playIcon{
+    cursor: pointer;
+    font-size: 60px;
+}
+
+
+.flashcardWrap{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+
+/* ---------- */
+
+.lessonContainer{
+    height: 100%;
+}
+
+
+
+.textWrap h2{
+    font-size: 30px;
+}
+
+.textWrap p{
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.imgAndSpeaker{
+    margin-top: 50px;
+   display: flex;
+   gap: 20px;
+   margin-bottom: 100px;
+
+}
+
+.speakerWrap{
+    display: flex;
+    justify-content: flex-end;
+    width: fit-content; 
+}
+
+
+.img{
+    margin-top: 50px;
+    max-width: 200px;
+    width: 100%;
+    height: unset !important;
+}
+
+
+.answersWrap{
+    display: flex;
+    gap: 20px;
+}
+
+
+.answer{
+    padding: 10px;
+    background-color: var(--gray-color);
+    cursor: pointer;
+}
+
+.answer:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+    box-shadow: -1px 7px 6px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 7px 6px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 7px 6px -4px rgba(0,0,0,0.75);
+}
+
+
+.lessonContainer hr{
+    border: 1px solid lightgray;
+    width: 100%;
+}
+
+.pickAnswerWrap{
+    margin-bottom: 30px;
+    display: flex;
+    gap: 20px; 
+}
+
+
+.nextBtn{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    justify-content: center;
+    margin-top: 10px;
+    width: 150px;
+    height: 35px;
+    background-color: var(--green-color);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+}

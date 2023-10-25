@@ -1,0 +1,119 @@
+.card{
+    max-width: 350px;
+    width: 100%;
+    min-height: 200px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.titleWrap{
+    background-color: var(--orange-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+}
+
+.textWrap{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detailWrap{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.detail{
+    max-width: 230px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: gray;
+}
+
+.line{
+    border: .5px solid grey;
+    width: 100%;
+}
+
+.cardWrap{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 180px;
+    overflow-y: auto;
+    padding: 7px;
+}
+
+.submission{
+    text-align: end;
+}
+
+
+
+
+
+/* TOPIC CARDS */
+
+.card2{
+    position: relative;
+    border: 1px solid lightgray;
+    max-width: 330px;
+    width: 100%;
+    height: 100px;
+ 
+    border-radius: 7px;
+    box-sizing: border-box;
+  
+}
+
+.deleteIcon{
+    position: absolute;
+   right: 10px;
+   top: 12px;
+   cursor: pointer;
+}
+
+.innerWrap{
+    border-radius: 7px;
+    padding: 7px;
+ width: 100%;
+ height: 100%;
+ box-sizing: border-box;
+ display: flex;
+ align-items: center;
+ gap: 15px;
+}
+
+.cardActive{
+    max-width: 330px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+    padding: 0px 10px;
+    background-color: var(--orange-color);
+    box-sizing: border-box;
+    padding: 7px;
+}
+
+.cardTextWrap{
+    display: grid;
+    gap: 7px;
+}
+
+.downcardtext{
+    font-size: 14px;
+    display: grid;
+
+}

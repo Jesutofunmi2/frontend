@@ -1,23 +1,113 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+  --yellow-color: #FFC400;
+  --orange-color: #f19c08;
+  --white-color: white;
+  --green-color: #1A8754;
+  --white-grey:#F9F9F9;
+  --gray-color: #E1E1E1;
+  --red-color: red;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
-    rgb(var(--background-start-rgb));
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* overflow-x: hidden; */
+  /* max-width: 1570px; */
 }
+
+
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button{
+  cursor: pointer;
+  border: none;
+}
+
+
+
+.headerTitle{
+  background-color: white;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.copyBox{
+  cursor: pointer;
+  width: fit-content;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 5px;
+  font-size: 14px;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+
+/* TABLE ACTION CSS */
+ .action{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.editIcon{
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--green-color);
+}
+
+.deleteIcon{
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--red-color);
+}
+
+.languageText{
+  font-family: Helvetica;
+  font-weight: 400;
+}
+
+
+/* DASHBOARDS LAYOUT CSS */
+.layout{
+  display: flex;
+  
+}
+
+.main{
+  flex: 8;
+  background-color: whitesmoke;
+  padding: 25px 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+
+

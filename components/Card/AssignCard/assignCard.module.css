@@ -1,0 +1,55 @@
+.card{
+    position: relative;
+    border: 1px solid lightgray;
+    max-width: 330px;
+    width: 100%;
+    height: 100px;
+ 
+    border-radius: 7px;
+    box-sizing: border-box;
+  
+}
+
+.deleteIcon{
+    position: absolute;
+   right: 10px;
+   top: 12px;
+   cursor: pointer;
+}
+
+.innerWrap{
+    border-radius: 7px;
+    padding: 7px;
+ width: 100%;
+ height: 100%;
+ box-sizing: border-box;
+ display: flex;
+ align-items: center;
+ gap: 15px;
+}
+
+.cardActive{
+    max-width: 330px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+    padding: 0px 10px;
+    background-color: var(--orange-color);
+    box-sizing: border-box;
+    padding: 7px;
+}
+
+.cardTextWrap{
+    display: grid;
+    gap: 7px;
+}
+
+.downcardtext{
+    font-size: 14px;
+    display: grid;
+
+}

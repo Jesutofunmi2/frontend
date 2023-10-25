@@ -1,0 +1,12 @@
+.userPhoto{
+    /* margin-top: 20px; */
+    border-radius: 50%;
+    border: 1px solid orange;
+}
+
+.userIcon{
+    /* margin-top: 20px; */
+    max-width: 100px;
+    width: 100%;
+    height: unset !important;
+}

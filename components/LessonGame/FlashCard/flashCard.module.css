@@ -1,0 +1,78 @@
+.flashCard{
+    max-width: 180px;
+    width: 100%;
+    border: 2px solid lightgray;
+    box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.flashCardActive {
+    max-width: 180px;
+    width: 100%;
+    box-shadow:  0px 0px 3px 2px #FFC400;
+    transition: 0.3s;
+    border: 2px solid lightgray;
+}
+
+.imgWrap{
+    position: relative;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img{
+    max-width: 120px;
+    width: 100%;
+    height: unset !important;
+    /* background-color: #FFC400; */
+    /* height: 100%; */
+}
+
+.triangleWrap{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    display: none;
+}
+
+
+.triangleTopRight {
+    clip-path: polygon(100% 0, 3% 0, 100% 100%);
+    background-color: var(--yellow-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-bottom: 10px;
+ }
+
+ .bottomText{
+    height: 35px;
+    border-top: 3px solid lightgray;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+    text-align: center;
+ }
+
+ .bottomTextActive{
+    height: 35px;
+    border-top: 3px solid lightgray;
+    display: grid;
+    place-items: center;
+    transition: 0.3s;
+    background-color: #FFC400;
+    font-weight: bold;
+    color: white;
+    font-size: 17px;
+ }
+
+ .title{
+    font-family: Helvetica;
+    font-weight: 400;
+ }

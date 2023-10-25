@@ -1,0 +1,34 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cardWrap{
+    margin-top: 30px;
+}
+
+.cards{
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    gap: 20px;
+}
+
+.cardTitle{
+    font-size: 18px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+.buttonWrap{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.noItem{
+    margin: 10px 0px;
+    text-align: center;
+    width: 100%;
+}

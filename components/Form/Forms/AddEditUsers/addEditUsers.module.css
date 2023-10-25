@@ -1,0 +1,34 @@
+.container{
+    background-color: var(--white-color);
+    max-width: 550px;
+    width: 100%;
+    height: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.title{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.container hr{
+    border: .5px solid lightgray;
+    width: 100%;
+}
+
+.inputWrap{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.btnWrap{
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

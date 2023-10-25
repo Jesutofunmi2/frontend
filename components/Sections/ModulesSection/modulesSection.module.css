@@ -1,0 +1,10 @@
+.cardWrap{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid lightgray;
+    padding: 10px;
+}

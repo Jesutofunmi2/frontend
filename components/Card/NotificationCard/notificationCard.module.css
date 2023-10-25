@@ -1,0 +1,38 @@
+.card{
+    background-color: var(--white-color);
+    padding: 20px 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.date{
+    color: gray;
+}
+
+.content{
+    display: flex;
+    gap: 20px;
+    align-items:flex-start;
+}
+
+.icon{
+    color: orangered;
+    padding: 7px;
+    background-color: rgb(238, 235, 235);
+    border-radius: 10px;
+    min-width: 50px;
+}
+
+.textWrap{
+    margin-top: 5px;
+    display: grid;
+    gap: 10px;
+}
+
+.textWrap p{
+    line-height: 20px;
+}

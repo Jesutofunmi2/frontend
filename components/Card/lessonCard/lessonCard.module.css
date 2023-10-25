@@ -1,0 +1,73 @@
+.lessonCardContainer{
+    border: 1px solid lightgray;
+    box-shadow: 0px 3px 3px 1px rgba(0,0,0,0.1);
+    background-color: var(--white-color);
+    border-radius: 10px;
+    max-width: 210px;
+    width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+gap: 15px;
+padding: 20px;
+box-sizing: border-box;
+cursor: pointer;
+}
+
+.img{
+    max-width: 150px;
+    width: 100%;
+    height: unset !important;
+}
+
+.title{
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.break{
+    border: 1px solid lightgray;
+    width: 100%;
+}
+
+.progressWrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 7px;
+}
+
+.progressWrap .span{
+    height: 7px;
+    border-radius: 10px;
+    background-color: lightgray;
+    max-width: 140px;
+    width: 100%;
+}
+
+.percentage{
+    font-size: 14px;
+}
+
+.progressWrap p{
+    font-weight: bold;
+}
+
+.progressWrap span:nth-child(1){
+    background-color: var(--green-color);
+}
+
+
+
+.lessonCardContainer:hover{
+    transition: 0.3s;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.lessonCardContainer:hover .img{
+    transform: scale(1.06);
+    transition: 0.3s;
+}

@@ -1,0 +1,21 @@
+.card{
+    max-width: 350px;
+    width: 100%;
+    background-color: rgb(252, 237, 215);
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.textWrap{
+    display: grid;
+    gap: 10px;
+}
+
+.figure{
+    font-size: 30px;
+    color:green;
+}

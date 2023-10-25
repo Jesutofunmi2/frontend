@@ -1,0 +1,24 @@
+.container{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.btn{
+    color: black;
+    transition: all .2s ease-in-out;
+    height: 35px;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-weight: bold;
+}
+
+.btnActive{
+    background-color: var(--green-color);
+    color: var(--white-color);
+    transition: all .2s ease-in-out;
+    height: 35px;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-weight: bold;
+}

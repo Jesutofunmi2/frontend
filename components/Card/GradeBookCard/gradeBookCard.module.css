@@ -1,0 +1,48 @@
+.card{
+    max-width: 380px;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+    padding: 0px 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.greenBox{
+    background-color: var(--green-color);
+    height: 100%;
+    width: 200px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+.cardTextWrap{
+    display: grid;
+    gap: 19px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.text{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.smallText{
+    font-size: 15px;
+}
+
+.bigText{
+    font-weight: bold;
+}

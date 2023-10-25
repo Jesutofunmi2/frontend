@@ -1,0 +1,136 @@
+.container{
+    width: 100%;
+    background-color: transparent;
+    position: relative;
+}
+
+.wrapper{
+    width: 100%;
+    top: -90px;
+    position: absolute;
+}
+
+.cloudAndBarWrap{
+    position: relative;
+}
+
+.cloud{
+    width: 100%;
+    height: 300px;
+}
+
+.outerBarWrap{
+    top: 70px;
+    position: absolute;
+}
+
+.barWrap{
+    position: relative;
+    height: 150px;
+}
+
+.bar{
+    width: 100%;
+    height: 100%;
+}
+
+.menus{
+    padding: 10px 60px;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.menus li{
+    color: var(--white-color);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 750px){
+    .menus{
+        padding: 10px 40px;
+    }
+}
+
+@media (max-width: 699px){
+    .menus li{
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 611px){
+    .menus{
+        flex-wrap: wrap;
+    }
+
+    .menus li{
+        font-size: 16px;
+    }
+}
+
+
+@media (max-width: 351px){
+    .menus{
+        height: 100px;
+        padding: 0 20px;
+    }
+    /* .cloud{
+        height: 300px;
+    } */
+    .barWrap{
+        height: 150px;
+    }
+}
+
+@media (max-width: 290px){
+    .menus li{
+        font-size: 14px;
+    }
+}
+
+
+/* .container{
+    position: relative;
+    background-color: brown;
+    width: 100%;
+}
+
+.cloud{
+    top: -20px;
+    position: absolute;
+    background-image:url(/assets/images/menuCloud.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    height: 300px;
+}
+
+.barWrap{
+    position: relative;
+    height: 100px;
+}
+
+.menus{
+    position: absolute;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 60px;
+    flex-wrap: wrap;
+}
+
+.bar{
+    height: 100%;
+    width: 100%;
+} */
