@@ -1,0 +1,13 @@
+.register{
+    background-image: url(/assets/images/brownBkg.png);
+    background-size: cover;
+    background-repeat: no-repeat; 
+    height:100vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.treeImg{
+    width: 700px;
+    height: 100%;
+}
