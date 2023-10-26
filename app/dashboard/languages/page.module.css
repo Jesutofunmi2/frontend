@@ -1,0 +1,23 @@
+.textWrap{
+    text-align: center;  
+}
+
+.textWrap h2{
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.textWrap p{
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+
+.wrapper{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}

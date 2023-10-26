@@ -1,0 +1,33 @@
+.lessons span{
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.headerWrap{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .headerWrap .backIcon{
+    width: fit-content; 
+    cursor: pointer;
+  }
+  
+  .headerWrap .title{
+      margin: auto;
+    width: fit-content; 
+   }
+
+.wrapper{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+

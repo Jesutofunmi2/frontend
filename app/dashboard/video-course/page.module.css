@@ -1,0 +1,11 @@
+.container h2{
+    text-align: center;
+}
+
+.cardWrap{
+    margin-top: 50px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}

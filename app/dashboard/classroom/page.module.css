@@ -1,0 +1,9 @@
+.classWrap{
+    margin-top: 50px;
+    display: flex;
+    gap: 15px;
+}
+
+.btnWrap{
+    margin-top: 25px;
+}
