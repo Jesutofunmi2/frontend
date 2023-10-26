@@ -1,0 +1,2 @@
+export const TOKEN_KEY = 'ISESAN_APP_TOKEN'
+export const LOGOUT_KEY = 'ISESAN_WEB_APP_LOGOUT'

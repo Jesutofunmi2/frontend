@@ -14,6 +14,7 @@ interface Props {
   noFixedNavbar?: boolean
 }
 const HomeNavbar = ({ noFixedNavbar }: Props) => {
+  // const token = useSelector((state) => console.log(state))
   const token = false
   const [colorChange, setColorchange] = useState(false)
   const [open, setOpen] = useState(false)

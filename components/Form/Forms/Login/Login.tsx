@@ -92,7 +92,7 @@ const LoginForm = () => {
           <div className={styles.toggleBtn}>
             {/* school button */}
             <button
-              className={toggle === 'school' && styles.btnActive}
+              className={toggle === 'school'? styles.btnActive:""}
               onClick={() => handleToggle('school')}
             >
               School
@@ -100,7 +100,7 @@ const LoginForm = () => {
 
             {/* student button */}
             <button
-              className={toggle === 'student' ? styles.btnActive : null}
+              className={toggle === 'student' ? styles.btnActive : ""}
               onClick={() => handleToggle('student')}
             >
               Student
@@ -108,7 +108,7 @@ const LoginForm = () => {
 
             {/* teacher button */}
             <button
-              className={toggle === 'teacher' ? styles.btnActive : null}
+              className={toggle === 'teacher' ? styles.btnActive :""}
               onClick={() => handleToggle('teacher')}
             >
               Teacher

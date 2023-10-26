@@ -17,7 +17,7 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 const SchoolNavbar = () => {
   const [open, setOpen] = useState(false);
   const name = useSelector((state) => state?.user?.currentUser?.data?.name);
-  console.log(name);
+  // console.log(name);
 
   return (
     <>

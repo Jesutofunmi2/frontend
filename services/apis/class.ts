@@ -1,8 +1,9 @@
-import { request, tokens } from "@/config/config";
+import { request} from "@/config/config";
 import useSWRMutation from "swr/mutation";
 import useSWR from "swr";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import makeApiCall from ".";
 
 
 
@@ -10,20 +11,15 @@ import { toast } from "react-toastify";
 //ADD CLASS
 export const useAddClass = (payloadData, mutate) => {
 
-  // HEADERS
-const config = {
-  headers: {
-    Authorization: "Bearer " + `${tokens ? tokens() : null}`,
-  },
-};
+
   
-    async function sendRequest(url, { arg }) {
+    async function sendRequest(url: string, { arg }: any) {
       toast.loading("Submitting...", {
         position: toast.POSITION.TOP_RIGHT,
       });
         console.log(arg)
       try {
-        const res = await request.post(url, arg, config);
+        const res = await makeApiCall(url, "post",arg);
         mutate()
         console.log(res);
         toast.dismiss()
@@ -58,15 +54,10 @@ const config = {
   // GET CLASSES
 export const useGetClasses = (schoolID) => {
 console.log(schoolID)
-  // HEADERS
-const config = {
-  headers: {
-    Authorization: "Bearer " + `${tokens ? tokens() : null}`,
-  },
-};
+
 
   const fetcher = async (...args) => {
-    const res = await request.get(...args, config);
+    const res = await makeApiCall("get",...args,);
     console.log(res)
       return res?.data;
   };
@@ -181,14 +172,10 @@ const config = {
 export const useGetClassArmById = (schoolID, classID) => {
   console.log(schoolID)
     // HEADERS
-  const config = {
-    headers: {
-      Authorization: "Bearer " + `${tokens ? tokens() : null}`,
-    },
-  };
+  
   
     const fetcher = async (...args) => {
-      const res = await request.get(...args, config);
+      const res = await makeApiCall("get",...args);
       console.log(res)
         return res?.data;
     };

@@ -10,13 +10,15 @@ interface ChildrenProps {
 
 const SchoolAuthProvider = ({ children }: ChildrenProps) => {
   const [auth, setAuth] = useState(false)
+
   const token = useSelector((state) => state?.user?.currentSchool?.token?.token)
+
   const router = useRouter()
 
   useEffect(() => {
     if (!token) {
-      // router.push('/login')
-      Router.push('/login');  
+      router.push('/login')
+      // Router.push('/login');  
     } else {
       setAuth(true)
     }

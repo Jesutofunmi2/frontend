@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 
 const MyLogin = () => {
   const token = false
+  // const token = useSelector((state) => state?.user?.currentUser?.token?.token)
   const router = useRouter();
   useEffect(() => {
    if (token) {
