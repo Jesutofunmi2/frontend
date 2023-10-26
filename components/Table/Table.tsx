@@ -7,7 +7,11 @@ import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 //COMPONENTS
-
+interface TableProps {
+ 
+  head?:[]
+  body?: any
+}
 const Table = ({
   head,
   body,
@@ -16,7 +20,7 @@ const Table = ({
   //   pageNumber,
   //   numberOfData,
   //   pageSize,
-}) => {
+}:TableProps ) => {
   return (
     <div className={styles.container}>
       <table>

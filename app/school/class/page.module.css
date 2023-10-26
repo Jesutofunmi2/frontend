@@ -1,0 +1,8 @@
+.btnWrap{
+    margin-top: 50px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+

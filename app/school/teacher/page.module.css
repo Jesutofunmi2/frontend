@@ -1,0 +1,15 @@
+.btnWrap{
+   
+   
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    padding: 10px;
+}

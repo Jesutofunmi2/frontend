@@ -1,0 +1,34 @@
+ 
+/* LAYOUT CSS */
+.layout{
+    display: flex;
+    
+}
+
+.body{
+    flex: 8;
+    background-color: whitesmoke;
+    padding: 25px 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+
+
+/* PAGE CSS */
+.cardWrap{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+
+.doughnutWrap{
+    margin-top: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

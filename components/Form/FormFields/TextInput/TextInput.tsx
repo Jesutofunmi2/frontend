@@ -1,6 +1,15 @@
-import React from "react";
-import styles from "./textInput.module.css";
+import React from 'react'
+import styles from './textInput.module.css'
 
+interface TextInputProps {
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  placeholder?: string
+  title: string
+  name?: string
+  defaultValue: string
+  type?: string
+  readOnly?: boolean
+}
 const TextInput = ({
   handleChange,
   placeholder,
@@ -8,27 +17,23 @@ const TextInput = ({
   name,
   defaultValue,
   type,
-  readOnly
-}) => {
-
-
+  readOnly,
+}: TextInputProps) => {
   // FUCTION TO ALLOW TEXT ONLY WHEN TYPE IS "TEXT"
-  const handleTextInput = (e) => {
-    const key = e.key;
+  const handleTextInput = (e: { key: any; preventDefault: () => void }) => {
+    const key = e.key
     if (
-      (key >= "A" && key <= "Z") ||
-      (key >= "a" && key <= "z") ||
-      key === "" ||
-      key === "Backspace"
+      (key >= 'A' && key <= 'Z') ||
+      (key >= 'a' && key <= 'z') ||
+      key === '' ||
+      key === 'Backspace'
     ) {
-      return true;
+      return true
     } else {
-      e.preventDefault();
-      return false;
+      e.preventDefault()
+      return false
     }
-  };
-
-  
+  }
 
   return (
     <>
@@ -36,9 +41,9 @@ const TextInput = ({
         <span>{title ? title : null}</span>
         <input
           defaultValue={defaultValue}
-          type={type ? type : "text"}
+          type={type ? type : 'text'}
           name={name}
-          placeholder={placeholder ? placeholder : ""}
+          placeholder={placeholder ? placeholder : ''}
           onChange={(e) => (handleChange ? handleChange(e) : null)}
           className={styles.input}
           // onKeyDown={(e) => (type === "text" ? handleTextInput(e) : null)}
@@ -47,7 +52,7 @@ const TextInput = ({
         />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default TextInput;
+export default TextInput
