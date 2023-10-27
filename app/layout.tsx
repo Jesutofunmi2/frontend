@@ -3,7 +3,8 @@ import { Josefin_Sans } from 'next/font/google'
 import localFont from 'next/font/local'
 import { ReduxProvider } from '@/Providers/reduxProvider'
 import { ToastProvider } from "@/Providers/ToastProvider";
-// import octarine from "../public/assets/fonts/Octarine-Light.ttf"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
 
 const font = localFont({ src: '../public/assets/fonts/Octarine-Light.ttf' })
 

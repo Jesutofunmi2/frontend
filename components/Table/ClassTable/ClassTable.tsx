@@ -1,75 +1,79 @@
-import React, { useState } from "react";
-import styles from "./classTable.module.css";
-import { BsArrowDown, BsArrowDownUp, BsArrowUp } from "react-icons/bs";
-import { AiFillEdit } from "react-icons/ai";
-import { RiArrowDownSLine, RiDeleteBin6Line } from "react-icons/ri";
-import Button from "@/components/Button/Button";
+import React, { useState } from 'react'
+import styles from './classTable.module.css'
+import { BsArrowDown, BsArrowDownUp, BsArrowUp } from 'react-icons/bs'
+import { AiFillEdit } from 'react-icons/ai'
+import { RiArrowDownSLine, RiDeleteBin6Line } from 'react-icons/ri'
+import Button from '@/components/Button/Button'
 
 const DummyData = [
-  { id: 1, name: "kohn", age: 30, city: "New York" },
-  { id: 2, name: "zane", age: 25, city: "Los Angeles" },
-  { id: 3, name: "Bob", age: 35, city: "Chicago" },
-  { id: 4, name: "Alice", age: 28, city: "San Francisco" },
-];
+  { id: 1, name: 'kohn', age: 30, city: 'New York' },
+  { id: 2, name: 'zane', age: 25, city: 'Los Angeles' },
+  { id: 3, name: 'Bob', age: 35, city: 'Chicago' },
+  { id: 4, name: 'Alice', age: 28, city: 'San Francisco' },
+]
+interface ClassTableProps {
+  body?:JSX.Element 
+  setArmOpenWithID: boolean
+}
 
-const ClassTable = ({ body, setArmOpenWithID }) => {
-  const [data, setData] = useState(DummyData);
-  const [sortBy, setSortBy] = useState(null);
-  const [sortOrder, setSortOrder] = useState("ascending");
-  const [filterText, setFilterText] = useState("");
-  const [isDropDown, setIsDropDown] = useState(false);
+const ClassTable = ({ body, setArmOpenWithID }: ClassTableProps) => {
+  const [data, setData] = useState(DummyData)
+  const [sortBy, setSortBy] = useState(null)
+  const [sortOrder, setSortOrder] = useState('ascending')
+  const [filterText, setFilterText] = useState('')
+  const [isDropDown, setIsDropDown] = useState(false)
 
-  console.log(body);
+
 
   const handleSort = (key) => {
     if (sortBy === key) {
-      setData([...data].reverse());
+      setData([...data].reverse())
       // Toggle sorting order or disable sorting
-      if (sortOrder === "ascending") {
-        setSortOrder("descending");
-      } else if (sortOrder === "descending") {
-        setSortOrder(null);
-        setData(DummyData);
+      if (sortOrder === 'ascending') {
+        setSortOrder('descending')
+      } else if (sortOrder === 'descending') {
+        setSortOrder(null)
+        setData(DummyData)
       } else {
-        setSortOrder("ascending");
+        setSortOrder('ascending')
       }
     } else {
-      setData([...data].sort((a, b) => (a[key] < b[key] ? -1 : 1)));
-      setSortBy(key);
-      setSortOrder("ascending");
+      setData([...data].sort((a, b) => (a[key] < b[key] ? -1 : 1)))
+      setSortBy(key)
+      setSortOrder('ascending')
     }
-  };
+  }
 
   const handleFilter = (e) => {
-    const text = e.target.value;
-    setFilterText(text);
+    const text = e.target.value
+    setFilterText(text)
 
     const filteredData = DummyData.filter((item) =>
       item.name.toLowerCase().includes(text.toLowerCase())
-    );
-    setData(filteredData);
-  };
+    )
+    setData(filteredData)
+  }
 
   const getSortLabel = (key) => {
     if (sortBy === key) {
-      return sortOrder === "ascending" ? (
+      return sortOrder === 'ascending' ? (
         <BsArrowUp />
-      ) : sortOrder === "descending" ? (
+      ) : sortOrder === 'descending' ? (
         <BsArrowDown />
       ) : (
         <BsArrowDownUp />
-      );
+      )
     }
-    return "";
-  };
+    return ''
+  }
 
   const handleOpen = (id) => {
     if (isDropDown === id) {
-      setIsDropDown(false);
+      setIsDropDown(false)
     } else {
-      setIsDropDown(id);
+      setIsDropDown(id)
     }
-  };
+  }
 
   return (
     <>
@@ -87,11 +91,8 @@ const ClassTable = ({ body, setArmOpenWithID }) => {
               <th></th>
               <th></th>
               <th>No.</th>
-              <th
-                onClick={() => handleSort("name")}
-                style={{ cursor: "pointer" }}
-              >
-                Class {getSortLabel("name") || <BsArrowDownUp />}
+              <th onClick={() => handleSort('name')} style={{ cursor: 'pointer' }}>
+                Class {getSortLabel('name') || <BsArrowDownUp />}
               </th>
               <th className={styles.STATUS}>Language</th>
               <th></th>
@@ -100,10 +101,7 @@ const ClassTable = ({ body, setArmOpenWithID }) => {
           <tbody>
             {body?.map((item, index) => (
               <React.Fragment key={index}>
-                <tr
-                  className={styles.compMain}
-                  onClick={() => handleOpen(item?.id)}
-                >
+                <tr className={styles.compMain} onClick={() => handleOpen(item?.id)}>
                   <td>
                     <RiArrowDownSLine
                       className={`${styles.compArrow} ${
@@ -124,7 +122,7 @@ const ClassTable = ({ body, setArmOpenWithID }) => {
                     /> */}
                       <RiDeleteBin6Line
                         className={styles.compUdButtons}
-                        style={{ color: "tomato" }}
+                        style={{ color: 'tomato' }}
                         // onClick={(e) => {
                         //   window.confirm("Delete competition?") &&
                         //     deleteCompetition(competition);
@@ -173,7 +171,7 @@ const ClassTable = ({ body, setArmOpenWithID }) => {
         </table>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ClassTable;
+export default ClassTable

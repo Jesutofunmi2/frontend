@@ -1,0 +1,6 @@
+import makeApiCall from ".."
+
+export async function getStudents(school_id: any) {
+    const response = await makeApiCall(`/api/v1/students?school_id=${school_id}`, 'get')
+     return response.data
+   } 

@@ -7,38 +7,37 @@ import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 
 const SchoolProfile = () => {
-  const profileData = useSelector(userData)
-  const schoolProfile = profileData.currentSchool?.data!
+  const schoolProfileData = useSelector(userData).currentSchool?.data!
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {}
 
   return (
     <>
       <div className={styles.container}>
-        <h3 className={styles.title}>{schoolProfile?.school_name}</h3>
+        <h3 className={styles.title}>{schoolProfileData?.school_name}</h3>
         <div>
           <div className={styles.details}>
             <TextInput
               title="Name"
-              defaultValue={schoolProfile?.school_name}
+              defaultValue={schoolProfileData?.school_name}
               handleChange={handleChange}
               readOnly={true}
             />
             <TextInput
               title="Country"
-              defaultValue={schoolProfile?.country}
+              defaultValue={schoolProfileData?.country}
               handleChange={handleChange}
               readOnly={true}
             />
             <TextInput
               title="Email"
-              defaultValue={schoolProfile?.email}
+              defaultValue={schoolProfileData?.email}
               handleChange={handleChange}
               readOnly={true}
             />
             <TextInput
               title="Phone Number"
-              defaultValue={schoolProfile?.phone_number}
+              defaultValue={schoolProfileData?.phone_number}
               handleChange={handleChange}
               readOnly={true}
             />

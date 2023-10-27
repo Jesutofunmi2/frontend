@@ -1,5 +1,5 @@
-import { InitialState } from '@/types'
-import { createSlice } from '@reduxjs/toolkit'
+import { InitialState, ISchool  } from '@/types'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
 const initialState: InitialState = {
@@ -17,8 +17,9 @@ const userSlice = createSlice({
     logout: (state, action) => {
       state.currentUser = null
     },
-    schoolLogin: (state, action) => {
+    schoolProfile: (state, action) => {
       state.currentSchool = action.payload
+
     },
     schoolLogout: (state, action) => {
       state.currentTeacher = null
@@ -32,7 +33,7 @@ const userSlice = createSlice({
   },
 })
 
-export const { login, logout, schoolLogin, schoolLogout, teacherLogin, teacherLogout } =
+export const { login, logout, schoolProfile, schoolLogout, teacherLogin, teacherLogout } =
   userSlice.actions
 export const userData = (state: RootState) => state.user
 export default userSlice.reducer

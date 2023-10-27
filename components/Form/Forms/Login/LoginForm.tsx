@@ -8,10 +8,13 @@ import { schoolLogin, teacherLogin, studentLogin } from '@/services/Apis/auth'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { setToken } from '@/services/old-apis/token'
+import { useDispatch } from 'react-redux'
+import { schoolProfile } from '../../../../services/redux/features/userSlice'
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
-  const [toggle, setToggle] = useState('school')
+  const [toggleUser, setToggleUser] = useState('school')
   const [inputType, setInputType] = useState('password')
   const [studentData, setStudentData] = useState({
     login_id: '',
@@ -27,8 +30,8 @@ const LoginForm = () => {
   })
 
   // TOGGLE USERS
-  const handleToggle = (event: string) => {
-    setToggle(event)
+  const handleToggleUser = (event: string) => {
+    setToggleUser(event)
   }
 
   const revealPassword = () => {
@@ -50,16 +53,18 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     try {
-      if (toggle === 'school') {
+      if (toggleUser === 'school') {
         let response = await schoolLogin(schoolData)
         const { token } = response.token
         setToken(token)
+        
+        dispatch(schoolProfile(response))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,
         })
         router.push('/school/profile')
-      } else if (toggle === 'teacher') {
+      } else if (toggleUser === 'teacher') {
         let response = await teacherLogin(teacherData)
         const { token } = response.token
         setToken(token)
@@ -67,7 +72,7 @@ const LoginForm = () => {
           position: toast.POSITION.TOP_CENTER,
         })
         router.push('/teacher')
-      } else if (toggle === 'student') {
+      } else if (toggleUser === 'student') {
         let response = await studentLogin(studentData)
         const { token } = response.token
         setToken(token)
@@ -103,24 +108,24 @@ const LoginForm = () => {
           <div className={styles.toggleBtn}>
             {/* school button */}
             <button
-              className={toggle === 'school' ? styles.btnActive : ''}
-              onClick={() => handleToggle('school')}
+              className={toggleUser === 'school' ? styles.btnActive : ''}
+              onClick={() => handleToggleUser('school')}
             >
               School
             </button>
 
             {/* student button */}
             <button
-              className={toggle === 'student' ? styles.btnActive : ''}
-              onClick={() => handleToggle('student')}
+              className={toggleUser === 'student' ? styles.btnActive : ''}
+              onClick={() => handleToggleUser('student')}
             >
               Student
             </button>
 
             {/* teacher button */}
             <button
-              className={toggle === 'teacher' ? styles.btnActive : ''}
-              onClick={() => handleToggle('teacher')}
+              className={toggleUser === 'teacher' ? styles.btnActive : ''}
+              onClick={() => handleToggleUser('teacher')}
             >
               Teacher
             </button>
@@ -131,7 +136,7 @@ const LoginForm = () => {
           {/* SIGN IN INPUT */}
           <p>Sign in to your account to continue </p>
 
-          {toggle === 'school' ? (
+          {toggleUser === 'school' ? (
             <>
               <span className={styles.inputWrap}>
                 <input
@@ -164,7 +169,7 @@ const LoginForm = () => {
                 )}
               </span>
             </>
-          ) : toggle === 'student' ? (
+          ) : toggleUser === 'student' ? (
             <>
               <div className={styles.inputWrap}>
                 <input
@@ -183,7 +188,7 @@ const LoginForm = () => {
               </div>
             </>
           ) : (
-            toggle === 'teacher' && (
+            toggleUser === 'teacher' && (
               <>
                 <div className={styles.inputWrap}>
                   <input

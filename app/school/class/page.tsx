@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import styles from './page.module.css'
 import Modal from '@/components/Modal/Modal'
 import Button from '@/components/Button/Button'
@@ -9,27 +10,32 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useAddStudent, useDeleteStudent, useEditStudent } from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
-import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
-import { useGetClasses } from '@/services/old-apis/class'
+// import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
+// import { useGetClasses } from '@/services/old-apis/class'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
 import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
+import { getClasses } from '@/services/Apis/school/class'
+import { IClass} from '@/types'
+
 
 const Class = () => {
   // const appData = useSelector(userData)
   // const IDs = appData.currentSchool?.data!
-  const IDs = useSelector((state) => state?.user?.currentSchool?.data)
-  const { mutate, data:classData } = useGetClasses(IDs?.id)
+  const schoolID = useSelector(userData).currentSchool?.data.id!
+  // const IDs = useSelector((state) => state?.user?.currentSchool?.data)
+  // const { mutate, data:classData } = useGetClasses(IDs?.id)
   const [studentDetails, setStudentDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [armOpenwithID, setArmOpenWithID] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const { trigger: deleteStudent } = useDeleteStudent(mutate)
-  const { trigger: addStudent } = useAddStudent(mutate)
-  const { trigger: editStudent } = useEditStudent(mutate)
+  // const { trigger: deleteStudent } = useDeleteStudent(mutate)
+  // const { trigger: addStudent } = useAddStudent(mutate)
+  // const { trigger: editStudent } = useEditStudent(mutate)
+
   const [payloadData, setPayloadData] = useState({
-    school_id: `${IDs}`,
+    school_id: `${schoolID}`,
     first_name: '',
     last_name: '',
     language: '',
@@ -37,7 +43,14 @@ const Class = () => {
     gendar: '',
     country: '',
   })
-console.log(IDs)
+  const {
+    data: allClassesData,
+    error,
+    isLoading,
+  } = useQuery<IClass[], Error>({
+    queryKey: ['classes', schoolID],
+    queryFn: () => getClasses(schoolID),
+  })
   // OPEN MODAL CONDITION
   const handleModalOpen = (modalEvent: string, data: null) => {
     switch (modalEvent) {
@@ -112,8 +125,8 @@ console.log(IDs)
           />
         </div>
         {/* <Table head={tableHead} body={tableBody}/> */}
-        <ClassTable body={classData?.data} setArmOpenWithID={setArmOpenWithID} />
-        {classData?.data?.length === 0 ? <NotFound text="No Class Found:(" /> : null}
+        <ClassTable body={allClassesData} setArmOpenWithID={setArmOpenWithID} />
+        {/* {classData?.data?.length === 0 ? <NotFound text="No Class Found:(" /> : null} */}
       </div>
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
@@ -137,11 +150,11 @@ console.log(IDs)
 
       {/* ADD CLASS ARM MODAL */}
       <Modal open={armOpenwithID ? true : false} setOpen={setArmOpenWithID}>
-        <AddClassArmForm
+        {/* <AddClassArmForm
           mutate={mutate}
           armOpenwithID={armOpenwithID}
           setArmOpenWithID={setArmOpenWithID}
-        />
+        /> */}
       </Modal>
     </>
   )

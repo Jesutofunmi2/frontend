@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
@@ -8,42 +8,50 @@ import Button from '@/components/Button/Button'
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { RiDeleteBin6Line} from 'react-icons/ri'
+import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 import AddEditTeachers from '@/components/Form/Forms/AddEditTeachers/AddEditTeachers'
-import {
-  useAddTeacher,
-  useDeleteTeacher,
-  useEditTeacher,
-  useGetTeachers,
-} from '@/services/old-apis/teacher'
+// import {
+//   useAddTeacher,
+//   useDeleteTeacher,
+//   useEditTeacher,
+//   useGetTeachers,
+// } from '@/services/old-apis/teacher'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { ITeacher } from '@/types'
+import { getTeachers } from '@/services/Apis/school/teacher'
 
 const Teacher = () => {
-  const appData = useSelector(userData)
-  const schoolID = appData.currentSchool?.data.id!
-  const { mutate, data:teacherData, isValidating } = useGetTeachers(schoolID )
+  const schoolID = useSelector(userData).currentSchool?.data.id!
+
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
-  const [filteredData, setFilteredData] = useState()
+  // const [filteredData, setFilteredData] = useState()
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
   const [file, setFile] = useState(null)
-  const { trigger: deleteTeacher } = useDeleteTeacher(mutate)
-  const { trigger: addTeacher } = useAddTeacher(mutate, setModalOpen)
-  const { trigger: editTeacher } = useEditTeacher(mutate, setModalOpen)
+
   const [payloadData, setPayloadData] = useState({
-    school_id: `${schoolID }`,
+    school_id: `${schoolID}`,
     name: '',
     email: '',
     address: 'bosss',
   })
 
+  const {
+    data: allTeachersData,
+    error,
+    isLoading,
+  } = useQuery<ITeacher[], Error>({
+    queryKey: ['teachers', schoolID],
+    queryFn: () => getTeachers(schoolID),
+  })
+
   // OPEN MODAL CONDITION
-  const handleModalOpen = (modalEvent: string, data: ITeacher|null) => {
+  const handleModalOpen = (modalEvent: string, data: ITeacher | null) => {
     switch (modalEvent) {
       case 'add':
         setModalOpen(true)
@@ -95,34 +103,27 @@ const Teacher = () => {
     }
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      setFilteredData(teacherData?.data)
-    }, 50)
-  }, [teacherData?.data])
-
   // HANDLE SEARCH
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const filtered = teacherData?.data?.filter((item: ITeacher) => {
-      return (
-        item.email.toLowerCase().includes(e.target.value) ||
-        item.name.toLowerCase().includes(e.target.value)
-      )
-    })
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const filtered = teacherData?.data?.filter((item: ITeacher) => {
+  //     return (
+  //       item.email.toLowerCase().includes(e.target.value) ||
+  //       item.name.toLowerCase().includes(e.target.value)
+  //     )
+  //   })
 
-    if (filtered) {
-      setFilteredData(filtered)
-    } else {
-      
-    }
-  }
+  //   if (filtered) {
+  //     setFilteredData(filtered)
+  //   } else {
+  //   }
+  // }
 
   // TABLE HEAD
   const tableHeading = ['', 'NAME', 'EMAIL', 'TEACHER ID', '']
 
   // TABLE BODY
   const tableBody = () => {
-    const body = teacherData?.data?.map((item: ITeacher) => {
+    const body = allTeachersData?.map((item: ITeacher) => {
       return (
         <tr key={item.teacher_id}>
           <td>
@@ -151,33 +152,37 @@ const Teacher = () => {
 
   return (
     <>
-      <div>
-        <h3 className="headerTitle">Teacher Configuration</h3>
-        <div className={styles.actions}>
-          <div className={styles.btnWrap}>
-            <Button
-              width="150px"
-              height="30px"
-              size="15px"
-              text="Add Teacher"
-              handleClick={() => handleModalOpen('add', null)}
-            />
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <p>error loading page</p>
+      ) : (
+        <div>
+          <h3 className="headerTitle">Teacher Configuration</h3>
+          <div className={styles.actions}>
+            <div className={styles.btnWrap}>
+              <Button
+                width="150px"
+                height="30px"
+                size="15px"
+                text="Add Teacher"
+                handleClick={() => handleModalOpen('add', null)}
+              />
 
-            <Button
-              width="150px"
-              height="30px"
-              size="15px"
-              text="Bulk Registration"
-              backgroundColor="lightGreen"
-              handleClick={() => handleModalOpen('bulk', null)}
-            />
+              <Button
+                width="150px"
+                height="30px"
+                size="15px"
+                text="Bulk Registration"
+                backgroundColor="lightGreen"
+                handleClick={() => handleModalOpen('bulk', null)}
+              />
+            </div>
           </div>
+
+          <Table head={tableHeading} body={tableBody} />
         </div>
-
-        <Table head={tableHeading} body={tableBody} />
-
-        {isValidating ? <Loader /> : null}
-      </div>
+      )}
       {/* MODAL TO MODIFY USERS */}
 
       <Modal open={modalOpen} setOpen={setModalOpen}>

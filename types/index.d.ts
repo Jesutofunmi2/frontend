@@ -1,4 +1,3 @@
-
 export interface Program {
   src: StaticImageData
   title: string
@@ -19,7 +18,7 @@ export interface Profile {
   type: string
 }
 
-export interface School extends Profile {}
+export interface ISchool extends Profile {}
 // export interface SchoolProfile extends TeacherShool {}
 export interface ITeacher {
   id: number
@@ -80,7 +79,7 @@ export interface ClassArm {
   id: number
   name: string
 }
-export interface ClassProfile {
+export interface IClass {
   class_arms: ClassArm[]
   classs_room_name: string
   id: number
@@ -92,6 +91,6 @@ export interface InitialState {
   currentUser: {
     data: Profile
   } | null
-  currentSchool: { data: School } | null
+  currentSchool: { data: ISchool } | null
   currentTeacher: { data: ITeacher } | null
 }

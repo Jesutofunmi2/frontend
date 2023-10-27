@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
@@ -12,31 +12,32 @@ import 'react-toastify/dist/ReactToastify.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
-import {
-  useAddStudent,
-  useDeleteStudent,
-  useEditStudent,
-  useGetStudents,
-} from '@/services/old-apis/student'
+// import {
+//   useAddStudent,
+//   useDeleteStudent,
+//   useEditStudent,
+//   useGetStudents,
+// } from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
-import { useGetClassArmById, useGetClasses } from '@/services/old-apis/class'
+// import { useGetClassArmById, useGetClasses } from '@/services/old-apis/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { IStudent } from '@/types'
+import { useQuery } from '@tanstack/react-query'
+import { getStudents } from '@/services/Apis/school/student'
 
 const Student = () => {
-  const appData = useSelector(userData)
-  const schoolID = appData.currentSchool?.data.id!
-  const { mutate, data:studentData, isLoading } = useGetStudents(schoolID)
-  const [studentDetails, setStudentDetails] = useState<IStudent|null>(null)
+  const schoolID = useSelector(userData).currentSchool?.data.id!
+  // const { mutate, data:studentData, isLoading } = useGetStudents(schoolID)
+  const [studentDetails, setStudentDetails] = useState<IStudent | null>(null)
   const [selectedOptionForClass, setSelectedOptionForClass] = useState()
   // const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState()
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const { trigger: deleteStudent } = useDeleteStudent(mutate)
-  const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
-  const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
-  const { data: allClasses } = useGetClasses(schoolID)
+  // const { trigger: deleteStudent } = useDeleteStudent(mutate)
+  // const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
+  // const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
+  // const { data: allClasses } = useGetClasses(schoolID)
   // const { data: allClassArmByID } = useGetClassArmById(schoolID, selectedOptionForClass?.id)
   const [payloadData, setPayloadData] = useState({
     school_id: `${schoolID}`,
@@ -50,8 +51,14 @@ const Student = () => {
     term: '',
     session: '',
   })
-
-
+  const {
+    data: allStudentsData,
+    error,
+    isLoading,
+  } = useQuery<IStudent[], Error>({
+    queryKey: ['teachers', schoolID],
+    queryFn: () => getStudents(schoolID),
+  })
 
   // const validation = () => {
   //   for (const key in payloadData) {
@@ -61,7 +68,7 @@ const Student = () => {
   //   }
   // }
   // OPEN MODAL CONDITION
-  const handleModalOpen = (modalEvent: string, data:IStudent|null) => {
+  const handleModalOpen = (modalEvent: string, data: IStudent | null) => {
     switch (modalEvent) {
       case 'add':
         setModalOpen(true)
@@ -102,7 +109,7 @@ const Student = () => {
   // })
 
   // HANDLE DELETE STUDENT
-  const handleDelete = (studentID:string) => {
+  const handleDelete = (studentID: string) => {
     deleteStudent(studentID)
   }
 
@@ -110,7 +117,7 @@ const Student = () => {
   const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = (e:React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
 
     // if (!validation() && selectedOptionForClassArm && selectedOptionForClass) {
@@ -161,10 +168,10 @@ const Student = () => {
     'CLASS ARM',
     '',
   ]
-console.log(studentData)
+
   // TABLE BODY
   const tableBody = () => {
-    const body = studentData?.data?.map((item:IStudent) => {
+    const body = allStudentsData?.map((item: IStudent) => {
       return (
         <tr key={item.student_id}>
           <td>{item?.username}</td>
@@ -201,30 +208,35 @@ console.log(studentData)
 
   return (
     <>
-      <div>
-        <h3 className="headerTitle">Student Configuration</h3>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <p>error page</p>
+      ) : (
+        <div>
+          <h3 className="headerTitle">Student Configuration</h3>
 
-        <div className={styles.btnWrap}>
-          <Button
-            width="150px"
-            height="30px"
-            size="15px"
-            text="Add Student"
-            handleClick={() => handleModalOpen('add', null)}
-          />
+          <div className={styles.btnWrap}>
+            <Button
+              width="150px"
+              height="30px"
+              size="15px"
+              text="Add Student"
+              handleClick={() => handleModalOpen('add', null)}
+            />
 
-          <Button
-            width="150px"
-            height="30px"
-            size="15px"
-            text="Bulk Registration"
-            backgroundColor="lightGreen"
-            handleClick={() => handleModalOpen('bulk', null)}
-          />
+            <Button
+              width="150px"
+              height="30px"
+              size="15px"
+              text="Bulk Registration"
+              backgroundColor="lightGreen"
+              handleClick={() => handleModalOpen('bulk', null)}
+            />
+          </div>
+          <Table head={tableHead} body={tableBody} />
         </div>
-        <Table head={tableHead} body={tableBody} />
-        {isLoading ? <Loader /> : null}
-      </div>
+      )}
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
         {/* <AddEditStudents
