@@ -1,4 +1,4 @@
-import { InitialState} from '@/types'
+import { InitialState } from '@/types'
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 

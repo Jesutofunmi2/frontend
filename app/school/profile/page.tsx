@@ -6,12 +6,10 @@ import TextInput from '@/components/Form/FormFields/TextInput/TextInput'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 
-
-const SchoolProfile = () => { 
+const SchoolProfile = () => {
   const profileData = useSelector(userData)
-  const schoolProfile= profileData.currentSchool?.data!
+  const schoolProfile = profileData.currentSchool?.data!
 
-  console.log(profileData)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {}
 
   return (

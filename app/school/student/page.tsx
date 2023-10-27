@@ -1,122 +1,122 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-import styles from "./page.module.css";
-import Table from "@/components/Table/Table";
-import Modal from "@/components/Modal/Modal";
-import Button from "@/components/Button/Button";
-import AddEditStudents from "@/components/Form/Forms/AddEditStudents/AddEditStudents";
-import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { RiDeleteBin6Line, RiFileCopyLine } from "react-icons/ri";
-import { AiFillEdit } from "react-icons/ai";
+import React, { useEffect, useState } from 'react'
+import styles from './page.module.css'
+import Table from '@/components/Table/Table'
+import Modal from '@/components/Modal/Modal'
+import Button from '@/components/Button/Button'
+import AddEditStudents from '@/components/Form/Forms/AddEditStudents/AddEditStudents'
+import { useSelector } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
+import { AiFillEdit } from 'react-icons/ai'
 import {
   useAddStudent,
   useDeleteStudent,
   useEditStudent,
   useGetStudents,
-} from "@/services/APIs/student";
-import BulkUpload from "@/components/BulkUpload/BulkUpload";
-import { useGetClassArmById, useGetClasses } from "@/services/APIs/class";
-import { Loader } from "@/components/Loader/Loader";
+} from '@/services/APIs/student'
+import BulkUpload from '@/components/BulkUpload/BulkUpload'
+import { useGetClassArmById, useGetClasses } from '@/services/APIs/class'
+import { Loader } from '@/components/Loader/Loader'
+import { userData } from '@/services/redux/features/userSlice'
+import { IStudent } from '@/types'
 
 const Student = () => {
-  const schoolID = useSelector((state) => state?.user?.currentSchool?.data.id);
-  const { mutate, data, isLoading } = useGetStudents(schoolID);
-  const [studentDetails, setStudentDetails] = useState(null);
-  const [selectedOptionForClass, setSelectedOptionForClass] = useState();
-  const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [bulkOpen, setBulkOpen] = useState(false);
-  const { trigger: deleteStudent } = useDeleteStudent(mutate);
-  const { trigger: addStudent } = useAddStudent(mutate, setModalOpen);
-  const { trigger: editStudent } = useEditStudent(mutate, setModalOpen);
-  const { data: allClasses, isLooading } = useGetClasses(schoolID);
-  const { data: allClassArmByID } = useGetClassArmById(
-    schoolID,
-    selectedOptionForClass?.id
-  );
+  const appData = useSelector(userData)
+  const schoolID = appData.currentSchool?.data.id!
+  const { mutate, data:studentData, isLoading } = useGetStudents(schoolID)
+  const [studentDetails, setStudentDetails] = useState<IStudent|null>(null)
+  const [selectedOptionForClass, setSelectedOptionForClass] = useState()
+  // const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [bulkOpen, setBulkOpen] = useState(false)
+  const { trigger: deleteStudent } = useDeleteStudent(mutate)
+  const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
+  const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
+  const { data: allClasses } = useGetClasses(schoolID)
+  // const { data: allClassArmByID } = useGetClassArmById(schoolID, selectedOptionForClass?.id)
   const [payloadData, setPayloadData] = useState({
     school_id: `${schoolID}`,
-    first_name: "",
-    last_name: "",
-    language: "",
-    age: "",
-    gendar: "",
-    country: "Nigeria",
-    classarm_id: "",
-    term: "",
-    session: "",
-  });
+    first_name: '',
+    last_name: '',
+    language: '',
+    age: '',
+    gendar: '',
+    country: 'Nigeria',
+    classarm_id: '',
+    term: '',
+    session: '',
+  })
 
-  console.log(payloadData);
 
-  const validation = () => {
-    for (const key in payloadData) {
-      if (payloadData[key] === "") {
-        return true;
-      }
-    }
-  };
+
+  // const validation = () => {
+  //   for (const key in payloadData) {
+  //     if (payloadData[key] === '') {
+  //       return true
+  //     }
+  //   }
+  // }
   // OPEN MODAL CONDITION
-  const handleModalOpen = (evt, data) => {
-    switch (evt) {
-      case "add":
-        setModalOpen(true);
-        setStudentDetails(null);
-        break;
-      case "edit":
-        setModalOpen(true);
-        setStudentDetails(data);
-        break;
-      case "bulk":
-        setBulkOpen(true);
+  const handleModalOpen = (modalEvent: string, data:IStudent|null) => {
+    switch (modalEvent) {
+      case 'add':
+        setModalOpen(true)
+        setStudentDetails(null)
+        break
+      case 'edit':
+        setModalOpen(true)
+        setStudentDetails(data)
+        break
+      case 'bulk':
+        setBulkOpen(true)
       default:
-        break;
+        break
     }
-  };
+  }
 
-  console.log(selectedOptionForClassArm);
+  // console.log(selectedOptionForClassArm)
 
-  useEffect(() => {
-    setSelectedOptionForClassArm(null);
-  }, [selectedOptionForClass]);
+  // useEffect(() => {
+  //   setSelectedOptionForClassArm(null)
+  // }, [selectedOptionForClass])
 
   // HANDLE COPY
   const handleCopy = () => {
-    toast.success("Copied!", {
+    toast.success('Copied!', {
       position: toast.POSITION.TOP_RIGHT,
-    });
-  };
+    })
+  }
 
   // Options for classes Select component
-  const classOptions = allClasses?.data?.map((item) => {
-    return { value: item, label: item?.classs_room_name };
-  });
+  // const classOptions = allClasses?.data?.map((item) => {
+  //   return { value: item, label: item?.classs_room_name }
+  // })
 
   // Options for class arm Select component
-  const classArmoptions = allClassArmByID?.data[0]?.class_arms?.map((item) => {
-    return { value: item.id, label: item?.name };
-  });
+  // const classArmoptions = allClassArmByID?.data[0]?.class_arms?.map((item) => {
+  //   return { value: item.id, label: item?.name }
+  // })
 
   // HANDLE DELETE STUDENT
-  const handleDelete = (studentID) => {
-    deleteStudent(studentID);
-  };
+  const handleDelete = (studentID:string) => {
+    deleteStudent(studentID)
+  }
 
   // Remove school_id from payload data. school_id is not required in edit.
-  const { school_id, ...newPayload } = payloadData;
+  const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (e:React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault()
 
     // if (!validation() && selectedOptionForClassArm && selectedOptionForClass) {
-    console.log();
+    console.log()
 
-    if ( studentDetails) {
+    if (studentDetails) {
       editStudent({
         first_name: payloadData?.first_name,
         last_name: payloadData?.last_name,
@@ -129,7 +129,7 @@ const Student = () => {
         id: studentDetails?.student_id,
         term: payloadData.term,
         session: payloadData.session,
-      });
+      })
     } else {
       addStudent({
         school_id: `${payloadData?.school_id}`,
@@ -139,32 +139,32 @@ const Student = () => {
         age: payloadData?.age,
         gendar: payloadData?.gendar,
         country: `${payloadData?.country}`,
-        class_id: selectedOptionForClass?.id,
+        // class_id: selectedOptionForClass?.id,
         classarm_id: payloadData.classarm_id,
         term: payloadData.term,
         session: payloadData.session,
-      });
+      })
     }
     // }else{
     //   alert("work dey")
     // }
-  };
+  }
 
   // TABLE HEAD
   const tableHead = [
-    "USERNAME",
-    "LANGUAGE",
-    "STUDENT ID",
-    "AGE",
-    "GENDER",
-    "CLASS",
-    "CLASS ARM",
-    "",
-  ];
-
+    'USERNAME',
+    'LANGUAGE',
+    'STUDENT ID',
+    'AGE',
+    'GENDER',
+    'CLASS',
+    'CLASS ARM',
+    '',
+  ]
+console.log(studentData)
   // TABLE BODY
   const tableBody = () => {
-    const body = data?.data?.map((item) => {
+    const body = studentData?.data?.map((item:IStudent) => {
       return (
         <tr key={item.student_id}>
           <td>{item?.username}</td>
@@ -183,25 +183,21 @@ const Student = () => {
           <td>{item?.classarm}</td>
           <td>
             <div className="action">
-              <AiFillEdit
-                className="editIcon"
-                onClick={() => handleModalOpen("edit", item)}
-              />
+              <AiFillEdit className="editIcon" onClick={() => handleModalOpen('edit', item)} />
               <RiDeleteBin6Line
                 className="deleteIcon"
                 onClick={() => {
-                  window.confirm("Delete this student?") &&
-                    handleDelete(item.student_id);
+                  window.confirm('Delete this student?') && handleDelete(item.student_id)
                 }}
               />
             </div>
           </td>
         </tr>
-      );
-    });
+      )
+    })
 
-    return body;
-  };
+    return body
+  }
 
   return (
     <>
@@ -214,7 +210,7 @@ const Student = () => {
             height="30px"
             size="15px"
             text="Add Student"
-            handleClick={() => handleModalOpen("add", "")}
+            handleClick={() => handleModalOpen('add', null)}
           />
 
           <Button
@@ -223,16 +219,16 @@ const Student = () => {
             size="15px"
             text="Bulk Registration"
             backgroundColor="lightGreen"
-            handleClick={() => handleModalOpen("bulk", "")}
+            handleClick={() => handleModalOpen('bulk', null)}
           />
         </div>
         <Table head={tableHead} body={tableBody} />
-        {isLoading ? <Loader/> : null}
+        {isLoading ? <Loader /> : null}
       </div>
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
-        <AddEditStudents
-          title={studentDetails ? "Edit Student" : "Add Student"}
+        {/* <AddEditStudents
+          title={studentDetails ? 'Edit Student' : 'Add Student'}
           payloadData={payloadData}
           setPayloadData={setPayloadData}
           handleSubmit={handleSubmit}
@@ -243,7 +239,7 @@ const Student = () => {
           selectedOptionForClass={selectedOptionForClass}
           setSelectedOptionForClassArm={setSelectedOptionForClassArm}
           selectedOptionForClassArm={selectedOptionForClassArm}
-        />
+        /> */}
       </Modal>
 
       {/* MODAL TO MODIFY STUDENTS */}
@@ -252,7 +248,7 @@ const Student = () => {
       </Modal>
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default Student;
+export default Student

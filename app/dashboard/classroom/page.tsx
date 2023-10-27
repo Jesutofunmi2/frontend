@@ -14,7 +14,7 @@ const TeacherClass = () => {
   const IDs = useSelector((state) => state?.user?.currentUser?.data);
   const { data, isValidating, mutate } = useGetClasses(
     IDs.school?.id,
-    IDs?.teacher_id
+    // IDs?.teacher_id
   );
   const [classDetails, setclassDetails] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);

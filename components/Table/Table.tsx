@@ -1,17 +1,17 @@
 import React from "react";
 
-//STYLES
+
 import styles from "./table.module.css";
 import Button from "../Button/Button";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-//COMPONENTS
 interface TableProps {
  
-  head?:[]
+  head?:string[]
   body?: any
 }
+
 const Table = ({
   head,
   body,

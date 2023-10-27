@@ -1,161 +1,153 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-import styles from "./page.module.css";
-import Table from "@/components/Table/Table";
-import Modal from "@/components/Modal/Modal";
-import Button from "@/components/Button/Button";
-import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { RiDeleteBin6Line, RiFileCopyLine } from "react-icons/ri";
-import { AiFillEdit } from "react-icons/ai";
-import AddEditTeachers from "@/components/Form/Forms/AddEditTeachers/AddEditTeachers";
+import React, { useEffect, useState } from 'react'
+import styles from './page.module.css'
+import Table from '@/components/Table/Table'
+import Modal from '@/components/Modal/Modal'
+import Button from '@/components/Button/Button'
+import { useSelector } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { RiDeleteBin6Line} from 'react-icons/ri'
+import { AiFillEdit } from 'react-icons/ai'
+import AddEditTeachers from '@/components/Form/Forms/AddEditTeachers/AddEditTeachers'
 import {
   useAddTeacher,
   useDeleteTeacher,
   useEditTeacher,
   useGetTeachers,
-} from "@/services/APIs/teacher";
-import Image from "next/image";
-import BulkUpload from "@/components/BulkUpload/BulkUpload";
-import NotFound from "@/components/NotFound/NotFound";
-import { Loader } from "@/components/Loader/Loader";
+} from '@/services/apis/teacher'
+import Image from 'next/image'
+import BulkUpload from '@/components/BulkUpload/BulkUpload'
+import { Loader } from '@/components/Loader/Loader'
+import { userData } from '@/services/redux/features/userSlice'
+import { ITeacher } from '@/types'
 
 const Teacher = () => {
-  const id = useSelector((state) => state?.user?.currentSchool?.data.id);
-  const { mutate, data, isValidating } = useGetTeachers(id);
-  const [teacherDetails, setTeacherDetails] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredData, setFilteredData] = useState();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [bulkOpen, setBulkOpen] = useState(false);
-  const [file, setFile] = useState(null);
-  const { trigger: deleteTeacher } = useDeleteTeacher(mutate);
-  const { trigger: addTeacher } = useAddTeacher(mutate, setModalOpen);
-  const { trigger: editTeacher } = useEditTeacher(mutate, setModalOpen);
+  const appData = useSelector(userData)
+  const schoolID = appData.currentSchool?.data.id!
+  const { mutate, data:teacherData, isValidating } = useGetTeachers(schoolID )
+  const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
+  const [filteredData, setFilteredData] = useState()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [bulkOpen, setBulkOpen] = useState(false)
+  const [file, setFile] = useState(null)
+  const { trigger: deleteTeacher } = useDeleteTeacher(mutate)
+  const { trigger: addTeacher } = useAddTeacher(mutate, setModalOpen)
+  const { trigger: editTeacher } = useEditTeacher(mutate, setModalOpen)
   const [payloadData, setPayloadData] = useState({
-    school_id: `${id}`,
-    name: "",
-    email: "",
-    address: "bosss",
-  });
+    school_id: `${schoolID }`,
+    name: '',
+    email: '',
+    address: 'bosss',
+  })
 
   // OPEN MODAL CONDITION
-  const handleModalOpen = (evt:string, data) => {
-    switch (evt) {
-      case "add":
-        setModalOpen(true);
-        setTeacherDetails(null);
-        break;
-      case "edit":
-        setModalOpen(true);
-        setTeacherDetails(data);
-        break;
-      case "bulk":
-        setBulkOpen(true);
+  const handleModalOpen = (modalEvent: string, data: ITeacher|null) => {
+    switch (modalEvent) {
+      case 'add':
+        setModalOpen(true)
+        setTeacherDetails(null)
+        break
+      case 'edit':
+        setModalOpen(true)
+        setTeacherDetails(data)
+        break
+      case 'bulk':
+        setBulkOpen(true)
       default:
-        break;
+        break
     }
-  };
+  }
 
   // HANDLE COPY
   const handleCopy = () => {
-    toast.success("Copied!", {
+    toast.success('Copied!', {
       position: toast.POSITION.TOP_RIGHT,
-    });
-  };
+    })
+  }
 
   // HANDLE DELETE STUDENT
-  const handleDelete = (teacherID) => {
-    deleteTeacher(teacherID);
-  };
+  const handleDelete = (teacherID: string) => {
+    deleteTeacher(teacherID)
+  }
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault()
     if (teacherDetails) {
       editTeacher({
         image_url: file,
         name: payloadData.name,
         email: payloadData.email,
-        address: "bosss",
+        address: 'bosss',
         teacher_id: teacherDetails?.teacher_id,
         school_id: payloadData.school_id,
-      });
+      })
     } else {
       addTeacher({
         image_url: file,
         school_id: payloadData.school_id,
         name: payloadData.name,
         email: payloadData.email,
-        address: "bosss",
-      });
+        address: 'bosss',
+      })
     }
-  };
+  }
 
   useEffect(() => {
     setTimeout(() => {
-      setFilteredData(data?.data);
-    }, 50);
-  }, [data?.data]);
+      setFilteredData(teacherData?.data)
+    }, 50)
+  }, [teacherData?.data])
 
   // HANDLE SEARCH
-  const handleSearch = (e) => {
-    const filtered = data?.data?.filter((item) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const filtered = teacherData?.data?.filter((item: ITeacher) => {
       return (
         item.email.toLowerCase().includes(e.target.value) ||
         item.name.toLowerCase().includes(e.target.value)
-      );
-    });
+      )
+    })
 
     if (filtered) {
-      setFilteredData(filtered);
+      setFilteredData(filtered)
     } else {
-      // setFilteredData(data?.data)
+      
     }
-  };
+  }
 
   // TABLE HEAD
-  const tableHead = ["", "NAME", "EMAIL", "TEACHER ID", ""];
+  const tableHeading = ['', 'NAME', 'EMAIL', 'TEACHER ID', '']
 
   // TABLE BODY
   const tableBody = () => {
-    const body = data?.data?.map((item) => {
+    const body = teacherData?.data?.map((item: ITeacher) => {
       return (
-        <tr key={item.student_id}>
+        <tr key={item.teacher_id}>
           <td>
-            <Image
-              src="/assets/images/logo.png"
-              width={50}
-              height={50}
-              alt="logo"
-            />
+            <Image src="/assets/images/logo.png" width={50} height={50} alt="logo" />
           </td>
           <td>{item?.name}</td>
           <td>{item?.email}</td>
           <td>{item?.teacher_id}</td>
           <td>
             <div className="action">
-              <AiFillEdit
-                className="editIcon"
-                onClick={() => handleModalOpen("edit", item)}
-              />
+              <AiFillEdit className="editIcon" onClick={() => handleModalOpen('edit', item)} />
               <RiDeleteBin6Line
                 className="deleteIcon"
                 onClick={() => {
-                  window.confirm("Delete this teacher?") &&
-                    handleDelete(item.teacher_id);
+                  window.confirm('Delete this teacher?') && handleDelete(item.teacher_id)
                 }}
               />
             </div>
           </td>
         </tr>
-      );
-    });
+      )
+    })
 
-    return body;
-  };
+    return body
+  }
 
   return (
     <>
@@ -168,41 +160,29 @@ const Teacher = () => {
               height="30px"
               size="15px"
               text="Add Teacher"
-              handleClick={() => handleModalOpen("add", "")}
+              handleClick={() => handleModalOpen('add', null)}
             />
 
             <Button
-            width="150px"
-            height="30px"
-            size="15px"
-            text="Bulk Registration"
-            backgroundColor="lightGreen"
-            handleClick={() => handleModalOpen("bulk", "")}
-          />
-          </div>
-
-          {/* SEARCH */}
-          {/* <form action="">
-            <input
-              type="search"
-              name=""
-              id=""
-              onChange={(e) => handleSearch(e)}
+              width="150px"
+              height="30px"
+              size="15px"
+              text="Bulk Registration"
+              backgroundColor="lightGreen"
+              handleClick={() => handleModalOpen('bulk', null)}
             />
-          </form> */}
+          </div>
         </div>
 
-        {/* {filteredData?.length >= 1 ? ( */}
-          <Table head={tableHead} body={tableBody} />
-        {/* // ) : ( */}
-        {/* //   <NotFound /> */}
-        {/* // )} */}
+        <Table head={tableHeading} body={tableBody} />
+
         {isValidating ? <Loader /> : null}
       </div>
       {/* MODAL TO MODIFY USERS */}
+
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditTeachers
-          title={teacherDetails ? "Edit Teacher" : "Add Teacher"}
+          title={teacherDetails ? 'Edit Teacher' : 'Add Teacher'}
           payloadData={payloadData}
           setPayloadData={setPayloadData}
           handleSubmit={handleSubmit}
@@ -218,7 +198,7 @@ const Teacher = () => {
 
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default Teacher;
+export default Teacher

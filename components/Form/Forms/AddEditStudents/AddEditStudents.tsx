@@ -6,7 +6,23 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "../../FormFields/Select/Select";
 import Select2 from "../../FormFields/Select/select2";
+import { IStudent } from "@/types";
 
+interface AddEditStudentsProps {
+ 
+  payloadData:IStudent,
+  // setPayloadData,
+  handleSubmit:()=>void,
+  studentDetails,
+  title:string,
+  data,
+  classData,
+  setSelectedOptionForClass,
+  classArmData,
+  selectedOptionForClass,
+  setSelectedOptionForClassArm,
+  selectedOptionForClassArm,
+}
 const AddEditStudents = ({
   payloadData,
   setPayloadData,
@@ -20,7 +36,7 @@ const AddEditStudents = ({
   selectedOptionForClass,
   setSelectedOptionForClassArm,
   selectedOptionForClassArm,
-}) => {
+}:AddEditStudents) => {
   // HANDLE INPUT FIELDS
   const handleChange = (e) => {
     const data = { ...payloadData };

@@ -24,7 +24,7 @@ export interface Profile {
 
 export interface School extends Profile {}
 // export interface SchoolProfile extends TeacherShool {}
-export interface Teacher {
+export interface ITeacher {
   id: number
   address: string
   count_down: number
@@ -62,7 +62,7 @@ export interface StudentRequest {
   session: string
   term: string
 }
-export interface Student {
+export interface IStudent {
   age: number
   class: string
   classarm: string
@@ -96,5 +96,5 @@ export interface InitialState {
     data: Profile
   } | null
   currentSchool: { data: School } | null
-  currentTeacher: { data: Teacher } | null
+  currentTeacher: { data: ITeacher } | null
 }

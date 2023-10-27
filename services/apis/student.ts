@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 
 //ADD STUDENT
-export const useAddStudent = (mutate, setModalOpen) => {
+export const useAddStudent = (mutate, setModalOpen?) => {
     const token = useSelector((state) => state?.user?.currentSchool?.token.token);
   
     // HEADERS
@@ -52,7 +52,7 @@ export const useAddStudent = (mutate, setModalOpen) => {
 
 
 //EDIT STUDENT
-export const useEditStudent = (mutate, setModalOpen) => {
+export const useEditStudent = (mutate, setModalOpen?) => {
     const token = useSelector((state) => state?.user?.currentSchool?.token.token);
   
     // HEADERS
