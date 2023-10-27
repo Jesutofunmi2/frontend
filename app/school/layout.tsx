@@ -11,13 +11,13 @@ interface ChildrenProps {
 const DashboadLayout = ({ children }:ChildrenProps) => {
   return (
     <>
-      <SchoolAuthProvider>
+      {/* <SchoolAuthProvider> */}
         <SchoolNavbar/>
         <div className={styles.layout}>
           <Sidebar school="true"/>
           <div className={styles.body}>{children}</div>
         </div>
-      </SchoolAuthProvider>
+      {/* </SchoolAuthProvider> */}
     </>
   );
 };

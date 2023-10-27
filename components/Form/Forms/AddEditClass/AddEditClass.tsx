@@ -6,8 +6,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 // import Select from "../../FormFields/Select/Select";
-import { useGetLanguages } from "@/services/APIs/languages";
-import { useAddClass } from "@/services/APIs/class";
+import { useGetLanguages } from "@/services/old-apis/languages";
+import { useAddClass } from "@/services/old-apis/class";
 import { useSelector } from "react-redux";
 
 const AddEditClass = ({ classDetails, title, mutate, setModalOpen }) => {

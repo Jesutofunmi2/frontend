@@ -17,9 +17,9 @@ import {
   useDeleteStudent,
   useEditStudent,
   useGetStudents,
-} from '@/services/APIs/student'
+} from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
-import { useGetClassArmById, useGetClasses } from '@/services/APIs/class'
+import { useGetClassArmById, useGetClasses } from '@/services/old-apis/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { IStudent } from '@/types'

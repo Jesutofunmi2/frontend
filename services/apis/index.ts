@@ -1,7 +1,5 @@
-
 import axios, { AxiosRequestConfig } from 'axios'
-import { getToken } from './token';
-
+import { getToken } from './token'
 
 const token = getToken()
 const baseURL = 'https://remotedev.izesan.com'
@@ -32,8 +30,7 @@ async function makeApiCall<T = any>(
     return data
   } catch (error: any) {
     if (error.response) {
-
-      window.location.assign("/login");
+      window.location.assign('/login')
     }
   }
 

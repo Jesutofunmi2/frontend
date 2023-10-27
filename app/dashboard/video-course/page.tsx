@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./page.module.css";
-import { useGetVideoCourse } from "@/services/APIs/videoCourse";
+import { useGetVideoCourse } from "@/services/old-apis/videoCourse";
 import VideoCourseCard from "@/components/Card/VideoCourseCard/VideoCourseCard";
 
 const VideoLesson = () => {

@@ -1,21 +1,18 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './login.module.css'
 import Image from 'next/image'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
-import {
-  useLoginSchool,
-  useLoginStudent,
-  useLoginTeacher,
-} from "@/services/APIs/auth";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { schoolLogin, teacherLogin, studentLogin } from '@/services/apis/auth'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import { setToken } from '@/services/Apis/token'
 
 const LoginForm = () => {
-  const { trigger: schoolLogin } = useLoginSchool();
-  const { trigger: studentLogin } = useLoginStudent();
-  const { trigger: teacherLogin } = useLoginTeacher();
+  const router = useRouter()
   const [toggle, setToggle] = useState('school')
   const [inputType, setInputType] = useState('password')
   const [studentData, setStudentData] = useState({
@@ -23,7 +20,7 @@ const LoginForm = () => {
     password: '12345678',
   })
   const [teacherData, setTeacherData] = useState({
-    teacher_id: '',
+    login_id: '',
     password: '12345678',
   })
   const [schoolData, setschoolData] = useState({
@@ -44,14 +41,6 @@ const LoginForm = () => {
     }
   }
 
-  // HANDLE INPUT FIELDS
-  // const handleChange = (e) => {
-  //   const data = { ...schoolData };
-  //   data[e.target.name] = e.target.value;
-  //   // console.log( data)
-  //   setschoolData(data);
-  // };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const data = e.target.value
     setschoolData({
@@ -61,18 +50,47 @@ const LoginForm = () => {
   }
 
   // SUBMIT LOGIN CONDITION
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    // console.log(teacherData)
-    e.preventDefault()
-    if (toggle === "school") {
-      schoolLogin(schoolData);
-    } else if (toggle === "teacher") {
-      teacherLogin(teacherData);
-    } else if (toggle === "student") {
-      studentLogin(studentData);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  //  e.stopImmediatePropagation
+    try {
+      if (toggle === 'school') {
+        let response = await schoolLogin(schoolData)
+        const { token } = response.token
+        setToken(token)
+        // toast.loading('Signing you in...', {
+        //   position: toast.POSITION.TOP_CENTER,
+        // })
+        router.push('/school/profile')
+      } else if (toggle === 'teacher') {
+        let response = await teacherLogin(teacherData)
+        const { token } = response.token
+        setToken(token)
+        // toast.loading('Signing you in...', {
+        //   position: toast.POSITION.TOP_CENTER,
+        // })
+        router.push('/teacher')
+      } else if (toggle === 'student') {
+        let response = await studentLogin(studentData)
+        const { token } = response.token
+        setToken(token)
+        // toast.loading('Signing you in...', {
+        //   position: toast.POSITION.TOP_CENTER,
+        // })
+        router.push('/dashboard/languages')
+      }
+    } catch (err) {
+      console.log(err)
+      // toast.dismiss()
+      // if (err) {
+      //   toast.error('Invalid Credentials', {
+      //     position: toast.POSITION.TOP_CENTER,
+      //   })
+      // }
+    } finally {
+      // toast.dismiss()
     }
   }
-
   return (
     <>
       <div className={styles.card}>
@@ -92,7 +110,7 @@ const LoginForm = () => {
           <div className={styles.toggleBtn}>
             {/* school button */}
             <button
-              className={toggle === 'school'? styles.btnActive:""}
+              className={toggle === 'school' ? styles.btnActive : ''}
               onClick={() => handleToggle('school')}
             >
               School
@@ -100,7 +118,7 @@ const LoginForm = () => {
 
             {/* student button */}
             <button
-              className={toggle === 'student' ? styles.btnActive : ""}
+              className={toggle === 'student' ? styles.btnActive : ''}
               onClick={() => handleToggle('student')}
             >
               Student
@@ -108,7 +126,7 @@ const LoginForm = () => {
 
             {/* teacher button */}
             <button
-              className={toggle === 'teacher' ? styles.btnActive :""}
+              className={toggle === 'teacher' ? styles.btnActive : ''}
               onClick={() => handleToggle('teacher')}
             >
               Teacher
@@ -116,7 +134,7 @@ const LoginForm = () => {
           </div>
         </div>
 
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           {/* SIGN IN INPUT */}
           <p>Sign in to your account to continue </p>
 
@@ -177,11 +195,11 @@ const LoginForm = () => {
                   <input
                     type="text"
                     placeholder="Teacher ID"
-                    value={teacherData.teacher_id}
+                    value={teacherData.login_id}
                     onChange={(e) =>
                       setTeacherData({
                         ...teacherData,
-                        teacher_id: e.target.value,
+                        login_id: e.target.value,
                       })
                     }
                     className={styles.inputfield}

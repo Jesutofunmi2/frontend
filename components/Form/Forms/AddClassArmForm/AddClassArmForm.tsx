@@ -5,8 +5,8 @@ import Button from "@/components/Button/Button";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import Select from "../../FormFields/Select/Select";
-import { useGetLanguages } from "@/services/APIs/languages";
-import { useAddClass, useAddClassArm } from "@/services/APIs/class";
+import { useGetLanguages } from "@/services/old-apis/languages";
+import { useAddClass, useAddClassArm } from "@/services/old-apis/class";
 import { useSelector } from "react-redux";
 import { AiOutlinePlusCircle, AiOutlineCloseCircle } from "react-icons/ai";
 

@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import LanguageCard from "@/components/Card/languageCard/LanguageCard";
-import { useGetLanguages } from "@/services/APIs/languages";
+import { useGetLanguages } from "@/services/old-apis/languages";
 import {Loader} from "@/components/Loader/Loader";
 import { Fade } from "react-awesome-reveal";
 import { useEffect } from "react";
