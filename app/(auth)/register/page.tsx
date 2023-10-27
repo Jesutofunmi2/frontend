@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
-import Login from "@/components/Form/Forms/Login/Login";
+import Login from '@/components/Form/Forms/Login/LoginForm';
 import tree from "/public/assets/images/tree.png";
 import Register from "@/components/Form/Forms/Register/Register";
 

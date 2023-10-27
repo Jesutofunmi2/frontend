@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import makeApiCall from '../apis'
 
-// ******** POST REQUEST **********//
+
 
 //STUDENT LOGIN
 export const useLoginStudent = () => {

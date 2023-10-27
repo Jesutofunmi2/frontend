@@ -1,4 +1,4 @@
-import { LoginRequest, SchoolLoginRequest  } from '@/types/auth'
+import { TeacherLoginRequest, SchoolLoginRequest, StudentLoginRequest  } from '@/types/auth'
 import makeApiCall from '.'
 
 export async function schoolLogin(payload: SchoolLoginRequest ) {
@@ -6,12 +6,12 @@ export async function schoolLogin(payload: SchoolLoginRequest ) {
   return response
 }
 
-export async function teacherLogin(payload: LoginRequest) {
+export async function teacherLogin(payload: TeacherLoginRequest) {
  const response = await makeApiCall('/api/v1/auth/teacherLogin', 'post', payload)
   return response
 } 
 
-export async function studentLogin(payload: LoginRequest) {
+export async function studentLogin(payload: StudentLoginRequest) {
   const response = await makeApiCall('/api/v1/auth/studentLogin', 'post', payload)
    return response
  } 

@@ -1,11 +1,9 @@
 'use client'
-
 import React, { useState } from 'react'
 import styles from './login.module.css'
 import Image from 'next/image'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { schoolLogin, teacherLogin, studentLogin } from '@/services/apis/auth'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
@@ -20,7 +18,7 @@ const LoginForm = () => {
     password: '12345678',
   })
   const [teacherData, setTeacherData] = useState({
-    login_id: '',
+    teacher_id: '',
     password: '12345678',
   })
   const [schoolData, setschoolData] = useState({
@@ -49,52 +47,48 @@ const LoginForm = () => {
     })
   }
 
-  // SUBMIT LOGIN CONDITION
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  //  e.stopImmediatePropagation
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
     try {
       if (toggle === 'school') {
         let response = await schoolLogin(schoolData)
         const { token } = response.token
         setToken(token)
-        // toast.loading('Signing you in...', {
-        //   position: toast.POSITION.TOP_CENTER,
-        // })
+        toast.loading('Signing you in...', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 5000,
+        })
         router.push('/school/profile')
       } else if (toggle === 'teacher') {
         let response = await teacherLogin(teacherData)
         const { token } = response.token
         setToken(token)
-        // toast.loading('Signing you in...', {
-        //   position: toast.POSITION.TOP_CENTER,
-        // })
+        toast.loading('Signing you in...', {
+          position: toast.POSITION.TOP_CENTER,
+        })
         router.push('/teacher')
       } else if (toggle === 'student') {
         let response = await studentLogin(studentData)
         const { token } = response.token
         setToken(token)
-        // toast.loading('Signing you in...', {
-        //   position: toast.POSITION.TOP_CENTER,
-        // })
+        toast.loading('Signing you in...', {
+          position: toast.POSITION.TOP_CENTER,
+        })
         router.push('/dashboard/languages')
       }
+      toast.dismiss()
     } catch (err) {
-      console.log(err)
-      // toast.dismiss()
-      // if (err) {
-      //   toast.error('Invalid Credentials', {
-      //     position: toast.POSITION.TOP_CENTER,
-      //   })
-      // }
-    } finally {
-      // toast.dismiss()
+      if (err) {
+        toast.error('Invalid Credentials', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 10000,
+        })
+      }
     }
   }
   return (
     <>
       <div className={styles.card}>
-        {/* LOGO */}
         <Image
           src="/assets/images/logo.png"
           width="80"
@@ -106,7 +100,6 @@ const LoginForm = () => {
         <div className={styles.loginAndToggle}>
           <h3>Login</h3>
 
-          {/* TOOGLE BUTTONS */}
           <div className={styles.toggleBtn}>
             {/* school button */}
             <button
@@ -139,13 +132,13 @@ const LoginForm = () => {
           <p>Sign in to your account to continue </p>
 
           {toggle === 'school' ? (
-            // IF TOGGLE IS EQUAL TO SCHOOL, SHOW EMAIL AND PASSWORD INPUT
             <>
               <span className={styles.inputWrap}>
                 <input
                   defaultValue={schoolData.email}
                   type="email"
                   name="email"
+                  required
                   placeholder="Email"
                   onChange={(e) => handleChange(e)}
                   className={styles.inputfield}
@@ -156,6 +149,7 @@ const LoginForm = () => {
                   defaultValue={schoolData.password}
                   type={inputType}
                   name="password"
+                  required
                   placeholder="Password"
                   onChange={(e) => handleChange(e)}
                   className={styles.inputfield}
@@ -171,11 +165,11 @@ const LoginForm = () => {
               </span>
             </>
           ) : toggle === 'student' ? (
-            // ELSE FOR ONLY LOGIN ID INPUT
             <>
               <div className={styles.inputWrap}>
                 <input
                   type="text"
+                  required
                   placeholder="Student ID"
                   value={studentData.login_id}
                   onChange={(e) =>
@@ -194,12 +188,13 @@ const LoginForm = () => {
                 <div className={styles.inputWrap}>
                   <input
                     type="text"
+                    required
                     placeholder="Teacher ID"
-                    value={teacherData.login_id}
+                    value={teacherData.teacher_id}
                     onChange={(e) =>
                       setTeacherData({
                         ...teacherData,
-                        login_id: e.target.value,
+                        teacher_id: e.target.value,
                       })
                     }
                     className={styles.inputfield}
@@ -209,7 +204,6 @@ const LoginForm = () => {
             )
           )}
 
-          {/* SUBMIT BUTTON */}
           <button type="submit" className={styles.loginBtn}>
             Sign in
           </button>

@@ -29,9 +29,10 @@ async function makeApiCall<T = any>(
 
     return data
   } catch (error: any) {
-    if (error.response) {
-      window.location.assign('/login')
-    }
+    // if (error.response) {
+    //   window.location.assign('/login')
+    console.log(error)
+    // }
   }
 
   throw new Error()

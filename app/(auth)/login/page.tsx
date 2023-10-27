@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
-import LoginForm from "@/components/Form/Forms/Login/Login";
+import LoginForm from '@/components/Form/Forms/Login/LoginForm';
 import tree from "/public/assets/images/tree.png";
 import HomeNavbar from "@/components/Navbar/HomeNavbar/HomeNavbar";
 import { useRouter } from "next/navigation";
