@@ -10,7 +10,7 @@ interface SelectImageProps {
   setFile?: React.Dispatch<React.SetStateAction<File | null>>
 }
 const SelectImage = ({ name, setFile }: SelectImageProps) => {
-  const [preview, setPreview] = useState<string|null>(null)
+  const [preview, setPreview] = useState<string|any>(null)
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.target.files !== null){

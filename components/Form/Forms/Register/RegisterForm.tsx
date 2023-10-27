@@ -1,46 +1,41 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import styles from "./register.module.css";
-import Image from "next/image";
-import Button from "@/components/Button/Button";
-import userIcon from "/public/assets/images/userIcon.png";
-import Link from "next/link";
+import React, { useState } from 'react'
+import styles from './register.module.css'
+import Image from 'next/image'
+import userIcon from '/public/assets/images/userIcon.png'
+import Link from 'next/link'
 
+const RegisterForm = () => {
+  const [accountType, setAccountType] = useState('')
+  const [photoPreview, setPhotoPreview] = useState<string | ArrayBuffer |any>(null)
+  const [file, setFile] = useState<File | null>(null)
+  const [error, setError] = useState(false)
 
+  const handleAccountTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAccountType(e.target.value)
+  }
 
-
-const Register = () => {
-  const [Type, setType] = useState("");
-  const [preview, setPreview] = useState(null);
-  const [file, setFile] = useState(null);
-  const [error, setError] = useState(null)
-
-  const handleType = (e) => {
-    setType(e.target.value);
-  };
-
-
-
-  const handleImageChange = (e) => {
-    const selected = e.target.files[0];
-    const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
-    if (selected && ALLOWED_TYPES.includes(selected.type)) {
-      let reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(selected);
-      setFile(selected);
-    } else {
-      setError(true);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      const selected = e.target.files[0]
+      const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/jpg']
+      if (selected && ALLOWED_TYPES.includes(selected.type)) {
+        let reader = new FileReader()
+        reader.onloadend = () => {
+          setPhotoPreview(reader.result)
+        }
+        reader.readAsDataURL(selected)
+        setFile(selected)
+      } else {
+        setError(true)
+      }
     }
-  };
+  }
 
   return (
     <>
       <div className={styles.container}>
-        {/* LOGO */}
         <Image
           src="/assets/images/logo.png"
           width="128"
@@ -50,14 +45,13 @@ const Register = () => {
         />
 
         <form>
-          <p>Create an acco</p>
+          <p>Create an account</p>
 
-          {/* SELECT PHOTO*/}
           <div>
             <label htmlFor="imgInput">
-              {preview ? (
+              {photoPreview ? (
                 <Image
-                  src={preview}
+                  src={photoPreview}
                   width="100"
                   height="100"
                   alt="logo"
@@ -71,12 +65,11 @@ const Register = () => {
               type="file"
               id="imgInput"
               accept="image/*"
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
               onChange={handleImageChange}
             />
           </div>
 
-          
           <div className={styles.formContainer}>
             {/* USER ACCOUNT FIELDS */}
             <input type="text" placeholder="Name" />
@@ -85,14 +78,14 @@ const Register = () => {
             <input type="password" placeholder="Confirm Password" />
 
             {/* SELECT ACCOUNT TYPE */}
-            <select onChange={(e) => handleType(e)}>
+            <select onChange={(e) => handleAccountTypeChange(e)}>
               <option value="">Account Type</option>
               <option value="user">User</option>
               <option value="school">School</option>
             </select>
 
             {/* IF SELECTED ACOUNT TYPE IS SCHOOL, SHOW SCHOOL FIELDS*/}
-            {Type === "school" && (
+            {accountType === 'school' && (
               <>
                 {/* NATIONALITY */}
                 <input type="text" placeholder="Nationality" />
@@ -122,14 +115,14 @@ const Register = () => {
 
                 {/* SELECT GENDER */}
                 <div className={styles.selectGender}>
-                  <div style={{ marginBottom: "10px" }}>Choose Your Gender</div>
+                  <div style={{ marginBottom: '10px' }}>Choose Your Gender</div>
                   <div className="addComp-radioWrap">
                     <div className="addComp-radio">
                       <input
                         type="radio"
                         id="audience"
                         name="audience"
-                        style={{ height: "15px", width: "15px" }}
+                        style={{ height: '15px', width: '15px' }}
                         // checked={audience === "adult"}
                         required
                       />
@@ -141,7 +134,7 @@ const Register = () => {
                         type="radio"
                         id="audience"
                         name="audience"
-                        style={{ height: "15px", width: "15px" }}
+                        style={{ height: '15px', width: '15px' }}
                         // onChange={() => setAudience("child")}
                         // checked={audience === "child"}
                         required
@@ -153,16 +146,14 @@ const Register = () => {
 
                 {/* HOW YOU HEARD ABOUT US*/}
                 <div className={styles.selectGender}>
-                  <div style={{ marginBottom: "10px" }}>
-                    How did you hear about us?
-                  </div>
+                  <div style={{ marginBottom: '10px' }}>How did you hear about us?</div>
                   <div className="addComp-radioWrap">
                     <div className="addComp-radio">
                       <input
                         type="radio"
                         id="audience"
                         name="audience"
-                        style={{ height: "15px", width: "15px" }}
+                        style={{ height: '15px', width: '15px' }}
                         // checked={audience === "adult"}
                         required
                       />
@@ -174,7 +165,7 @@ const Register = () => {
                         type="radio"
                         id="audience"
                         name="audience"
-                        style={{ height: "15px", width: "15px" }}
+                        style={{ height: '15px', width: '15px' }}
                         // onChange={() => setAudience("child")}
                         // checked={audience === "child"}
                         required
@@ -187,7 +178,7 @@ const Register = () => {
                         type="radio"
                         id="audience"
                         name="audience"
-                        style={{ height: "15px", width: "15px" }}
+                        style={{ height: '15px', width: '15px' }}
                         // onChange={() => setAudience("child")}
                         // checked={audience === "child"}
                         required
@@ -203,8 +194,8 @@ const Register = () => {
             <div className={styles.btnWrap}>
               <button className={styles.loginBtn}>Sign Up</button>
               <p>
-                Already have an account?{" "}
-                <Link href="/login" style={{ textDecoration: "underline" }}>
+                Already have an account?{' '}
+                <Link href="/login" style={{ textDecoration: 'underline' }}>
                   Sign In
                 </Link>
               </p>
@@ -213,7 +204,7 @@ const Register = () => {
         </form>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Register;
+export default RegisterForm

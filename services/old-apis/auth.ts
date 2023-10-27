@@ -3,7 +3,7 @@ import { login, schoolLogin, teacherLogin } from '../redux/features/userSlice'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
-import makeApiCall from '../apis'
+import makeApiCall from '../Apis'
 
 
 

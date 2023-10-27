@@ -1,7 +1,7 @@
 import useSWRMutation from 'swr/mutation'
 import useSWR from 'swr'
 import { toast } from 'react-toastify'
-import makeApiCall from '../apis'
+import makeApiCall from '../Apis'
 
 //ADD CLASS
 export const useAddClass = (

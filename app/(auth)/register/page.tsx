@@ -3,17 +3,17 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Login from '@/components/Form/Forms/Login/LoginForm';
 import tree from "/public/assets/images/tree.png";
-import Register from "@/components/Form/Forms/Register/Register";
+import RegisterForm from "@/components/Form/Forms/Register/RegisterForm";
 
-const MyRegister = () => {
+const Register = () => {
   return (
     <>
       <div className={styles.register}>
         <Image src={tree} className={styles.treeImg} alt="tree" />
-        <Register />
+        <RegisterForm />
       </div>
     </>
   );
 };
 
-export default MyRegister;
+export default Register;

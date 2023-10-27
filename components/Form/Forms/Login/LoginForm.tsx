@@ -4,10 +4,10 @@ import styles from './login.module.css'
 import Image from 'next/image'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { ToastContainer } from 'react-toastify'
-import { schoolLogin, teacherLogin, studentLogin } from '@/services/apis/auth'
+import { schoolLogin, teacherLogin, studentLogin } from '@/services/Apis/auth'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-import { setToken } from '@/services/Apis/token'
+import { setToken } from '@/services/old-apis/token'
 
 const LoginForm = () => {
   const router = useRouter()

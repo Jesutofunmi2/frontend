@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { getToken } from './token'
+import { getToken } from '../old-apis/token'
 
 const token = getToken()
 const baseURL = 'https://remotedev.izesan.com'
