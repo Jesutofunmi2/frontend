@@ -14,24 +14,24 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 
-// import {
-//   useAddStudent,
-//   useDeleteStudent,
-//   useEditStudent,
-//   useGetStudents,
-// } from '@/services/old-apis/student'
+import {
+  useAddStudent,
+  useDeleteStudent,
+  useEditStudent,
+  useGetStudents,
+} from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 // import { useGetClassArmById, useGetClasses } from '@/services/old-apis/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { IStudent } from '@/types'
 import { useQuery } from '@tanstack/react-query'
-import { getStudents } from '@/services/Apis/school/student'
+// import { getStudents } from '@/services/Apis/school/student'
 import { all } from 'axios'
 
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  // const { mutate, data:studentData, isLoading } = useGetStudents(schoolID)
+  const { mutate, data: allStudentsData, isLoading } = useGetStudents(schoolID)
   const [studentDetails, setStudentDetails] = useState<IStudent | null>(null)
   const [selectedOptionForClass, setSelectedOptionForClass] = useState()
   // const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState()
@@ -55,17 +55,7 @@ const Student = () => {
     session: '',
   })
 
-  const {
-    data: allStudentsData,
-    error,
-    isLoading,
-  } = useSWR<IStudent[], Error>([schoolID], getStudents)
-  if (!allStudentsData) return null
-  if (isLoading || !allStudentsData.length) {
-    return <Loader />
-  }
 
-  if (error) return 'An error has occurred: ' + error.message
   // const validation = () => {
   //   for (const key in payloadData) {
   //     if (payloadData[key] === '') {
@@ -176,7 +166,7 @@ const Student = () => {
   ]
   // TABLE BODY
   const TableBody = () => {
-    return allStudentsData.map((item: IStudent) => {
+    return allStudentsData?.map((item: IStudent) => {
       return (
         <tr key={item.student_id}>
           <td>{item.username}</td>

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import useSWR from 'swr'
 import styles from './page.module.css'
 import Modal from '@/components/Modal/Modal'
 import Button from '@/components/Button/Button'
@@ -11,27 +10,28 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useAddStudent, useDeleteStudent, useEditStudent } from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 // import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
-// import { useGetClasses } from '@/services/old-apis/class'
+import { useGetClasses } from '@/services/old-apis/class'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
 import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
-import { getClasses } from '@/services/Apis/school/class'
+// import { getClasses } from '@/services/Apis/school/class'
 import { IClass } from '@/types'
 import { Loader } from '@/components/Loader/Loader'
+import School from '../page'
 
 const Class = () => {
   // const appData = useSelector(userData)
   // const IDs = appData.currentSchool?.data!
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  // const { mutate, data:classData } = useGetClasses(IDs?.id)
+  const { mutate, data:allClassesData} = useGetClasses(schoolID)
   const [studentDetails, setStudentDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [armOpenwithID, setArmOpenWithID] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  // const { trigger: deleteStudent } = useDeleteStudent(mutate)
-  // const { trigger: addStudent } = useAddStudent(mutate)
-  // const { trigger: editStudent } = useEditStudent(mutate)
+  const { trigger: deleteStudent } = useDeleteStudent(mutate)
+  const { trigger: addStudent } = useAddStudent(mutate)
+  const { trigger: editStudent } = useEditStudent(mutate)
 
   const [payloadData, setPayloadData] = useState({
     school_id: `${schoolID}`,
@@ -42,18 +42,6 @@ const Class = () => {
     gendar: '',
     country: '',
   })
-
-  
-  const { data:allClassesData, error, isLoading, } = useSWR<IClass[],Error>(
-    [schoolID],
-    getClasses
-  )
-  if (!allClassesData) return null
-  if (isLoading || !allClassesData.length ) {
-    return <Loader />
-  }
-
-  if (error) return 'An error has occurred: ' + error.message
   // OPEN MODAL CONDITION
   const handleModalOpen = (modalEvent: string, data: null) => {
     switch (modalEvent) {

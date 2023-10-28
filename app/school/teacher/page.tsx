@@ -12,24 +12,24 @@ import 'react-toastify/dist/ReactToastify.css'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 import AddEditTeachers from '@/components/Form/Forms/AddEditTeachers/AddEditTeachers'
-// import {
-//   useAddTeacher,
-//   useDeleteTeacher,
-//   useEditTeacher,
-//   useGetTeachers,
-// } from '@/services/old-apis/teacher'
+import {
+  useAddTeacher,
+  useDeleteTeacher,
+  useEditTeacher,
+  useGetTeachers,
+} from '@/services/old-apis/teacher'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { ITeacher } from '@/types'
-import { getTeachers } from '@/services/Apis/school/teacher'
+// import { getTeachers } from '@/services/Apis/school/teacher'
 
 const Teacher = () => {
 
   const schoolID = useSelector(userData).currentSchool?.data.id!
-
+  const { mutate, data: allTeachersData, isLoading } = useGetTeachers(schoolID)
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
   // const [filteredData, setFilteredData] = useState()
   const [modalOpen, setModalOpen] = useState(false)
@@ -45,16 +45,7 @@ const Teacher = () => {
 
   
 
-  const { data:allTeachersData, error, isLoading, } = useSWR<ITeacher[],Error>(
-    [schoolID],
-    getTeachers
-  )
-  if (!allTeachersData) return null
-  if (isLoading || !allTeachersData.length) {
-    return <Loader />
-  }
-  if (error) return 'An error has occurred: ' + error.message
-
+ 
   const handleModalOpen = (modalEvent: string, data: ITeacher | null) => {
     switch (modalEvent) {
       case 'add':
@@ -127,7 +118,7 @@ const Teacher = () => {
 
   // TABLE BODY
   const tableBody = () => {
-    const body = allTeachersData.map((item: ITeacher) => {
+    const body = allTeachersData?.map((item: ITeacher) => {
       return (
         <tr key={item.teacher_id}>
           <td>
