@@ -54,7 +54,7 @@ const Teacher = () => {
     initialData: [],
   })
 
-  if (isLoading ) {
+  if (isLoading || !allTeachersData.length) {
     return <Loader />
   }
   if (error) return 'An error has occurred: ' + error.message

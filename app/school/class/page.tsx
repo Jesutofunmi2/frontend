@@ -52,9 +52,9 @@ const Class = () => {
     queryKey: ['classes', schoolID],
     queryFn: () => getClasses(schoolID),
     initialData: [],
-    //  staleTime: 10000,
+    
   })
-  if (isLoading ) {
+  if (isLoading || !allClassesData.length ) {
     return <Loader />
   }
 

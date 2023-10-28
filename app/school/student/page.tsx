@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
@@ -34,8 +34,6 @@ const Student = () => {
   // const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState()
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const [isLoading, setLoading] = useState(false)
-  const [studentsData, setStudentsData] = useState<IStudent[] | null>(null)
   // const { trigger: deleteStudent } = useDeleteStudent(mutate)
   // const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
   // const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
@@ -53,29 +51,21 @@ const Student = () => {
     term: '',
     session: '',
   })
-  // const {
-  //   data: allStudentsData,
-  //   error,
-  //   isLoading,
-  // } = useQuery<IStudent[], Error>({
-  //   queryKey: ['teachers', schoolID],
-  //   queryFn: () => getStudents(schoolID),
-  //   initialData: [],
-  //   //  staleTime: 10000,
+  const {
+    data: allStudentsData,
+    error,
+    isLoading,
+  } = useQuery<IStudent[], Error>({
+    queryKey: ['teachers', schoolID],
+    queryFn: () => getStudents(schoolID),
+    initialData: [],
+  })
 
-  // })
-git
-  useEffect(() => {
-    fetchData(schoolID) 
-  },[studentsData])
-
-  if (isLoading ) {
+  if (isLoading || !allStudentsData.length) {
     return <Loader />
   }
 
-  
-  console.log(studentsData)
-  // if (error) return 'An error has occurred: ' + error.message
+  if (error) return 'An error has occurred: ' + error.message
   // const validation = () => {
   //   for (const key in payloadData) {
   //     if (payloadData[key] === '') {
@@ -186,7 +176,7 @@ git
   ]
   // TABLE BODY
   const TableBody = () => {
-    return studentsData?.map((item: IStudent) => {
+    return allStudentsData.map((item: IStudent) => {
       return (
         <tr key={item.student_id}>
           <td>{item.username}</td>
