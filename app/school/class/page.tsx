@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import useSWR from 'swr'
 import styles from './page.module.css'
 import Modal from '@/components/Modal/Modal'
 import Button from '@/components/Button/Button'
@@ -24,7 +24,6 @@ const Class = () => {
   // const appData = useSelector(userData)
   // const IDs = appData.currentSchool?.data!
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  // const IDs = useSelector((state) => state?.user?.currentSchool?.data)
   // const { mutate, data:classData } = useGetClasses(IDs?.id)
   const [studentDetails, setStudentDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
@@ -43,17 +42,13 @@ const Class = () => {
     gendar: '',
     country: '',
   })
-  const {
-    data: allClassesData,
-    error,
-    isLoading,
-   
-  } = useQuery<IClass[], Error>({
-    queryKey: ['classes', schoolID],
-    queryFn: () => getClasses(schoolID),
-    initialData: [],
-    
-  })
+
+  
+  const { data:allClassesData, error, isLoading, } = useSWR<IClass[],Error>(
+    [schoolID],
+    getClasses
+  )
+  if (!allClassesData) return null
   if (isLoading || !allClassesData.length ) {
     return <Loader />
   }

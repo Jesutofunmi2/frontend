@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import styles from './page.module.css'
+import useSWR from 'swr'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
 import Button from '@/components/Button/Button'
@@ -42,18 +43,13 @@ const Teacher = () => {
     address: 'bosss',
   })
 
-  const {
-    data: allTeachersData,
-    error,
-    isLoading,
-    isFetching,
-    status
-  } = useQuery<ITeacher[], Error>({
-    queryKey: ['teachers', schoolID],
-    queryFn: () => getTeachers(schoolID),
-    initialData: [],
-  })
+  
 
+  const { data:allTeachersData, error, isLoading, } = useSWR<ITeacher[],Error>(
+    [schoolID],
+    getTeachers
+  )
+  if (!allTeachersData) return null
   if (isLoading || !allTeachersData.length) {
     return <Loader />
   }

@@ -1,5 +1,6 @@
 'use client'
 
+import useSWR from 'swr'
 import React, { useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
@@ -12,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
+
 // import {
 //   useAddStudent,
 //   useDeleteStudent,
@@ -25,6 +27,7 @@ import { userData } from '@/services/redux/features/userSlice'
 import { IStudent } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { getStudents } from '@/services/Apis/school/student'
+import { all } from 'axios'
 
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
@@ -51,16 +54,13 @@ const Student = () => {
     term: '',
     session: '',
   })
+
   const {
     data: allStudentsData,
     error,
     isLoading,
-  } = useQuery<IStudent[], Error>({
-    queryKey: ['teachers', schoolID],
-    queryFn: () => getStudents(schoolID),
-    initialData: [],
-  })
-
+  } = useSWR<IStudent[], Error>([schoolID], getStudents)
+  if (!allStudentsData) return null
   if (isLoading || !allStudentsData.length) {
     return <Loader />
   }
