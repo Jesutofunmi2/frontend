@@ -2,6 +2,7 @@ import useSWRMutation from 'swr/mutation'
 import useSWR from 'swr'
 import { toast } from 'react-toastify'
 import makeApiCall from '../Apis'
+import { IClass } from '@/types'
 
 //ADD CLASS
 export const useAddClass = (
@@ -54,9 +55,9 @@ export const useGetClasses = (schoolID: number) => {
     return res?.data
   }
 
-  const { data, isValidating, mutate } = useSWR(url, fetcher)
+  const { data, isLoading, error } = useSWR<IClass[],Error>(url, fetcher)
 
-  return { mutate, data, isValidating }
+  return { data, isLoading, error  }
 }
 
 // DELETE CLASS
@@ -135,19 +136,19 @@ export const useAddClassArm = (
 }
 
 // GET CLASs ARM BY ID
-export const useGetClassArmById = (schoolID: number, classID: string) => {
+export const getClassArmById = async(schoolID: number, classID: string) => {
   console.log(schoolID)
+  console.log(classID)
   // HEADERS
 
-  const fetcher = async (...args: string[]) => {
-    const res = await makeApiCall('get', ...args)
+    const res = await makeApiCall(`/api/v1/getSingleClass?school_id=${schoolID}&class_id=${classID}`,'get')
     console.log(res)
     return res?.data
-  }
+  
 
-  const { data, isValidating, mutate } = useSWR(
-    `/api/v1/getSingleClass?school_id=${schoolID}&class_id=${classID}`,
-    fetcher
-  )
-  return { mutate, data, isValidating }
+  // const { data,  isValidating, mutate } = useSWR(
+  //   `/api/v1/getSingleClass?school_id=${schoolID}&class_id=${classID}`,
+  //   fetcher
+  // )
+  // return { mutate, data, isValidating }
 }

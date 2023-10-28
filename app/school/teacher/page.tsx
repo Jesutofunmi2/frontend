@@ -27,9 +27,8 @@ import { ITeacher } from '@/types'
 // import { getTeachers } from '@/services/Apis/school/teacher'
 
 const Teacher = () => {
-
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  const { mutate, data: allTeachersData, isLoading } = useGetTeachers(schoolID)
+
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
   // const [filteredData, setFilteredData] = useState()
   const [modalOpen, setModalOpen] = useState(false)
@@ -43,9 +42,10 @@ const Teacher = () => {
     address: 'bosss',
   })
 
-  
+  const { data: allTeachersData, isLoading, error } = useGetTeachers(schoolID)
+  if (isLoading) return <Loader />
+  if (error) return <p>error page</p>
 
- 
   const handleModalOpen = (modalEvent: string, data: ITeacher | null) => {
     switch (modalEvent) {
       case 'add':

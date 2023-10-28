@@ -1,56 +1,60 @@
-import React from "react";
-import styles from "./select.module.css";
-import Select from "react-select";
+import React, { useState } from 'react'
+import styles from './select.module.css'
+import Select, { SingleValue } from 'react-select'
+import { IClass } from '@/types/class'
 
-const Select2 = ({ title, options, setSelectedModule, setSelectedOption, value}) => {
+interface Options {
+  label: string
+value: IClass
+}
 
-  // Handle Select change
-  const handlechange = (e) => {
-    // setSelectedModule(e.value)
-    setSelectedOption(e.value)
-  };
+interface SelectProps {
+  title: string
+  classOptions: Options[]
+  setSelectedOption: any
+  value: IClass
+}
 
+const Select2 = ({
+  title,
+  classOptions,
+  setSelectedOption,
+  value,
+}: SelectProps) => {
+  const handlechange = (newValue:SingleValue<Options>) => {
+    setSelectedOption(newValue?.value)
+  }
 
-  const kpo = options?.find((c) => {return c.value === value})
+  // const kpo =  classOptions?.find((c) => {
+  //   return c.value === value
+  // })
 
-  console.log(kpo)
+  // console.log(kpo)
 
   // Select component styles
   const colourStyles = {
-    control: (baseStyles, state) => ({
+    control: (baseStyles: any, state: any) => ({
       ...baseStyles,
-      borderColor: "#F19C00",
-      height: "45px",
-      borderRadius: "15px",
-      width: "100%",
+      borderColor: '#F19C00',
+      height: '45px',
+      borderRadius: '15px',
+      width: '100%',
     }),
-//     menu: base => ({
-//       ...base,
-//       marginTop: 0,
-//       height:"200px"
-//   }),
-//   menuList: base => ({
-//     ...base,
-//     padding: 0, height:"200px"
-// })
-  };
+  }
   return (
     <>
       <div>
         <p className={styles.label}>{title}</p>
         <Select
-        required
-          value={options?.find((c) => c.value === value)}
-          options={options}
+          required
           onChange={handlechange}
+          options={classOptions}
+          value={classOptions?.find((c) => c.value === value)}
           styles={colourStyles}
-
-        >
-          {value}jjj
-        </Select>
+        />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Select2;
+export default Select2

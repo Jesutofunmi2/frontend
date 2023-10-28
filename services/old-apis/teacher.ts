@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import makeApiCall from '../apis'
+import { ITeacher } from '@/types'
 
 //ADD TEACHER
 export const useAddTeacher = (mutate, setModalOpen) => {
@@ -94,8 +95,8 @@ export const useGetTeachers = (schoolID: number) => {
     return res?.data
   }
 
-  const { data, mutate, isValidating } = useSWR(url, fetcher)
-  return { mutate, data, isValidating }
+  const { data ,isLoading, error} = useSWR<ITeacher[],Error>(url, fetcher)
+  return { data, isLoading, error }
 }
 
 // DELETE TEACHER

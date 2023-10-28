@@ -1,7 +1,7 @@
 'use client'
 
-import useSWR from 'swr'
-import React, { useState } from 'react'
+import { mutate } from 'swr'
+import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
@@ -16,32 +16,34 @@ import { AiFillEdit } from 'react-icons/ai'
 
 import {
   useAddStudent,
-  useDeleteStudent,
+  deleteStudent,
   useEditStudent,
   useGetStudents,
 } from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
-// import { useGetClassArmById, useGetClasses } from '@/services/old-apis/class'
+import { getClassArmById, useGetClasses } from '@/services/old-apis/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { IStudent } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 // import { getStudents } from '@/services/Apis/school/student'
 import { all } from 'axios'
+import { IClass } from '@/types/class'
 
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  const { mutate, data: allStudentsData, isLoading } = useGetStudents(schoolID)
+
   const [studentDetails, setStudentDetails] = useState<IStudent | null>(null)
   const [selectedOptionForClass, setSelectedOptionForClass] = useState()
-  // const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState()
+  const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
   // const { trigger: deleteStudent } = useDeleteStudent(mutate)
-  // const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
+  const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
   // const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
-  // const { data: allClasses } = useGetClasses(schoolID)
+  const { data: allClasses } = useGetClasses(schoolID)
   // const { data: allClassArmByID } = useGetClassArmById(schoolID, selectedOptionForClass?.id)
+  const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
   const [payloadData, setPayloadData] = useState({
     school_id: `${schoolID}`,
     first_name: '',
@@ -55,7 +57,25 @@ const Student = () => {
     session: '',
   })
 
+  useEffect(() => {
+    if (selectedOptionForClass) {
+      const fetchData = async () => {
+        try {
+          let response = await getClassArmById(schoolID, selectedOptionForClass?.id)
 
+          setClassArmByID(response)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      fetchData()
+    }
+  }, [schoolID, selectedOptionForClass])
+
+  const { error, data: allStudentsData, isLoading } = useGetStudents(schoolID)
+
+  if (isLoading) return <Loader />
+  if (error) return <p>error page</p>
   // const validation = () => {
   //   for (const key in payloadData) {
   //     if (payloadData[key] === '') {
@@ -83,10 +103,6 @@ const Student = () => {
 
   // console.log(selectedOptionForClassArm)
 
-  // useEffect(() => {
-  //   setSelectedOptionForClassArm(null)
-  // }, [selectedOptionForClass])
-
   // HANDLE COPY
   const handleCopy = () => {
     toast.success('Copied!', {
@@ -95,17 +111,21 @@ const Student = () => {
   }
 
   // Options for classes Select component
-  // const classOptions = allClasses?.data?.map((item) => {
-  //   return { value: item, label: item?.classs_room_name }
-  // })
+  const classOptions = allClasses?.map((item) => {
+    return { value: item, label: item?.classs_room_name }
+  })
 
-  // Options for class arm Select component
-  // const classArmoptions = allClassArmByID?.data[0]?.class_arms?.map((item) => {
-  //   return { value: item.id, label: item?.name }
-  // })
+
+  const classArmoptions = allClassArmByID[0]?.class_arms.map((item) => {
+    return { value: item.id, label: item?.name }
+  })
+
+
 
   // HANDLE DELETE STUDENT
-  const handleDelete = (studentID: string) => {
+  const handleDelete = (studentID: number) => {
+    const updated = allStudentsData?.filter((item) => item.id !== studentID)
+    mutate(updated, false)
     deleteStudent(studentID)
   }
 
@@ -115,42 +135,38 @@ const Student = () => {
   // SUBMIT FORM CONDITION
   const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
-
-    // if (!validation() && selectedOptionForClassArm && selectedOptionForClass) {
-    console.log()
-
-    if (studentDetails) {
-      editStudent({
-        first_name: payloadData?.first_name,
-        last_name: payloadData?.last_name,
-        language: payloadData?.language,
-        age: payloadData?.age,
-        gendar: payloadData?.gendar,
-        country: payloadData?.country,
-        class_id: selectedOptionForClass,
-        classarm_id: payloadData.classarm_id,
-        id: studentDetails?.student_id,
-        term: payloadData.term,
-        session: payloadData.session,
-      })
-    } else {
-      addStudent({
-        school_id: `${payloadData?.school_id}`,
-        first_name: payloadData?.first_name,
-        last_name: payloadData?.last_name,
-        language: payloadData?.language,
-        age: payloadData?.age,
-        gendar: payloadData?.gendar,
-        country: `${payloadData?.country}`,
-        // class_id: selectedOptionForClass?.id,
-        classarm_id: payloadData.classarm_id,
-        term: payloadData.term,
-        session: payloadData.session,
-      })
-    }
-    // }else{
-    //   alert("work dey")
-    // }
+    mutate(
+      [
+        allStudentsData,
+        {
+          school_id: `${payloadData?.school_id}`,
+          first_name: payloadData?.first_name,
+          last_name: payloadData?.last_name,
+          language: payloadData?.language,
+          age: payloadData?.age,
+          gendar: payloadData?.gendar,
+          country: `${payloadData?.country}`,
+          // class_id: selectedOptionForClass?.id,
+          classarm_id: payloadData.classarm_id,
+          term: payloadData.term,
+          session: payloadData.session,
+        },
+      ],
+      false
+    )
+    addStudent({
+      school_id: `${payloadData?.school_id}`,
+      first_name: payloadData?.first_name,
+      last_name: payloadData?.last_name,
+      language: payloadData?.language,
+      age: payloadData?.age,
+      gendar: payloadData?.gendar,
+      country: `${payloadData?.country}`,
+      // class_id: selectedOptionForClass?.id,
+      classarm_id: payloadData.classarm_id,
+      term: payloadData.term,
+      session: payloadData.session,
+    })
   }
 
   // TABLE HEAD
@@ -227,19 +243,19 @@ const Student = () => {
 
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
-        {/* <AddEditStudents
+        <AddEditStudents
           title={studentDetails ? 'Edit Student' : 'Add Student'}
           payloadData={payloadData}
-          setPayloadData={setPayloadData}
+          // setPayloadData={setPayloadData}
           handleSubmit={handleSubmit}
           studentDetails={studentDetails}
-          classData={classOptions}
-          classArmData={classArmoptions}
+          classOptions={classOptions}
+          classArmoptions={classArmoptions}
           setSelectedOptionForClass={setSelectedOptionForClass}
           selectedOptionForClass={selectedOptionForClass}
-          setSelectedOptionForClassArm={setSelectedOptionForClassArm}
-          selectedOptionForClassArm={selectedOptionForClassArm}
-        /> */}
+          // setSelectedOptionForClassArm={setSelectedOptionForClassArm}
+          // selectedOptionForClassArm={selectedOptionForClassArm}
+        />
       </Modal>
 
       {/* MODAL TO MODIFY STUDENTS */}

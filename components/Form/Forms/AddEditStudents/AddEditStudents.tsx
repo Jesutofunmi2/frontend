@@ -7,41 +7,42 @@ import "react-toastify/dist/ReactToastify.css";
 import Select from "../../FormFields/Select/Select";
 import Select2 from "../../FormFields/Select/select2";
 import { IStudent } from "@/types";
+import { IClass } from "@/types/class";
 
 interface AddEditStudentsProps {
  
-  payloadData:IStudent,
+  payloadData:any,
   // setPayloadData,
-  handleSubmit:()=>void,
-  studentDetails,
+  handleSubmit:(e: any)=>void,
+  studentDetails:any,
   title:string,
-  data,
-  classData,
-  setSelectedOptionForClass,
-  classArmData,
-  selectedOptionForClass,
-  setSelectedOptionForClassArm,
-  selectedOptionForClassArm,
+  data:any,
+  classOptions:any,
+  setSelectedOptionForClass:any,
+  classArmoptions:IClass[],
+  selectedOptionForClass:any,
+  setSelectedOptionForClassArm:any,
+  selectedOptionForClassArm:any,
 }
 const AddEditStudents = ({
   payloadData,
-  setPayloadData,
+  // setPayloadData,
   handleSubmit,
   studentDetails,
   title,
   data,
-  classData,
+  classOptions,
   setSelectedOptionForClass,
-  classArmData,
+  classArmoptions,
   selectedOptionForClass,
   setSelectedOptionForClassArm,
   selectedOptionForClassArm,
-}:AddEditStudents) => {
+}:AddEditStudentsProps) => {
   // HANDLE INPUT FIELDS
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     const data = { ...payloadData };
     data[e.target.name] = e.target.value;
-    setPayloadData(data);
+    // setPayloadData(data);
   };
 
   // GENDER SELECT OPTIONS
@@ -61,7 +62,7 @@ const AddEditStudents = ({
             defaultValue={studentDetails?.first_name}
             title="First name"
             name="first_name"
-            handleChange={handleChange}
+            handleChange={(e)=>handleChange(e)}
             type="text"
             placeholder="Enter name"
           />
@@ -70,6 +71,7 @@ const AddEditStudents = ({
             name="last_name"
             handleChange={handleChange}
             type="text"
+            defaultValue={studentDetails?.last_name}
             placeholder="Last name"
           />
           <TextInput
@@ -100,6 +102,7 @@ const AddEditStudents = ({
             name="term"
             handleChange={handleChange}
             type="text"
+            defaultValue={studentDetails?.term}
             placeholder="Enter school term"
           />
 
@@ -112,7 +115,7 @@ const AddEditStudents = ({
           />
           <Select2
             title="Class"
-            options={classData}
+            classOptions={classOptions}
             setSelectedOption={setSelectedOptionForClass}
             value={selectedOptionForClass?.classs_room_name}
           />
@@ -127,7 +130,7 @@ const AddEditStudents = ({
                 required
               >
                 <option value="">Select</option>
-                {classArmData?.map((item) => (
+                {classArmoptions?.map((item:any) => (
                   <option value={item.value} key={item.value}>
                     {item.label}
                   </option>

@@ -4,6 +4,8 @@ import useSWR from 'swr'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import makeApiCall from '../apis'
+import { IStudent } from '@/types'
+import { ScopedMutator } from 'swr/_internal'
 
 //ADD STUDENT
 export const useAddStudent = (mutate, setModalOpen?) => {
@@ -97,48 +99,12 @@ export const useGetStudents = (schoolID: number) => {
     return res?.data
   }
 
-  const { data, isLoading, mutate } = useSWR(url, fetcher)
-  return { mutate, data, isLoading }
+  const { data, isLoading, error } = useSWR<IStudent[], Error>(url, fetcher)
+  return { error, data, isLoading }
 }
 
 // DELETE STUDENT
-export const useDeleteStudent = (mutate) => {
-  const token = useSelector((state) => state?.user?.currentSchool?.token?.token)
-
-  // HEADERS
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + `${token}`,
-    },
-  }
-
-  async function sendRequest(url, { arg }) {
-    const endpoint = url + arg
-    toast.loading('Deleting...', {
-      position: toast.POSITION.TOP_RIGHT,
-    })
-    try {
-      const res = await request.delete(endpoint, config)
-      console.log(res)
-      toast.dismiss()
-      if (res) {
-        toast.success('Student Deleted!', {
-          position: toast.POSITION.TOP_RIGHT,
-        })
-      }
-      mutate()
-      return res
-    } catch (err) {
-      toast.dismiss()
-      console.log(err)
-      return err
-    }
-  }
-
-  const { trigger, data, isMutating } = useSWRMutation(
-    `/api/v1/deleteStudent?student_id=`,
-    sendRequest
-  )
-
-  return { trigger, data, isMutating }
+export const deleteStudent = async (studentId: number) => {
+  const res = await makeApiCall(`/api/v1/deleteStudent?student_id=${studentId}`, 'delete')
+  console.log(res)
 }

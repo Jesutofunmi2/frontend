@@ -9,22 +9,22 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useAddStudent, useDeleteStudent, useEditStudent } from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
-// import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
+import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
 import { useGetClasses } from '@/services/old-apis/class'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
 import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
-// import { getClasses } from '@/services/Apis/school/class'
+
 import { IClass } from '@/types'
 import { Loader } from '@/components/Loader/Loader'
-import School from '../page'
+import { mutate } from 'swr'
 
 const Class = () => {
   // const appData = useSelector(userData)
   // const IDs = appData.currentSchool?.data!
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  const { mutate, data:allClassesData} = useGetClasses(schoolID)
+
   const [studentDetails, setStudentDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [armOpenwithID, setArmOpenWithID] = useState(false)
@@ -42,6 +42,11 @@ const Class = () => {
     gendar: '',
     country: '',
   })
+  const { data: allClassesData, isLoading, error } = useGetClasses(schoolID)
+  if (isLoading) return <Loader />
+  if (error) return <p>error page</p>
+
+  
   // OPEN MODAL CONDITION
   const handleModalOpen = (modalEvent: string, data: null) => {
     switch (modalEvent) {
