@@ -1,55 +1,58 @@
-import React, { useState } from "react";
-import styles from "./addEditStudents.module.css";
-import TextInput from "../../FormFields/TextInput/TextInput";
-import Button from "@/components/Button/Button";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Select from "../../FormFields/Select/Select";
-import Select2 from "../../FormFields/Select/select2";
-import { IStudent } from "@/types";
-import { IClass } from "@/types/class";
+import React from 'react'
+import styles from './addEditStudents.module.css'
+import TextInput from '../../FormFields/TextInput/TextInput'
+import Button from '@/components/Button/Button'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Select from '../../FormFields/Select/Select'
+import Select2 from '../../FormFields/Select/select2'
+import { IClass } from '@/types/class'
+import { IAddStudentRequest } from '@/types/student'
 
+interface Options {
+  label: string
+value: number
+} 
 interface AddEditStudentsProps {
- 
-  payloadData:any,
-  // setPayloadData,
-  handleSubmit:(e: any)=>void,
-  studentDetails:any,
-  title:string,
-  data:any,
-  classOptions:any,
-  setSelectedOptionForClass:any,
-  classArmoptions:IClass[],
-  selectedOptionForClass:any,
-  setSelectedOptionForClassArm:any,
-  selectedOptionForClassArm:any,
+  title: string
+  payloadData: IAddStudentRequest
+  setPayloadData: React.Dispatch<React.SetStateAction<IAddStudentRequest>>
+  handleSubmit: (e: any) => void
+  studentDetails: any
+  classOptions: any
+  classArmoptions:Options[]
+  setSelectedOptionForClass: React.Dispatch<React.SetStateAction<IClass | any>>
+  selectedOptionForClass: any
 }
 const AddEditStudents = ({
   payloadData,
-  // setPayloadData,
+  setPayloadData,
   handleSubmit,
   studentDetails,
   title,
-  data,
+
   classOptions,
   setSelectedOptionForClass,
   classArmoptions,
   selectedOptionForClass,
-  setSelectedOptionForClassArm,
-  selectedOptionForClassArm,
-}:AddEditStudentsProps) => {
+
+}: AddEditStudentsProps) => {
   // HANDLE INPUT FIELDS
-  const handleChange = (e:any) => {
-    const data = { ...payloadData };
-    data[e.target.name] = e.target.value;
-    // setPayloadData(data);
-  };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const data = e.target.value
+    setPayloadData({
+      ...payloadData,
+      [e.target.name]: data,
+    })
+  }
 
   // GENDER SELECT OPTIONS
-  const genderOptions = ["Male", "Female"];
+  const genderOptions = ['Male', 'Female']
 
   // COUNTRY SELECT OPTIONS
-  const sessionOptions = ["2023/2024"];
+  const sessionOptions = ['2023/2024']
 
   return (
     <>
@@ -62,7 +65,7 @@ const AddEditStudents = ({
             defaultValue={studentDetails?.first_name}
             title="First name"
             name="first_name"
-            handleChange={(e)=>handleChange(e)}
+            handleChange={(e) => handleChange(e)}
             type="text"
             placeholder="Enter name"
           />
@@ -116,7 +119,7 @@ const AddEditStudents = ({
           <Select2
             title="Class"
             classOptions={classOptions}
-            setSelectedOption={setSelectedOptionForClass}
+            setSelectedOptionClass={setSelectedOptionForClass}
             value={selectedOptionForClass?.classs_room_name}
           />
 
@@ -130,7 +133,7 @@ const AddEditStudents = ({
                 required
               >
                 <option value="">Select</option>
-                {classArmoptions?.map((item:any) => (
+                {classArmoptions?.map((item: any) => (
                   <option value={item.value} key={item.value}>
                     {item.label}
                   </option>
@@ -145,7 +148,7 @@ const AddEditStudents = ({
       </form>
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default AddEditStudents;
+export default AddEditStudents

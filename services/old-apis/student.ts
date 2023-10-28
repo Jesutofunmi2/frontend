@@ -6,34 +6,22 @@ import { toast } from 'react-toastify'
 import makeApiCall from '../apis'
 import { IStudent } from '@/types'
 import { ScopedMutator } from 'swr/_internal'
+import { IAddStudentRequest } from '@/types/student'
 
 //ADD STUDENT
-export const useAddStudent = (mutate, setModalOpen?) => {
-  const token = useSelector((state) => state?.user?.currentSchool?.token.token)
+export const addStudent = async (payload:IAddStudentRequest) => {
 
-  // HEADERS
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + `${token}`,
-    },
-  }
-
-  async function sendRequest(url, { arg }) {
     toast.loading('Submitting...', {
       position: toast.POSITION.TOP_CENTER,
     })
-    console.log(arg)
     try {
-      const res = await request.post(url, arg, config)
-      console.log(res)
+      const res = await makeApiCall(`/api/v1/createStudent`,"post" ,payload )
       toast.dismiss()
       if (res) {
         toast.success('Student Created!', {
           position: toast.POSITION.TOP_CENTER,
         })
       }
-      setModalOpen(false)
-      mutate()
       return res
     } catch (err) {
       toast.dismiss()
@@ -42,10 +30,10 @@ export const useAddStudent = (mutate, setModalOpen?) => {
     }
   }
 
-  const { trigger, data, isMutating } = useSWRMutation(`/api/v1/createStudent`, sendRequest)
+  // const { trigger, data, isMutating } = useSWRMutation(`/api/v1/createStudent`, sendRequest)
 
-  return { trigger, data, isMutating }
-}
+  // return { trigger, data, isMutating }
+// }
 
 //EDIT STUDENT
 export const useEditStudent = (mutate, setModalOpen?) => {
@@ -99,8 +87,8 @@ export const useGetStudents = (schoolID: number) => {
     return res?.data
   }
 
-  const { data, isLoading, error } = useSWR<IStudent[], Error>(url, fetcher)
-  return { error, data, isLoading }
+  const { data, isLoading, error ,mutate} = useSWR<IStudent[], Error>(url, fetcher)
+  return { error, data, isLoading,mutate }
 }
 
 // DELETE STUDENT

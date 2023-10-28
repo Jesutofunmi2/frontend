@@ -1,6 +1,5 @@
 'use client'
 
-import { mutate } from 'swr'
 import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
@@ -15,7 +14,7 @@ import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 
 import {
-  useAddStudent,
+  addStudent,
   deleteStudent,
   useEditStudent,
   useGetStudents,
@@ -25,33 +24,37 @@ import { getClassArmById, useGetClasses } from '@/services/old-apis/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { IStudent } from '@/types'
-import { useQuery } from '@tanstack/react-query'
-// import { getStudents } from '@/services/Apis/school/student'
-import { all } from 'axios'
-import { IClass } from '@/types/class'
 
+import { IClass } from '@/types/class'
+import { IAddStudentRequest } from '@/types/student'
+
+interface Options {
+  label: string
+  value: IClass
+}
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
 
   const [studentDetails, setStudentDetails] = useState<IStudent | null>(null)
-  const [selectedOptionForClass, setSelectedOptionForClass] = useState()
+  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass>()
   const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
   // const { trigger: deleteStudent } = useDeleteStudent(mutate)
-  const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
+  // const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
   // const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
   const { data: allClasses } = useGetClasses(schoolID)
   // const { data: allClassArmByID } = useGetClassArmById(schoolID, selectedOptionForClass?.id)
   const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
-  const [payloadData, setPayloadData] = useState({
+  const [payloadData, setPayloadData] = useState<IAddStudentRequest | any>({
     school_id: `${schoolID}`,
     first_name: '',
     last_name: '',
     language: '',
-    age: '',
+    age: 0,
     gendar: '',
     country: 'Nigeria',
+    class_id: 0,
     classarm_id: '',
     term: '',
     session: '',
@@ -61,8 +64,11 @@ const Student = () => {
     if (selectedOptionForClass) {
       const fetchData = async () => {
         try {
-          let response = await getClassArmById(schoolID, selectedOptionForClass?.id)
-
+          let response = await getClassArmById(schoolID, selectedOptionForClass.id)
+          setPayloadData((payloadData: IAddStudentRequest) => ({
+            ...payloadData,
+            class_id: selectedOptionForClass.id,
+          }))
           setClassArmByID(response)
         } catch (error) {
           console.error(error)
@@ -72,8 +78,8 @@ const Student = () => {
     }
   }, [schoolID, selectedOptionForClass])
 
-  const { error, data: allStudentsData, isLoading } = useGetStudents(schoolID)
-
+  const { error, data: allStudentsData, isLoading, mutate } = useGetStudents(schoolID)
+  if (!allStudentsData) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
   // const validation = () => {
@@ -101,8 +107,6 @@ const Student = () => {
     }
   }
 
-  // console.log(selectedOptionForClassArm)
-
   // HANDLE COPY
   const handleCopy = () => {
     toast.success('Copied!', {
@@ -115,12 +119,11 @@ const Student = () => {
     return { value: item, label: item?.classs_room_name }
   })
 
-
-  const classArmoptions = allClassArmByID[0]?.class_arms.map((item) => {
-    return { value: item.id, label: item?.name }
-  })
-
-
+  const classArmoptions = allClassArmByID[0]?.class_arms.map(
+    (item: { id: number; name: string }) => {
+      return { label: item?.name, value: item.id }
+    }
+  )
 
   // HANDLE DELETE STUDENT
   const handleDelete = (studentID: number) => {
@@ -133,40 +136,14 @@ const Student = () => {
   const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
-    mutate(
-      [
-        allStudentsData,
-        {
-          school_id: `${payloadData?.school_id}`,
-          first_name: payloadData?.first_name,
-          last_name: payloadData?.last_name,
-          language: payloadData?.language,
-          age: payloadData?.age,
-          gendar: payloadData?.gendar,
-          country: `${payloadData?.country}`,
-          // class_id: selectedOptionForClass?.id,
-          classarm_id: payloadData.classarm_id,
-          term: payloadData.term,
-          session: payloadData.session,
-        },
-      ],
-      false
-    )
-    addStudent({
-      school_id: `${payloadData?.school_id}`,
-      first_name: payloadData?.first_name,
-      last_name: payloadData?.last_name,
-      language: payloadData?.language,
-      age: payloadData?.age,
-      gendar: payloadData?.gendar,
-      country: `${payloadData?.country}`,
-      // class_id: selectedOptionForClass?.id,
-      classarm_id: payloadData.classarm_id,
-      term: payloadData.term,
-      session: payloadData.session,
-    })
+    mutate([...allStudentsData, payloadData], false)
+    let response = await addStudent(payloadData)
+    if (response) {
+      mutate()
+      setModalOpen(false)
+    }
   }
 
   // TABLE HEAD
@@ -246,15 +223,13 @@ const Student = () => {
         <AddEditStudents
           title={studentDetails ? 'Edit Student' : 'Add Student'}
           payloadData={payloadData}
-          // setPayloadData={setPayloadData}
+          setPayloadData={setPayloadData}
           handleSubmit={handleSubmit}
           studentDetails={studentDetails}
           classOptions={classOptions}
           classArmoptions={classArmoptions}
           setSelectedOptionForClass={setSelectedOptionForClass}
           selectedOptionForClass={selectedOptionForClass}
-          // setSelectedOptionForClassArm={setSelectedOptionForClassArm}
-          // selectedOptionForClassArm={selectedOptionForClassArm}
         />
       </Modal>
 

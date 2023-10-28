@@ -136,7 +136,7 @@ export const useAddClassArm = (
 }
 
 // GET CLASs ARM BY ID
-export const getClassArmById = async(schoolID: number, classID: string) => {
+export const getClassArmById = async(schoolID: number, classID: number) => {
   console.log(schoolID)
   console.log(classID)
   // HEADERS

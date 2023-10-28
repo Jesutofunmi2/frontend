@@ -11,18 +11,18 @@ value: IClass
 interface SelectProps {
   title: string
   classOptions: Options[]
-  setSelectedOption: any
+  setSelectedOptionClass:React.Dispatch<React.SetStateAction<IClass |any>>
   value: IClass
 }
 
 const Select2 = ({
   title,
   classOptions,
-  setSelectedOption,
+  setSelectedOptionClass,
   value,
 }: SelectProps) => {
   const handlechange = (newValue:SingleValue<Options>) => {
-    setSelectedOption(newValue?.value)
+    setSelectedOptionClass(newValue?.value)
   }
 
   // const kpo =  classOptions?.find((c) => {
