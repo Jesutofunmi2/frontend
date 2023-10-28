@@ -14,7 +14,7 @@ export const Loader = () => {
 export const Spinner = () => {
   return (
     <div className={styles.loaderWrap}>
-      <span class={styles.loader}></span>
+      <span className={styles.loader}></span>
     </div>
   );
 };

@@ -7,17 +7,13 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 
 interface TableProps {
   head?: string[]
-  body?: JSX.Element
+  body?: any
 }
 
 const Table = ({
   head,
   body,
-} //   data,
-//   setPageNumber,
-//   pageNumber,
-//   numberOfData,
-//   pageSize,
+} 
 : TableProps) => {
   return (
     <div className={styles.container}>
@@ -28,7 +24,7 @@ const Table = ({
 
         <tbody className={styles.tbody}>
           {body ? (
-            <body />
+            body()
           ) : (
             <tr className={styles.tr}>
               <td className={styles.td}>Primary 1</td>
@@ -40,7 +36,8 @@ const Table = ({
                 </div>
               </td>
             </tr>
-          )}
+          )
+          }
         </tbody>
       </table>
       {/* <Pagination

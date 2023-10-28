@@ -17,8 +17,8 @@ import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArm
 import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
 import { getClasses } from '@/services/Apis/school/class'
-import { IClass} from '@/types'
-
+import { IClass } from '@/types'
+import { Loader } from '@/components/Loader/Loader'
 
 const Class = () => {
   // const appData = useSelector(userData)
@@ -47,10 +47,18 @@ const Class = () => {
     data: allClassesData,
     error,
     isLoading,
+   
   } = useQuery<IClass[], Error>({
     queryKey: ['classes', schoolID],
     queryFn: () => getClasses(schoolID),
+    initialData: [],
+    //  staleTime: 10000,
   })
+  if (isLoading ) {
+    return <Loader />
+  }
+
+  if (error) return 'An error has occurred: ' + error.message
   // OPEN MODAL CONDITION
   const handleModalOpen = (modalEvent: string, data: null) => {
     switch (modalEvent) {

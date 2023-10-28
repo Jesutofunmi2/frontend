@@ -10,18 +10,30 @@ interface ChildrenProps {
   children: React.ReactNode
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      // refetchOnmount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      staleTime: 1000 * 60 * 60 * 24
+    },
+  },
+});
 const DashboadLayout = ({ children }: ChildrenProps) => {
   return (
-    <SchoolAuthProvider>
+
       <QueryClientProvider client={queryClient}>
+            <SchoolAuthProvider>
         <SchoolNavbar />
         <div className={styles.layout}>
           <Sidebar school="true" />
           <div className={styles.body}>{children}</div>
         </div>
+        </SchoolAuthProvider>
       </QueryClientProvider>
-    </SchoolAuthProvider>
+
   )
 }
 

@@ -26,6 +26,7 @@ import { ITeacher } from '@/types'
 import { getTeachers } from '@/services/Apis/school/teacher'
 
 const Teacher = () => {
+
   const schoolID = useSelector(userData).currentSchool?.data.id!
 
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
@@ -45,12 +46,19 @@ const Teacher = () => {
     data: allTeachersData,
     error,
     isLoading,
+    isFetching,
+    status
   } = useQuery<ITeacher[], Error>({
     queryKey: ['teachers', schoolID],
     queryFn: () => getTeachers(schoolID),
+    initialData: [],
   })
 
-  // OPEN MODAL CONDITION
+  if (isLoading ) {
+    return <Loader />
+  }
+  if (error) return 'An error has occurred: ' + error.message
+
   const handleModalOpen = (modalEvent: string, data: ITeacher | null) => {
     switch (modalEvent) {
       case 'add':
@@ -89,7 +97,7 @@ const Teacher = () => {
         name: payloadData.name,
         email: payloadData.email,
         address: 'bosss',
-        teacher_id: teacherDetails?.teacher_id,
+        teacher_id: teacherDetails.teacher_id,
         school_id: payloadData.school_id,
       })
     } else {
@@ -123,15 +131,15 @@ const Teacher = () => {
 
   // TABLE BODY
   const tableBody = () => {
-    const body = allTeachersData?.map((item: ITeacher) => {
+    const body = allTeachersData.map((item: ITeacher) => {
       return (
         <tr key={item.teacher_id}>
           <td>
             <Image src="/assets/images/logo.png" width={50} height={50} alt="logo" />
           </td>
-          <td>{item?.name}</td>
-          <td>{item?.email}</td>
-          <td>{item?.teacher_id}</td>
+          <td>{item.name}</td>
+          <td>{item.email}</td>
+          <td>{item.teacher_id}</td>
           <td>
             <div className="action">
               <AiFillEdit className="editIcon" onClick={() => handleModalOpen('edit', item)} />
@@ -152,39 +160,31 @@ const Teacher = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : error ? (
-        <p>error loading page</p>
-      ) : (
-        <div>
-          <h3 className="headerTitle">Teacher Configuration</h3>
-          <div className={styles.actions}>
-            <div className={styles.btnWrap}>
-              <Button
-                width="150px"
-                height="30px"
-                size="15px"
-                text="Add Teacher"
-                handleClick={() => handleModalOpen('add', null)}
-              />
+      <div>
+        <h3 className="headerTitle">Teacher Configuration</h3>
+        <div className={styles.actions}>
+          <div className={styles.btnWrap}>
+            <Button
+              width="150px"
+              height="30px"
+              size="15px"
+              text="Add Teacher"
+              handleClick={() => handleModalOpen('add', null)}
+            />
 
-              <Button
-                width="150px"
-                height="30px"
-                size="15px"
-                text="Bulk Registration"
-                backgroundColor="lightGreen"
-                handleClick={() => handleModalOpen('bulk', null)}
-              />
-            </div>
+            <Button
+              width="150px"
+              height="30px"
+              size="15px"
+              text="Bulk Registration"
+              backgroundColor="lightGreen"
+              handleClick={() => handleModalOpen('bulk', null)}
+            />
           </div>
-
-          <Table head={tableHeading} body={tableBody} />
         </div>
-      )}
-      {/* MODAL TO MODIFY USERS */}
 
+        <Table head={tableHeading} body={tableBody} />
+      </div>
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditTeachers
           title={teacherDetails ? 'Edit Teacher' : 'Add Teacher'}
@@ -195,12 +195,10 @@ const Teacher = () => {
           setFile={setFile}
         />
       </Modal>
-
       {/* MODAL TO MODIFY STUDENTS */}
       <Modal open={bulkOpen} setOpen={setBulkOpen}>
         <BulkUpload />
       </Modal>
-
       <ToastContainer />
     </>
   )

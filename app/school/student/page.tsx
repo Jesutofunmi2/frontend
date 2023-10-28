@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
@@ -34,6 +34,8 @@ const Student = () => {
   // const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState()
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
+  const [isLoading, setLoading] = useState(false)
+  const [studentsData, setStudentsData] = useState<IStudent[] | null>(null)
   // const { trigger: deleteStudent } = useDeleteStudent(mutate)
   // const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
   // const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
@@ -51,15 +53,29 @@ const Student = () => {
     term: '',
     session: '',
   })
-  const {
-    data: allStudentsData,
-    error,
-    isLoading,
-  } = useQuery<IStudent[], Error>({
-    queryKey: ['teachers', schoolID],
-    queryFn: () => getStudents(schoolID),
-  })
+  // const {
+  //   data: allStudentsData,
+  //   error,
+  //   isLoading,
+  // } = useQuery<IStudent[], Error>({
+  //   queryKey: ['teachers', schoolID],
+  //   queryFn: () => getStudents(schoolID),
+  //   initialData: [],
+  //   //  staleTime: 10000,
 
+  // })
+git
+  useEffect(() => {
+    fetchData(schoolID) 
+  },[studentsData])
+
+  if (isLoading ) {
+    return <Loader />
+  }
+
+  
+  console.log(studentsData)
+  // if (error) return 'An error has occurred: ' + error.message
   // const validation = () => {
   //   for (const key in payloadData) {
   //     if (payloadData[key] === '') {
@@ -168,14 +184,13 @@ const Student = () => {
     'CLASS ARM',
     '',
   ]
-
   // TABLE BODY
-  const tableBody = () => {
-    const body = allStudentsData?.map((item: IStudent) => {
+  const TableBody = () => {
+    return studentsData?.map((item: IStudent) => {
       return (
         <tr key={item.student_id}>
-          <td>{item?.username}</td>
-          <td>{item?.language}</td>
+          <td>{item.username}</td>
+          <td>{item.language}</td>
           <td>
             <CopyToClipboard text={item.student_id} onCopy={() => handleCopy()}>
               <div className="copyBox">
@@ -184,10 +199,10 @@ const Student = () => {
               </div>
             </CopyToClipboard>
           </td>
-          <td>{item?.age}</td>
-          <td>{item?.gendar}</td>
-          <td>{item?.class}</td>
-          <td>{item?.classarm}</td>
+          <td>{item.age}</td>
+          <td>{item.gendar}</td>
+          <td>{item.class}</td>
+          <td>{item.classarm}</td>
           <td>
             <div className="action">
               <AiFillEdit className="editIcon" onClick={() => handleModalOpen('edit', item)} />
@@ -202,41 +217,34 @@ const Student = () => {
         </tr>
       )
     })
-
-    return body
   }
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : error ? (
-        <p>error page</p>
-      ) : (
-        <div>
-          <h3 className="headerTitle">Student Configuration</h3>
+      <div>
+        <h3 className="headerTitle">Student Configuration</h3>
 
-          <div className={styles.btnWrap}>
-            <Button
-              width="150px"
-              height="30px"
-              size="15px"
-              text="Add Student"
-              handleClick={() => handleModalOpen('add', null)}
-            />
+        <div className={styles.btnWrap}>
+          <Button
+            width="150px"
+            height="30px"
+            size="15px"
+            text="Add Student"
+            handleClick={() => handleModalOpen('add', null)}
+          />
 
-            <Button
-              width="150px"
-              height="30px"
-              size="15px"
-              text="Bulk Registration"
-              backgroundColor="lightGreen"
-              handleClick={() => handleModalOpen('bulk', null)}
-            />
-          </div>
-          <Table head={tableHead} body={tableBody} />
+          <Button
+            width="150px"
+            height="30px"
+            size="15px"
+            text="Bulk Registration"
+            backgroundColor="lightGreen"
+            handleClick={() => handleModalOpen('bulk', null)}
+          />
         </div>
-      )}
+        <Table head={tableHead} body={TableBody} />
+      </div>
+
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
         {/* <AddEditStudents
