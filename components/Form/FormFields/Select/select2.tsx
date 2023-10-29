@@ -12,7 +12,6 @@ interface SelectProps {
   title: string,
   handleChange:(newValue:SingleValue<Options>)=>void,
   classOptions: Options[]
- 
   value: IClass
 }
 

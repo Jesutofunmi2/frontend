@@ -2,7 +2,8 @@ import useSWRMutation from 'swr/mutation'
 import useSWR from 'swr'
 import { toast } from 'react-toastify'
 import makeApiCall from '../Apis'
-import { IClass } from '@/types'
+import { IClass } from '@/types/class'
+
 
 //ADD CLASS
 export const useAddClass = (
@@ -47,7 +48,7 @@ export const useAddClass = (
 }
 
 // GET CLASSES
-export const useGetClasses = (schoolID: number) => {
+export const useGetClasses = (schoolID: string) => {
   const url = `/api/v1/showSchoolClasses?school_id=${schoolID}`
   const fetcher = async (...args: string[]) => {
     const res = await makeApiCall(url, 'get', ...args)
@@ -136,7 +137,7 @@ export const useAddClassArm = (
 }
 
 // GET CLASs ARM BY ID
-export const getClassArmById = async(schoolID: number, classID: number) => {
+export const getClassArmById = async(schoolID: string, classID: number) => {
 
   // HEADERS
 

@@ -19,7 +19,7 @@ interface Options {
 interface AddEditStudentsProps {
   title: string
   handleFormSubmit: (values: any) => void
-  schoolID: number
+  schoolID: string
   studentDetails: any
   classOptions: any
   classArmoptions: Options[]
@@ -45,7 +45,7 @@ const AddEditStudents = ({
     age: yup.number().required('Enter Age'),
     country: yup.string().required('Enter your country'),
     class_id: yup.number().required('Select your class'),
-    classarm_id: yup.string().required('Select your class Arm'),
+    classarm_id: yup.number().required('Select your class Arm'),
     term: yup.string().required('Select your term'),
     session: yup.string().required('Select your class session'),
   })
@@ -64,7 +64,7 @@ const AddEditStudents = ({
   // }
 
   // GENDER SELECT OPTIONS
-  const genderOptions = ['Male', 'Female']
+  const genderOptions = ['male', 'female']
 
   // COUNTRY SELECT OPTIONS
   const sessionOptions = ['2023/2024']
@@ -73,7 +73,7 @@ const AddEditStudents = ({
     <>
       <Formik
         initialValues={{
-          school_id: schoolID,
+          school_id: String(schoolID),
           first_name: '',
           last_name: '',
           language: '',
@@ -81,7 +81,7 @@ const AddEditStudents = ({
           gendar: '',
           country: 'Nigeria',
           class_id: 0,
-          classarm_id: '',
+          classarm_id: 0,
           term: '',
           session: '',
         }}
@@ -131,29 +131,31 @@ const AddEditStudents = ({
               <Select
                 name="gendar"
                 title="Gender"
-                option={genderOptions}
+                options={genderOptions}
                 handleChange={handleChange}
-                defaultValue={studentDetails?.gendar}
+                defaultValue={
+                  genderOptions.find((option: any) => option === studentDetails?.gendar)!
+                }
               />
               <TextInput
                 title="Term"
                 name="term"
                 handleChange={handleChange}
                 type="text"
-                defaultValue={studentDetails?.term}
+                defaultValue={''}
                 placeholder="Enter school term"
               />
 
               <Select
                 name="session"
                 title="Session"
-                option={sessionOptions}
+                options={sessionOptions}
                 handleChange={handleChange}
-                defaultValue={studentDetails?.gendar}
+                defaultValue={sessionOptions.find((option: any) => option === '2023/2024')!}
               />
               <Select2
-                handleChange={(newValue) => setSelectedOptionForClass(newValue?.value)}
                 title="Class"
+                handleChange={(newValue) => setSelectedOptionForClass(newValue?.value)}
                 classOptions={classOptions}
                 value={selectedOptionForClass?.classs_room_name}
               />

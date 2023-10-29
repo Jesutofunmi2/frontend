@@ -128,7 +128,6 @@ const Student = () => {
       mutate([...allStudentsData, formData], false)
       await addStudent(formData)
     }
-
     mutate()
     setModalOpen(false)
 

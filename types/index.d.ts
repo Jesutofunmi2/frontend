@@ -7,7 +7,7 @@ export interface Program {
 }
 
 export interface Profile {
-  id: number
+  id: string
   count_down: number
   country: string
   email: string
@@ -23,7 +23,7 @@ export interface Profile {
 export interface ISchool extends Profile {}
 // export interface SchoolProfile extends TeacherShool {}
 export interface ITeacher {
-  id: number
+  id: string
   address: string
   count_down: number
   email: string

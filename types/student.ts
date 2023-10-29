@@ -27,7 +27,7 @@
 // }
 
 export interface IFormStudent {
-    school_id: number;
+    school_id: string;
     first_name: string;
     last_name: string;
     language: string;
@@ -35,7 +35,7 @@ export interface IFormStudent {
     gendar: string;
     country: string;
     class_id:number;
-    classarm_id: string;
+    classarm_id: number;
     term: string;
     session: string;
   }

@@ -1,7 +1,16 @@
-import React from "react";
-import styles from "./select.module.css";
+import React from 'react'
+import styles from './select.module.css'
 
-const Select = ({ title, option, name, defaultValue, handleChange }) => {
+interface SelectProps {
+  title: string
+  options: any
+  name: string
+  defaultValue: string
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+}
+const Select = ({ title, options, name, defaultValue, handleChange }: SelectProps) => {
+
+
   return (
     <>
       <div className={styles.selectWrap}>
@@ -13,8 +22,8 @@ const Select = ({ title, option, name, defaultValue, handleChange }) => {
           onChange={(e) => handleChange(e)}
           required
         >
-          <option value="">{defaultValue ? defaultValue : "Select"}</option>
-          {option?.map((item) => (
+          <option value="">{'Select'}</option>
+          {options?.map((item: any) => (
             <option value={item} key={item}>
               {item}
             </option>
@@ -22,7 +31,7 @@ const Select = ({ title, option, name, defaultValue, handleChange }) => {
         </select>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Select;
+export default Select
