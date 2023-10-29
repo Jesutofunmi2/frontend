@@ -71,7 +71,7 @@ export const useGetStudents = (schoolID: number) => {
 }
 
 // DELETE STUDENT
-export const deleteStudent = async (studentId: number) => {
+export const deleteStudent = async (studentId: string) => {
   try {
     const res = await makeApiCall(`/api/v1/deleteStudent?student_id=${studentId}`, 'delete')
     if (res) {

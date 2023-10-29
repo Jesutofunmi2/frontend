@@ -38,7 +38,7 @@ const Student = () => {
   const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
   const [payloadData, setPayloadData] = useState<IAddStudentRequest | any>({
     school_id: `${schoolID}`,
-    first_name: '',
+    username: '',
     last_name: '',
     language: '',
     age: 0,
@@ -89,6 +89,7 @@ const Student = () => {
       case 'edit':
         setModalOpen(true)
         setStudentDetails(studentData)
+        setPayloadData(studentDetails)
         break
       case 'bulk':
         setBulkOpen(true)
@@ -116,8 +117,8 @@ const Student = () => {
   )
 
   // HANDLE DELETE STUDENT
-  const handleDelete = async (studentID: number) => {
-    const updatedStudents = allStudentsData?.filter((item) => item.id !== studentID)
+  const handleDelete = async (studentID: string) => {
+    const updatedStudents = allStudentsData?.filter((item) => item.student_id !== studentID)
     mutate(updatedStudents, false)
     await deleteStudent(studentID)
     mutate()
@@ -125,16 +126,17 @@ const Student = () => {
   }
 
   // Remove school_id from payload data. school_id is not required in edit.
-  const { school_id, ...newPayload } = payloadData
+  // const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
   const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
     if (studentDetails) {
+      
       // const updatedItems = allStudentsData.map((el) =>
       //   el.id === studentDetails.id ? studentDetails : el
       // )
-      console.log(payloadData)
+      console.log({ ...payloadData, ...studentDetails })
       // mutate(updatedItems, false)
       // await editStudent(studentDetails.student_id, payloadData)
     } else {
