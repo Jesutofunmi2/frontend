@@ -137,12 +137,11 @@ export const useAddClassArm = (
 
 // GET CLASs ARM BY ID
 export const getClassArmById = async(schoolID: number, classID: number) => {
-  console.log(schoolID)
-  console.log(classID)
+
   // HEADERS
 
     const res = await makeApiCall(`/api/v1/getSingleClass?school_id=${schoolID}&class_id=${classID}`,'get')
-    console.log(res)
+   
     return res?.data
   
 

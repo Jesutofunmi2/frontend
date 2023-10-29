@@ -18,15 +18,15 @@ import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { getClassArmById, useGetClasses } from '@/services/old-apis/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
-import { IStudent } from '@/types'
+
 
 import { IClass } from '@/types/class'
-import { IAddStudentRequest } from '@/types/student'
+import { IFormStudent } from '@/types/student'
 
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  const [studentDetails, setStudentDetails] = useState<IStudent | null>(null)
-  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass>()
+  const [studentDetails, setStudentDetails] = useState<IFormStudent | null>(null)
+  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass|any>()
   const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
@@ -36,29 +36,14 @@ const Student = () => {
   const { data: allClasses } = useGetClasses(schoolID)
   // const { data: allClassArmByID } = useGetClassArmById(schoolID, selectedOptionForClass?.id)
   const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
-  const [payloadData, setPayloadData] = useState<IAddStudentRequest | any>({
-    school_id: `${schoolID}`,
-    username: '',
-    last_name: '',
-    language: '',
-    age: 0,
-    gendar: '',
-    country: 'Nigeria',
-    class_id: 0,
-    classarm_id: '',
-    term: '',
-    session: '',
-  })
+
 
   useEffect(() => {
     if (selectedOptionForClass) {
       const fetchData = async () => {
         try {
           let response = await getClassArmById(schoolID, selectedOptionForClass.id)
-          setPayloadData((payloadData: IAddStudentRequest) => ({
-            ...payloadData,
-            class_id: selectedOptionForClass.id,
-          }))
+          
           setClassArmByID(response)
         } catch (error) {
           console.error(error)
@@ -80,7 +65,7 @@ const Student = () => {
   //   }
   // }
   // OPEN MODAL CONDITION
-  const handleModalOpen = (modalEvent: string, studentData: IStudent | null) => {
+  const handleModalOpen = (modalEvent: string, studentData: IFormStudent | null) => {
     switch (modalEvent) {
       case 'add':
         setModalOpen(true)
@@ -89,7 +74,6 @@ const Student = () => {
       case 'edit':
         setModalOpen(true)
         setStudentDetails(studentData)
-        setPayloadData(studentDetails)
         break
       case 'bulk':
         setBulkOpen(true)
@@ -129,24 +113,25 @@ const Student = () => {
   // const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault()
+  const handleFormSubmit = async (values:IFormStudent) => {
+  values.class_id = selectedOptionForClass?.id
+  let formData ={...values}
     if (studentDetails) {
       
       // const updatedItems = allStudentsData.map((el) =>
       //   el.id === studentDetails.id ? studentDetails : el
       // )
-      console.log({ ...payloadData, ...studentDetails })
+      // console.log({ ...payloadData, ...studentDetails })
       // mutate(updatedItems, false)
       // await editStudent(studentDetails.student_id, payloadData)
     } else {
-      mutate([...allStudentsData, payloadData], false)
-      await addStudent(payloadData)
+      mutate([...allStudentsData, formData], false)
+      await addStudent(formData)
     }
-    // if (response) {
+
     mutate()
     setModalOpen(false)
-    // }
+
   }
 
   // TABLE HEAD
@@ -162,7 +147,7 @@ const Student = () => {
   ]
   // TABLE BODY
   const TableBody = () => {
-    return allStudentsData?.map((item: IStudent) => {
+    return allStudentsData?.map((item: any) => {
       return (
         <tr key={item.student_id}>
           <td>{item.username}</td>
@@ -225,9 +210,9 @@ const Student = () => {
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditStudents
           title={studentDetails ? 'Edit Student' : 'Add Student'}
-          payloadData={payloadData}
-          setPayloadData={setPayloadData}
-          handleSubmit={handleSubmit}
+
+          schoolID={ schoolID}
+          handleFormSubmit={handleFormSubmit}
           studentDetails={studentDetails}
           classOptions={classOptions}
           classArmoptions={classArmoptions}

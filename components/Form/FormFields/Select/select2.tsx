@@ -9,21 +9,20 @@ value: IClass
 }
 
 interface SelectProps {
-  title: string
+  title: string,
+  handleChange:(newValue:SingleValue<Options>)=>void,
   classOptions: Options[]
-  setSelectedOptionClass:React.Dispatch<React.SetStateAction<IClass |any>>
+ 
   value: IClass
 }
 
 const Select2 = ({
   title,
+  handleChange,
   classOptions,
-  setSelectedOptionClass,
   value,
 }: SelectProps) => {
-  const handlechange = (newValue:SingleValue<Options>) => {
-    setSelectedOptionClass(newValue?.value)
-  }
+ 
 
   // const kpo =  classOptions?.find((c) => {
   //   return c.value === value
@@ -47,7 +46,7 @@ const Select2 = ({
         <p className={styles.label}>{title}</p>
         <Select
           required
-          onChange={handlechange}
+          onChange={ handleChange}
           options={classOptions}
           value={classOptions?.find((c) => c.value === value)}
           styles={colourStyles}

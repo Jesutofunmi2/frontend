@@ -4,12 +4,11 @@ import useSWR from 'swr'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import makeApiCall from '../apis'
-import { IStudent } from '@/types'
 import { ScopedMutator } from 'swr/_internal'
-import { IAddStudentRequest } from '@/types/student'
+import { IFormStudent, IStudent } from '@/types/student'
 
 //ADD STUDENT
-export const addStudent = async (payload: IAddStudentRequest) => {
+export const addStudent = async (payload: IFormStudent) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_CENTER,
   })
@@ -35,7 +34,7 @@ export const addStudent = async (payload: IAddStudentRequest) => {
 // }
 
 //EDIT STUDENT
-export const editStudent = async (studentId: string, payload) => {
+export const editStudent = async (studentId: string, payload:IFormStudent) => {
   // async function sendRequest(url, { arg }) {
 
   toast.loading('Updating...', {

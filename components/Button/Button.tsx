@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './button.module.css'
 
 interface ButtonProps {
+  type?:string
   text?: string
   color?: string
   backgroundColor?: string
@@ -16,6 +17,7 @@ interface ButtonProps {
 }
 
 const Button = ({
+  type,
   text,
   color,
   backgroundColor,
@@ -38,6 +40,7 @@ const Button = ({
       }}
       onClick={() => (handleClick ? handleClick() : null)}
       className={styles.btn}
+      type={type ==="submit"? "submit":"button"}
       disabled={disabled}
     >
       {text ? text : 'Button'}
