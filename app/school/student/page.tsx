@@ -116,10 +116,12 @@ const Student = () => {
   )
 
   // HANDLE DELETE STUDENT
-  const handleDelete = (studentID: number) => {
-    const updated = allStudentsData?.filter((item) => item.id !== studentID)
-    mutate(updated, false)
-    deleteStudent(studentID)
+  const handleDelete = async (studentID: number) => {
+    const updatedStudents = allStudentsData?.filter((item) => item.id !== studentID)
+    mutate(updatedStudents, false)
+    await deleteStudent(studentID)
+    mutate()
+    setModalOpen(false)
   }
 
   // Remove school_id from payload data. school_id is not required in edit.

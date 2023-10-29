@@ -50,15 +50,12 @@ export const editStudent = async (studentId: string, payload) => {
         position: toast.POSITION.TOP_CENTER,
       })
     }
-    // setModalOpen(false)
-    // mutate()
     return res
   } catch (err) {
     toast.dismiss()
     console.log(err)
     return err
   }
-
 }
 
 // GET STUDENTS
@@ -75,6 +72,17 @@ export const useGetStudents = (schoolID: number) => {
 
 // DELETE STUDENT
 export const deleteStudent = async (studentId: number) => {
-  const res = await makeApiCall(`/api/v1/deleteStudent?student_id=${studentId}`, 'delete')
-  console.log(res)
+  try {
+    const res = await makeApiCall(`/api/v1/deleteStudent?student_id=${studentId}`, 'delete')
+    if (res) {
+      toast.success('Student Deleted!', {
+        position: toast.POSITION.TOP_CENTER,
+      })
+    }
+    return res
+  } catch (err) {
+    toast.dismiss()
+    console.log(err)
+    return err
+  }
 }
