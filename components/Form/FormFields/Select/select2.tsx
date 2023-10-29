@@ -5,30 +5,17 @@ import { IClass } from '@/types/class'
 
 interface Options {
   label: string
-value: IClass
+  value: IClass
 }
 
 interface SelectProps {
-  title: string,
-  handleChange:(newValue:SingleValue<Options>)=>void,
+  title: string
+  handleChange: (newValue: SingleValue<Options>) => void
   classOptions: Options[]
   value: IClass
 }
 
-const Select2 = ({
-  title,
-  handleChange,
-  classOptions,
-  value,
-}: SelectProps) => {
- 
-
-  // const kpo =  classOptions?.find((c) => {
-  //   return c.value === value
-  // })
-
-  // console.log(kpo)
-
+const Select2 = ({ title, handleChange, classOptions, value }: SelectProps) => {
   // Select component styles
   const colourStyles = {
     control: (baseStyles: any, state: any) => ({
@@ -45,7 +32,7 @@ const Select2 = ({
         <p className={styles.label}>{title}</p>
         <Select
           required
-          onChange={ handleChange}
+          onChange={handleChange}
           options={classOptions}
           value={classOptions?.find((c) => c.value === value)}
           styles={colourStyles}

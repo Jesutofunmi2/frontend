@@ -6,7 +6,7 @@ import ClassCard from "@/components/Card/ClassCard/ClassCard";
 import Button from "@/components/Button/Button";
 import Modal from "@/components/Modal/Modal";
 import AddEditClass from "@/components/Form/Forms/AddEditClass/AddEditClass";
-import { useDeleteClass, useGetClasses } from "@/services/old-apis/class";
+import { useDeleteClass, useGetClasses } from "@/services/api/class";
 import { useSelector } from "react-redux";
 import { Loader } from "@/components/Loader/Loader";
 

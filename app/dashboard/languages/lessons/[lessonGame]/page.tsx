@@ -10,7 +10,7 @@ import { Loader } from "@/components/Loader/Loader";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import { AiFillHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { useAddFavourite } from "@/services/old-apis/favourite";
+import { useAddFavourite } from "@/services/api/favourite";
 import LessonGameThree from "@/components/LessonGame/LessonGameThree/LessonGameThree";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
 

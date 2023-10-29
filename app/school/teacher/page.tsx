@@ -17,8 +17,8 @@ import {
   useDeleteTeacher,
   useEditTeacher,
   useGetTeachers,
-} from '@/services/old-apis/teacher'
-import { useQuery } from '@tanstack/react-query'
+} from '@/services/api/teacher'
+
 import Image from 'next/image'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { Loader } from '@/components/Loader/Loader'

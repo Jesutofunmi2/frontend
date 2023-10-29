@@ -2,10 +2,10 @@
 
 import FavouriteCard from "@/components/Card/favouriteCard/FavouriteCard";
 import styles from "./page.module.css";
-import { useGetFavourites } from "@/services/old-apis/favourite";
+import { useGetFavourites } from "@/services/api/favourite";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { useGetLanguages } from "@/services/old-apis/languages";
+import { useGetLanguages } from "@/services/api/languages";
 import { useSelector } from "react-redux";
 
 const Favourites = () => {

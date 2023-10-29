@@ -8,7 +8,7 @@ import {
   useAddStudentSurvey,
   useAddTeacherSurvey,
   useGetStudentSurvey,
-} from "@/services/old-apis/survey";
+} from "@/services/api/survey";
 import { useSelector } from "react-redux";
 
 export const BaselineFormStudent = () => {

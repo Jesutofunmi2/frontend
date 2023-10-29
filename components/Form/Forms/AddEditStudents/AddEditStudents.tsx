@@ -8,9 +8,8 @@ import Select from '../../FormFields/Select/Select'
 import Select2 from '../../FormFields/Select/select2'
 import { IClass } from '@/types/class'
 import { IFormStudent } from '@/types/student'
-import { Formik, Form, Field } from 'formik'
+import { Formik} from 'formik'
 import * as yup from 'yup'
-import { SingleValue } from 'react-select'
 
 interface Options {
   label: string
@@ -49,20 +48,7 @@ const AddEditStudents = ({
     term: yup.string().required('Select your term'),
     session: yup.string().required('Select your class session'),
   })
-
-  // const handleSelectchange = (newValue: SingleValue<Options>) => {
-  //   setSelectedOptionForClass(newValue?.value)
-  // }
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
-  // ) => {
-  //   const data = e.target.value
-  //   setPayloadData({
-  //     ...payloadData,
-  //     [e.target.name]: data,
-  //   })
-  // }
-
+  
   // GENDER SELECT OPTIONS
   const genderOptions = ['male', 'female']
 

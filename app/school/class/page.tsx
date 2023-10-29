@@ -7,31 +7,25 @@ import Button from '@/components/Button/Button'
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useAddStudent, useDeleteStudent, useEditStudent } from '@/services/old-apis/student'
+import { addStudent, deleteStudent, editStudent } from '@/services/api/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
-import { useGetClasses } from '@/services/old-apis/class'
+import { useGetClasses } from '@/services/api/class'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
 import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
 
-import { IClass } from '@/types'
 import { Loader } from '@/components/Loader/Loader'
 import { mutate } from 'swr'
 
 const Class = () => {
-  // const appData = useSelector(userData)
-  // const IDs = appData.currentSchool?.data!
   const schoolID = useSelector(userData).currentSchool?.data.id!
 
   const [studentDetails, setStudentDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [armOpenwithID, setArmOpenWithID] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const { trigger: deleteStudent } = useDeleteStudent(mutate)
-  const { trigger: addStudent } = useAddStudent(mutate)
-  const { trigger: editStudent } = useEditStudent(mutate)
 
   const [payloadData, setPayloadData] = useState({
     school_id: `${schoolID}`,
@@ -46,7 +40,6 @@ const Class = () => {
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  
   // OPEN MODAL CONDITION
   const handleModalOpen = (modalEvent: string, data: null) => {
     switch (modalEvent) {

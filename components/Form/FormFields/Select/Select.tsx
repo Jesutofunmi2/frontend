@@ -9,8 +9,6 @@ interface SelectProps {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 const Select = ({ title, options, name, defaultValue, handleChange }: SelectProps) => {
-
-
   return (
     <>
       <div className={styles.selectWrap}>

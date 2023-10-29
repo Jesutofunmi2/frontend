@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify'
 import { schoolLogin, teacherLogin, studentLogin } from '@/services/Apis/auth'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-import { setToken } from '@/services/old-apis/token'
+import { setToken } from '@/services/api/token'
 import { useDispatch } from 'react-redux'
 import { schoolProfile } from '../../../../services/redux/features/userSlice'
 

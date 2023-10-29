@@ -12,13 +12,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
-
-import { addStudent, deleteStudent, editStudent, useGetStudents } from '@/services/old-apis/student'
+import { addStudent, deleteStudent, editStudent, useGetStudents } from '@/services/api/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
-import { getClassArmById, useGetClasses } from '@/services/old-apis/class'
+import { getClassArmById, useGetClasses } from '@/services/api/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
-
 
 import { IClass } from '@/types/class'
 import { IFormStudent } from '@/types/student'
@@ -26,24 +24,18 @@ import { IFormStudent } from '@/types/student'
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
   const [studentDetails, setStudentDetails] = useState<IFormStudent | null>(null)
-  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass|any>()
-  const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState(null)
+  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass | any>()
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  // const { trigger: deleteStudent } = useDeleteStudent(mutate)
-  // const { trigger: addStudent } = useAddStudent(mutate, setModalOpen)
-  // const { trigger: editStudent } = useEditStudent(mutate, setModalOpen)
-  const { data: allClasses } = useGetClasses(schoolID)
-  // const { data: allClassArmByID } = useGetClassArmById(schoolID, selectedOptionForClass?.id)
-  const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
 
+  const { data: allClasses } = useGetClasses(schoolID)
+  const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
 
   useEffect(() => {
     if (selectedOptionForClass) {
       const fetchData = async () => {
         try {
           let response = await getClassArmById(schoolID, selectedOptionForClass.id)
-          
           setClassArmByID(response)
         } catch (error) {
           console.error(error)
@@ -57,13 +49,7 @@ const Student = () => {
   if (!allStudentsData) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
-  // const validation = () => {
-  //   for (const key in payloadData) {
-  //     if (payloadData[key] === '') {
-  //       return true
-  //     }
-  //   }
-  // }
+
   // OPEN MODAL CONDITION
   const handleModalOpen = (modalEvent: string, studentData: IFormStudent | null) => {
     switch (modalEvent) {
@@ -109,15 +95,11 @@ const Student = () => {
     setModalOpen(false)
   }
 
-  // Remove school_id from payload data. school_id is not required in edit.
-  // const { school_id, ...newPayload } = payloadData
-
   // SUBMIT FORM CONDITION
-  const handleFormSubmit = async (values:IFormStudent) => {
-  values.class_id = selectedOptionForClass?.id
-  let formData ={...values}
+  const handleFormSubmit = async (values: IFormStudent) => {
+    values.class_id = selectedOptionForClass?.id
+    let formData = { ...values }
     if (studentDetails) {
-      
       // const updatedItems = allStudentsData.map((el) =>
       //   el.id === studentDetails.id ? studentDetails : el
       // )
@@ -130,7 +112,6 @@ const Student = () => {
     }
     mutate()
     setModalOpen(false)
-
   }
 
   // TABLE HEAD
@@ -209,8 +190,7 @@ const Student = () => {
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditStudents
           title={studentDetails ? 'Edit Student' : 'Add Student'}
-
-          schoolID={ schoolID}
+          schoolID={schoolID}
           handleFormSubmit={handleFormSubmit}
           studentDetails={studentDetails}
           classOptions={classOptions}
