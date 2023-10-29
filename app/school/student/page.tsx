@@ -13,12 +13,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 
-import {
-  addStudent,
-  deleteStudent,
-  useEditStudent,
-  useGetStudents,
-} from '@/services/old-apis/student'
+import { addStudent, deleteStudent, editStudent, useGetStudents } from '@/services/old-apis/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { getClassArmById, useGetClasses } from '@/services/old-apis/class'
 import { Loader } from '@/components/Loader/Loader'
@@ -28,13 +23,8 @@ import { IStudent } from '@/types'
 import { IClass } from '@/types/class'
 import { IAddStudentRequest } from '@/types/student'
 
-interface Options {
-  label: string
-  value: IClass
-}
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-
   const [studentDetails, setStudentDetails] = useState<IStudent | null>(null)
   const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass>()
   const [selectedOptionForClassArm, setSelectedOptionForClassArm] = useState(null)
@@ -90,7 +80,7 @@ const Student = () => {
   //   }
   // }
   // OPEN MODAL CONDITION
-  const handleModalOpen = (modalEvent: string, data: IStudent | null) => {
+  const handleModalOpen = (modalEvent: string, studentData: IStudent | null) => {
     switch (modalEvent) {
       case 'add':
         setModalOpen(true)
@@ -98,7 +88,7 @@ const Student = () => {
         break
       case 'edit':
         setModalOpen(true)
-        setStudentDetails(data)
+        setStudentDetails(studentData)
         break
       case 'bulk':
         setBulkOpen(true)
@@ -138,12 +128,21 @@ const Student = () => {
   // SUBMIT FORM CONDITION
   const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
-    mutate([...allStudentsData, payloadData], false)
-    let response = await addStudent(payloadData)
-    if (response) {
-      mutate()
-      setModalOpen(false)
+    if (studentDetails) {
+      // const updatedItems = allStudentsData.map((el) =>
+      //   el.id === studentDetails.id ? studentDetails : el
+      // )
+      console.log(payloadData)
+      // mutate(updatedItems, false)
+      // await editStudent(studentDetails.student_id, payloadData)
+    } else {
+      mutate([...allStudentsData, payloadData], false)
+      await addStudent(payloadData)
     }
+    // if (response) {
+    mutate()
+    setModalOpen(false)
+    // }
   }
 
   // TABLE HEAD

@@ -62,7 +62,7 @@ const AddEditStudents = ({
 
         <div className={styles.inputWrap}>
           <TextInput
-            defaultValue={studentDetails?.first_name}
+            defaultValue={studentDetails?.username}
             title="First name"
             name="first_name"
             handleChange={(e) => handleChange(e)}
