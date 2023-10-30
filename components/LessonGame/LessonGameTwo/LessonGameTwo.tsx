@@ -8,9 +8,9 @@ import { Fade } from "react-awesome-reveal";
 import {
   useAnsweredQuestion,
   useCheckAnswer,
-} from "@/services/APIs/lessonGame";
-import wrongAnswerSound from "/public/assets/audios/notCorrect.mp3";
-import correctAnswerSound from "/public/assets/audios/yay.mp3";
+} from "@/services/api/lessonGame";
+import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
+import correctAnswerSound from "@/public/assets/audios/yay.mp3";
 import { useSelector } from "react-redux";
 import CorrectAnswerModal from "@/components/Modal/CorrectAnswerModal/CorrectAnswerModal";
 
@@ -40,7 +40,7 @@ const LessonGameTwo = ({
       setButtonColor("red");
 
       // play wrongAnswerSound audio
-      const audio = new Audio(wrongAnswerSound);
+      const audio = new Audio("/public/assets/audios/notCorrect.mp3");
       audio.play();
       // Create a timer to reset the button color after 1700 milliseconds
       const timer = setTimeout(() => {
@@ -58,7 +58,7 @@ const LessonGameTwo = ({
       // setSelected();
 
       // play correctAnswerSound audio
-      const audio = new Audio(correctAnswerSound);
+      const audio = new Audio("/public/assets/audios/yay.mp3");
       audio.play();
 
       // Create a timer to reset the button color after 1700 milliseconds

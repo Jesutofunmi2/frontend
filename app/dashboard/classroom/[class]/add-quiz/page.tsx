@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { GrAttachment } from "react-icons/gr";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
 import Button from "@/components/Button/Button";
-import { useGetLessons } from "@/services/APIs/lessons";
+import { useGetLessons } from "@/services/api/lessons";
 import AddClassworkForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
 import Modal from "@/components/Modal/Modal";
 import AssignCard from "@/components/Card/AssignCard/AssignCard";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./assignClassworkview.module.css";
 import { GrAttachment } from "react-icons/gr";
-import { useAddClasswork } from "@/services/APIs/classwork";
+import { useAddClasswork } from "@/services/api/classwork";
 import Button from "@/components/Button/Button";
 import { useSelector } from "react-redux";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

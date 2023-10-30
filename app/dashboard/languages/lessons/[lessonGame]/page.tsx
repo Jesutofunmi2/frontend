@@ -4,7 +4,7 @@ import LessonGameOne from "@/components/LessonGame/LessonGameOne/LessonGameOne";
 import LessonGameTwo from "@/components/LessonGame/LessonGameTwo/LessonGameTwo";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { useGetLessonQuestions } from "@/services/APIs/lessonGame";
+import { useGetLessonQuestions } from "@/services/api/lessonGame";
 import { useSearchParams } from "next/navigation";
 import { Loader } from "@/components/Loader/Loader";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";

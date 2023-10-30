@@ -5,7 +5,7 @@ import React from "react";
 import styles from "./page.module.css";
 import { FaPaperPlane } from "react-icons/fa";
 import { BsAirplaneFill, BsRocketFill } from "react-icons/bs";
-import { useGetLevel } from "@/services/APIs/level";
+import { useGetLevel } from "@/services/api/level";
 
 const LessonLevel = () => {
   const { data, isLoading } = useGetLevel();

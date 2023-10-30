@@ -1,0 +1,100 @@
+.container{
+    max-width: 250px;
+    width: 100%;
+    /* min-height: 50vh; */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.container h3{
+    border-bottom: 1px solid var(--orange-color);
+    height: 30px;
+    color: var(--orange-color);
+}
+
+.listContainer{
+    border-bottom: 1px solid var(--orange-color);
+}
+
+.listWrap{
+    
+    cursor: pointer;
+}
+
+.list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.dropText{
+    font-size: 14px;
+}
+
+.titleWrap{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 5px;
+}
+
+.title{
+    font-size: 14px;
+}
+
+
+/* CSS FOR DROPDOWN */
+.dropwrap{
+    margin-bottom: 10px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dropText{
+    font-weight: 300;
+}
+
+
+.videoTime{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+}
+
+.dropTitleWrap{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropListWrap:hover{
+    background-color: rgb(243, 243, 243);
+}
+ 
+.dropVideoTime{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    gap: 3px;
+    font-size: 12px;
+    color: grey;
+}
+
+
+@media (max-width: 1000px){
+    .container{
+        max-width: unset;
+    }
+}

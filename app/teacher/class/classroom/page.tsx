@@ -16,10 +16,10 @@ import AssignmentView from "@/components/Views/AssigmentView/AssigmentView";
 import GradebookView from "@/components/Views/GradebookView/GradebookView";
 import { PiBookOpenBold } from "react-icons/pi";
 import { LuSettings } from "react-icons/lu";
-import { useDeleteModule, useGetAssignedModule } from "@/services/APIs/module";
-import { useDeleteClasswork, useGetClasswork } from "@/services/APIs/classwork";
+import { useDeleteModule, useGetAssignedModule } from "@/services/api/module";
+import { useDeleteClasswork, useGetClasswork } from "@/services/api/classwork";
 import { useSelector } from "react-redux";
-import { usePost } from "@/services/APIs/post";
+import { usePost } from "@/services/api/post";
 
 const tabData = [
   { text: "Students", icon: <BsPeople /> },

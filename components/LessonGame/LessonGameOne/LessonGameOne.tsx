@@ -12,10 +12,10 @@ import Image from "next/image";
 import Button from "@/components/Button/Button";
 import { BsFillPlayFill } from "react-icons/bs";
 import { ReactSortable } from "react-sortablejs";
-import { useAnsweredQuestion, useCheckAnswer } from "@/services/APIs/lessonGame";
-import wrongAnswerSound from "/public/assets/audios/notCorrect.mp3";
-import clickSound from "/public/assets/audios/click.mp3";
-import correctAnswerSound from "/public/assets/audios/yay.mp3";
+import { useAnsweredQuestion, useCheckAnswer } from "@/services/api/lessonGame";
+// import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
+// import clickSound from "@/public/assets/audios/click.mp3";
+import correctAnswerSound from "@/public/assets/audios/yay.mp3";
 
 const draggableList = [
   {
@@ -63,7 +63,7 @@ const LessonGameOne = ({
       setButtonColor("red");
 
       // play wrongAnswerSound audio
-      const audio = new Audio(wrongAnswerSound);
+      const audio = new Audio("/public/assets/audios/notCorrect.mp3");
       audio.play();
 
       // Create a timer to reset the button color after 1700 milliseconds
@@ -80,7 +80,7 @@ const LessonGameOne = ({
       setButtonColor("green");
 
       // play correctAnswerSound audio
-      const audio = new Audio(correctAnswerSound);
+      const audio = new Audio("/public/assets/audios/yay.mp3");
       audio.play();
 
       // move to next question by updating the question index
@@ -129,7 +129,7 @@ const LessonGameOne = ({
 
     setPuzzle((current) => current.filter((fruit) => fruit !== opt));
 
-    const audio = new Audio(clickSound);
+    const audio = new Audio("/public/assets/audios/click.mp3");
     audio.play();
     // dispatch(pickAnswer(opt))
   };

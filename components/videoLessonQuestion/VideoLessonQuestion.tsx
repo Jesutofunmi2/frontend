@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./videoLessonQuestion.module.css";
 import { Fade } from "react-awesome-reveal";
 import Button from "../Button/Button";
-import { useCheckAnswer } from "@/services/APIs/lessonGame";
-import wrongAnswerSound from "/public/assets/audios/notCorrect.mp3";
-import clickSound from "/public/assets/audios/click.mp3";
-import correctAnswerSound from "/public/assets/audios/yay.mp3";
+import { useCheckAnswer } from "@/services/api/lessonGame";
+// import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
+// import clickSound from "@/public/assets/audios/click.mp3";
+// import correctAnswerSound from "@/public/assets/audios/yay.mp3";
 import CorrectAnswerModal from "../Modal/CorrectAnswerModal/CorrectAnswerModal";
 
 const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQuestionsPopup }) => {
@@ -31,7 +31,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
       setButtonColor("red");
 
       // play wrongAnswerSound audio
-      const audio = new Audio(wrongAnswerSound);
+      const audio = new Audio("@/public/assets/audios/notCorrect.mp3");
       audio.play();
 
       // Create a timer to reset the button color after 1700 milliseconds
@@ -48,7 +48,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
       setButtonColor("green");
 
       // play correctAnswerSound audio
-      const audio = new Audio(correctAnswerSound);
+      const audio = new Audio("@/public/assets/audios/yay.mp3");
       audio.play();
 
       // Create a timer to reset the button color after 1700 milliseconds

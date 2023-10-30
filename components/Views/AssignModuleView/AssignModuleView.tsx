@@ -4,12 +4,12 @@ import Select2 from "@/components/Form/FormFields/Select/select2";
 import AddModuleForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
 import Modal from "@/components/Modal/Modal";
 import { useState } from "react";
-import { useGetLessons } from "@/services/APIs/lessons";
+import { useGetLessons } from "@/services/api/lessons";
 import AssignCard from "@/components/Card/AssignCard/AssignCard";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 import Button from "@/components/Button/Button";
-import { useAddModule } from "@/services/APIs/module";
+import { useAddModule } from "@/services/api/module";
 
 const AssignModuleView = ({}) => {
   const IDs = useSelector((state) => state?.user?.currentTeacher?.data);

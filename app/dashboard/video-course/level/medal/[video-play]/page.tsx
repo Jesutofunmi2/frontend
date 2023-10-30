@@ -5,7 +5,7 @@ import VideoCourseSidebar from "@/components/Sidebar/VideoCourseSidebar/VideoCou
 import React, { useState } from "react";
 import styles from "./page.module.css";
 import VideoLessonQuestion from "@/components/videoLessonQuestion/VideoLessonQuestion";
-import { useGetVideoPlay } from "@/services/APIs/videoplay";
+import { useGetVideoPlay } from "@/services/api/videoplay";
 import { Loader } from "@/components/Loader/Loader";
 import useMediaQuery from "@/utils/hooks/useMediaQuery";
 

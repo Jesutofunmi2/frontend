@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
 import Button from "@/components/Button/Button";
-import { useGetLessons } from "@/services/APIs/lessons";
+import { useGetLessons } from "@/services/api/lessons";
 import Modal from "@/components/Modal/Modal";
 import { Spinner } from "@/components/Loader/Loader";
 import Tab2 from "@/components/Tab/Tab2/Tab2";

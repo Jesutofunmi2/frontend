@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import styles from "./page.module.css";
 import LessonsCard from "@/components/Card/lessonCard/LessonCard";
-import { useGetLessons } from "@/services/APIs/lessons";
+import { useGetLessons } from "@/services/api/lessons";
 import { Loader } from "@/components/Loader/Loader";
 import { useSearchParams } from "next/navigation";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
