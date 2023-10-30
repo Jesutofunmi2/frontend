@@ -21,9 +21,9 @@ interface AddEditClassProps {
 const AddEditClass = ({
   classDetails,
   title,
-  mutate,
+ 
   handleFormSubmit,
-  setModalOpen,
+  // setModalOpen,
 }: AddEditClassProps) => {
   const IDs = useSelector((state) => state?.user?.currentSchool?.data)
   const { data: language } = useGetLanguages()
@@ -32,7 +32,7 @@ const AddEditClass = ({
     language_id: '',
     class_room_name: '',
   })
-  const { trigger: addClass } = useAddClass(payloadData, mutate)
+  // const { trigger: addClass } = useAddClass(payloadData, mutate)
 
   // SUBMIT FORM CONDITION
   const handleSubmit = (e) => {

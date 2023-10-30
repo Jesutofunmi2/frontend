@@ -78,17 +78,17 @@ const Class = () => {
   const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   if (studentDetails) {
-  //     editStudent({
-  //       payload: newPayload,
-  //       id: studentDetails?.student_id,
-  //     })
-  //   } else {
-  //     addStudent(payloadData)
-  //   }
-  // }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (studentDetails) {
+      editStudent({
+        payload: newPayload,
+        id: studentDetails?.student_id,
+      })
+    } else {
+      addStudent(payloadData)
+    }
+  }
 
   return (
     <>
@@ -120,13 +120,13 @@ const Class = () => {
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditClass
           title={studentDetails ? 'Edit Class' : 'Add Class'}
-          payloadData={payloadData}
-          setPayloadData={setPayloadData}
-          handleSubmit={handleSubmit}
-          studentDetails={studentDetails}
-          mutate={mutate}
-          data={data}
-          setModalOpen={setModalOpen}
+  
+
+          handleFormSubmit={handleSubmit}
+          classDetails={classDetails}
+
+
+          // setModalOpen={setModalOpen}
         />
       </Modal>
 
