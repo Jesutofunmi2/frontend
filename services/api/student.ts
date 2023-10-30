@@ -34,7 +34,7 @@ export const addStudent = async (payload: IFormStudent) => {
 // }
 
 //EDIT STUDENT
-export const editStudent = async (studentId: string, payload:IFormStudent) => {
+export const editStudent = async (studentId: string, payload:any) => {
   // async function sendRequest(url, { arg }) {
 
   toast.loading('Updating...', {

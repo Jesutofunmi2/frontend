@@ -23,27 +23,19 @@ import { IFormStudent } from '@/types/student'
 
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  const [studentDetails, setStudentDetails] = useState<IFormStudent | null>(null)
-  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass | any>()
+  const [studentDetails, setStudentDetails] = useState<any | null>(null)
+
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
 
   const { data: allClasses } = useGetClasses(schoolID)
-  const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
 
-  useEffect(() => {
-    if (selectedOptionForClass) {
-      const fetchData = async () => {
-        try {
-          let response = await getClassArmById(schoolID, selectedOptionForClass.id)
-          setClassArmByID(response)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-      fetchData()
-    }
-  }, [schoolID, selectedOptionForClass])
+  // useEffect(() => {
+  //   if (selectedOptionForClass) {
+
+  //     fetchData()
+  //   }
+  // }, [schoolID, selectedOptionForClass])
 
   const { error, data: allStudentsData, isLoading, mutate } = useGetStudents(schoolID)
   if (!allStudentsData) return null
@@ -77,14 +69,8 @@ const Student = () => {
 
   // Options for classes Select component
   const classOptions = allClasses?.map((item) => {
-    return { value: item, label: item?.classs_room_name }
+    return { value: item.id, label: item?.classs_room_name }
   })
-
-  const classArmoptions = allClassArmByID[0]?.class_arms.map(
-    (item: { id: number; name: string }) => {
-      return { label: item?.name, value: item.id }
-    }
-  )
 
   // HANDLE DELETE STUDENT
   const handleDelete = async (studentID: string) => {
@@ -97,15 +83,19 @@ const Student = () => {
 
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: IFormStudent) => {
-    values.class_id = selectedOptionForClass?.id
+    ;(values.class_id = values.class_id.value),
+      (values.classarm_id = values.classarm_id.value),
+      (values.gendar = values.gendar.value),
+      (values.session = values.session.value)
     let formData = { ...values }
+
     if (studentDetails) {
-      // const updatedItems = allStudentsData.map((el) =>
-      //   el.id === studentDetails.id ? studentDetails : el
-      // )
-      // console.log({ ...payloadData, ...studentDetails })
-      // mutate(updatedItems, false)
-      // await editStudent(studentDetails.student_id, payloadData)
+      const updatedItems = allStudentsData.map((el) =>
+        el.student_id === studentDetails.student_id ? formData : el
+      )
+      console.log(updatedItems)
+      mutate(updatedItems, false)
+      await editStudent(studentDetails.student_id, updatedItems)
     } else {
       mutate([...allStudentsData, formData], false)
       await addStudent(formData)
@@ -194,9 +184,9 @@ const Student = () => {
           handleFormSubmit={handleFormSubmit}
           studentDetails={studentDetails}
           classOptions={classOptions}
-          classArmoptions={classArmoptions}
-          setSelectedOptionForClass={setSelectedOptionForClass}
-          selectedOptionForClass={selectedOptionForClass}
+          // classArmoptions={classArmoptions}
+          // setSelectedOptionForClass={setSelectedOptionForClass}
+          // selectedOptionForClass={selectedOptionForClass}
         />
       </Modal>
 

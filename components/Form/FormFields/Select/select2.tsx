@@ -11,7 +11,7 @@ interface Options {
 interface SelectProps {
   title: string
   handleChange: (newValue: SingleValue<Options>) => void
-  classOptions: Options[]
+  classOptions: any
   value: IClass
 }
 
