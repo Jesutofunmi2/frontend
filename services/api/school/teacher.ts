@@ -1,7 +1,6 @@
 import useSWR from 'swr'
-
 import { toast } from 'react-toastify'
-import makeApiCall from '../apis'
+import makeApiCall from '..'
 import { ITeacher } from '@/types/teacher'
 import { IPayloadTeacher } from '@/types/teacher'
 

@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import Select from "../../FormFields/Select/Select";
 import { useGetLanguages } from "@/services/api/languages";
-import { useAddClass, useAddClassArm } from "@/services/api/class";
+import { useAddClass, useAddClassArm } from "@/services/api/school/class";
 import { useSelector } from "react-redux";
 import { AiOutlinePlusCircle, AiOutlineCloseCircle } from "react-icons/ai";
 

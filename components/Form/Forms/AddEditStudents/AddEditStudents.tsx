@@ -8,7 +8,7 @@ import { IClass } from '@/types/class'
 import { IFormStudent } from '@/types/student'
 import { Form, Formik } from 'formik'
 import * as yup from 'yup'
-import { getClassArmById } from '@/services/api/class'
+import { getClassArmById } from '@/services/api/school/class'
 import Select from '../../FormFields/Select/DropDown'
 
 

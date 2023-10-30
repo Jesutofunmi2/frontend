@@ -7,10 +7,10 @@ import Button from '@/components/Button/Button'
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { addStudent, deleteStudent, editStudent } from '@/services/api/student'
+import { addStudent, deleteStudent, editStudent } from '@/services/api/school/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
-import { useGetClasses } from '@/services/api/class'
+import { useGetClasses } from '@/services/api/school/class'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
 import NotFound from '@/components/NotFound/NotFound'
@@ -21,7 +21,6 @@ import { mutate } from 'swr'
 
 const Class = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-
   const [studentDetails, setStudentDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [armOpenwithID, setArmOpenWithID] = useState(false)
@@ -119,7 +118,7 @@ const Class = () => {
       </div>
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
-        {/* <AddEditClass
+        <AddEditClass
           title={studentDetails ? 'Edit Class' : 'Add Class'}
           payloadData={payloadData}
           setPayloadData={setPayloadData}
@@ -128,7 +127,7 @@ const Class = () => {
           mutate={mutate}
           data={data}
           setModalOpen={setModalOpen}
-        /> */}
+        />
       </Modal>
 
       {/* MODAL TO MODIFY STUDENTS */}

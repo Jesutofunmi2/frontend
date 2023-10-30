@@ -1,10 +1,9 @@
-import { request } from '@/config/config'
-import useSWRMutation from 'swr/mutation'
+
 import useSWR from 'swr'
-import { useSelector } from 'react-redux'
+
 import { toast } from 'react-toastify'
-import makeApiCall from '../apis'
-import { ScopedMutator } from 'swr/_internal'
+import makeApiCall from '..'
+
 import { IFormStudent, IStudent } from '@/types/student'
 
 //ADD STUDENT

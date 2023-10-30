@@ -3,7 +3,7 @@ import useSWR from 'swr'
 
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-import makeApiCall from '../apis'
+import makeApiCall from '.'
 
 //ADD CLASSWORK
 export const useAddClasswork = (mutate) => {

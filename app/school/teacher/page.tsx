@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 import AddEditTeachers from '@/components/Form/Forms/AddEditTeachers/AddEditTeachers'
-import { addTeacher, deleteTeacher, editTeacher, useGetTeachers } from '@/services/api/teacher'
+import { addTeacher, deleteTeacher, editTeacher, useGetTeachers } from '@/services/api/school/teacher'
 
 import Image from 'next/image'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'

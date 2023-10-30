@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { getToken } from '../api/token'
+import { getToken } from './token'
 import { TOKEN_KEY } from '@/utils/constants'
 
 const token = getToken()
