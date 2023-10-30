@@ -1,36 +1,49 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import styles from './textInput.module.css'
 import { FieldHookConfig, useField, Field } from 'formik'
 
-interface LabelProps {
+interface InputProps {
   label: string
+  name?: string
+  id?: string
+  required?: boolean
+  readOnly?: boolean
+  onChange?: (e: ChangeEvent) => void
+  defaultValue?: string
+  type?: string
+  placeholder?: string
 }
-const TextInput = ({ label, ...props }: LabelProps & FieldHookConfig<string>) => {
-  const [field, meta] = useField(props)
-  // console.log(props)
+const TextInput = ({
+  label,
+  onChange,
+  defaultValue,
+  placeholder,
+  type,
+  name,
+  required,
+  id,
+  readOnly,
+  ...props
+}: InputProps) => {
+
+
   return (
     <>
       <div className={styles.inputWrap}>
-        <label className="text-sm font-bold" htmlFor={props.id || props.name}>
+        <label className="text-sm font-bold" htmlFor={id || name}>
           {label}
         </label>
-        <Field
-          {...field}
-          placeholder={props.placeholder}
-          className={styles.input}
-          required
-        />
-        {/* <input
-      //  value={defaultValue}
-          type={type ? type : 'text'}
+        <input
+          defaultValue={defaultValue}
+          type={type? type:"text"}
           name={name}
-          placeholder={placeholder ? placeholder : ''}
-          onChange={(e) => (handleChange ? handleChange(e) : null)}
+          placeholder={placeholder}
+          onChange={onChange}
           className={styles.input}
           // onKeyDown={(e) => (type === "text" ? handleTextInput(e) : null)}
           required
           readOnly={readOnly}
-        /> */}
+        />
       </div>
     </>
   )
