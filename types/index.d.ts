@@ -22,17 +22,7 @@ export interface Profile {
 
 export interface ISchool extends Profile {}
 // export interface SchoolProfile extends TeacherShool {}
-export interface ITeacher {
-  id: string
-  address: string
-  count_down: number
-  email: string
-  image_url: string
-  name: string
-  teacher_id: string
-  survey_status: string
-  school: TeacherShool
-}
+
 
 export interface TeacherShool extends Profile {
   email_verified_at: string

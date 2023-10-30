@@ -8,14 +8,14 @@ interface InputProps {
   id?: string
   required?: boolean
   readOnly?: boolean
-  onChange?: (e: ChangeEvent) => void
+  handleChange?: (e:React.FormEvent<HTMLInputElement>) => void
   defaultValue?: string
   type?: string
   placeholder?: string
 }
 const TextInput = ({
   label,
-  onChange,
+  handleChange,
   defaultValue,
   placeholder,
   type,
@@ -38,7 +38,7 @@ const TextInput = ({
           type={type? type:"text"}
           name={name}
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={handleChange}
           className={styles.input}
           // onKeyDown={(e) => (type === "text" ? handleTextInput(e) : null)}
           required

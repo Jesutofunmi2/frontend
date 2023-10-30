@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
@@ -14,29 +14,17 @@ import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 import { addStudent, deleteStudent, editStudent, useGetStudents } from '@/services/api/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
-import { getClassArmById, useGetClasses } from '@/services/api/class'
+import { useGetClasses } from '@/services/api/class'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
-
-import { IClass } from '@/types/class'
 import { IFormStudent } from '@/types/student'
 
 const Student = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
   const [studentDetails, setStudentDetails] = useState<any | null>(null)
-
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-
   const { data: allClasses } = useGetClasses(schoolID)
-
-  // useEffect(() => {
-  //   if (selectedOptionForClass) {
-
-  //     fetchData()
-  //   }
-  // }, [schoolID, selectedOptionForClass])
-
   const { error, data: allStudentsData, isLoading, mutate } = useGetStudents(schoolID)
   if (!allStudentsData) return null
   if (isLoading) return <Loader />
@@ -88,12 +76,10 @@ const Student = () => {
       (values.gendar = values.gendar.value),
       (values.session = values.session.value)
     let formData = { ...values }
-
     if (studentDetails) {
       const updatedItems = allStudentsData.map((el) =>
         el.student_id === studentDetails.student_id ? formData : el
       )
-      console.log(updatedItems)
       mutate(updatedItems, false)
       await editStudent(studentDetails.student_id, updatedItems)
     } else {
@@ -185,8 +171,6 @@ const Student = () => {
           studentDetails={studentDetails}
           classOptions={classOptions}
           // classArmoptions={classArmoptions}
-          // setSelectedOptionForClass={setSelectedOptionForClass}
-          // selectedOptionForClass={selectedOptionForClass}
         />
       </Modal>
 

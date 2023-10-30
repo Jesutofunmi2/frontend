@@ -7,22 +7,24 @@ import userIcon from '/public/assets/images/userIcon.png'
 
 interface SelectImageProps {
   name?: string
-  setFile?: React.Dispatch<React.SetStateAction<File | null>>
+  setFile?: React.Dispatch<React.SetStateAction<File | string>>
 }
 const SelectImage = ({ name, setFile }: SelectImageProps) => {
   const [preview, setPreview] = useState<string|any>(null)
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.target.files !== null){
-      const selected = e.target.files[0]
+      const selectedFile = e.target.files[0]
       const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/jpg']
-      if (selected && ALLOWED_TYPES.includes(selected.type)) {
+      if (selectedFile && ALLOWED_TYPES.includes(selectedFile.type)) {
         let reader = new FileReader()
         reader.onloadend = () => {
           setPreview(reader.result)
         }
-        reader.readAsDataURL(selected)
-        setFile(selected)
+        reader.readAsDataURL(selectedFile)
+       
+        // console.log(selectedFile)
+        setFile(selectedFile)
       } else {
         // setError(true);
       }
@@ -47,7 +49,7 @@ const SelectImage = ({ name, setFile }: SelectImageProps) => {
           accept="image/*"
           style={{ display: 'none' }}
           onChange={handleImageChange}
-          required
+          // required
         />
       </div>
     </>

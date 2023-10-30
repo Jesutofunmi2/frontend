@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import styles from './page.module.css'
-import useSWR from 'swr'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
 import Button from '@/components/Button/Button'
@@ -12,37 +11,31 @@ import 'react-toastify/dist/ReactToastify.css'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 import AddEditTeachers from '@/components/Form/Forms/AddEditTeachers/AddEditTeachers'
-import {
-  useAddTeacher,
-  useDeleteTeacher,
-  useEditTeacher,
-  useGetTeachers,
-} from '@/services/api/teacher'
+import { addTeacher, deleteTeacher, editTeacher, useGetTeachers } from '@/services/api/teacher'
 
 import Image from 'next/image'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
-import { ITeacher } from '@/types'
-// import { getTeachers } from '@/services/Apis/school/teacher'
+import { ITeacher, IPayloadTeacher } from '@/types/teacher'
 
 const Teacher = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
-  // const [filteredData, setFilteredData] = useState()
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState<File | string>('')
 
-  const [payloadData, setPayloadData] = useState({
+  const [payloadData, setPayloadData] = useState<IPayloadTeacher>({
+    image_url: '',
     school_id: `${schoolID}`,
     name: '',
     email: '',
     address: 'bosss',
   })
 
-  const { data: allTeachersData, isLoading, error } = useGetTeachers(schoolID)
+  const { data: allTeachersData, isLoading, error, mutate } = useGetTeachers(schoolID)
+  if (!allTeachersData) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
@@ -76,26 +69,47 @@ const Teacher = () => {
   }
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
-    if (teacherDetails) {
-      editTeacher({
-        image_url: file,
-        name: payloadData.name,
-        email: payloadData.email,
-        address: 'bosss',
-        teacher_id: teacherDetails.teacher_id,
-        school_id: payloadData.school_id,
+
+    if (typeof file === 'string' && file.length === 0) {
+      toast.error('Upload image', {
+        position: toast.POSITION.TOP_RIGHT,
       })
-    } else {
-      addTeacher({
-        image_url: file,
-        school_id: payloadData.school_id,
-        name: payloadData.name,
-        email: payloadData.email,
-        address: 'bosss',
-      })
+      return
     }
+    console.log(file)
+
+    if (teacherDetails) {
+      // editTeacher({
+      //   image_url: file,
+      //   name: payloadData.name,
+      //   email: payloadData.email,
+      //   address: 'bosss',
+      //   teacher_id: teacherDetails.teacher_id,
+      //   school_id: payloadData.school_id,
+      // })
+    } else {
+      // const formData = new FormData()
+      // formData.append('image_url', file)
+      // formData.append('school_id', payloadData.school_id)
+      // formData.append('name', payloadData.name)
+      // formData.append('email', payloadData.email)
+      // formData.append('address', 'bosss')
+
+      const formData = {
+        image_url: file.name,
+        school_id: payloadData.school_id,
+        name: payloadData.name,
+        email: payloadData.email,
+        address: 'bosss',
+      }
+      console.log(formData)
+      // mutate([...allTeachersData, formData], false)
+      // await addTeacher(formData)
+    }
+    mutate()
+    setModalOpen(false)
   }
 
   // HANDLE SEARCH

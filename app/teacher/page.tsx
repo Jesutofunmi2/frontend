@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./page.module.css";
 import SelectImage from "@/components/SelectImage/SelectImage";
 import TextInput from "@/components/Form/FormFields/TextInput/TextInput";
-import Button from "@/components/Button/Button";
+
 import { useSelector } from "react-redux";
 
 const TeacherProfile = () => {

@@ -11,19 +11,14 @@ import * as yup from 'yup'
 import { getClassArmById } from '@/services/api/class'
 import Select from '../../FormFields/Select/DropDown'
 
-interface Options {
-  label: string
-  value: any
-}
+
 interface AddEditStudentsProps {
   title: string
   handleFormSubmit: (values: any) => void
   schoolID: string
   studentDetails: any
   classOptions: any
-
-  setSelectedOptionForClass: React.Dispatch<React.SetStateAction<IClass | any>>
-  selectedOptionForClass: any
+  
 }
 const AddEditStudents = ({
   schoolID,
@@ -115,7 +110,7 @@ const AddEditStudents = ({
 
             <div className={styles.inputWrap}>
               <TextInput
-                onChange={handleChange}
+                handleChange={handleChange}
                 label="First name"
                 name="first_name"
                 id="first_name"
@@ -123,7 +118,7 @@ const AddEditStudents = ({
                 placeholder="Enter name"
               />
               <TextInput
-                onChange={handleChange}
+                handleChange={handleChange}
                 label="Last Name"
                 name="last_name"
                 id="last_name"
@@ -131,7 +126,7 @@ const AddEditStudents = ({
                 placeholder="Last name"
               />
               <TextInput
-                onChange={handleChange}
+               handleChange={handleChange}
                 label="Language"
                 name="language"
                 id="language"
@@ -142,7 +137,7 @@ const AddEditStudents = ({
                 label="Age"
                 name="age"
                 id="age"
-                onChange={handleChange}
+                handleChange={handleChange}
                 type="number"
                 placeholder="Enter age (number)"
               />
