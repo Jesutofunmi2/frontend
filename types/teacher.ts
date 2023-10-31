@@ -1,6 +1,6 @@
 export interface IPayloadTeacher {
   image_url: string | File
-  school_id: string
+  school_id: number
   name: string
   email: string
   address: string

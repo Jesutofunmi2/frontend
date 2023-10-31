@@ -57,7 +57,7 @@ export const editStudent = async (studentId: string, payload:any) => {
 }
 
 // GET STUDENTS
-export const useGetStudents = (schoolID: string) => {
+export const useGetStudents = (schoolID: number) => {
   const url = `/api/v1/students?school_id=${schoolID}`
   const fetcher = async () => {
     const res = await makeApiCall(url, 'get')

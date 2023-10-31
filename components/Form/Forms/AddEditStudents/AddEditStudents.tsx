@@ -26,7 +26,7 @@ type Inputs = {
 interface AddEditStudentsProps {
   title: string
   handleFormSubmit: (values: any) => void
-  schoolID: string
+  schoolID: number
   studentDetails: any
   classOptions: any
 }
@@ -129,7 +129,7 @@ const AddEditStudents = ({
               <Select
                 onChange={(val) => field.onChange(val.value)}
                 label="Gender"
-                defaultValue={studentDetails? studentDetails?.gendar : 'Select'}
+                defaultValue={genderOptions.find(({ value }) => value == "Male")}
                 options={genderOptions}
               />
             )}

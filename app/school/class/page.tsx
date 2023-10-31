@@ -20,7 +20,7 @@ import { Ilanguage } from '@/types/languages'
 import { ClassArmPayload } from '@/types/classarm'
 
 const Class = () => {
-  const schoolID = useSelector(userData).currentSchool?.data.id!
+  const schoolID = Number(useSelector(userData).currentSchool?.data.id!)
   const [classDetails, setClassDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [classArmOpen, setClassArmOpen] = useState<ClassArmPayload | null>(null)
@@ -64,10 +64,6 @@ const Class = () => {
       position: toast.POSITION.TOP_RIGHT,
     })
   }
-
-
-
- 
 
 
 

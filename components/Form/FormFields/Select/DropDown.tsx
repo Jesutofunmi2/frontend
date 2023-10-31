@@ -7,13 +7,15 @@ interface SelectProps {
   options: any
   onChange: (value: any) => void
   defaultValue: any
+  isMulti?:boolean
 }
-const DropDown = ({ label, onChange, defaultValue, options }: SelectProps) => {
+const DropDown = ({  isMulti,label, onChange, defaultValue, options }: SelectProps) => {
   return (
     <>
       <div className={styles.selectWrap}>
         <label>{label}</label>
         <Select
+     
           className={styles.input}
           defaultValue={defaultValue}
           onChange={onChange}
@@ -22,8 +24,9 @@ const DropDown = ({ label, onChange, defaultValue, options }: SelectProps) => {
             control: (baseStyles, state) => ({
               ...baseStyles,
               borderColor: state.isFocused ? 'grey' : '#F19C00',
-              height: '43px',
+              minHeight: '43px',
               borderRadius: '14px',
+            
             }),
           }}
           required

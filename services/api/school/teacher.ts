@@ -48,7 +48,7 @@ export const editTeacher = async (payload: any) => {
 }
 
 // GET TEACHERS
-export const useGetTeachers = (schoolID: string) => {
+export const useGetTeachers = (schoolID: number) => {
   const url = `/api/v1/teachers?school_id=${schoolID}`
   const fetcher = async () => {
     const res = await makeApiCall(url, 'get')

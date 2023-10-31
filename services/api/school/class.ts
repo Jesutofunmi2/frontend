@@ -6,7 +6,7 @@ import { IClass } from '@/types/class'
 import { ClassArmPayload } from '@/types/classarm'
 
 // GET CLASSES
-export const useGetClasses = (schoolID: string) => {
+export const useGetClasses = (schoolID: number) => {
   const url = `/api/v1/showSchoolClasses?school_id=${schoolID}`
   const fetcher = async (...args: string[]) => {
     const res = await makeApiCall(url, 'get', ...args)
@@ -110,7 +110,7 @@ export const addClassArm = async (payloadData: ClassArmPayload|any) => {
 }
 
 // GET CLASS BY ID
-export const getClassById = async (schoolID: string, classID: number) => {
+export const getClassById = async (schoolID: number, classID: number) => {
   const res = await makeApiCall(
     `/api/v1/getSingleClass?school_id=${schoolID}&class_id=${classID}`,
     'get'

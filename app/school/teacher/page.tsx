@@ -22,17 +22,18 @@ import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { ITeacher, IPayloadTeacher } from '@/types/teacher'
+import { useGetClasses } from '@/services/api/school/class'
 
 const Teacher = () => {
-  const schoolID = useSelector(userData).currentSchool?.data.id!
+  const schoolID = Number(useSelector(userData).currentSchool?.data.id)!
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
   const [file, setFile] = useState<File | string>('')
-
+  const { data: allClasses } = useGetClasses(schoolID)
   const [payloadData, setPayloadData] = useState<IPayloadTeacher>({
     image_url: '',
-    school_id: `${schoolID}`,
+    school_id: schoolID,
     name: '',
     email: '',
     address: 'bosss',
@@ -59,6 +60,10 @@ const Teacher = () => {
         break
     }
   }
+  // Options for classes Select component
+  const classOptions = allClasses?.map((item) => {
+    return { value: item.id, label: item?.classs_room_name }
+  })
 
   // HANDLE COPY
   const handleCopy = () => {
@@ -68,21 +73,22 @@ const Teacher = () => {
   }
 
   // HANDLE DELETE STUDENT
-  const handleDelete = (teacherID: string) => {
-    deleteTeacher(teacherID)
+  const handleDelete = async (teacherID: string) => {
+   let res= await deleteTeacher(teacherID)
+   if(res){
+    mutate()
+   }
   }
 
   // SUBMIT FORM CONDITION
-  const handleFormSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault()
-
+  const handleFormSubmit = async (values: any, data: any,reset:()=>void) => {
     if (typeof file === 'string' && file.length === 0) {
       toast.error('Upload image', {
         position: toast.POSITION.TOP_RIGHT,
       })
       return
     }
-    console.log(file)
+
 
     if (teacherDetails) {
       // editTeacher({
@@ -94,25 +100,25 @@ const Teacher = () => {
       //   school_id: payloadData.school_id,
       // })
     } else {
-      // const formData = new FormData()
-      // formData.append('image_url', file)
-      // formData.append('school_id', payloadData.school_id)
-      // formData.append('name', payloadData.name)
-      // formData.append('email', payloadData.email)
-      // formData.append('address', 'bosss')
+      const classAndClassArmdata = data?.map((item: any) => {
+        return { class_id: item.class_id, classarm_id: item.class_arm_id }
+      })
 
       const formData = {
         image_url: file.name,
-        school_id: payloadData.school_id,
-        name: payloadData.name,
-        email: payloadData.email,
-        address: 'bosss',
+        school_id: schoolID,
+        name: values.name,
+        email: values.email,
+        address: values.address,
+        data: classAndClassArmdata,
       }
-      console.log(formData)
-      // mutate([...allTeachersData, formData], false)
-      // await addTeacher(formData)
+      const res = await addTeacher(formData)
+      if (res) {
+        mutate()
+        reset()
+      }
     }
-    mutate()
+ 
     setModalOpen(false)
   }
 
@@ -176,7 +182,6 @@ const Teacher = () => {
               text="Add Teacher"
               handleClick={() => handleModalOpen('add', null)}
             />
-
             <Button
               width="150px"
               height="30px"
@@ -198,6 +203,8 @@ const Teacher = () => {
           handleFormSubmit={handleFormSubmit}
           teacherDetails={teacherDetails}
           setFile={setFile}
+          classOptions={classOptions}
+          schoolID={schoolID}
         />
       </Modal>
       {/* MODAL TO MODIFY STUDENTS */}

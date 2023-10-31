@@ -25,7 +25,7 @@ import { userData } from '@/services/redux/features/userSlice'
 import { IFormStudent } from '@/types/student'
 
 const Student = () => {
-  const schoolID = useSelector(userData).currentSchool?.data.id!
+  const schoolID = Number(useSelector(userData).currentSchool?.data.id!)
   const [studentDetails, setStudentDetails] = useState<any | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
