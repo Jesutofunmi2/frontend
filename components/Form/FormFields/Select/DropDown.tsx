@@ -6,7 +6,7 @@ interface SelectProps {
   label: string
   options: any
   onChange: (value: any) => void
-  defaultValue: string
+  defaultValue: any
 }
 const DropDown = ({ label, onChange, defaultValue, options }: SelectProps) => {
   return (

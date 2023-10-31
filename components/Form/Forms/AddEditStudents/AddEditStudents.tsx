@@ -66,6 +66,7 @@ const AddEditStudents = ({
     }
   }, [selectedOptionForClass])
 
+  console.log(studentDetails)
   const genderOptions = [
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'female' },
@@ -78,12 +79,7 @@ const AddEditStudents = ({
     }
   )
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<Inputs>()
+  const { register, handleSubmit, control } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
 
   return (
@@ -99,13 +95,15 @@ const AddEditStudents = ({
             name="first_name"
             type="text"
             placeholder="Enter name"
-          />
+            defaultValue={studentDetails? studentDetails.username:""}
+                     />
           <TextInput
             register={{ ...register('last_name', { required: true }) }}
             label="Last Name"
             name="last_name"
             type="text"
             placeholder="Last name"
+            defaultValue={studentDetails? studentDetails.last_name:""}
           />
           <TextInput
             register={{ ...register('language', { required: true }) }}
@@ -113,6 +111,7 @@ const AddEditStudents = ({
             name="language"
             type="text"
             placeholder="Enter language"
+            defaultValue={studentDetails? studentDetails.language:""}
           />
           <TextInput
             register={{ ...register('age', { required: true }) }}
@@ -120,6 +119,7 @@ const AddEditStudents = ({
             name="age"
             type="number"
             placeholder="Enter age (number)"
+            defaultValue={studentDetails? studentDetails.age:""}
           />
 
           <Controller
@@ -129,7 +129,7 @@ const AddEditStudents = ({
               <Select
                 onChange={(val) => field.onChange(val.value)}
                 label="Gender"
-                defaultValue={studentDetails?.gendar || 'Select'}
+                defaultValue={studentDetails? studentDetails?.gendar : 'Select'}
                 options={genderOptions}
               />
             )}
@@ -140,6 +140,7 @@ const AddEditStudents = ({
             name="term"
             type="text"
             placeholder="Enter school term"
+            defaultValue={studentDetails? studentDetails.term:""}
           />
 
           <Controller

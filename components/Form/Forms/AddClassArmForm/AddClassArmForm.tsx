@@ -29,34 +29,33 @@ const AddClassArmForm = ({
   setOpenClassArm,
   mutate,
 }: ClassArmFormProps) => {
-
-  const handleFormSubmit = (data: { data: any }) => {
-    console.log(data)
-
-    addClassArm({
+  const handleFormSubmit = async (data: { data: any }, reset: () => void) => {
+    let res = await addClassArm({
       school_id: schoolID,
       class_id: classArmOpen?.class_id,
       language_id: classArmOpen?.language_id,
       data: data.data,
     })
-    mutate()
-    setOpenClassArm(false)
+    if (res) {
+      setOpenClassArm(false)
+      reset()
+      mutate()
+    }
   }
 
   let renderCount = 0
-  const { register, handleSubmit, control } = useForm<Inputs>({
+  const { register, handleSubmit, control, reset } = useForm<Inputs>({
     defaultValues: {
       data: [{ name: '' }],
     },
   })
-  const { fields, prepend, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'data',
   })
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    handleFormSubmit(data)
+    handleFormSubmit(data, reset)
   }
-
   renderCount++
   return (
     <>
@@ -86,7 +85,7 @@ const AddClassArmForm = ({
           type="button"
           className={styles.addWrap}
           onClick={() =>
-            prepend({
+            append({
               name: '',
             })
           }

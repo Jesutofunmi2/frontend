@@ -23,7 +23,12 @@ interface AddEditClassProps {
 }
 
 const AddEditClass = ({ title, handleFormSubmit, languageOptions }: AddEditClassProps) => {
-  const { register, handleSubmit, control } = useForm<Inputs>()
+  const { register, handleSubmit, control } = useForm<Inputs>({
+    defaultValues: {
+      class_room_name: ' ',
+      language_id: 0,
+    },
+  })
   const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
 
   return (
