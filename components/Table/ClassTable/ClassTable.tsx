@@ -30,7 +30,6 @@ const ClassTable = ({
   const [sortBy, setSortBy] = useState(null)
   const [sortOrder, setSortOrder] = useState('ascending')
   const [filterText, setFilterText] = useState('')
-  // const [isDropDown, setIsDropDown] = useState<Number>()
   const [isActive, setActive] = useState({ id: 0, status: false })
 
   const handleSort = (key: any) => {
@@ -89,9 +88,13 @@ const ClassTable = ({
   }
 
   const handleDeleteClass = async (class_id: number) => {
-    console.log(class_id)
-    await deleteClass(schoolID, class_id)
-    mutate()
+// console.log(schoolID, class_id)
+// Cors Error
+    let res =await deleteClass(schoolID, class_id)
+    if(res){
+      mutate()
+    }
+  
   }
   return (
     <>

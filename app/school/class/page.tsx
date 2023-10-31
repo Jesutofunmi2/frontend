@@ -26,15 +26,6 @@ const Class = () => {
   const [classArmOpen, setClassArmOpen] = useState<ClassArmPayload | null>(null)
   const [isOpenClassArm, setOpenClassArm] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  // const [payloadData, setPayloadData] = useState({
-  //   school_id: `${schoolID}`,
-  //   first_name: '',
-  //   last_name: '',
-  //   language: '',
-  //   age: '',
-  //   gendar: '',
-  //   country: '',
-  // })
   const { data: allClassesData, isLoading, error, mutate } = useGetClasses(schoolID)
   const { data: languages } = useGetLanguages()
   if (!allClassesData || !languages) return
@@ -74,21 +65,19 @@ const Class = () => {
     })
   }
 
-  // HANDLE DELETE STUDENT
-  // const handleDelete = (studentID) => {
-  //   // console.log(studentID);
-  //   deleteStudent(studentID);
-  // };
 
-  // Remove school_id from payload data. school_id is not required in edit.
-  // const { school_id, ...newPayload } = payloadData
 
-  // SUBMIT FORM CONDITION
+ 
+
+
+
   const handleFormSubmit = (values: any) => {
     if (classDetails) {
       // editClass()
     } else {
-      addClass(schoolID, values.language_id, values.class_room_name)
+
+      // mutate({ ...allClassesData, values })
+      addClass(Number(schoolID), Number(values.language_id), values.class_room_name)
     }
     mutate()
     setModalOpen(false)
@@ -124,14 +113,12 @@ const Class = () => {
           setOpenClassArm={setOpenClassArm}
           setClassArmOpen={setClassArmOpen}
         />
-      
       </div>
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditClass
           title={classDetails ? 'Edit Class' : 'Add Class'}
           handleFormSubmit={handleFormSubmit}
-          classDetails={classDetails}
           languageOptions={languageOptions}
         />
       </Modal>

@@ -18,8 +18,8 @@ export const useGetClasses = (schoolID: string) => {
 
 //ADD CLASS
 export const addClass = async (
-  school_id: string,
-  language_id: string,
+  school_id: number,
+  language_id: number,
   class_room_name: string,
 
 ) => {
@@ -54,13 +54,13 @@ export const addClass = async (
 // No endpoints yet
 
 // DELETE CLASS
-export const deleteClass = async (schoolID: number, class_id: number) => {
+export const deleteClass = async (school_id: number, class_id: number) => {
   toast.loading('Deleting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
   try {
     const res = await makeApiCall(
-      `/deleteSchoolClass?school_id=${schoolID}&class_id=${class_id}`,
+      `/deleteSchoolClass?school_id=${school_id}&class_id=${class_id}`,
       'delete'
     )
     toast.dismiss()

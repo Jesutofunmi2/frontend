@@ -19,67 +19,12 @@ type Inputs = {
 interface AddEditClassProps {
   title: string
   handleFormSubmit: (values: any) => void
-  classDetails: any
   languageOptions: { value: number; label: string }[]
 }
 
-const AddEditClass = ({
-  classDetails,
-  title,
-  handleFormSubmit,
-  languageOptions,
-}: AddEditClassProps) => {
-  // const IDs = useSelector((state) => state?.user?.currentSchool?.data)
-  // const { data: language } = useGetLanguages()
-  // const [payloadData, setPayloadData] = useState({
-  //   school_id: `${IDs?.id}`,
-  //   language_id: '',
-  //   class_room_name: '',
-  // })
-
-  // SUBMIT FORM CONDITION
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   addClass(payloadData)
-  //   setModalOpen(false)
-  // }
-
-  // Options for Select component
-  // const options = language?.data?.map((item) => {
-  //   return { value: item?.id, label: item?.name }
-  // })
-
-  // HANDLE INPUT FIELDS
-  // const handleChange = (e) => {
-  //   const data = { ...payloadData }
-  //   data[e.target.name] = e.target.value
-  //   setPayloadData(data)
-  // }
-
-  // Handle Select change
-  // const handlechange = (e) => {
-  //   console.log(e.value)
-  //   setPayloadData({ ...payloadData, language_id: e.value })
-  // }
-
-  // Select component styles
-  // const colourStyles = {
-  //   control: (baseStyles, state) => ({
-  //     ...baseStyles,
-  //     borderColor: '#F19C00',
-  //     height: '45px',
-  //     borderRadius: '15px',
-  //     width: '100%',
-  //   }),
-  // }
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) =>handleFormSubmit(data)
+const AddEditClass = ({ title, handleFormSubmit, languageOptions }: AddEditClassProps) => {
+  const { register, handleSubmit, control } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
 
   return (
     <>
@@ -95,7 +40,7 @@ const AddEditClass = ({
             type="text"
             placeholder="Class Room Name"
           />
-         
+
           <Controller
             name="language_id"
             control={control}
