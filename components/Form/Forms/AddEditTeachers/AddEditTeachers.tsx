@@ -176,7 +176,7 @@ const AddEditTeachers = ({
                   onChange={(val) => {
                     field.onChange(val.value), getClassAndClassArmData(val)
                   }}
-                  label="Class Arm"
+                  label="Class Arm(Select class arm for each class)"
                   defaultValue={'Select'}
                   options={classArmoptions}
                 />
