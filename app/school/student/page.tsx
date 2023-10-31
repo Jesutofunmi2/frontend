@@ -1,6 +1,6 @@
 'use client'
 
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
@@ -12,7 +12,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
-import { addStudent, deleteStudent, editStudent, useGetStudents } from '@/services/api/school/student'
+import {
+  addStudent,
+  deleteStudent,
+  editStudent,
+  useGetStudents,
+} from '@/services/api/school/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { useGetClasses } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
@@ -71,7 +76,7 @@ const Student = () => {
 
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: IFormStudent) => {
-    values.school_id=String(schoolID)
+    values.school_id = String(schoolID)
     let formData = { ...values }
     if (studentDetails) {
       const updatedItems = allStudentsData.map((el) =>
@@ -167,7 +172,6 @@ const Student = () => {
           handleFormSubmit={handleFormSubmit}
           studentDetails={studentDetails}
           classOptions={classOptions}
-          
         />
       </Modal>
 
