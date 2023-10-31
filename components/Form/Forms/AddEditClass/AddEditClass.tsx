@@ -13,7 +13,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 type Inputs = {
   class_room_name: string
-  language: any
+  language_id: number
 }
 
 interface AddEditClassProps {
@@ -29,13 +29,13 @@ const AddEditClass = ({
   handleFormSubmit,
   languageOptions,
 }: AddEditClassProps) => {
-  const IDs = useSelector((state) => state?.user?.currentSchool?.data)
+  // const IDs = useSelector((state) => state?.user?.currentSchool?.data)
   // const { data: language } = useGetLanguages()
-  const [payloadData, setPayloadData] = useState({
-    school_id: `${IDs?.id}`,
-    language_id: '',
-    class_room_name: '',
-  })
+  // const [payloadData, setPayloadData] = useState({
+  //   school_id: `${IDs?.id}`,
+  //   language_id: '',
+  //   class_room_name: '',
+  // })
 
   // SUBMIT FORM CONDITION
   // const handleSubmit = (e) => {
@@ -79,7 +79,7 @@ const AddEditClass = ({
     control,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
+  const onSubmit: SubmitHandler<Inputs> = (data) =>handleFormSubmit(data)
 
   return (
     <>
@@ -100,7 +100,7 @@ const AddEditClass = ({
             <Select options={options} onChange={handlechange} styles={colourStyles} />
           </div> */}
           <Controller
-            name="language"
+            name="language_id"
             control={control}
             render={({ field }) => (
               <Select
@@ -113,7 +113,7 @@ const AddEditClass = ({
           />
         </div>
         <div className={styles.btnWrap}>
-          <Button maxWidth="150px" text="Save" />
+          <Button maxWidth="150px" type="submit" text="Save" />
         </div>
       </form>
       <ToastContainer />

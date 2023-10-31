@@ -20,7 +20,7 @@ export const addClass = async (
   school_id: string,
   language_id: string,
   class_room_name: string,
-  payloadData: any
+
 ) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
@@ -28,8 +28,7 @@ export const addClass = async (
   try {
     const res = await makeApiCall(
       `/api/v1/addClass?school_id=${school_id}&language_id=${language_id}&class_room_name=${class_room_name}`,
-      'post',
-      payloadData
+      'post'
     )
     toast.dismiss()
     if (res) {

@@ -79,19 +79,19 @@ const Class = () => {
   // };
 
   // Remove school_id from payload data. school_id is not required in edit.
-  const { school_id, ...newPayload } = payloadData
+  // const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
+  const handleFormSubmit = (values:any) => {
     if (classDetails) {
       // editClass()
     } else {
-      // addClass(payloadData)
+      addClass(schoolID, values.language_id, values.class_room_name)
     }
+    mutate()
+    setModalOpen(false)
   }
 
-  
   return (
     <>
       <div>
@@ -122,9 +122,9 @@ const Class = () => {
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditClass
           title={classDetails ? 'Edit Class' : 'Add Class'}
-          handleFormSubmit={handleSubmit}
+          handleFormSubmit={handleFormSubmit}
           classDetails={classDetails}
-          languageOptions ={languageOptions }
+          languageOptions={languageOptions}
         />
       </Modal>
 
