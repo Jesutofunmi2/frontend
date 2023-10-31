@@ -7,24 +7,24 @@ import 'react-toastify/dist/ReactToastify.css'
 import Select from 'react-select'
 // import Select from "../../FormFields/Select/Select";
 import { useGetLanguages } from '@/services/api/languages'
-import { useAddClass } from '@/services/api/school/class'
+import { addClass } from '@/services/api/school/class'
 import { useSelector } from 'react-redux'
+import { Ilanguage } from '@/types/languages'
 
 interface AddEditClassProps {
   title: string
   handleFormSubmit: (values: any) => void
-  schoolID: string
   classDetails: any
-  classOptions: any
+  languageOptions : Ilanguage[]
 }
 
 const AddEditClass = ({
   classDetails,
   title,
- 
   handleFormSubmit,
-  // setModalOpen,
-}: AddEditClassProps) => {
+  languageOptions 
+} 
+: AddEditClassProps) => {
   const IDs = useSelector((state) => state?.user?.currentSchool?.data)
   const { data: language } = useGetLanguages()
   const [payloadData, setPayloadData] = useState({
@@ -32,7 +32,7 @@ const AddEditClass = ({
     language_id: '',
     class_room_name: '',
   })
-  // const { trigger: addClass } = useAddClass(payloadData, mutate)
+  
 
   // SUBMIT FORM CONDITION
   const handleSubmit = (e) => {
@@ -88,6 +88,15 @@ const AddEditClass = ({
             <p className={styles.label}>Language</p>
             <Select options={options} onChange={handlechange} styles={colourStyles} />
           </div>
+          <Select
+                label="Language"
+                defaultValue={'Select'}
+                id="language"
+                // value={values.gendar}
+                options={languageOptions}
+                onChange={(option) => setFieldValue('gendar', option)}
+                onBlur={handleBlur}
+              />
         </div>
         <div className={styles.btnWrap}>
           <Button maxWidth="150px" text="Save" />

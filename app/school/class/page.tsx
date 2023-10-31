@@ -7,25 +7,23 @@ import Button from '@/components/Button/Button'
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { addStudent, deleteStudent, editStudent } from '@/services/api/school/student'
+import { addClass, addClassArm, deleteClass, useGetClasses } from '@/services/api/school/class'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
-import { useGetClasses } from '@/services/api/school/class'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
 import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
-
 import { Loader } from '@/components/Loader/Loader'
-import { mutate } from 'swr'
+import { useGetLanguages } from '@/services/api/languages'
+import { Ilanguage } from '@/types/languages'
 
 const Class = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
-  const [studentDetails, setStudentDetails] = useState(null)
+  const [classDetails, setClassDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [armOpenwithID, setArmOpenWithID] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-
   const [payloadData, setPayloadData] = useState({
     school_id: `${schoolID}`,
     first_name: '',
@@ -35,7 +33,9 @@ const Class = () => {
     gendar: '',
     country: '',
   })
-  const { data: allClassesData, isLoading, error } = useGetClasses(schoolID)
+  const { data: allClassesData, isLoading, error, mutate } = useGetClasses(schoolID)
+  const { data: languages } = useGetLanguages()
+  if (!allClassesData || !languages) return
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
@@ -44,23 +44,27 @@ const Class = () => {
     switch (modalEvent) {
       case 'add':
         setModalOpen(true)
-        setStudentDetails(null)
+        setClassDetails(null)
         break
       case 'edit':
         setModalOpen(true)
-        setStudentDetails(data)
+        setClassDetails(data)
         break
       case 'bulk':
         setBulkOpen(true)
       case 'arm':
         setModalOpen(true)
-        setStudentDetails(data)
+        setClassDetails(data)
         break
       default:
         break
     }
   }
 
+  // Options for languages
+  const languageOptions = languages.map((item: Ilanguage) => {
+    return { value: item.id, label: item.name }
+  })
   // HANDLE COPY
   const handleCopy = () => {
     toast.success('Copied!', {
@@ -78,15 +82,12 @@ const Class = () => {
   const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault()
-    if (studentDetails) {
-      editStudent({
-        payload: newPayload,
-        id: studentDetails?.student_id,
-      })
+    if (classDetails) {
+      // editClass()
     } else {
-      addStudent(payloadData)
+      addClass(payloadData)
     }
   }
 
@@ -119,14 +120,10 @@ const Class = () => {
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditClass
-          title={studentDetails ? 'Edit Class' : 'Add Class'}
-  
-
+          title={classDetails ? 'Edit Class' : 'Add Class'}
           handleFormSubmit={handleSubmit}
           classDetails={classDetails}
-
-
-          // setModalOpen={setModalOpen}
+          languageOptions ={languageOptions }
         />
       </Modal>
 

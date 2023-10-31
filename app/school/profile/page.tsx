@@ -9,7 +9,6 @@ import { userData } from '@/services/redux/features/userSlice'
 const SchoolProfile = () => {
   const schoolProfileData = useSelector(userData).currentSchool?.data!
 
-
   return (
     <>
       <div className={styles.container}>
@@ -17,7 +16,7 @@ const SchoolProfile = () => {
         <div>
           <div className={styles.details}>
             <TextInput
-              // title="Name"
+            
               defaultValue={schoolProfileData?.school_name}
               label="Name"
               placeholder="Enter name"

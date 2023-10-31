@@ -10,7 +10,20 @@ import { Form, Formik } from 'formik'
 import * as yup from 'yup'
 import { getClassArmById } from '@/services/api/school/class'
 import Select from '../../FormFields/Select/DropDown'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
+type Inputs = {
+  first_name: string
+  last_name: string
+  language: string
+  age: number
+  gendar: string
+  country: 'Nigeria'
+  class_id: number
+  classarm_id: number
+  term: string
+  session: string
+}
 
 interface AddEditStudentsProps {
   title: string
@@ -18,7 +31,6 @@ interface AddEditStudentsProps {
   schoolID: string
   studentDetails: any
   classOptions: any
-  
 }
 const AddEditStudents = ({
   schoolID,
@@ -56,7 +68,6 @@ const AddEditStudents = ({
     }
   }, [selectedOptionForClass])
 
-  console.log(studentDetails)
   const genderOptions = [
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'female' },
@@ -69,9 +80,18 @@ const AddEditStudents = ({
     }
   )
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+
   return (
     <>
-      <Formik
+      {/* <Formik
         initialValues={
           studentDetails
             ? { 
@@ -103,100 +123,112 @@ const AddEditStudents = ({
           handleFormSubmit(values)
         }}
       >
-        {({ errors, setFieldValue, values, handleBlur, handleSubmit, handleChange }) => (
-          <Form onSubmit={handleSubmit} className={styles.container}>
-            <h3 className={styles.title}>{title}</h3>
-            <hr />
+        {({ errors, setFieldValue, values, handleBlur, handleSubmit, handleChange }) => ( */}
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
+        <h3 className={styles.title}>{title}</h3>
+        <hr />
 
-            <div className={styles.inputWrap}>
-              <TextInput
-                handleChange={handleChange}
-                label="First name"
-                name="first_name"
-                id="first_name"
-                type="text"
-                placeholder="Enter name"
-              />
-              <TextInput
-                handleChange={handleChange}
-                label="Last Name"
-                name="last_name"
-                id="last_name"
-                type="text"
-                placeholder="Last name"
-              />
-              <TextInput
-               handleChange={handleChange}
-                label="Language"
-                name="language"
-                id="language"
-                type="text"
-                placeholder="Enter language"
-              />
-              <TextInput
-                label="Age"
-                name="age"
-                id="age"
-                handleChange={handleChange}
-                type="number"
-                placeholder="Enter age (number)"
-              />
+        <div className={styles.inputWrap}>
+          <TextInput
+            register={register}
+            label="First name"
+            name="first_name"
+            type="text"
+            placeholder="Enter name"
+          />
+          <TextInput
+            register={register}
+            label="Last Name"
+            name="last_name"
+            type="text"
+            placeholder="Last name"
+          />
+          <TextInput
+            register={register}
+            label="Language"
+            name="language"
+            type="text"
+            placeholder="Enter language"
+          />
+          <TextInput
+            register={register}
+            label="Age"
+            name="age"
+            type="number"
+            placeholder="Enter age (number)"
+          />
 
+          <Controller
+            name="gendar"
+            control={control}
+            render={({ field }) => (
               <Select
+                {...field}
+                onChange={(val) => field.onChange(val.value)}
                 label="Gender"
                 defaultValue={studentDetails?.gendar || 'Select'}
-                id="gendar"
-                value={values.gendar}
                 options={genderOptions}
-                onChange={(option) => setFieldValue('gendar', option)}
-                onBlur={handleBlur}
               />
-              <TextInput
-                label="Term"
-                onChange={handleChange}
-                name="term"
-                type="text"
-                placeholder="Enter school term"
-              />
+            )}
+          />
+          <TextInput
+            register={register}
+            label="Term"
+            name="term"
+            type="text"
+            placeholder="Enter school term"
+          />
 
+          <Controller
+            name="session"
+            control={control}
+            render={({ field }) => (
               <Select
+                {...field}
+                onChange={(val) => field.onChange(val.value)}
                 label="School Session"
-                id="session"
-                defaultValue={values.session || 'Select'}
-                value={values.session}
+                defaultValue={'Select'}
                 options={sessionOptions}
-                onChange={(option) => setFieldValue('session', option)}
-                onBlur={handleBlur}
               />
+            )}
+          />
 
+          <Controller
+            name="class_id"
+            control={control}
+            render={({ field }) => (
               <Select
+                {...field}
+                onChange={(val) => {
+                  field.onChange(val.value), setSelectedOptionForClass(val.value)
+                }}
                 label="Class"
                 defaultValue={'Select'}
-                id="class_id"
-                value={values.class_id}
-                onChange={(option) => {
-                  setFieldValue('class_id', option), setSelectedOptionForClass(option?.value)
-                }}
                 options={classOptions}
-                onBlur={handleBlur}
               />
+            )}
+          />
 
+          <Controller
+            name="classarm_id"
+            control={control}
+            render={({ field }) => (
               <Select
-                defaultValue={ 'Select'}
+                {...field}
+                onChange={(val) => field.onChange(val.value)}
                 label="Class Arm"
-                id="classarm_id"
-                value={values.classarm_id}
-                onChange={(option) => setFieldValue('classarm_id', option)}
+                defaultValue={'Select'}
                 options={classArmoptions}
-                onBlur={handleBlur}
               />
-            </div>
-            <div className={styles.btnWrap}>
-              <Button maxWidth="150px" type="submit" text="Save" />
-            </div>
-          </Form>
-        )}
-      </Formik>
+            )}
+          />
+        </div>
+        <div className={styles.btnWrap}>
+          <Button maxWidth="150px" type="submit" text="Save" />
+        </div>
+      </form>
+      {/* )}
+      </Formik> */}
       <ToastContainer />
     </>
   )

@@ -1,33 +1,22 @@
 import React from 'react'
 import styles from './select.module.css'
-import Select from 'react-select'
+import Select, { GroupBase } from 'react-select'
 
 interface SelectProps {
   label: string
-  id: string
   options: any
-  defaultValue:string
-  value: any
-  onChange: (e: any) => void
-  onBlur: (e: any) => void
+  onChange: (value: any) => void
+  defaultValue: string
 }
-const DropDown = ({ id, label, defaultValue, options, value, onChange, onBlur }: SelectProps) => {
+const DropDown = ({ label, onChange, defaultValue, options }: SelectProps) => {
   return (
     <>
       <div className={styles.selectWrap}>
         <label>{label}</label>
-        <Select
-                id={id}
-                value={value}
-                defaultValue={defaultValue}
-                options={options}
-                onChange={onChange}
-                onBlur={onBlur}
-                required
-              />
+        <Select defaultValue={defaultValue} onChange={onChange} options={options} required />
       </div>
     </>
   )
 }
 
-export default DropDown 
+export default DropDown
