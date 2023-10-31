@@ -167,7 +167,7 @@ const Student = () => {
           handleFormSubmit={handleFormSubmit}
           studentDetails={studentDetails}
           classOptions={classOptions}
-          // classArmoptions={classArmoptions}
+          
         />
       </Modal>
 

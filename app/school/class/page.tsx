@@ -12,27 +12,29 @@ import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
-import NotFound from '@/components/NotFound/NotFound'
+// import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
 import { Loader } from '@/components/Loader/Loader'
 import { useGetLanguages } from '@/services/api/languages'
 import { Ilanguage } from '@/types/languages'
+import { ClassArmPayload } from '@/types/classarm'
 
 const Class = () => {
   const schoolID = useSelector(userData).currentSchool?.data.id!
   const [classDetails, setClassDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
-  const [armOpenwithID, setArmOpenWithID] = useState(false)
+  const [classArmOpen, setClassArmOpen] = useState<ClassArmPayload | null>(null)
+  const [isOpenClassArm, setOpenClassArm] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const [payloadData, setPayloadData] = useState({
-    school_id: `${schoolID}`,
-    first_name: '',
-    last_name: '',
-    language: '',
-    age: '',
-    gendar: '',
-    country: '',
-  })
+  // const [payloadData, setPayloadData] = useState({
+  //   school_id: `${schoolID}`,
+  //   first_name: '',
+  //   last_name: '',
+  //   language: '',
+  //   age: '',
+  //   gendar: '',
+  //   country: '',
+  // })
   const { data: allClassesData, isLoading, error, mutate } = useGetClasses(schoolID)
   const { data: languages } = useGetLanguages()
   if (!allClassesData || !languages) return
@@ -82,7 +84,7 @@ const Class = () => {
   // const { school_id, ...newPayload } = payloadData
 
   // SUBMIT FORM CONDITION
-  const handleFormSubmit = (values:any) => {
+  const handleFormSubmit = (values: any) => {
     if (classDetails) {
       // editClass()
     } else {
@@ -114,9 +116,15 @@ const Class = () => {
             handleClick={() => handleModalOpen('bulk', null)}
           />
         </div>
-        {/* <Table head={tableHead} body={tableBody}/> */}
-        <ClassTable body={allClassesData} setArmOpenWithID={setArmOpenWithID} />
-        {/* {classData?.data?.length === 0 ? <NotFound text="No Class Found:(" /> : null} */}
+
+        <ClassTable
+          body={allClassesData}
+          mutate={mutate}
+          schoolID={Number(schoolID)}
+          setOpenClassArm={setOpenClassArm}
+          setClassArmOpen={setClassArmOpen}
+        />
+      
       </div>
       {/* MODAL TO MODIFY USERS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
@@ -135,12 +143,13 @@ const Class = () => {
       <ToastContainer />
 
       {/* ADD CLASS ARM MODAL */}
-      <Modal open={armOpenwithID ? true : false} setOpen={setArmOpenWithID}>
-        {/* <AddClassArmForm
+      <Modal open={isOpenClassArm} setOpen={setOpenClassArm}>
+        <AddClassArmForm
           mutate={mutate}
-          armOpenwithID={armOpenwithID}
-          setArmOpenWithID={setArmOpenWithID}
-        /> */}
+          schoolID={Number(schoolID)}
+          classArmOpen={classArmOpen}
+          setOpenClassArm={setOpenClassArm}
+        />
       </Modal>
     </>
   )

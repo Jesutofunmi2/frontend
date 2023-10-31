@@ -25,7 +25,7 @@ export const TextInput = ({
   return (
     <>
       <div className={styles.inputWrap}>
-        <label className="text-sm font-bold" htmlFor={name}>
+        <label className={styles.label} htmlFor={name}>
           {label}
         </label>
         <input

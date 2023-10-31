@@ -95,10 +95,7 @@ const AddEditClass = ({
             type="text"
             placeholder="Class Room Name"
           />
-          {/* <div>
-            <p className={styles.label}>Language</p>
-            <Select options={options} onChange={handlechange} styles={colourStyles} />
-          </div> */}
+         
           <Controller
             name="language_id"
             control={control}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styles from './classTable.module.css'
 import { BsArrowDown, BsArrowDownUp, BsArrowUp } from 'react-icons/bs'
-import { AiFillEdit } from 'react-icons/ai'
 import { RiArrowDownSLine, RiDeleteBin6Line } from 'react-icons/ri'
-import Button from '@/components/Button/Button'
+import { ClassArmPayload } from '@/types/classarm'
+import { deleteClass } from '@/services/api/school/class'
 
 const DummyData = [
   { id: 1, name: 'kohn', age: 30, city: 'New York' },
@@ -12,27 +12,35 @@ const DummyData = [
   { id: 4, name: 'Alice', age: 28, city: 'San Francisco' },
 ]
 interface ClassTableProps {
-  body?:JSX.Element 
-  setArmOpenWithID: boolean
+  body?: any
+  mutate: any
+  schoolID: number
+  setClassArmOpen: React.Dispatch<React.SetStateAction<ClassArmPayload | null | any>>
+  setOpenClassArm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const ClassTable = ({ body, setArmOpenWithID }: ClassTableProps) => {
+const ClassTable = ({
+  body,
+  schoolID,
+  setClassArmOpen,
+  mutate,
+  setOpenClassArm,
+}: ClassTableProps) => {
   const [data, setData] = useState(DummyData)
   const [sortBy, setSortBy] = useState(null)
   const [sortOrder, setSortOrder] = useState('ascending')
   const [filterText, setFilterText] = useState('')
-  const [isDropDown, setIsDropDown] = useState(false)
+  // const [isDropDown, setIsDropDown] = useState<Number>()
+  const [isActive, setActive] = useState({ id: 0, status: false })
 
-
-
-  const handleSort = (key) => {
+  const handleSort = (key: any) => {
     if (sortBy === key) {
       setData([...data].reverse())
       // Toggle sorting order or disable sorting
       if (sortOrder === 'ascending') {
         setSortOrder('descending')
       } else if (sortOrder === 'descending') {
-        setSortOrder(null)
+        setSortOrder('')
         setData(DummyData)
       } else {
         setSortOrder('ascending')
@@ -44,17 +52,17 @@ const ClassTable = ({ body, setArmOpenWithID }: ClassTableProps) => {
     }
   }
 
-  const handleFilter = (e) => {
-    const text = e.target.value
-    setFilterText(text)
+  // const handleFilter = (e) => {
+  //   const text = e.target.value
+  //   setFilterText(text)
 
-    const filteredData = DummyData.filter((item) =>
-      item.name.toLowerCase().includes(text.toLowerCase())
-    )
-    setData(filteredData)
-  }
+  //   const filteredData = DummyData.filter((item) =>
+  //     item.name.toLowerCase().includes(text.toLowerCase())
+  //   )
+  //   setData(filteredData)
+  // }
 
-  const getSortLabel = (key) => {
+  const getSortLabel = (key: string | null) => {
     if (sortBy === key) {
       return sortOrder === 'ascending' ? (
         <BsArrowUp />
@@ -67,24 +75,27 @@ const ClassTable = ({ body, setArmOpenWithID }: ClassTableProps) => {
     return ''
   }
 
-  const handleOpen = (id) => {
-    if (isDropDown === id) {
-      setIsDropDown(false)
-    } else {
-      setIsDropDown(id)
+  const handleOpen = (id: number) => {
+    setActive({
+      id: id,
+      status: true,
+    })
+    if (isActive.id === id && isActive.status) {
+      setActive({
+        id: id,
+        status: false,
+      })
     }
   }
 
+  const handleDeleteClass = async (class_id: number) => {
+    console.log(class_id)
+    await deleteClass(schoolID, class_id)
+    mutate()
+  }
   return (
     <>
       <div className={styles.container}>
-        {/* <input
-        type="text"
-        placeholder="Filter by Name"
-        value={filterText}
-        onChange={handleFilter}
-        style={{ padding: "5px" }}
-      /> */}
         <table>
           <thead className={styles.thead}>
             <tr className={styles.tr}>
@@ -99,13 +110,13 @@ const ClassTable = ({ body, setArmOpenWithID }: ClassTableProps) => {
             </tr>
           </thead>
           <tbody>
-            {body?.map((item, index) => (
+            {body?.map((item: any, index: number) => (
               <React.Fragment key={index}>
                 <tr className={styles.compMain} onClick={() => handleOpen(item?.id)}>
                   <td>
                     <RiArrowDownSLine
                       className={`${styles.compArrow} ${
-                        isDropDown === index && styles.arrowRotate
+                        isActive.id === index && styles.arrowRotate
                       }`}
                     />
                   </td>
@@ -115,23 +126,20 @@ const ClassTable = ({ body, setArmOpenWithID }: ClassTableProps) => {
                   <td>{item.language}</td>
 
                   <td>
-                    <div className={styles.compUdButtonsWrap}>
-                      {/* <AiFillEdit
-                      className={styles.compUdButtons}
-                      style={{ color: "black" }}
-                    /> */}
+                    <button
+                      onClick={(e) => {
+                        window.confirm('Delete competition?') && handleDeleteClass(item.id)
+                      }}
+                      className={styles.compUdButtonsWrap}
+                    >
                       <RiDeleteBin6Line
                         className={styles.compUdButtons}
                         style={{ color: 'tomato' }}
-                        // onClick={(e) => {
-                        //   window.confirm("Delete competition?") &&
-                        //     deleteCompetition(competition);
-                        // }}
                       />
-                    </div>
+                    </button>
                   </td>
                 </tr>
-                {isDropDown === item.id && (
+                {isActive.id === item.id && isActive.status && (
                   <>
                     <tr className={styles.compMB}>
                       <td></td>
@@ -142,18 +150,19 @@ const ClassTable = ({ body, setArmOpenWithID }: ClassTableProps) => {
                       <td>
                         <button
                           className={styles.compudButtons}
-                          onClick={() =>
-                            setArmOpenWithID({
-                              classID: item.id,
-                              languageID: item.language_id,
-                            })
-                          }
+                          onClick={() => {
+                            setClassArmOpen({
+                              class_id: item.id,
+                              language_id: item.language_id,
+                            }),
+                              setOpenClassArm(true)
+                          }}
                         >
                           Add class arm
                         </button>
                       </td>
                     </tr>
-                    {item?.class_arms.map((item2, idx) => (
+                    {item?.class_arms.map((item2: any, idx: any) => (
                       <tr className={styles.compMB} key={item2.id}>
                         <td></td>
                         <td></td>

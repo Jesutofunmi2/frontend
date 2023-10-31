@@ -1,12 +1,13 @@
 .inputWrap{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px; */
 }
 
 
 .input{
     /* max-width: 300px; */
+    margin-top: 10px;
     width: 100%;
     height: 45px;
     border-radius: 15px;

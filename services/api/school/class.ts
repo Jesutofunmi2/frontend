@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import { toast } from 'react-toastify'
 import makeApiCall from '..'
 import { IClass } from '@/types/class'
+import { ClassArmPayload } from '@/types/classarm'
 
 // GET CLASSES
 export const useGetClasses = (schoolID: string) => {
@@ -53,7 +54,7 @@ export const addClass = async (
 // No endpoints yet
 
 // DELETE CLASS
-export const deleteClass = async (schoolID: string, class_id: string) => {
+export const deleteClass = async (schoolID: number, class_id: number) => {
   toast.loading('Deleting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
@@ -84,7 +85,7 @@ export const deleteClass = async (schoolID: string, class_id: string) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //ADD CLASS ARM
-export const addClassArm = async (payloadData: any) => {
+export const addClassArm = async (payloadData: ClassArmPayload|any) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
