@@ -77,6 +77,8 @@ const Student = () => {
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: IFormStudent) => {
     values.school_id = String(schoolID)
+    values.age=Number(values.age)
+    values.country="Nigeria"
     let formData = { ...values }
     if (studentDetails) {
       const updatedItems = allStudentsData.map((el) =>
