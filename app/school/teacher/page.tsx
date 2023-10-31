@@ -11,8 +11,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiFillEdit } from 'react-icons/ai'
 import AddEditTeachers from '@/components/Form/Forms/AddEditTeachers/AddEditTeachers'
-import { addTeacher, deleteTeacher, editTeacher, useGetTeachers } from '@/services/api/school/teacher'
-
+import {
+  addTeacher,
+  deleteTeacher,
+  editTeacher,
+  useGetTeachers,
+} from '@/services/api/school/teacher'
 import Image from 'next/image'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { Loader } from '@/components/Loader/Loader'
@@ -69,7 +73,7 @@ const Teacher = () => {
   }
 
   // SUBMIT FORM CONDITION
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
 
     if (typeof file === 'string' && file.length === 0) {
@@ -191,7 +195,7 @@ const Teacher = () => {
           title={teacherDetails ? 'Edit Teacher' : 'Add Teacher'}
           payloadData={payloadData}
           setPayloadData={setPayloadData}
-          handleSubmit={handleSubmit}
+          handleFormSubmit={handleFormSubmit}
           teacherDetails={teacherDetails}
           setFile={setFile}
         />

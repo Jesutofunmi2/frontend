@@ -2,7 +2,7 @@
 
 import React from 'react'
 import styles from './page.module.css'
-import TextInput from '@/components/Form/FormFields/TextInput/TextInput'
+import { TextInputValue } from '@/components/Form/FormFields/TextInput/TextInput'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 
@@ -15,19 +15,21 @@ const SchoolProfile = () => {
         <h3 className={styles.title}>{schoolProfileData?.school_name}</h3>
         <div>
           <div className={styles.details}>
-            <TextInput
-            
+            <TextInputValue
+              name="school_name"
               defaultValue={schoolProfileData?.school_name}
               label="Name"
-              placeholder="Enter name"
-              readOnly
             />
-            <TextInput label="Country" defaultValue={schoolProfileData?.country} readOnly />
-            <TextInput label="Email" defaultValue={schoolProfileData?.email} readOnly />
-            <TextInput
+            <TextInputValue
+              name="country"
+              label="Country"
+              defaultValue={schoolProfileData?.country}
+            />
+            <TextInputValue name="email" label="Email" defaultValue={schoolProfileData?.email} />
+            <TextInputValue
+              name="phone_number"
               label="Phone Number"
               defaultValue={schoolProfileData?.phone_number}
-              readOnly
             />
           </div>
           <hr />

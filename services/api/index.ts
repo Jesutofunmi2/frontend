@@ -4,7 +4,7 @@ import { TOKEN_KEY } from '@/utils/constants'
 
 const token = getToken()
 const baseURL = 'https://remotedev.izesan.com'
-
+console.log(token)
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }
@@ -35,7 +35,7 @@ async function makeApiCall<T = any>(
     console.log(error)
     if(error.response.status === 401){
       localStorage.removeItem(TOKEN_KEY)
-      window.location.assign("/login")
+      // window.location.assign("/login")
     }
     // }
   }

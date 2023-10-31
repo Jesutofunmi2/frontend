@@ -1,16 +1,23 @@
 import React, { useState } from 'react'
 import styles from './addEditTeachers.module.css'
-import TextInput from '../../FormFields/TextInput/TextInput'
+import {TextInput} from '../../FormFields/TextInput/TextInput'
 import Button from '@/components/Button/Button'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import SelectImage from '@/components/SelectImage/SelectImage'
 import { IPayloadTeacher } from '@/types/teacher'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+
+
+type Inputs = {
+  name: string
+  email:string
+}
 
 interface AddEditTeacherProps {
   payloadData: IPayloadTeacher
   setPayloadData: React.Dispatch<React.SetStateAction<IPayloadTeacher>>
-  handleSubmit: (e: any) => void
+  handleFormSubmit: (e: any) => void
   teacherDetails: any
   title: string
   setFile: React.Dispatch<React.SetStateAction<File | string>>
@@ -18,17 +25,17 @@ interface AddEditTeacherProps {
 const AddEditTeachers = ({
   payloadData,
   setPayloadData,
-  handleSubmit,
+  handleFormSubmit,
   teacherDetails,
   title,
   setFile,
 }: AddEditTeacherProps) => {
   // HANDLE INPUT FIELDS
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const data = { ...payloadData }
-    data[e.target.name] = e.target.value
-    setPayloadData(data)
-  }
+  // const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  //   const data = { ...payloadData }
+  //   data[e.target.name] = e.target.value
+  //   setPayloadData(data)
+  // }
 
   // GENDER SELECT OPTIONS
   const genderOptions = ['Male', 'Female']
@@ -36,9 +43,17 @@ const AddEditTeachers = ({
   // COUNTRY SELECT OPTIONS
   const countryOptions = ['Nigeria']
 
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
+
   return (
     <>
-      <form className={styles.container} onSubmit={(e) => handleSubmit(e)}>
+      <form className={styles.container} onSubmit={handleSubmit(onSubmit)} >
         <h3 className={styles.title}>{title}</h3>
         <hr />
         <div className={styles.imageWrap}>
@@ -46,17 +61,21 @@ const AddEditTeachers = ({
         </div>
         <div className={styles.inputWrap}>
           <TextInput
-            defaultValue={teacherDetails?.name}
+           register={{ ...register('name', { required: true }) }}
+            // defaultValue={teacherDetails?.name}
+            type="text"
             label="Name"
             name="name"
-            handleChange={handleChange}
+            placeholder="Name"
           />
           <TextInput
-            defaultValue={teacherDetails?.email}
+           register={{ ...register('email', { required: true }) }}
+            // defaultValue={teacherDetails?.email}
             label="Email"
             name="email"
             type="email"
-            handleChange={handleChange}
+            placeholder="Email"
+
           />
         </div>
         <div className={styles.btnWrap}>

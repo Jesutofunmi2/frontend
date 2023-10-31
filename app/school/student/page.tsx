@@ -71,10 +71,7 @@ const Student = () => {
 
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: IFormStudent) => {
-    ;(values.class_id = values.class_id.value),
-      (values.classarm_id = values.classarm_id.value),
-      (values.gendar = values.gendar.value),
-      (values.session = values.session.value)
+    values.school_id=String(schoolID)
     let formData = { ...values }
     if (studentDetails) {
       const updatedItems = allStudentsData.map((el) =>

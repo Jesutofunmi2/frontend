@@ -87,10 +87,11 @@ const Class = () => {
     if (classDetails) {
       // editClass()
     } else {
-      addClass(payloadData)
+      // addClass(payloadData)
     }
   }
 
+  
   return (
     <>
       <div>

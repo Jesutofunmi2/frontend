@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styles from './addEditStudents.module.css'
-import TextInput from '../../FormFields/TextInput/TextInput'
+import { TextInput } from '../../FormFields/TextInput/TextInput'
 import Button from '@/components/Button/Button'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IClass } from '@/types/class'
-import { IFormStudent } from '@/types/student'
-import { Form, Formik } from 'formik'
 import * as yup from 'yup'
 import { getClassArmById } from '@/services/api/school/class'
 import Select from '../../FormFields/Select/DropDown'
@@ -83,75 +81,41 @@ const AddEditStudents = ({
   const {
     register,
     handleSubmit,
-    watch,
     control,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
 
   return (
     <>
-      {/* <Formik
-        initialValues={
-          studentDetails
-            ? { 
-                first_name: studentDetails.username,
-                last_name: studentDetails.last_name,
-                language: studentDetails.language,
-                age: studentDetails.age,
-                gendar: studentDetails.gendar,
-                country: studentDetails.country,
-              }
-            : {
-                school_id: String(schoolID),
-                first_name: '',
-                last_name: '',
-                language: '',
-                age: 0,
-                gendar: '',
-                country: 'Nigeria',
-                class_id: 0,
-                classarm_id: 0,
-                term: '',
-                session: '',
-              }
-        }
-        validationSchema={validationSchema}
-        enableReinitialize={true}
-        onSubmit={(values) => {
-          // console.log(values)
-          handleFormSubmit(values)
-        }}
-      >
-        {({ errors, setFieldValue, values, handleBlur, handleSubmit, handleChange }) => ( */}
       <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
         <h3 className={styles.title}>{title}</h3>
         <hr />
 
         <div className={styles.inputWrap}>
           <TextInput
-            register={register}
+            register={{ ...register('first_name', { required: true }) }}
             label="First name"
             name="first_name"
             type="text"
             placeholder="Enter name"
           />
           <TextInput
-            register={register}
+            register={{ ...register('last_name', { required: true }) }}
             label="Last Name"
             name="last_name"
             type="text"
             placeholder="Last name"
           />
           <TextInput
-            register={register}
+            register={{ ...register('language', { required: true }) }}
             label="Language"
             name="language"
             type="text"
             placeholder="Enter language"
           />
           <TextInput
-            register={register}
+            register={{ ...register('age', { required: true }) }}
             label="Age"
             name="age"
             type="number"
@@ -163,7 +127,6 @@ const AddEditStudents = ({
             control={control}
             render={({ field }) => (
               <Select
-                {...field}
                 onChange={(val) => field.onChange(val.value)}
                 label="Gender"
                 defaultValue={studentDetails?.gendar || 'Select'}
@@ -172,7 +135,7 @@ const AddEditStudents = ({
             )}
           />
           <TextInput
-            register={register}
+            register={{ ...register('term', { required: true }) }}
             label="Term"
             name="term"
             type="text"
@@ -184,7 +147,6 @@ const AddEditStudents = ({
             control={control}
             render={({ field }) => (
               <Select
-                {...field}
                 onChange={(val) => field.onChange(val.value)}
                 label="School Session"
                 defaultValue={'Select'}
@@ -198,7 +160,6 @@ const AddEditStudents = ({
             control={control}
             render={({ field }) => (
               <Select
-                {...field}
                 onChange={(val) => {
                   field.onChange(val.value), setSelectedOptionForClass(val.value)
                 }}
@@ -214,7 +175,6 @@ const AddEditStudents = ({
             control={control}
             render={({ field }) => (
               <Select
-                {...field}
                 onChange={(val) => field.onChange(val.value)}
                 label="Class Arm"
                 defaultValue={'Select'}
@@ -227,8 +187,6 @@ const AddEditStudents = ({
           <Button maxWidth="150px" type="submit" text="Save" />
         </div>
       </form>
-      {/* )}
-      </Formik> */}
       <ToastContainer />
     </>
   )

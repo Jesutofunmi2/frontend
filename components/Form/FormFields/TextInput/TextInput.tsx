@@ -1,24 +1,26 @@
-import React, { ChangeEvent } from 'react'
+import React from 'react'
 import styles from './textInput.module.css'
 interface InputProps {
   label: string
-  required?: boolean
-  readOnly?: boolean
-  name?: string
+
+  name: string
   defaultValue?: string
-  type?: string
-  placeholder?: string
-  register?: any
+  type: string
+  placeholder: string
+  register: any
 }
-const TextInput = ({
+interface InputValueProps {
+  label: string
+  defaultValue?: string
+  name: string
+}
+export const TextInput = ({
   label,
   register,
   defaultValue,
   placeholder,
   type,
   name,
-  required,
-  readOnly,
 }: InputProps) => {
   return (
     <>
@@ -27,17 +29,26 @@ const TextInput = ({
           {label}
         </label>
         <input
-          {...register(name)}
+          {...register}
           defaultValue={defaultValue}
           type={type ? type : 'text'}
           placeholder={placeholder}
           className={styles.input}
-          required={required}
-          readOnly={readOnly}
         />
       </div>
     </>
   )
 }
 
-export default TextInput
+export const TextInputValue = ({ label, name, defaultValue }: InputValueProps) => {
+  return (
+    <>
+      <div className={styles.inputWrap}>
+        <label className="text-sm font-bold" htmlFor={name}>
+          {label}
+        </label>
+        <input defaultValue={defaultValue} type={'text'} className={styles.input} readOnly />
+      </div>
+    </>
+  )
+}

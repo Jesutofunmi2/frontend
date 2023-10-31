@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './select.module.css'
-import Select, { GroupBase } from 'react-select'
+import Select from 'react-select'
 
 interface SelectProps {
   label: string
@@ -13,7 +13,21 @@ const DropDown = ({ label, onChange, defaultValue, options }: SelectProps) => {
     <>
       <div className={styles.selectWrap}>
         <label>{label}</label>
-        <Select defaultValue={defaultValue} onChange={onChange} options={options} required />
+        <Select
+          className={styles.input}
+          defaultValue={defaultValue}
+          onChange={onChange}
+          options={options}
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              borderColor: state.isFocused ? 'grey' : '#F19C00',
+              height: '43px',
+              borderRadius: '14px',
+            }),
+          }}
+          required
+        />
       </div>
     </>
   )

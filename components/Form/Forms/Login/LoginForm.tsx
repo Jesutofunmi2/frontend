@@ -4,7 +4,7 @@ import styles from './login.module.css'
 import Image from 'next/image'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { ToastContainer } from 'react-toastify'
-import { schoolLogin, teacherLogin, studentLogin } from '@/services/Apis/auth'
+import { schoolLogin, teacherLogin, studentLogin } from '@/services/api/auth'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { setToken } from '@/services/api/token'
@@ -55,6 +55,7 @@ const LoginForm = () => {
     try {
       if (toggleUser === 'school') {
         let response = await schoolLogin(schoolData)
+        console.log(response)
         const { token } = response.token
         setToken(token)
         
