@@ -109,8 +109,8 @@ export const addClassArm = async (payloadData: ClassArmPayload|any) => {
   }
 }
 
-// GET CLASs ARM BY ID
-export const getClassArmById = async (schoolID: string, classID: number) => {
+// GET CLASS BY ID
+export const getClassById = async (schoolID: string, classID: number) => {
   const res = await makeApiCall(
     `/api/v1/getSingleClass?school_id=${schoolID}&class_id=${classID}`,
     'get'

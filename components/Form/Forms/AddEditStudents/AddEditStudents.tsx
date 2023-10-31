@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IClass } from '@/types/class'
 import * as yup from 'yup'
-import { getClassArmById } from '@/services/api/school/class'
+import { getClassById } from '@/services/api/school/class'
 import Select from '../../FormFields/Select/DropDown'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
@@ -56,7 +56,7 @@ const AddEditStudents = ({
     if (selectedOptionForClass) {
       const fetchData = async () => {
         try {
-          let response = await getClassArmById(schoolID, selectedOptionForClass)
+          let response = await getClassById(schoolID, selectedOptionForClass)
           setClassArmByID(response)
         } catch (error) {
           console.error(error)
