@@ -22,7 +22,7 @@ const AssignClassworkView = () => {
 
   // SUBMIT TO API
   const handleFormSubmit = async (data: any, reset: () => void) => {
-    if (data.attachment[0].size > 100000) {
+    if (data.attachment[0].size > 1000000) {
       toast.error('File is too large', {
         position: toast.POSITION.TOP_RIGHT,
       })

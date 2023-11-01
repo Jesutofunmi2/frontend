@@ -74,7 +74,6 @@ const Class = () => {
             text="Add Class"
             handleClick={() => handleModalOpen('add', null)}
           />
-
           <Button
             width="150px"
             height="30px"

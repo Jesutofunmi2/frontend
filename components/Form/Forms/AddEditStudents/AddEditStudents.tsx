@@ -66,7 +66,7 @@ const AddEditStudents = ({
     }
   }, [selectedOptionForClass])
 
-  console.log(studentDetails)
+
   const genderOptions = [
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'female' },
@@ -90,7 +90,6 @@ const AddEditStudents = ({
 
         <div className={styles.inputWrap}>
           <TextInput
-
             register={{ ...register('first_name', { required: true }) }}
             label="First name"
             name="first_name"
