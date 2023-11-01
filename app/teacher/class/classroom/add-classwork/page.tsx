@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import styles from "./page.module.css";
-
 import Image from "next/image";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
 import Button from "@/components/Button/Button";
@@ -13,7 +12,7 @@ import Tab2 from "@/components/Tab/Tab2/Tab2";
 import AssignClassworkView from "@/components/Views/AssignClassworkView/AssignClassworkView";
 import AssignModuleView from "@/components/Views/AssignModuleView/AssignModuleView";
 import AddModuleForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
-import { useAddClasswork } from "@/services/api/classwork";
+import { addClasswork } from "@/services/api/classwork";
 
 const tabData = [
   { id: 1, title: "Assign Classwork" },
@@ -23,8 +22,8 @@ const tabData = [
 const AddClassworkPage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data, isValidating } = useGetLessons();
-  const {} = useAddClasswork();
+  // const { data, isValidating } = useGetLessons();
+  // const {} = addClasswork();
   const [toggle, setToggle] = useState("Assign Classwork");
   const [payloadData, setPayloadData] = useState({
     first_name: "",
@@ -32,7 +31,7 @@ const AddClassworkPage = () => {
   });
 
   // TOGGLE USERS
-  const handleToggle = (event) => {
+  const handleToggle = (event:any) => {
     setToggle(event);
   };
 
@@ -47,7 +46,7 @@ const AddClassworkPage = () => {
           </div>
 
           {toggle === "Assign Classwork" ? (
-            <AssignClassworkView />
+            <AssignClassworkView  />
           ) : (
             <AssignModuleView
               data={data}

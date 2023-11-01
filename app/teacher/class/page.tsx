@@ -9,7 +9,7 @@ import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
 import { useSelector } from 'react-redux'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
-import { useGetTeacherClasses} from '@/services/api/teacher/class'
+import { useGetTeacherClasses } from '@/services/api/teacher/class'
 import { addClass, deleteClass, useGetClasses } from '@/services/api/school/class'
 
 const TeacherClass = () => {
@@ -24,11 +24,8 @@ const TeacherClass = () => {
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  // const schoolID = teacherData.school.id
-
-
   // OPEN MODAL CONDITION
-  const handleModalOpen = (modalEvent:string, data:any) => {
+  const handleModalOpen = (modalEvent: string, data: any) => {
     switch (modalEvent) {
       case 'add':
         setModalOpen(true)
@@ -43,15 +40,12 @@ const TeacherClass = () => {
     }
   }
 
-
-  
   const handleDeleteClass = async (class_id: number) => {
-    // console.log(class_id)
-        let res =await deleteClass(teacherData.school.id, class_id)
-        if(res){
-          mutate()
-        }    
-      }
+    let res = await deleteClass(teacherData.school.id, class_id)
+    if (res) {
+      mutate()
+    }
+  }
   return (
     <>
       <div className={styles.dash}>
@@ -62,10 +56,10 @@ const TeacherClass = () => {
 
         <div className={styles.classWrap}>
           {allSchoolClasses.length ? (
-            allSchoolClasses.map((item: any) => (
+            allSchoolClasses.map((classroom: any) => (
               <ClassCard
-                key={item.id}
-                data={item}
+                key={classroom.id}
+                classroom={classroom}
                 url={`/teacher/class/classroom`}
                 handleDeleteClass={handleDeleteClass}
               />
@@ -78,7 +72,7 @@ const TeacherClass = () => {
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditClass
           title={classDetails ? 'Edit Class' : 'Add Class'}
-         setModalOpen={setModalOpen}
+          setModalOpen={setModalOpen}
           classDetails={classDetails}
           mutate={mutate}
           schoolID={teacherData.school.id}

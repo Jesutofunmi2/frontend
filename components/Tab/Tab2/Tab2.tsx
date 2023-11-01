@@ -1,7 +1,13 @@
-import React from "react";
-import styles from "./tab2.module.css";
+import React from 'react'
+import styles from './tab2.module.css'
 
-const Tab2 = ({ handleToggle, data, toggle }) => {
+interface TabProps {
+  handleToggle: (event:any) => void
+  data: any
+  toggle: any
+}
+
+const Tab2 = ({ handleToggle, data, toggle }: TabProps) => {
   return (
     <>
       <div className={styles.container}>
@@ -16,7 +22,7 @@ const Tab2 = ({ handleToggle, data, toggle }) => {
         ))}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Tab2;
+export default Tab2

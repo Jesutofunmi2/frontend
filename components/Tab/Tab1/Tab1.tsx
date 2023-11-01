@@ -1,21 +1,23 @@
-import React from "react";
-import styles from "./tab1.module.css";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { currentTab } from "@/services/redux/features/tabSlice";
+import React from 'react'
+import styles from './tab1.module.css'
 
-const Tab1 = ({ data, activeTab  }) => {
-  const router = useRouter();
-  const dispatch = useDispatch()
-  
-  const handleClick = (arg) => {
-    dispatch(currentTab(arg))
-  };
+interface TabProps {
+  tabData: {
+    text: string|any
+    icon: React.JSX.Element
+  }[]
+  handleActiveTab: (activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') => void
+  activeTab: string
+}
+const Tab1 = ({ tabData, activeTab, handleActiveTab }: TabProps) => {
+  const handleClick = (selectedTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') => {
+    handleActiveTab(selectedTab)
+  }
 
   return (
     <>
       <div className={styles.container}>
-        {data?.map((item) => (
+        {tabData?.map((item) => (
           <div
             className={activeTab === item.text ? styles.active : styles.card}
             key={item.text}
@@ -27,6 +29,6 @@ const Tab1 = ({ data, activeTab  }) => {
         ))}
       </div>
     </>
-  );
-};
-export default Tab1;
+  )
+}
+export default Tab1

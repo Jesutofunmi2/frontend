@@ -9,15 +9,9 @@ import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 
 const TeacherProfile = () => {
-  // const teacherData = useSelector((state) => state?.user?.currentTeacher?.data);
   const teacherData = useSelector(userData).currentTeacher?.data!
   console.log(teacherData)
-  // HANDLE INPUT FIELDS
-  // const handleChange = (e) => {
-  //   const data = { ...payloadData }
-  //   data[e.target.name] = e.target.value
-  //   setPayloadData(data)
-  // }
+
 
   return (
     <>

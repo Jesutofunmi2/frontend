@@ -7,12 +7,13 @@ interface InputProps {
   type: string
   placeholder: string
   register: any
+  style?: any
+  Icon?: IconType|any
 }
 interface InputValueProps {
   label: string
   defaultValue?: string
   name: string
- 
 }
 export const TextInput = ({
   label,
@@ -21,6 +22,8 @@ export const TextInput = ({
   placeholder,
   type,
   name,
+  style,
+  Icon,
 }: InputProps) => {
   return (
     <>
@@ -29,13 +32,17 @@ export const TextInput = ({
           {label}
         </label>
         <input
+          style={style}
           {...register}
           defaultValue={defaultValue}
           type={type ? type : 'text'}
           placeholder={placeholder}
           className={styles.input}
+          required
         />
+        {/* {Icon? <span>{Icon}</span>: null} */}
       </div>
+
     </>
   )
 }
