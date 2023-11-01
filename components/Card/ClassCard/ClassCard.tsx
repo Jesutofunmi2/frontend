@@ -1,10 +1,16 @@
-import React from "react";
-import styles from "./classCard.module.css";
-import { FaPeopleGroup } from "react-icons/fa6";
-import Link from "next/link";
-import { AiTwotoneDelete } from "react-icons/ai";
+import React from 'react'
+import styles from './classCard.module.css'
+import { FaPeopleGroup } from 'react-icons/fa6'
+import Link from 'next/link'
+import { AiTwotoneDelete } from 'react-icons/ai'
 
-const ClassCard = ({ data, handleClick, url }) => {
+interface ClassCardProps {
+  data: any
+  handleDeleteClass: (class_id: number) => void
+  url: string
+}
+
+const ClassCard = ({ data, handleDeleteClass, url }: ClassCardProps) => {
   return (
     <>
       <div className={styles.card}>
@@ -12,7 +18,7 @@ const ClassCard = ({ data, handleClick, url }) => {
           size={25}
           className={styles.deleteIcon}
           onClick={() => {
-            window.confirm("Delete this class?") && handleClick(data);
+            window.confirm('Delete this class?') && handleDeleteClass(data.id)
           }}
         />
         <Link
@@ -35,7 +41,7 @@ const ClassCard = ({ data, handleClick, url }) => {
         </Link>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ClassCard;
+export default ClassCard

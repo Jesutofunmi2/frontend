@@ -12,11 +12,8 @@ import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
 import ClassTable from '@/components/Table/ClassTable/ClassTable'
 import AddClassArmForm from '@/components/Form/Forms/AddClassArmForm/AddClassArmForm'
-// import NotFound from '@/components/NotFound/NotFound'
 import { userData } from '@/services/redux/features/userSlice'
 import { Loader } from '@/components/Loader/Loader'
-import { useGetLanguages } from '@/services/api/languages'
-import { Ilanguage } from '@/types/languages'
 import { ClassArmPayload } from '@/types/classarm'
 
 const Class = () => {
@@ -27,8 +24,8 @@ const Class = () => {
   const [isOpenClassArm, setOpenClassArm] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
   const { data: allClassesData, isLoading, error, mutate } = useGetClasses(schoolID)
-  const { data: languages } = useGetLanguages()
-  if (!allClassesData || !languages) return
+
+  if (!allClassesData) return
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
@@ -55,9 +52,7 @@ const Class = () => {
   }
 
   // Options for languages
-  const languageOptions = languages.map((item: Ilanguage) => {
-    return { value: item.id, label: item.name }
-  })
+
   // HANDLE COPY
   const handleCopy = () => {
     toast.success('Copied!', {
@@ -66,18 +61,6 @@ const Class = () => {
   }
 
 
-
-  const handleFormSubmit = (values: any) => {
-    if (classDetails) {
-      // editClass()
-    } else {
-
-      // mutate({ ...allClassesData, values })
-      addClass(Number(schoolID), Number(values.language_id), values.class_room_name)
-    }
-    mutate()
-    setModalOpen(false)
-  }
 
   return (
     <>
@@ -114,8 +97,10 @@ const Class = () => {
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditClass
           title={classDetails ? 'Edit Class' : 'Add Class'}
-          handleFormSubmit={handleFormSubmit}
-          languageOptions={languageOptions}
+          setModalOpen={setModalOpen}
+          schoolID={schoolID}
+          mutate={mutate}
+          classDetails={classDetails}
         />
       </Modal>
 

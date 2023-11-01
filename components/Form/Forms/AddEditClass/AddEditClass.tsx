@@ -5,11 +5,10 @@ import Button from '@/components/Button/Button'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Select from '../../FormFields/Select/DropDown'
-// import { useGetLanguages } from '@/services/api/languages'
-// import { addClass } from '@/services/api/school/class'
-import { useSelector } from 'react-redux'
+import { useGetLanguages } from '@/services/api/languages'
 import { Ilanguage } from '@/types/languages'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { addClass } from '@/services/api/school/class'
 
 type Inputs = {
   class_room_name: string
@@ -18,18 +17,46 @@ type Inputs = {
 
 interface AddEditClassProps {
   title: string
-  handleFormSubmit: (values: any) => void
-  languageOptions: { value: number; label: string }[]
+  schoolID: number
+  setModalOpen: any
+  mutate: any
+  classDetails: any
 }
 
-const AddEditClass = ({ title, handleFormSubmit, languageOptions }: AddEditClassProps) => {
-  const { register, handleSubmit, control } = useForm<Inputs>({
+const AddEditClass = ({
+  title,
+  classDetails,
+  schoolID,
+  mutate,
+  setModalOpen,
+}: AddEditClassProps) => {
+  const handleFormSubmit = async (data: any, reset: () => void) => {
+    if (classDetails) {
+      // editClass()
+    } else {
+      // mutate({ ...allClassesData, values })
+      let res = await addClass(Number(schoolID), Number(data.language_id), data.class_room_name)
+      if (res) {
+        mutate()
+        reset()
+      }
+    }
+    mutate()
+    setModalOpen(false)
+  }
+  const { register, handleSubmit, control, reset } = useForm<Inputs>({
     defaultValues: {
       class_room_name: ' ',
       language_id: 0,
     },
   })
-  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data, reset)
+
+  const { data: languages } = useGetLanguages()
+  if (!languages) return
+  const languageOptions = languages.map((item: Ilanguage) => {
+    return { value: item.id, label: item.name }
+  })
 
   return (
     <>

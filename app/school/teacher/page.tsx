@@ -103,9 +103,9 @@ const Teacher = () => {
       const classAndClassArmdata = data?.map((item: any) => {
         return { class_id: item.class_id, classarm_id: item.class_arm_id }
       })
-
+// fixed image size
       const formData = {
-        image_url: file.name,
+        image_url: "https://course-material-dev.s3.us-east-2.amazonaws.com/logoi.png",
         school_id: schoolID,
         name: values.name,
         email: values.email,

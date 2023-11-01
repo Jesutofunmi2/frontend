@@ -1,22 +1,23 @@
-"use client";
+'use client'
 
-import React from "react";
-import styles from "./page.module.css";
-import SelectImage from "@/components/SelectImage/SelectImage";
-import {TextInput} from "@/components/Form/FormFields/TextInput/TextInput";
+import React from 'react'
+import styles from './page.module.css'
+import SelectImage from '@/components/SelectImage/SelectImage'
+import { TextInputValue } from '@/components/Form/FormFields/TextInput/TextInput'
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux'
+import { userData } from '@/services/redux/features/userSlice'
 
 const TeacherProfile = () => {
-  const teacherData = useSelector((state) => state?.user?.currentTeacher?.data);
-
-  console.log(teacherData);
+  // const teacherData = useSelector((state) => state?.user?.currentTeacher?.data);
+  const teacherData = useSelector(userData).currentTeacher?.data!
+  console.log(teacherData)
   // HANDLE INPUT FIELDS
-  const handleChange = (e) => {
-    const data = { ...payloadData };
-    data[e.target.name] = e.target.value;
-    setPayloadData(data);
-  };
+  // const handleChange = (e) => {
+  //   const data = { ...payloadData }
+  //   data[e.target.name] = e.target.value
+  //   setPayloadData(data)
+  // }
 
   return (
     <>
@@ -28,18 +29,8 @@ const TeacherProfile = () => {
           </div>
 
           <div className={styles.details}>
-            <TextInput
-              title="Name"
-              defaultValue={teacherData?.name}
-              handleChange={handleChange}
-              readOnly={true}
-            />
-            <TextInput
-              title="Email"
-              defaultValue={teacherData?.email}
-              handleChange={handleChange}
-              readOnly={true}
-            />
+            <TextInputValue name="name" label="Name" defaultValue={teacherData?.name} />
+            <TextInputValue name="email" label="Email" defaultValue={teacherData?.email} />
           </div>
           <hr />
           <div className={styles.btnWrap}>
@@ -48,7 +39,7 @@ const TeacherProfile = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default TeacherProfile;
+export default TeacherProfile

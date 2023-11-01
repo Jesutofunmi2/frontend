@@ -17,14 +17,14 @@ const userSlice = createSlice({
     logout: (state, action) => {
       state.currentUser = null
     },
-    schoolProfile: (state, action) => {
+    schoolData: (state, action) => {
       state.currentSchool = action.payload
 
     },
     schoolLogout: (state, action) => {
       state.currentTeacher = null
     },
-    teacherLogin: (state, action) => {
+    teacherData: (state, action) => {
       state.currentTeacher = action.payload
     },
     teacherLogout: (state, action) => {
@@ -33,7 +33,7 @@ const userSlice = createSlice({
   },
 })
 
-export const { login, logout, schoolProfile, schoolLogout, teacherLogin, teacherLogout } =
+export const { login, logout, schoolData, schoolLogout, teacherData, teacherLogout } =
   userSlice.actions
 export const userData = (state: RootState) => state.user
 export default userSlice.reducer

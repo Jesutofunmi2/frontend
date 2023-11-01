@@ -88,9 +88,7 @@ const ClassTable = ({
   }
 
   const handleDeleteClass = async (class_id: number) => {
-// console.log(schoolID, class_id)
-// Cors Error
-    let res =await deleteClass(schoolID, class_id)
+let res =await deleteClass(schoolID, class_id)
     if(res){
       mutate()
     }

@@ -51,7 +51,7 @@ const AddEditTeachers = ({
       const fetchData = async () => {
         try {
           let response = await getClassById(schoolID, selectedOptionForClass.value)
-          console.log(response)
+
           setClassArmByID(response)
         } catch (error) {
           console.error(error)

@@ -1,4 +1,3 @@
-import useSWRMutation from 'swr/mutation'
 import useSWR from 'swr'
 import { toast } from 'react-toastify'
 import makeApiCall from '..'
@@ -17,12 +16,7 @@ export const useGetClasses = (schoolID: number) => {
 }
 
 //ADD CLASS
-export const addClass = async (
-  school_id: number,
-  language_id: number,
-  class_room_name: string,
-
-) => {
+export const addClass = async (school_id: number, language_id: number, class_room_name: string) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
@@ -60,7 +54,7 @@ export const deleteClass = async (school_id: number, class_id: number) => {
   })
   try {
     const res = await makeApiCall(
-      `/deleteSchoolClass?school_id=${school_id}&class_id=${class_id}`,
+      `/api/v1/deleteSchoolClass?school_id=${school_id}&class_id=${class_id}`,
       'delete'
     )
     toast.dismiss()
@@ -85,7 +79,7 @@ export const deleteClass = async (school_id: number, class_id: number) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //ADD CLASS ARM
-export const addClassArm = async (payloadData: ClassArmPayload|any) => {
+export const addClassArm = async (payloadData: ClassArmPayload | any) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })

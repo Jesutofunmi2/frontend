@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './textInput.module.css'
 interface InputProps {
   label: string
-
   name: string
   defaultValue?: string
   type: string
@@ -13,6 +12,7 @@ interface InputValueProps {
   label: string
   defaultValue?: string
   name: string
+ 
 }
 export const TextInput = ({
   label,

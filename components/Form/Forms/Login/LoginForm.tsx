@@ -9,22 +9,24 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { setToken } from '@/services/api/token'
 import { useDispatch } from 'react-redux'
-import { schoolProfile } from '../../../../services/redux/features/userSlice'
+import { schoolData, teacherData } from '../../../../services/redux/features/userSlice'
+import { Loader } from '@/components/Loader/Loader'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [toggleUser, setToggleUser] = useState('school')
   const [inputType, setInputType] = useState('password')
-  const [studentData, setStudentData] = useState({
+  const [isLoading,setLoading]=useState(false)
+  const [studentPayloadData, setStudentPayloadData] = useState({
     login_id: '',
     password: '12345678',
   })
-  const [teacherData, setTeacherData] = useState({
+  const [teacherPayloadData, setTeacherPayloadData] = useState({
     teacher_id: '',
     password: '12345678',
   })
-  const [schoolData, setschoolData] = useState({
+  const [schoolPayloadData, setSchoolPayloadData] = useState({
     email: '',
     password: '',
   })
@@ -44,37 +46,38 @@ const LoginForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const data = e.target.value
-    setschoolData({
-      ...schoolData,
+    setSchoolPayloadData({
+      ...schoolPayloadData,
       [e.target.name]: data,
     })
   }
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
+    setLoading(true)
     e.preventDefault()
     try {
       if (toggleUser === 'school') {
-        let response = await schoolLogin(schoolData)
+        let response = await schoolLogin(schoolPayloadData)
         console.log(response)
         const { token } = response.token
         setToken(token)
-        
-        dispatch(schoolProfile(response))
+        dispatch(schoolData(response))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,
         })
         router.push('/school/profile')
       } else if (toggleUser === 'teacher') {
-        let response = await teacherLogin(teacherData)
+        let response = await teacherLogin(teacherPayloadData)
         const { token } = response.token
         setToken(token)
+        dispatch(teacherData(response))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
         router.push('/teacher')
       } else if (toggleUser === 'student') {
-        let response = await studentLogin(studentData)
+        let response = await studentLogin(studentPayloadData)
         const { token } = response.token
         setToken(token)
         toast.loading('Signing you in...', {
@@ -90,6 +93,8 @@ const LoginForm = () => {
           autoClose: 10000,
         })
       }
+    }finally{
+      setLoading(false)
     }
   }
   return (
@@ -141,7 +146,6 @@ const LoginForm = () => {
             <>
               <span className={styles.inputWrap}>
                 <input
-                  defaultValue={schoolData.email}
                   type="email"
                   name="email"
                   required
@@ -152,7 +156,6 @@ const LoginForm = () => {
               </span>
               <span className={styles.inputWrap}>
                 <input
-                  defaultValue={schoolData.password}
                   type={inputType}
                   name="password"
                   required
@@ -177,10 +180,10 @@ const LoginForm = () => {
                   type="text"
                   required
                   placeholder="Student ID"
-                  value={studentData.login_id}
+                  value={studentPayloadData.login_id}
                   onChange={(e) =>
-                    setStudentData({
-                      ...studentData,
+                    setStudentPayloadData({
+                      ...studentPayloadData,
                       login_id: e.target.value,
                     })
                   }
@@ -196,10 +199,10 @@ const LoginForm = () => {
                     type="text"
                     required
                     placeholder="Teacher ID"
-                    value={teacherData.teacher_id}
+                    value={teacherPayloadData.teacher_id}
                     onChange={(e) =>
-                      setTeacherData({
-                        ...teacherData,
+                      setTeacherPayloadData({
+                        ...teacherPayloadData,
                         teacher_id: e.target.value,
                       })
                     }
@@ -211,10 +214,11 @@ const LoginForm = () => {
           )}
 
           <button type="submit" className={styles.loginBtn}>
-            Sign in
+          {isLoading? <Loader/>:"Submit"}
           </button>
         </form>
         <ToastContainer />
+    
       </div>
     </>
   )
