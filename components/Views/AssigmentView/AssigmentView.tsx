@@ -12,17 +12,16 @@ import AddModuleForm from '../../Form/Forms/AddModuleForm/AddModuleForm'
 import AddFileForm from '@/components/Form/Forms/AddFileForm/AddFileForm'
 
 interface AssignmentProps {
-  handleAddFile:(formdata:any)=>void
-  modal:boolean
-  setModal:any
+  handleAddFile: (formdata: any) => void
+  openModal: boolean
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }
-const AssignmentView = ({ handleAddFile, modal, setModal }: AssignmentProps) => {
+const AssignmentView = ({ handleAddFile, openModal, setOpenModal }: AssignmentProps) => {
   return (
     <>
       <div className={styles.container}>
-
         <div className={styles.buttonWrap}>
-          <Button text="Add File"  width="180px" handleClick={() => setModal(true)} />
+          <Button text="Add File" width="180px" handleClick={() => setOpenModal(true)} />
           <Link href="/teacher/class/i/assign-module">
             <Button text="Add Module" width="180px" />
           </Link>
@@ -35,7 +34,6 @@ const AssignmentView = ({ handleAddFile, modal, setModal }: AssignmentProps) => 
           <div className={styles.cards}>
             <AssignmentCard />
             <AssignmentCard />
-           
           </div>
         </div>
 
@@ -50,21 +48,17 @@ const AssignmentView = ({ handleAddFile, modal, setModal }: AssignmentProps) => 
 
         <div className={styles.cardWrap}>
           <p className={styles.cardTitle}>VIDEO ASSIGNMENTS:</p>
-          <div className={styles.cards}>
-            {/* <AssignVideoCard /> */}
-          </div>
+          <div className={styles.cards}>{/* <AssignVideoCard /> */}</div>
         </div>
 
         <div className={styles.cardWrap}>
           <p className={styles.cardTitle}>QUIZ ASSIGNMENTS:</p>
-          <div className={styles.cards}>
-            {/* <AssignModuleCard /> */}
-          </div>
+          <div className={styles.cards}>{/* <AssignModuleCard /> */}</div>
         </div>
       </div>
 
       {/* MODALs */}
-      <Modal open={modal} setOpen={setModal}>
+      <Modal open={openModal} setOpen={setOpenModal}>
         <AddFileForm handleAddFile={handleAddFile} />
       </Modal>
 

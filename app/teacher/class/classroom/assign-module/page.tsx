@@ -29,7 +29,7 @@ const AssignModulePage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [selectQuiz, setselectQuiz] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data, isValidating } = useGetLessons();
+  const { data, isValidating } = useGetLessons(languageID);
   const [payloadData, setPayloadData] = useState({
     first_name: "",
     gendar: "",

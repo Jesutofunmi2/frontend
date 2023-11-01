@@ -19,10 +19,11 @@ import { LuSettings } from 'react-icons/lu'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 import { deleteClasswork, useGetClasswork } from '@/services/api/classwork'
 import { useSelector } from 'react-redux'
-import { usePost } from '@/services/api/post'
+import { addAssignmentFile } from '@/services/api/post'
 import { userData } from '@/services/redux/features/userSlice'
 import { useGetClasses } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
+import { mutate } from 'swr'
 
 const tabData = [
   { text: 'Students', icon: <BsPeople /> },
@@ -110,7 +111,6 @@ export const ClassworkViewWrapper = () => {
     classID
   )
 
-  
   // Delete Class function
   const handleDeleteClasswork = async (param: any) => {
     let payload = {
@@ -140,23 +140,15 @@ export const ClassworkViewWrapper = () => {
 // ASSIGNMENT VIEW WRAPPER
 export const AssignmentViewWrapper = () => {
   const searchParams = useSearchParams()
-  const classID = searchParams.get('id')
+  const classID: any = Number(searchParams.get('id'))
   const teacherData = useSelector(userData).currentTeacher?.data!
-  const [modal, setModal] = useState(false)
-
-  // Delete module API request hook
-  // const { deleteModule } = deleteModule()
-
-  // Delete module API request hook
-  // const { trigger: addFile } = usePost('/api/v1/teacher/assignment/file')
+  const [openModal, setOpenModal] = useState(false)
 
   // Get assigned module API request hook
-  const { data: assignedModule } = useGetAssignedModule({
+  const { data: assignedModule, mutate } = useGetAssignedModule({
     school_id: `${teacherData?.school?.id}`,
     teacher_id: `${teacherData?.teacher_id}`,
   })
-
-  
 
   // Delete module function
   // const handleModuleDelete = (id) => {
@@ -168,24 +160,30 @@ export const AssignmentViewWrapper = () => {
   // }
 
   // Add module assignment
-  const handleAddFile = (formdata:any) => {
-    // console.log(formdata)
-    // addFile({
-    //   school_id: `${teacherData?.school?.id}`,
-    //   teacher_id: `${teacherData?.teacher_id}`,
-    //   class_id: classID,
-    //   date: formdata?.date,
-    //   name: formdata?.topic,
-    //   mark: formdata?.mark,
-    //   notification: 0,
-    //   media_url: formdata.file,
-    // })
-    setModal(false)
+  const handleAddFile = async (payload: any) => {
+    let formdata = new FormData()
+    formdata.append('school_id', teacherData?.school?.id)
+    formdata.append('teacher_id', teacherData?.teacher_id)
+    formdata.append('class_id', classID)
+    formdata.append('date', payload.date)
+    formdata.append('name', payload.topic)
+    formdata.append('mark', payload.mark)
+    formdata.append('notification', '0')
+    formdata.append('media_url', payload.attachment[0])
+    let res = await addAssignmentFile(formdata)
+    if (res) {
+      mutate()
+      setOpenModal(false)
+    }
   }
 
   return (
     <>
-      <AssignmentView handleAddFile={handleAddFile} modal={modal} setModal={setModal} />
+      <AssignmentView
+        handleAddFile={handleAddFile}
+        setOpenModal={setOpenModal}
+        openModal={openModal}
+      />
     </>
   )
 }

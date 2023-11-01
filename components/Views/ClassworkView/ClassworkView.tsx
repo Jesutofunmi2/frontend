@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './classworkView.module.css'
 import Button from '../../Button/Button'
 import ClassworkCard from '../../Card/ClassworkCard/ClassworkCard'
 import Link from 'next/link'
 import AssignModuleCard from '@/components/Card/AssignModuleCard/AssignModuleCard'
 // import { useDeleteClasswork, useGetClasswork } from '@/services/APIs/classwork'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { Loader } from '@/components/Loader/Loader'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 
@@ -29,7 +29,7 @@ const ClassworkView = ({
     school_id: `${school_id}`,
     teacher_id: `${teacher_id}`,
   })
-  console.log(assignedModule)
+ 
   const handleModuleDelete = async (id: number) => {
     let payload = {
       schoolID: school_id,

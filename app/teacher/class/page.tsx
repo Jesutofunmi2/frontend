@@ -9,7 +9,6 @@ import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
 import { useSelector } from 'react-redux'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
-import { useGetTeacherClasses } from '@/services/api/teacher/class'
 import { addClass, deleteClass, useGetClasses } from '@/services/api/school/class'
 
 const TeacherClass = () => {
@@ -37,7 +36,7 @@ const TeacherClass = () => {
         break
     }
   }
-  console.log(allSchoolClasses)
+
   const handleDeleteClass = async (class_id: number) => {
     let res = await deleteClass(teacherData.school.id, class_id)
     if (res) {

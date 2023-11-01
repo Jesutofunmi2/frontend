@@ -28,6 +28,7 @@ const ClassCard = ({ classroom, handleDeleteClass, url }: ClassCardProps) => {
               id: classroom.id,
             },
           }}
+         
           className={styles.wrap}
         >
           <div className={styles.titleWrap}>

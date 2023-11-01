@@ -11,7 +11,6 @@ export const useGetLessons = (languageID:number) => {
   //NEW WAY TO FETCH DATA
   const fetcher = async () => {
     const res = await makeApiCall(`/api/v1/type?type=standalone&language_id=${languageID}`, "get");
-    // dispatch(lessonsData(res?.data))
     console.log(res)
       return res?.data;
   };

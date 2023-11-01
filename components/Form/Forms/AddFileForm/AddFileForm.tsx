@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styles from './addFileForm.module.css'
 import Button from '@/components/Button/Button'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useForm, Controller, SubmitHandler } from 'react-hook-form'
-import Date from '../../FormFields/Date/date'
+import { useForm ,SubmitHandler } from 'react-hook-form'
 import { TextInput } from '../../FormFields/TextInput/TextInput'
 
 type Inputs = {
   date: Date
   topic: string
   mark: string
-  file: File
+  attachment: File
 }
 
 interface AddFileProps {
-  handleAddFile: (formdata:any) => void
-
+  handleAddFile: (formdata: any) => void
 }
 const AddFileForm = ({ handleAddFile }: AddFileProps) => {
   // const [formdata, setFormdata] = useState({
@@ -52,7 +50,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
   //   // });
   // }
   const { register, handleSubmit, control } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleAddFile(data)
 
   return (
     <>
@@ -82,9 +80,9 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
 
           <div>
             <TextInput
-              register={{ ...register('file', { required: true }) }}
+              register={{ ...register('attachment', { required: true }) }}
               label="File Upload"
-              name="file"
+              name="attachment"
               type="file"
               // placeholder="Enter topic"
             />
@@ -103,7 +101,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
         </div>
 
         <div className={styles.btn}>
-          <Button text="Add" width="200px" />
+          <Button text="Add" type="submit" width="200px" />
         </div>
       </form>
 

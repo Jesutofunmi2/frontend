@@ -1,6 +1,6 @@
 import makeApiCall from ".."
 import useSWR from 'swr'
-import { toast } from 'react-toastify'
+
 // GET CLASSES
 export const useGetTeacherClasses = (teacherID: number) => {
   

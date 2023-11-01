@@ -4,12 +4,12 @@ import { toast } from 'react-toastify'
 import makeApiCall from '.'
 
 //ADD MODULE FOR TEACHER
-export const usePost = async () => {
+export const addAssignmentFile = async (payload:any) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
   try {
-    const res = await makeApiCall('/api/v1/teacher/assignment/file', 'post')
+    const res = await makeApiCall('/api/v1/teacher/assignment/file', 'post',payload)
     toast.dismiss()
     if (res) {
       toast.success('Module Created!', {
