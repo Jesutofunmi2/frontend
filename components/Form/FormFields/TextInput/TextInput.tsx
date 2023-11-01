@@ -8,7 +8,7 @@ interface InputProps {
   placeholder: string
   register: any
   style?: any
-  Icon?: IconType|any
+  Icon?: JSX.Element
 }
 interface InputValueProps {
   label: string

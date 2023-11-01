@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { lessonLoading, lessonsData } from "../redux/features/lessonsSlice";
 
 //LESSONS
-export const useGetLessons = (languageID) => {
-  const dispatch = useDispatch();
+export const useGetLessons = (languageID:number) => {
+  // const dispatch = useDispatch();
 
-  // HEADERS
-  const config = {
-    headers: {
-      Authorization: "Bearer " + `${tokens ?  tokens() : null}`,
-    },
-  };
+  // // HEADERS
+  // const config = {
+  //   headers: {
+  //     Authorization: "Bearer " + `${tokens ?  tokens() : null}`,
+  //   },
+  // };
 
   //NEW WAY TO FETCH DATA
   const fetcher = async (...args) => {

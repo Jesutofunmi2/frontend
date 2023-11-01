@@ -10,10 +10,12 @@ import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { useAddModule } from "@/services/api/module";
+import { userData } from "@/services/redux/features/userSlice";
 
 const AssignModuleView = ({}) => {
-  const IDs = useSelector((state) => state?.user?.currentTeacher?.data);
-  const pathname = usePathname();
+  const teacherData = useSelector(userData).currentTeacher?.data!
+  // const IDs = useSelector((state) => state?.user?.currentTeacher?.data);
+  // const pathname = usePathname();
   const searchParams = useSearchParams();
   const classID = searchParams.get("id");
   const { data } = useGetLessons();
