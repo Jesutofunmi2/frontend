@@ -10,12 +10,12 @@ interface Options {
 
 interface SelectProps {
   title: string
-  handleChange: (newValue: SingleValue<Options>) => void
-  classOptions: any
-  value: IClass
+  handleChange?: (newValue: SingleValue<Options>) => void
+  options: any
+  // value?: IClass
 }
 
-const Select2 = ({ title, handleChange, classOptions, value }: SelectProps) => {
+const Select2 = ({ title, handleChange, options }: SelectProps) => {
   // Select component styles
   const colourStyles = {
     control: (baseStyles: any, state: any) => ({
@@ -33,8 +33,8 @@ const Select2 = ({ title, handleChange, classOptions, value }: SelectProps) => {
         <Select
           required
           onChange={handleChange}
-          options={classOptions}
-          value={classOptions?.find((c) => c.value === value)}
+          options={options}
+          // value={options?.find((c) => c.value === value)}
           styles={colourStyles}
         />
       </div>

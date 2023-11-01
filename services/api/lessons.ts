@@ -1,23 +1,17 @@
-import { request, tokens } from "@/config/config";
+
 import useSWR from "swr";
 import { useDispatch, useSelector } from "react-redux";
 import { lessonLoading, lessonsData } from "../redux/features/lessonsSlice";
+import makeApiCall from ".";
 
 //LESSONS
 export const useGetLessons = (languageID:number) => {
-  // const dispatch = useDispatch();
-
-  // // HEADERS
-  // const config = {
-  //   headers: {
-  //     Authorization: "Bearer " + `${tokens ?  tokens() : null}`,
-  //   },
-  // };
+ 
 
   //NEW WAY TO FETCH DATA
-  const fetcher = async (...args) => {
-    const res = await request.get(...args, config);
-    dispatch(lessonsData(res?.data))
+  const fetcher = async () => {
+    const res = await makeApiCall(`/api/v1/type?type=standalone&language_id=${languageID}`, "get");
+    // dispatch(lessonsData(res?.data))
     console.log(res)
       return res?.data;
   };
@@ -28,6 +22,6 @@ export const useGetLessons = (languageID:number) => {
     revalidateOnReconnect: false
   });
 
-  dispatch(lessonLoading(isValidating))
+  // dispatch(lessonLoading(isValidating))
   return { data, isValidating };
 };

@@ -10,17 +10,19 @@ import Table from '@/components/Table/Table'
 import { AiFillEdit } from 'react-icons/ai'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import BackNavigation from '@/components/BackNavigation/BackNavigation'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import ClassworkView from '@/components/Views/ClassworkView/ClassworkView'
 import AssignmentView from '@/components/Views/AssigmentView/AssigmentView'
 import GradebookView from '@/components/Views/GradebookView/GradebookView'
 import { PiBookOpenBold } from 'react-icons/pi'
 import { LuSettings } from 'react-icons/lu'
-import { deleteModule, useGetAssignedModule } from '@/services/api/module'
+import { useGetAssignedModule } from '@/services/api/module'
 import { deleteClasswork, useGetClasswork } from '@/services/api/classwork'
 import { useSelector } from 'react-redux'
 import { usePost } from '@/services/api/post'
 import { userData } from '@/services/redux/features/userSlice'
+import { useGetClasses } from '@/services/api/school/class'
+import { Loader } from '@/components/Loader/Loader'
 
 const tabData = [
   { text: 'Students', icon: <BsPeople /> },
@@ -31,10 +33,18 @@ const tabData = [
 ]
 
 const ClassRoom = () => {
+  const searchParams = useSearchParams()
+  const classroomID = Number(searchParams.get('id'))
   const [activeTab, setActiveTab] = useState<'Students' | 'Classwork' | 'Assignment' | 'Gradebook'>(
     'Students'
   )
+  const teacherData = useSelector(userData).currentTeacher?.data!
+  const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData.school.id)
+  if (!allSchoolClasses) return null
+  if (isLoading) return <Loader />
+  if (error) return <p>error page</p>
 
+  const classRoomData = allSchoolClasses.find((classroom) => classroom.id === classroomID)
   const handleActiveTab = (activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') =>
     setActiveTab(activeTab)
   // TABLE HEAD
@@ -61,7 +71,7 @@ const ClassRoom = () => {
     <>
       <div>
         <BackNavigation />
-        <h3 className="headerTitle">Yoruba Language</h3>
+        <h3 className="headerTitle">{classRoomData?.language}</h3>
         <div className={styles.tabWrap}>
           <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
         </div>
@@ -92,28 +102,19 @@ export default ClassRoom
 export const ClassworkViewWrapper = () => {
   const searchParams = useSearchParams()
   const classID = Number(searchParams.get('id'))
-  // const teacherData = useSelector((state) => state?.user?.currentTeacher?.data)
   const teacherData = useSelector(userData).currentTeacher?.data!
-  // Get classwork API request hook
-  const { data: classwork, mutate } = useGetClasswork(
+
+  const { data: classworkData, mutate } = useGetClasswork(
     teacherData?.teacher_id,
     teacherData?.school?.id,
     classID
   )
-
-
 
   // Delete classwork API request hook
   // const { sendRequest } = deleteClasswork(mutate)
 
   // Delete module API request hook
   // const { deleteModule } = deleteModule(mutate)
-
-  // Get assigned module API request hook
-  const { data: assignedModule } = useGetAssignedModule({
-    school_id: `${teacherData?.school?.id}`,
-    teacher_id: `${teacherData?.teacher_id}`,
-  })
 
   // Delete assigned module API request hook
   // const { trigger } = deleteModule({
@@ -122,30 +123,26 @@ export const ClassworkViewWrapper = () => {
   // })
 
   // Delete Class function
-  const handleClassDelete = (param) => {
-    sendRequest({
+  const handleDeleteClasswork = async (param: any) => {
+    let payload = {
       name: param?.name,
       teacherID: teacherData?.teacher_id,
       schoolID: teacherData?.school?.id,
       classID: classID,
-    })
+    }
+    let res = await deleteClasswork(payload)
+    if (res) {
+      mutate()
+    }
   }
 
-  // Delete module function
-  const handleModuleDelete = (id) => {
-    deleteModule({
-      schoolID: teacherData?.school?.id,
-      teacherID: teacherData?.teacher_id,
-      id: id,
-    })
-  }
   return (
     <>
       <ClassworkView
-        classworkData={classwork}
-        assignedModule={assignedModule}
-        handleClassDelete={handleClassDelete}
-        handleModuleDelete={handleModuleDelete}
+        classworkData={classworkData}
+        handleDeleteClasswork={handleDeleteClasswork}
+        teacher_id={teacherData?.teacher_id}
+        school_id={teacherData?.school?.id}
       />
     </>
   )

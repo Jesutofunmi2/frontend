@@ -1,4 +1,4 @@
-import useSWRMutation from 'swr/mutation'
+
 import useSWR from 'swr'
 
 import { toast } from 'react-toastify'
@@ -32,8 +32,7 @@ export const addClasswork = async (payload: any) => {
 export const useGetClasswork = (teacherID: number, schoolID: number, classID: number) => {
   //NEW WAY TO FETCH DATA
   const fetcher = async () => {
-    const res = await makeApiCall('get')
-    console.log(res)
+    const res = await makeApiCall( `/api/v1/ClassWork?school_id=${schoolID}&class_id=${classID}&teacher_id=${teacherID}`,'get')
     return res?.data
   }
 

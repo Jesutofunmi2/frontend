@@ -1,13 +1,16 @@
-import React from "react";
-import styles from "./classworkCard.module.css";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { RiAttachment2 } from "react-icons/ri";
-import Link from "next/link";
+import React from 'react'
+import styles from './classworkCard.module.css'
+import { AiTwotoneDelete } from 'react-icons/ai'
+import { RiAttachment2 } from 'react-icons/ri'
+import Link from 'next/link'
 
-const ClassworkCard = ({ data, handleClick }) => {
-
+interface ClassworkCardProps {
+  data: any
+  handleDeleteClasswork: (data:any) => void
+}
+const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
   // HANDLE DELETE STUDENT
- 
+
   return (
     <>
       <div className={styles.card}>
@@ -16,24 +19,20 @@ const ClassworkCard = ({ data, handleClick }) => {
           color="red"
           className={styles.icon}
           onClick={() => {
-            window.confirm("Delete this class?") &&
-              handleClick(data);
+            window.confirm('Delete this class?') &&handleDeleteClasswork(data)
           }}
         />
         <div className={styles.wrap}>
           <div className={styles.studentCount}>
             <span>{data?.name}</span>
           </div>
-          <Link
-            href="/teacher/class/loo/classwork"
-            className={styles.attachment}
-          >
+          <Link href="/teacher/class/loo/classwork" className={styles.attachment}>
             <RiAttachment2 size={22} /> See Attachment
           </Link>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ClassworkCard;
+export default ClassworkCard

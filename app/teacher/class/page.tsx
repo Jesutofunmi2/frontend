@@ -16,9 +16,7 @@ const TeacherClass = () => {
   const [classDetails, setclassDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const teacherData = useSelector(userData).currentTeacher?.data!
-  // const teacherID = useSelector(userData).currentTeacher?.data.teacher_id!
 
-  // const { data: teacherData, isLoading, error, mutate } = useGetTeacherClasses(teacherID)
   const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData.school.id)
   if (!allSchoolClasses) return null
   if (isLoading) return <Loader />
@@ -39,7 +37,7 @@ const TeacherClass = () => {
         break
     }
   }
-
+  console.log(allSchoolClasses)
   const handleDeleteClass = async (class_id: number) => {
     let res = await deleteClass(teacherData.school.id, class_id)
     if (res) {

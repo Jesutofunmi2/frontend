@@ -30,14 +30,11 @@ async function makeApiCall<T = any>(
 
     return data
   } catch (error: any) {
-    // if (error.response) {
-    //   window.location.assign('/login')
     console.log(error)
     if(error.response.status === 401){
       localStorage.removeItem(TOKEN_KEY)
-      // window.location.assign("/login")
+      window.location.assign("/login")
     }
-    // }
   }
 
   throw new Error()

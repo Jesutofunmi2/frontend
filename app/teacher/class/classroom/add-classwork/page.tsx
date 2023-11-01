@@ -49,22 +49,18 @@ const AddClassworkPage = () => {
             <AssignClassworkView  />
           ) : (
             <AssignModuleView
-              data={data}
-              isValidating={isValidating}
-              setselectModule={setselectModule}
-              selectModule={selectModule}
             />
           )}
         </div>
       </div>
       {/* MODAL*/}
-      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
+      <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddModuleForm
           payloadData={payloadData}
           setPayloadData={setPayloadData}
           selectModule={selectModule}
         />
-      </Modal> */}
+      </Modal>
     </>
   );
 };

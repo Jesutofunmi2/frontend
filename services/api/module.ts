@@ -31,20 +31,19 @@ export const useAddModule = async (payload: any) => {
 }
 
 //GET MODULE FOR TEACHER
-export const useGetAssignedModule = async (param: any) => {
+export const useGetAssignedModule =  (param: any) => {
   // const teacherToken = useSelector((state) => state?.user?.currentTeacher?.token.token)
 
   const fetcher = async () => {
     const res = await makeApiCall(
-      `/api/v1/teacher/assignedModule?school_id=${param?.school_id}&teacher_id=${param?.teacher_id}`,
+      `/api/v1/teacher/assignedModule?school_id=${param.school_id}&teacher_id=${param.teacher_id}`,
       'get'
     )
-    console.log(res)
     return res?.data
   }
 
-  const { data, isValidating, mutate } = useSWR(
-    `/api/v1/teacher/assignedModule?school_id=${param?.school_id}&teacher_id=${param?.teacher_id}`,
+  const { data, isValidating , mutate } = useSWR(
+    `/api/v1/teacher/assignedModule?school_id=${param.school_id}&teacher_id=${param.teacher_id}`,
     fetcher
   )
   return { data, isValidating, mutate }
@@ -54,7 +53,7 @@ export const useGetAssignedModule = async (param: any) => {
 export const deleteModule = async (param: any) => {
   // const token = useSelector((state) => state?.user?.currentSchool?.token?.token)
 
-  const endpoint = toast.loading('Deleting...', {
+   toast.loading('Deleting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
   try {
@@ -62,7 +61,7 @@ export const deleteModule = async (param: any) => {
       `/api/v1/delete/assignedModule?school_id=${param?.school_id}&teacher_id=${param?.teacher_id}?id=${param.id}`,
       'delete'
     )
-    console.log(res)
+
     toast.dismiss()
     if (res) {
       toast.success('Module Deleted!', {

@@ -10,7 +10,6 @@ import { userData } from '@/services/redux/features/userSlice'
 
 const TeacherProfile = () => {
   const teacherData = useSelector(userData).currentTeacher?.data!
-  console.log(teacherData)
 
 
   return (

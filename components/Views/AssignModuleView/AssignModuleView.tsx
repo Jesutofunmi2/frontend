@@ -18,19 +18,19 @@ const AssignModuleView = ({}) => {
   // const pathname = usePathname();
   const searchParams = useSearchParams();
   const classID = searchParams.get("id");
-  const { data } = useGetLessons();
+  const { data:lessonData } = useGetLessons(3);
   const [addedModule, setAddedModule] = useState([]);
   const [selectedModule, setSelectedModule] = useState(false);
-  const { trigger } = useAddModule();
-  const [payload, setPayload] = useState({
-    school_id: `${IDs?.school?.id}`,
-    teacher_id: `${IDs?.teacher_id}`,
-    class_id: classID,
-    data: [],
-  });
-
+  // const { trigger } = useAddModule();
+  // const [payload, setPayload] = useState({
+  //   school_id: `${IDs?.school?.id}`,
+  //   teacher_id: `${IDs?.teacher_id}`,
+  //   class_id: classID,
+  //   data: [],
+  // });
+// console.log(lessonData )
   // Options for Select component
-  const options = data?.data?.map((item) => {
+  const options = lessonData?.map((item) => {
     return { value: item, label: item?.title };
   });
 
@@ -40,31 +40,31 @@ const AssignModuleView = ({}) => {
   };
 
   // Handle Submit
-  const handleSubmit = () => {
-    trigger(payload);
-  };
+  // const handleSubmit = () => {
+  //   trigger(payload);
+  // };
 
   // HANDLE ADD
-  const handleAdd = (formdata) => {
-    const alreadyExisting = addedModule.find(
-      (item) => item.id === selectedModule?.id
-    );
-    if (alreadyExisting) {
-      alert("already exist");
-    } else {
-      const data = { ...payload };
-      data["data"].push({
-        module: selectedModule.id,
-        deadline: formdata?.date,
-        time: formdata?.time,
-        no_attempt: formdata?.no_attempt,
-        mark: formdata?.mark,
-      });
-      setPayload(data);
-      setAddedModule((current) => [...current, selectedModule]);
-      setSelectedModule(false);
-    }
-  };
+  // const handleAdd = (formdata) => {
+  //   const alreadyExisting = addedModule.find(
+  //     (item) => item.id === selectedModule?.id
+  //   );
+  //   if (alreadyExisting) {
+  //     alert("already exist");
+  //   } else {
+  //     const data = { ...payload };
+  //     data["data"].push({
+  //       module: selectedModule.id,
+  //       deadline: formdata?.date,
+  //       time: formdata?.time,
+  //       no_attempt: formdata?.no_attempt,
+  //       mark: formdata?.mark,
+  //     });
+  //     setPayload(data);
+  //     setAddedModule((current) => [...current, selectedModule]);
+  //     setSelectedModule(false);
+  //   }
+  // };
 
   return (
     <>
@@ -72,7 +72,7 @@ const AssignModuleView = ({}) => {
         <Select2
           options={options}
           title="SELECT MODULE"
-          setSelectedModule={setSelectedModule}
+          // setSelectedModule={setSelectedModule}
         />
         <p className={styles.selectModuleTitle}></p>
         {/* <ModulesSection
@@ -99,7 +99,7 @@ const AssignModuleView = ({}) => {
       </div>
 
       <Modal open={selectedModule ? true : false} setOpen={setSelectedModule}>
-        <AddModuleForm handleClick={handleAdd} />
+        {/* <AddModuleForm handleClick={handleAdd} /> */}
       </Modal>
     </>
   );
