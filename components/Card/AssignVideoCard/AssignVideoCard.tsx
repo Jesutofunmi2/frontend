@@ -18,7 +18,7 @@ const AssignVideoCard = () => {
         </div>
 
         <div className={styles.detailWrap}>
-          <AssignCard />
+          {/* <AssignCard /> */}
         </div>
         <hr className={styles.line} />
         <div className={styles.attachment}>

@@ -5,7 +5,7 @@ interface InputProps {
   name: string
   defaultValue?: string
   type: string
-  placeholder: string
+  placeholder?: string
   register: any
   style?: any
   Icon?: JSX.Element

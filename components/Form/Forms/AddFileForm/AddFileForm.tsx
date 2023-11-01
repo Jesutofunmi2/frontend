@@ -1,103 +1,103 @@
-import React, { useState, useEffect } from "react";
-import styles from "./addFileForm.module.css";
-import Button from "@/components/Button/Button";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Date from "../../FormFields/Date/date";
+import React, { useState, useEffect } from 'react'
+import styles from './addFileForm.module.css'
+import Button from '@/components/Button/Button'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import Date from '../../FormFields/Date/date'
+import { TextInput } from '../../FormFields/TextInput/TextInput'
 
-const AddFileForm = ({ handleClick, file }) => {
-  const [formdata, setFormdata] = useState({
-    date: "",
-    topic: "",
-    no_attempt: 0,
-    mark: 0,
-    file: {},
-  });
+type Inputs = {
+  date: Date
+  topic: string
+  mark: string
+  file: File
+}
+
+interface AddFileProps {
+  handleAddFile: (formdata:any) => void
+
+}
+const AddFileForm = ({ handleAddFile }: AddFileProps) => {
+  // const [formdata, setFormdata] = useState({
+  //   date: '',
+  //   topic: '',
+  //   no_attempt: 0,
+  //   mark: 0,
+  //   file: {},
+  // })
 
   // HANDLE INPUT FIELDS
-  const handleChange = (e) => {
-    const data = { ...formdata };
-    data[e.target.name] = e.target.value;
-    setFormdata(data);
-  };
+  // const handleChange = (e) => {
+  //   const data = { ...formdata }
+  //   data[e.target.name] = e.target.value
+  //   setFormdata(data)
+  // }
 
   // HANDLE FILE CHANGE
-  const handleFile = (e) => {
-    setFormdata({ ...formdata, file: e.target.files[0]});
-  };
+  // const handleFile = (e: any) => {
+  //   setFormdata({ ...formdata, file: e.target.files[0] })
+  // }
 
-  const handleAdd = (e) => {
-    console.log(formdata);
-    e.preventDefault();
-    handleClick(formdata);
-    // setFormdata({
-    //   date: "",
-    //   topic: 0,
-    //   no_attempt: 0,
-    //   mark: 0,
-    //   file: {},
-    // });
-  };
+  // const handleAdd = (e) => {
+  //   console.log(formdata)
+  //   e.preventDefault()
+  //   handleClick(formdata)
+  //   // setFormdata({
+  //   //   date: "",
+  //   //   topic: 0,
+  //   //   no_attempt: 0,
+  //   //   mark: 0,
+  //   //   file: {},
+  //   // });
+  // }
+  const { register, handleSubmit, control } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
   return (
     <>
-      <form className={styles.container} onSubmit={(e) => handleAdd(e)}>
-        {/* <h3 className={styles.title}>Assign Module</h3> */}
+      <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <hr />
 
         <div className={styles.inputWrap}>
-          {/* Date */}
           <div className={styles.attemptWrap}>
-            <div className={styles.titleWrap}>
-              <h3>Date</h3>
-            </div>
-            <Date
-              handleChange={handleChange}
+            <TextInput
+              register={{ ...register('date', { required: true }) }}
+              label="Date"
               name="date"
-              value={formdata.date}
+              type="date"
+              placeholder="Enter Date"
             />
           </div>
-          {/* Time */}
+
           <div className={styles.attemptWrap}>
-            <div className={styles.titleWrap}>
-              <h3>Topic</h3>
-            </div>
-            <>
-              <input
-                type="text"
-                name="topic"
-                // value={formdata.time}
-                id=""
-                placeholder="Enter topic"
-                className={styles.Input}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </>
+            <TextInput
+              register={{ ...register('topic', { required: true }) }}
+              label="Topic"
+              name="topic"
+              type="text"
+              placeholder="Enter topic"
+            />
           </div>
-          {/* Attempt */}
 
           <div>
-            <input
-              type="file"
+            <TextInput
+              register={{ ...register('file', { required: true }) }}
+              label="File Upload"
               name="file"
-              id=""
-              onChange={(e) => handleFile(e)}
-              required
+              type="file"
+              // placeholder="Enter topic"
             />
           </div>
 
           {/* Mark */}
           <>
-            <input
-              type="number"
-              // value={formdata.mark}
+            <TextInput
+              register={{ ...register('mark', { required: true }) }}
+              label="Mark"
               name="mark"
-              id=""
+              type="number"
               placeholder="Mark"
-              className={styles.Input}
-              onChange={(e) => handleChange(e)}
-              required
             />
           </>
         </div>
@@ -109,7 +109,7 @@ const AddFileForm = ({ handleClick, file }) => {
 
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default AddFileForm;
+export default AddFileForm

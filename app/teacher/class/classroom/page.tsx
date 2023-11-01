@@ -16,7 +16,7 @@ import AssignmentView from '@/components/Views/AssigmentView/AssigmentView'
 import GradebookView from '@/components/Views/GradebookView/GradebookView'
 import { PiBookOpenBold } from 'react-icons/pi'
 import { LuSettings } from 'react-icons/lu'
-import { useGetAssignedModule } from '@/services/api/module'
+import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 import { deleteClasswork, useGetClasswork } from '@/services/api/classwork'
 import { useSelector } from 'react-redux'
 import { usePost } from '@/services/api/post'
@@ -110,18 +110,7 @@ export const ClassworkViewWrapper = () => {
     classID
   )
 
-  // Delete classwork API request hook
-  // const { sendRequest } = deleteClasswork(mutate)
-
-  // Delete module API request hook
-  // const { deleteModule } = deleteModule(mutate)
-
-  // Delete assigned module API request hook
-  // const { trigger } = deleteModule({
-  //   school_id: `${teacherData?.school?.id}`,
-  //   teacher_id: `${teacherData?.teacher_id}`,
-  // })
-
+  
   // Delete Class function
   const handleDeleteClasswork = async (param: any) => {
     let payload = {
@@ -152,14 +141,14 @@ export const ClassworkViewWrapper = () => {
 export const AssignmentViewWrapper = () => {
   const searchParams = useSearchParams()
   const classID = searchParams.get('id')
-  const teacherData = useSelector((state) => state?.user?.currentTeacher?.data)
+  const teacherData = useSelector(userData).currentTeacher?.data!
   const [modal, setModal] = useState(false)
 
   // Delete module API request hook
-  const { deleteModule } = useDeleteModule()
+  // const { deleteModule } = deleteModule()
 
   // Delete module API request hook
-  const { trigger: addFile } = usePost('/api/v1/teacher/assignment/file')
+  // const { trigger: addFile } = usePost('/api/v1/teacher/assignment/file')
 
   // Get assigned module API request hook
   const { data: assignedModule } = useGetAssignedModule({
@@ -167,34 +156,30 @@ export const AssignmentViewWrapper = () => {
     teacher_id: `${teacherData?.teacher_id}`,
   })
 
-  // Delete assigned module API request hook
-  const { trigger } = useDeleteModule({
-    school_id: `${teacherData?.school?.id}`,
-    teacher_id: `${teacherData?.teacher_id}`,
-  })
+  
 
   // Delete module function
-  const handleModuleDelete = (id) => {
-    deleteModule({
-      schoolID: teacherData?.school?.id,
-      teacherID: teacherData?.teacher_id,
-      id: id,
-    })
-  }
+  // const handleModuleDelete = (id) => {
+  //   deleteModule({
+  //     schoolID: teacherData?.school?.id,
+  //     teacherID: teacherData?.teacher_id,
+  //     id: id,
+  //   })
+  // }
 
   // Add module assignment
-  const handleAddFile = (formdata) => {
+  const handleAddFile = (formdata:any) => {
     // console.log(formdata)
-    addFile({
-      school_id: `${teacherData?.school?.id}`,
-      teacher_id: `${teacherData?.teacher_id}`,
-      class_id: classID,
-      date: formdata?.date,
-      name: formdata?.topic,
-      mark: formdata?.mark,
-      notification: 0,
-      media_url: formdata.file,
-    })
+    // addFile({
+    //   school_id: `${teacherData?.school?.id}`,
+    //   teacher_id: `${teacherData?.teacher_id}`,
+    //   class_id: classID,
+    //   date: formdata?.date,
+    //   name: formdata?.topic,
+    //   mark: formdata?.mark,
+    //   notification: 0,
+    //   media_url: formdata.file,
+    // })
     setModal(false)
   }
 
