@@ -14,17 +14,18 @@ import {
 import { useSelector } from "react-redux";
 import CorrectAnswerModal from "@/components/Modal/CorrectAnswerModal/CorrectAnswerModal";
 import { userData } from "@/services/redux/features/userSlice";
+import { LessonQuestion } from "@/types/lessontopic";
 
 interface LessaonGameTwoProps{
-  question:any,
-  QuestionIndex:number,
-  setQuestionIndex:any,
-  setCurrentQtn:any,
+  question:LessonQuestion[],
+  questionIndex:number,
+  setQuestionIndex:React.Dispatch<React.SetStateAction<number>>,
+  setCurrentQtn:React.Dispatch<React.SetStateAction<LessonQuestion | undefined>>,
   topicID: number,
 }
 const LessonGameTwo = ({
   question,
-  QuestionIndex,
+  questionIndex,
   setQuestionIndex,
   setCurrentQtn,
   topicID,
@@ -37,10 +38,8 @@ const LessonGameTwo = ({
   const [buttonColor, setButtonColor] = useState("");
   // const gameData = useSelector((state) => state?.lessonGame?.data);
 
-  
 
-  const currentQestion = question?.data[QuestionIndex];
-
+  const currentQuestion = question[questionIndex];
   // CORRECT AND WRONG ANSWER CONDITION
   // useEffect(() => {
   //   // if data?.data?.is_correct is false
@@ -82,7 +81,7 @@ const LessonGameTwo = ({
 
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   useEffect(() => {
-    setCurrentQtn(currentQestion);
+    setCurrentQtn(currentQuestion);
     // const audio = new Audio(currentQestion?.media_url);
     // const aud = audio.play();
     // if (aud !== undefined) {
@@ -94,13 +93,13 @@ const LessonGameTwo = ({
     //       //show error
     //     });
     // }
-  }, [setCurrentQtn, currentQestion]);
+  }, [setCurrentQtn, currentQuestion]);
 
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
     if (buttonColor === "yellowgreen") {
       answeredQuestion({
-        question_id: currentQestion?.id,
+        question_id: currentQuestion?.id,
         topic_id: topicID,
         student_id: studentID,
       });
@@ -109,7 +108,7 @@ const LessonGameTwo = ({
       setSelected();
     } else {
       checkAnswer({
-        question_id: currentQestion?.id,
+        question_id:currentQuestion?.id,
         optionIds: [`${selected}`],
       });
     }
@@ -121,11 +120,11 @@ const LessonGameTwo = ({
         <div className={styles.wrapper}>
           {/* HEADING TEXT */}
           <div className={styles.textWrap}>
-            <h3>Question No. {QuestionIndex + 1}</h3>
+            <h3>Question No. {questionIndex + 1}</h3>
           </div>
 
           <div className={styles.questionWrap}>
-            <h3>{currentQestion?.title}</h3>
+            <h3>{currentQuestion?.title}</h3>
             <div className={styles.flashcardWrap}>
               <Fade
                 cascade
@@ -134,7 +133,7 @@ const LessonGameTwo = ({
                 duration={1500}
                 direction="right"
               >
-                {currentQestion?.options?.map((option:any) => (
+                {currentQuestion?.options?.map((option:any) => (
                   <FlashCard
                     setSelected={setSelected}
                     selected={selected}
@@ -176,7 +175,7 @@ const LessonGameTwo = ({
           {/* )} */}
         </div>
       </div>
-      {QuestionIndex + 1 > question?.data?.length ? (
+      {questionIndex + 1 > question?.length ? (
         <CorrectAnswerModal />
       ) : null}
     </>

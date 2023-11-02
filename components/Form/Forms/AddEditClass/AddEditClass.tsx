@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Select from '../../FormFields/Select/DropDown'
 import { useGetLanguages } from '@/services/api/languages'
-import { Ilanguage } from '@/types/languages'
+import { Ilanguage } from '@/types/languages.'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { addClass } from '@/services/api/school/class'
 

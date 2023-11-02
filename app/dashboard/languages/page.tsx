@@ -8,29 +8,14 @@ import { Loader } from '@/components/Loader/Loader'
 import { Fade } from 'react-awesome-reveal'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
+import { ILanguage } from '@/types/languages.'
 
 const Languages = () => {
-  const { data: languages, isLoading } = useGetLanguages()
+  const { data: languages, isLoading, error } = useGetLanguages()
   const countDown = Number(useSelector(userData).currentUser?.data.count_down!)
-  // const countDown = useSelector(
-  //   (state) => state?.user?.currentUser?.data?.count_down
-  // );
-
-  // console.log(data)
-  // useEffect(() => {
-  //   const kpo = () => {
-  //     toast.error(`${countDown}`, {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //       autoClose: false,
-  //       theme: "colored",
-  //     });
-  //   };
-
-  //   const timer = setInterval(kpo, 2 * 60 * 1000);
-
-  //   return () => clearTimeout(timer);
-  // }, []);
-
+  if (!languages) return null
+  if (isLoading) return <Loader />
+  if (error) return <p>error page</p>
   return (
     <>
       <div>
@@ -45,10 +30,9 @@ const Languages = () => {
             style={{ maxWidth: '180px', width: '100%' }}
             direction="right"
           > */}
-            {languages?.map((card) => <LanguageCard key={card?.id} card={card} />)}
+          {languages?.map((card:ILanguage) => <LanguageCard key={card.id} card={card} />)}
           {/* </Fade> */}
         </div>
-        {isLoading ? <Loader /> : null}
       </div>
     </>
   )

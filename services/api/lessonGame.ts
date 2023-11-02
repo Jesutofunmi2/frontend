@@ -1,17 +1,19 @@
 import useSWR from 'swr'
 import makeApiCall from '.'
+import { LessonQuestion } from '@/types/lessontopic'
 
 //GET GAME QUESTION
-export const useGetLessonQuestions = async (languageID: number, lessonID: number) => {
+export const useGetLessonQuestions =  (languageID: number, lessonID: number) => {
   //NEW WAY TO FETCH DATA
   const fetcher = async () => {
     const res = await makeApiCall(
       `/api/v1/question?language_id=${languageID}&topic_id=${lessonID} `,
       'get'
     )
+    console.log(res)
     return res?.data
   }
-  const { data, isLoading, isValidating } = useSWR(
+  const { data, isLoading,error} = useSWR<LessonQuestion[],Error>(
     `/api/v1/question?language_id=${languageID}&topic_id=${lessonID} `,
     fetcher,
     {
@@ -20,7 +22,7 @@ export const useGetLessonQuestions = async (languageID: number, lessonID: number
       revalidateOnReconnect: false,
     }
   )
-  return { data, isLoading, isValidating }
+  return { data, isLoading,error }
 }
 
 // ******** POST REQUEST **********//

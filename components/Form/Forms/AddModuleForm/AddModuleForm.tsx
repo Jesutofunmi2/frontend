@@ -1,115 +1,102 @@
-import React, { useState, useEffect } from "react";
-import styles from "./addModuleForm.module.css";
-import Button from "@/components/Button/Button";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Date from "../../FormFields/Date/date";
+import React, { useState, useEffect } from 'react'
+import styles from './addModuleForm.module.css'
+import Button from '@/components/Button/Button'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Date from '../../FormFields/Date/date'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { TextInput } from '../../FormFields/TextInput/TextInput'
 
-const AddModuleForm = ({ handleClick, file }) => {
+type Inputs = {
+  date: Date
+  time: string
+  no_attempt: number
+  mark: number
+ file:File
+}
+interface AddModuleFormProps {
+  handleFormSubmit: (values:any) => void
+  file: any
+}
+const AddModuleForm = ({handleFormSubmit, file }: AddModuleFormProps) => {
   const [formdata, setFormdata] = useState({
-    date: "",
+    date: '',
     time: 0,
     no_attempt: 0,
     mark: 0,
     file: {},
-  });
+  })
 
-  // HANDLE INPUT FIELDS
-  const handleChange = (e) => {
-    const data = { ...formdata };
-    data[e.target.name] = e.target.value;
-    setFormdata(data);
-  };
+  
 
-  const handleAdd = (e) => {
-    e.preventDefault();
-    handleClick(formdata);
-    setFormdata({
-      date: "",
-      time: 0,
-      no_attempt: 0,
-      mark: 0,
-      file: {},
-    });
-  };
+
+  const { register, handleSubmit, control } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
 
   return (
     <>
-      <form className={styles.container} onSubmit={(e) => handleAdd(e)}>
+      <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         {/* <h3 className={styles.title}>Assign Module</h3> */}
         <hr />
 
         <div className={styles.inputWrap}>
-          {/* Date */}
-          <div className={styles.attemptWrap}>
-            <div className={styles.titleWrap}>
-              <h3>Date</h3>
-            </div>
-            <Date
-              handleChange={handleChange}
-              name="date"
-              value={formdata.deadline}
-            />
-          </div>
-          {/* Time */}
-          <div className={styles.attemptWrap}>
-            <div className={styles.titleWrap}>
-              <h3>Time</h3>
-            </div>
-            <>
-              <input
-                type="number"
-                name="time"
-                // value={formdata.time}
-                id=""
-                placeholder="Minutes"
-                className={styles.Input}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </>
-          </div>
-          {/* Attempt */}
-          <>
-            <input
-              type="number"
-              name="no_attempt"
-              // value={formdata.no_attempt}
-              id=""
-              placeholder="No. of Attempts"
-              className={styles.Input}
-              onChange={(e) => handleChange(e)}
-              required
-            />
-          </>
-          {/* Mark */}
-          <>
-            <input
-              type="number"
-              // value={formdata.mark}
-              name="mark"
-              id=""
-              placeholder="Mark"
-              className={styles.Input}
-              onChange={(e) => handleChange(e)}
-              required
-            />
-          </>
+          <TextInput
+            register={{ ...register('date', { required: true }) }}
+            label="Date"
+            type="date"
+            name="date"
+            placeholder="Date"
+          />
 
-          {file ?<div>
-            <input type="file" name="file" id="" onChange={(e) => handleChange(e)} required/>
-          </div>: null}
+          <TextInput
+            register={{ ...register('time', { required: true }) }}
+            label="Time(mins)"
+            type="number"
+            name="time"
+            placeholder="Minutes"
+          />
+
+          <TextInput
+            register={{ ...register('no_attempt', { required: true }) }}
+            label="No of attempts"
+            type="number"
+            name="no_attempt"
+            placeholder="No of attempts"
+          />
+
+          <TextInput
+            register={{ ...register('mark', { required: true }) }}
+            label="Mark"
+            type="number"
+            name="mark"
+            placeholder="Mark"
+            // className={styles.Input}
+            // onChange={(e) => handleChange(e)}
+            // required
+          />
+
+          {file ? (
+            <div>
+                <TextInput
+            register={{ ...register('file', { required: true }) }}
+            label="Attachments"
+            type="file"
+             name="file"
+            placeholder="Attachments"
+          />
+              {/* <input type="file" name="file" id="" onChange={(e) => handleChange(e)} required /> */}
+            </div>
+          ) : null}
         </div>
 
         <div className={styles.btn}>
-        <Button text="Add" width="200px" />
+          <Button text="Add" width="200px" />
         </div>
-       
       </form>
 
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default AddModuleForm;
+export default AddModuleForm

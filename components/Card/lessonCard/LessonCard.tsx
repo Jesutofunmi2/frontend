@@ -2,15 +2,16 @@ import React from 'react'
 import styles from './lessonCard.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Lesson } from '@/types/lessontopic'
 
 interface LessonCardProps {
-  lesson: any
+  lesson: Lesson
   languageID: number
-  setImageLoaded: React.Dispatch<React.SetStateAction< null>>
-  language:any
+  setImageLoaded: React.Dispatch<React.SetStateAction<null>>
+  language: string
 }
-const LessonsCard = ({ lesson, languageID, setImageLoaded, language }:LessonCardProps) => {
-  const percentageCalc =lesson?.percentage * 100
+const LessonsCard = ({ lesson, languageID, setImageLoaded, language }: LessonCardProps) => {
+  // const percentageCalc = lesson?.percentage * 100
 
   return (
     <>
@@ -32,7 +33,7 @@ const LessonsCard = ({ lesson, languageID, setImageLoaded, language }:LessonCard
           width={400}
           height={100}
           alt="home image"
-          onLoad={() => setImageLoaded(1)}
+          // onLoad={() => setImageLoaded(1)}
         />
         <div className={styles.title}>{lesson?.title}</div>
         <hr className={styles.break} />

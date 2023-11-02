@@ -16,17 +16,18 @@ import Button from '@/components/Button/Button'
 import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAnswerModal'
 import { useSearchParams } from 'next/navigation'
 import { userData } from '@/services/redux/features/userSlice'
+import { LessonQuestion, Options } from '@/types/lessontopic'
 
 interface LessonGameProps {
-  question: any
-  QuestionIndex: number
-  setQuestionIndex: any
-  setCurrentQtn: any
+  question: LessonQuestion[]
+  questionIndex: number
+  setQuestionIndex: React.Dispatch<React.SetStateAction<number>>
+  setCurrentQtn: React.Dispatch<React.SetStateAction<LessonQuestion | undefined>>
   topicID: number
 }
 const LessonGameOne = ({
   question,
-  QuestionIndex,
+  questionIndex,
   setQuestionIndex,
   setCurrentQtn,
   topicID,
@@ -37,17 +38,15 @@ const LessonGameOne = ({
   // );
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
-  // const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
+  // const { trigger: sendAnswer, data, isMutating } = checkAnswer();
   // const { trigger: sendAnsweredQuestion } = useAnsweredQuestion();
-  const [selected, setSelected] = useState()
+  const [selectedAnswer, setSelectedAnswer] = useState<number>()
   const [answers, setAnswers] = useState([])
-  const [puzzle, setPuzzle] = useState([])
+  const [puzzle, setPuzzle] = useState<Options[]>([])
   const type = searchParams.get('type')
   const [buttonColor, setButtonColor] = useState('')
 
-  const currentQestion = question?.data[QuestionIndex]
-
-  console.log(QuestionIndex)
+  const currentQuestion = question[questionIndex]
 
   // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
@@ -88,13 +87,13 @@ const LessonGameOne = ({
   }, [data, setQuestionIndex])
 
   useEffect(() => {
-    setCurrentQtn(currentQestion)
-    setPuzzle(currentQestion?.options)
-  }, [setCurrentQtn, currentQestion])
+    setCurrentQtn(currentQuestion)
+    setPuzzle(currentQuestion?.options)
+  }, [setCurrentQtn, currentQuestion])
 
   // SELECT ANSWER FUNCTION
-  const selectAnswer = (id: any) => {
-    setSelected(id)
+  const selectAnswer = (id: number) => {
+    setSelectedAnswer(id)
     const audio = new Audio('/public/assets/audios/click.mp3')
     audio.play()
   }
@@ -103,23 +102,23 @@ const LessonGameOne = ({
   const handlecheckAnswer = () => {
     if (buttonColor === 'yellowgreen') {
       answeredQuestion({
-        question_id: currentQestion?.id,
+        question_id: currentQuestion?.id,
         topic_id: topicID,
         student_id: studentID,
       })
       setQuestionIndex((prev: number) => prev + 1)
       setButtonColor('')
-      setSelected()
+      setSelectedAnswer(0)
     } else {
       checkAnswer({
-        question_id: currentQestion?.id,
-        optionIds: [`${selected}`],
+        question_id: currentQuestion?.id,
+        optionIds: [`${selectedAnswer}`],
       })
     }
   }
 
   const handlePlayAudio = () => {
-    const audio = new Audio(currentQestion?.media_url)
+    const audio = new Audio(currentQuestion?.media_url)
     audio.play()
   }
 
@@ -130,13 +129,13 @@ const LessonGameOne = ({
           {/* HEADING TEXT */}
           <div className={styles.textWrap}>
             <h2>Translate this sentence</h2>
-            <h3>Question No. {QuestionIndex + 1}</h3>
-            <h3>{currentQestion?.title}</h3>
+            <h3>Question No. {questionIndex + 1}</h3>
+            <h3>{currentQuestion?.title}</h3>
           </div>
 
           {/* SPEAKER */}
           <div className={styles.speakerWrap}>
-            <Image src={'' || currentQestion?.image_url} height={250} width={250} alt="image" />
+            <Image src={currentQuestion?.image_url} height={250} width={250} alt="image" />
             <Image
               src="/assets/images/speaker.png"
               height="50"
@@ -152,8 +151,8 @@ const LessonGameOne = ({
           {/* PICK ANSWER BOX */}
           <Fade cascade damping={0.1} style={{ width: '100%' }} duration={1300} direction="up">
             <ul className={styles.pickAnswerWrap}>
-              {puzzle?.map((option:any) => {
-                let chosenAnswer = selected === option.id ? 'orange' : '#E1E1E1'
+              {puzzle?.map((option: any) => {
+                let chosenAnswer = selectedAnswer === option.id ? 'orange' : '#E1E1E1'
                 return (
                   <OptionButton
                     backgroundColor={`${chosenAnswer}`}
@@ -188,7 +187,7 @@ const LessonGameOne = ({
                 maxWidth="230px"
                 height="50px"
                 disabled={
-                  !selected
+                  !selectedAnswer
                     ? true
                     : false || isMutating || buttonColor === 'green' || buttonColor === 'red'
                 }
@@ -197,7 +196,7 @@ const LessonGameOne = ({
           </Fade>
         </div>
       </div>
-      {QuestionIndex + 1 > question?.data?.length ? <CorrectAnswerModal /> : null}
+      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
     </>
   )
 }

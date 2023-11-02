@@ -14,6 +14,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { ReactSortable } from "react-sortablejs";
 import {answeredQuestion, checkAnswer } from "@/services/api/lessonGame";
 import { userData } from "@/services/redux/features/userSlice";
+import { LessonQuestion, Options } from "@/types/lessontopic";
 // import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
 // import clickSound from "@/public/assets/audios/click.mp3";
 // import correctAnswerSound from "@/public/assets/audios/yay.mp3";
@@ -35,15 +36,15 @@ const draggableList = [
 ];
 
 interface LessonGameOneProps{
-  question:any,
-  QuestionIndex:number,
-  setQuestionIndex:any,
-  setCurrentQtn:any,
-  topicID:number
+  question:LessonQuestion[],
+  questionIndex:number,
+  setQuestionIndex:React.Dispatch<React.SetStateAction<number>>,
+  setCurrentQtn:React.Dispatch<React.SetStateAction<LessonQuestion | undefined>>,
+  topicID: number,
 }
 const LessonGameOne = ({
   question,
-  QuestionIndex,
+  questionIndex,
   setQuestionIndex,
   setCurrentQtn,
   topicID
@@ -53,14 +54,14 @@ const LessonGameOne = ({
   // const studentID = useSelector((state) => state?.user?.currentUser?.data?.student_id);
   // const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
   // const { trigger: sendAnsweredQuestion} = useAnsweredQuestion();
-  const [selected, setSelected] = useState();
+  const [selectedAnswer, setSelectedAnswer] = useState<number>()
   const [openCorrectModal, setOpenCorrectModal] = useState(false);
   const [answers, setAnswers] = useState([]);
-  const [puzzle, setPuzzle] = useState([]);
+  const [puzzle, setPuzzle] = useState([])
   const [buttonColor, setButtonColor] = useState("");
   const [list, setList] = useState([]);
 
-  const currentQestion = question?.data[QuestionIndex];
+  const currentQuestion = question[questionIndex];
 
   console.log(list)
 
@@ -107,16 +108,16 @@ const LessonGameOne = ({
 
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   useEffect(() => {
-    setCurrentQtn(currentQestion);
-    setPuzzle(currentQestion?.options[0]?.title);
+    setCurrentQtn(currentQuestion);
+    setPuzzle(currentQuestion?.options[0]?.title);
     setList(draggableList)
-  }, [setCurrentQtn, currentQestion]);
+  }, [setCurrentQtn, currentQuestion]);
 
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
     if (buttonColor === "yellowgreen") {
       answeredQuestion({
-        question_id: currentQestion?.id,
+        question_id: currentQuestion?.id,
         topic_id: topicID,
         student_id: studentID,
       });
@@ -126,37 +127,37 @@ const LessonGameOne = ({
       setSelected();
     } else {
       checkAnswer({
-        question_id: currentQestion?.id,
-        optionIds: [`${currentQestion?.options[0]?.id}`],
+        question_id: currentQuestion?.id,
+        optionIds: [`${currentQuestion?.options[0]?.id}`],
         puzzle_text: answers,
       });
     }
   };
 
-  const handlePickAnswer = (opt) => {
-    setAnswers((current) => [...current, opt]);
+  // const handlePickAnswer = (opt) => {
+  //   setAnswers((current) => [...current, opt]);
 
-    setPuzzle((current) => current.filter((fruit) => fruit !== opt));
+  //   setPuzzle((current) => current.filter((fruit) => fruit !== opt));
 
-    const audio = new Audio("/public/assets/audios/click.mp3");
-    audio.play();
-    // dispatch(pickAnswer(opt))
-  };
+  //   const audio = new Audio("/public/assets/audios/click.mp3");
+  //   audio.play();
+  //   // dispatch(pickAnswer(opt))
+  // };
 
-  const handleRemoveAnswer = (opt:any) => {
-    if (!isMutating) {
-    setAnswers((current) => current.filter((fruit) => fruit !== opt));
-    }
+  // const handleRemoveAnswer = (opt:any) => {
+  //   if (!isMutating) {
+  //   setAnswers((current) => current.filter((fruit) => fruit !== opt));
+  //   }
 
-    setPuzzle((current) => [...current, opt]);
-    // dispatch(removeAnswer(opt))
-  };
+  //   setPuzzle((current) => [...current, opt]);
+  //   // dispatch(removeAnswer(opt))
+  // };
 
-  const handlePlayAudio = () => {
-    // play wrongAnswerSound audio
-    const audio = new Audio(currentQestion?.options[0]?.media_url);
-    audio.play();
-  };
+  // const handlePlayAudio = () => {
+  //   // play wrongAnswerSound audio
+  //   const audio = new Audio(currentQuestion?.options[0]?.media_url);
+  //   audio.play();
+  // };
 
   return (
     <>
@@ -166,13 +167,13 @@ const LessonGameOne = ({
           {/* HEADING TEXT */}
           <div className={styles.textWrap}>
             <h2>Translate this sentence</h2>
-            <h3>Question No. {QuestionIndex + 1}</h3>
-            <h3>{currentQestion?.title}</h3>
+            <h3>Question No. {questionIndex + 1}</h3>
+            <h3>{currentQuestion?.title}</h3>
           </div>
 
           {/* IMAGE AND SPEAKER */}
           <div className={styles.imgAndSpeaker}>
-            {/* <Image src={currentQestion?.image_url} className={styles.img} alt="character" width={280} height={280}/> */}
+            {/* <Image src={currentQuestion?.image_url} className={styles.img} alt="character" width={280} height={280}/> */}
             <div className={styles.speakerWrap}>
               {/* <Image
                 src="/assets/images/speaker.png"
@@ -182,7 +183,7 @@ const LessonGameOne = ({
               /> */}
               <BsFillPlayFill
                 color="#28B8F8"
-                onClick={() => handlePlayAudio()}
+                // onClick={() => handlePlayAudio()}
                 className={styles.playIcon}
               />
             </div>
@@ -203,7 +204,7 @@ const LessonGameOne = ({
                 <div
                   className={styles.showAnswer}
                   key={item}
-                  onClick={() => handleRemoveAnswer(item)}
+                  // onClick={() => handleRemoveAnswer(item)}
                 >
                   {item}
                 </div>
@@ -219,7 +220,7 @@ const LessonGameOne = ({
               <div
                 className={styles.answer}
                 key={option}
-                onClick={() => handlePickAnswer(option)}
+                // onClick={() => handlePickAnswer(option)}
               >
                  <p className="languageText">{option}</p>
               </div>
