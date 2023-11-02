@@ -12,7 +12,6 @@ if (token) {
 async function makeApiCall<T = any>(
   url: string,
   method: AxiosRequestConfig['method'] = 'get',
-
   payload?: AxiosRequestConfig['data'],
   axiosRequestConfig?: Omit<AxiosRequestConfig, 'url' | 'method' | 'data'>
 ): Promise<T> {
@@ -27,17 +26,18 @@ async function makeApiCall<T = any>(
       baseURL,
       ...axiosRequestConfig,
     })
-
     return data
   } catch (error: any) {
-    console.log(error)
-    if(error.response.status === 401){
-      localStorage.removeItem(TOKEN_KEY)
-      window.location.assign("/login")
+    if (error.response) {
+      if (error.response.status === 403) {
+        localStorage.removeItem(TOKEN_KEY)
+        window.location.assign('/login')
+      }
+      throw new Error(error.response.data.message)
     }
-  }
 
-  throw new Error()
+    throw new Error(error.message)
+  }
 }
 
 export default makeApiCall

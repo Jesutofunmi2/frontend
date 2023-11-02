@@ -17,7 +17,7 @@ const LoginForm = () => {
   const router = useRouter()
   const [toggleUser, setToggleUser] = useState('school')
   const [inputType, setInputType] = useState('password')
-  const [isLoading,setLoading]=useState(false)
+  const [isLoading, setLoading] = useState(false)
   const [studentPayloadData, setStudentPayloadData] = useState({
     login_id: '',
     password: '12345678',
@@ -58,15 +58,14 @@ const LoginForm = () => {
     try {
       if (toggleUser === 'school') {
         let response = await schoolLogin(schoolPayloadData)
-        console.log(response)
         const { token } = response.token
         setToken(token)
         dispatch(schoolData(response))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 5000,
         })
         router.push('/school/profile')
+        setLoading(false)
       } else if (toggleUser === 'teacher') {
         let response = await teacherLogin(teacherPayloadData)
         const { token } = response.token
@@ -76,6 +75,7 @@ const LoginForm = () => {
           position: toast.POSITION.TOP_CENTER,
         })
         router.push('/teacher')
+        setLoading(false)
       } else if (toggleUser === 'student') {
         let response = await studentLogin(studentPayloadData)
         const { token } = response.token
@@ -84,17 +84,18 @@ const LoginForm = () => {
           position: toast.POSITION.TOP_CENTER,
         })
         router.push('/dashboard/languages')
+        setLoading(false)
       }
-      toast.dismiss()
-    } catch (err) {
+    } catch (err: any) {
+      console.log(err)
+      setLoading(false)
       if (err) {
-        toast.error('Invalid Credentials', {
+        toast.error(err.message, {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 10000,
         })
       }
-    }finally{
-      setLoading(false)
+    } finally {
+      toast.dismiss()
     }
   }
   return (
@@ -214,11 +215,10 @@ const LoginForm = () => {
           )}
 
           <button type="submit" className={styles.loginBtn}>
-          {isLoading? <Loader/>:"Submit"}
+            {isLoading ? <Loader /> : 'Submit'}
           </button>
         </form>
-        <ToastContainer />
-    
+        <ToastContainer autoClose={5000} />
       </div>
     </>
   )
