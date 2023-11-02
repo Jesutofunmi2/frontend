@@ -1,39 +1,40 @@
-"use client";
+'use client'
 
-import React, { useEffect } from "react";
-import styles from "./correctAnswerModal.module.css";
-import ReactDOM from 'react-dom';
-import Image from "next/image";
-import correctConfetti from "../../../public/assets/images/correctConfetti.jpg";
-import { Bounce } from "react-awesome-reveal";
-import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect } from 'react'
+import styles from './correctAnswerModal.module.css'
+import ReactDOM from 'react-dom'
+import Image from 'next/image'
+import correctConfetti from '../../../public/assets/images/correctConfetti.jpg'
+import { Bounce } from 'react-awesome-reveal'
+import { usePathname, useRouter } from 'next/navigation'
 
-const CorrectAnswerModal = ({closeModal, nextQuestion}) => {
+interface CorrectAnswerModalProps {
+  closeModal?: boolean
+}
+const CorrectAnswerModal = ({ closeModal }: CorrectAnswerModalProps) => {
   const router = useRouter()
-  const pathname = usePathname();
-    // Get url path
-    const path = pathname.split("/")[2]
+  const pathname = usePathname()
+  // Get url path
+  const path = pathname.split('/')[2]
 
-    console.log(path)
+  console.log(path)
 
-
-    const handleClick = () =>{
-      if (path === "video-course") {
-        closeModal(false)
-      }else{
-        router.back()
-      }
-       
+  const handleClick = () => {
+    if (path === 'video-course') {
+      closeModal(false)
+    } else {
+      router.back()
     }
+  }
 
-    useEffect(() => {
-      window.scrollTo(0,0)
-    }, [])
-    
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return ReactDOM.createPortal(
     <>
       <div className={styles.overlay}>
-        <Bounce style={{ width: "100%" }}>
+        <Bounce style={{ width: '100%' }}>
           <div className={styles.cont}>
             {/* <div onClick={() => closeModal(false)} className={styles.closeIcon}>
               <RiCloseCircleFill size={50} color="white" />
@@ -48,7 +49,7 @@ const CorrectAnswerModal = ({closeModal, nextQuestion}) => {
                 className={styles.image}
                 alt="congrats"
               />
-              <button className={styles.nextBtn} onClick={()=> handleClick()}>
+              <button className={styles.nextBtn} onClick={() => handleClick()}>
                 Awesome!
               </button>
             </div>
@@ -56,8 +57,8 @@ const CorrectAnswerModal = ({closeModal, nextQuestion}) => {
         </Bounce>
       </div>
     </>,
-    document.getElementById('modal-root') 
-  );
-};
+    document.getElementById('modal-root')!
+  )
+}
 
-export default CorrectAnswerModal;
+export default CorrectAnswerModal

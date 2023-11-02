@@ -12,10 +12,12 @@ import Image from "next/image";
 import Button from "@/components/Button/Button";
 import { BsFillPlayFill } from "react-icons/bs";
 import { ReactSortable } from "react-sortablejs";
-import { useAnsweredQuestion, useCheckAnswer } from "@/services/api/lessonGame";
+import {answeredQuestion, checkAnswer } from "@/services/api/lessonGame";
+import { userData } from "@/services/redux/features/userSlice";
 // import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
 // import clickSound from "@/public/assets/audios/click.mp3";
-import correctAnswerSound from "@/public/assets/audios/yay.mp3";
+// import correctAnswerSound from "@/public/assets/audios/yay.mp3";
+
 
 const draggableList = [
   {
@@ -32,18 +34,25 @@ const draggableList = [
   },
 ];
 
+interface LessonGameOneProps{
+  question:any,
+  QuestionIndex:number,
+  setQuestionIndex:any,
+  setCurrentQtn:any,
+  topicID:number
+}
 const LessonGameOne = ({
   question,
   QuestionIndex,
   setQuestionIndex,
   setCurrentQtn,
   topicID
-}) => {
+}:LessonGameOneProps) => {
   
-  const dispatch = useDispatch();
-  const studentID = useSelector((state) => state?.user?.currentUser?.data?.student_id);
-  const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
-  const { trigger: sendAnsweredQuestion} = useAnsweredQuestion();
+  const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
+  // const studentID = useSelector((state) => state?.user?.currentUser?.data?.student_id);
+  // const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
+  // const { trigger: sendAnsweredQuestion} = useAnsweredQuestion();
   const [selected, setSelected] = useState();
   const [openCorrectModal, setOpenCorrectModal] = useState(false);
   const [answers, setAnswers] = useState([]);
@@ -104,9 +113,9 @@ const LessonGameOne = ({
   }, [setCurrentQtn, currentQestion]);
 
   // CHECK ANSWER FUNCTION
-  const checkAnswer = () => {
+  const handleCheckAnswer = () => {
     if (buttonColor === "yellowgreen") {
-      sendAnsweredQuestion({
+      answeredQuestion({
         question_id: currentQestion?.id,
         topic_id: topicID,
         student_id: studentID,
@@ -116,7 +125,7 @@ const LessonGameOne = ({
       setAnswers([]);
       setSelected();
     } else {
-      sendAnswer({
+      checkAnswer({
         question_id: currentQestion?.id,
         optionIds: [`${currentQestion?.options[0]?.id}`],
         puzzle_text: answers,
@@ -134,7 +143,7 @@ const LessonGameOne = ({
     // dispatch(pickAnswer(opt))
   };
 
-  const handleRemoveAnswer = (opt) => {
+  const handleRemoveAnswer = (opt:any) => {
     if (!isMutating) {
     setAnswers((current) => current.filter((fruit) => fruit !== opt));
     }
@@ -143,7 +152,7 @@ const LessonGameOne = ({
     // dispatch(removeAnswer(opt))
   };
 
-  const handlePlayAudio = (opt) => {
+  const handlePlayAudio = () => {
     // play wrongAnswerSound audio
     const audio = new Audio(currentQestion?.options[0]?.media_url);
     audio.play();
@@ -186,7 +195,7 @@ const LessonGameOne = ({
               dragClass="sortableDrag"
               list={answers}
               setList={setAnswers}
-              animation="100"
+              // animation={100}
               easing="ease-out"
               className={styles.answersWrap}
             >
@@ -218,7 +227,7 @@ const LessonGameOne = ({
           </div>
 
           <Button
-            handleClick={checkAnswer}
+            handleClick={handleCheckAnswer}
             backgroundColor={`${buttonColor}`}
             text={
               buttonColor === "red"

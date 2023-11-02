@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./progressBar.module.css";
 
-const ProgressBar = ({ width, percentage }) => {
+interface ProgressbarProps{
+  width?:string, percentage:number
+}
+const ProgressBar = ({ width, percentage }:ProgressbarProps) => {
 
   return (
     <>

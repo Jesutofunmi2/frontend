@@ -12,14 +12,14 @@ import { useSelector } from "react-redux";
 
 const Lessons = () => {
   const searchParams = useSearchParams();
-  const languageID = searchParams.get("lang");
-  const { data, isValidating } = useGetLessons(languageID);
+  const languageID = Number(searchParams.get("lang"))
+  const { data:languageLessons, isValidating } = useGetLessons(languageID);
   const language = searchParams.get("language");
-  const [imageLoaded, setImageLoaded] = useState();
-  const lessonData = useSelector((state) => state?.lessons?.data);
+  const [imageLoaded, setImageLoaded] = useState<null>(null);
+  // const lessonData = useSelector((state) => state?.lessons?.data);
+// useSelector(userData).currentUser?.data.count_down!
 
-
-  
+  // console.log(languageLesson)
 
   return (
     <>
@@ -31,17 +31,17 @@ const Lessons = () => {
           <h1 className={styles.title}>Lessons</h1>
         </div>
         <div className={styles.wrapper}>
-          {data?.data?.map((post) => (
+          {languageLessons?.map((lesson:any) => (
             <LessonsCard
-              key={post?.id}
-              post={post}
+              key={lesson?.id}
+           lesson={lesson}
               languageID={languageID}
               language={language}
               setImageLoaded={setImageLoaded}
             />
           ))}
         </div>
-        {!lessonData ? <Loader /> : null}
+        {/* {!lessonData ? <Loader /> : null} */}
       </div>
     </>
   );

@@ -10,20 +10,19 @@ import { Loader } from "@/components/Loader/Loader";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import { AiFillHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { useAddFavourite } from "@/services/api/favourite";
+import { addFavourite } from "@/services/api/favourite";
 import LessonGameThree from "@/components/LessonGame/LessonGameThree/LessonGameThree";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
+import { userData } from "@/services/redux/features/userSlice";
 
 const LessonGame = () => {
-  const studentID = useSelector(
-    (state) => state?.user?.currentUser?.data?.student_id
-  );
+  const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams();
-  const languageID = searchParams.get("lang");
-  const lessonID = searchParams.get("les");
+  const languageID = Number(searchParams.get("lang"))
+  const lessonID = Number(searchParams.get("lesson"))
   const type = searchParams.get("type");
-  const { data, isLoading } = useGetLessonQuestions(languageID, lessonID);
-  const { trigger } = useAddFavourite(languageID, lessonID);
+  const { data:lessonQuestions, isLoading } = useGetLessonQuestions(languageID, lessonID);
+  // const { trigger } = useAddFavourite(languageID, lessonID);
   const [QuestionIndex, setQuestionIndex] = useState(0);
   const [currentQtn, setCurrentQtn] = useState();
   const [favourite, setFavourite] = useState([]);
@@ -33,31 +32,31 @@ const LessonGame = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  console.log("jjj:", data)
+  console.log("jjj:", lessonQuestions)
 
   const currentPercentage = Math.floor(
-    (100 / data?.data?.length) * QuestionIndex
+    (100 / lessonQuestions?.length) * QuestionIndex
   );
 
-  const handleFavourite = (arg) => {
-    const alreadyFaved = favourite?.find((faved) => {
-      return faved.id === arg.id;
-    });
+  // const handleFavourite = (arg:any) => {
+  //   const alreadyFaved = favourite?.find((faved) => {
+  //     return faved.id === arg.id;
+  //   });
 
-    if (!alreadyFaved) {
-      setFavourite((current) => [...current, { id: arg?.id }]);
-      trigger({
-        student_id: studentID,
-        question_id: arg.id,
-      });
-    } else {
-      const removeFave = favourite.filter((item) => item.id !== arg?.id);
-      setFavourite(removeFave);
-    }
-  };
+  //   if (!alreadyFaved) {
+  //     setFavourite((current) => [...current, { id: arg?.id }]);
+  //     trigger({
+  //       student_id: studentID,
+  //       question_id: arg.id,
+  //     });
+  //   } else {
+  //     const removeFave = favourite.filter((item) => item.id !== arg?.id);
+  //     setFavourite(removeFave);
+  //   }
+  // };
 
   // GET FAVOURITED
-  const faved = favourite?.find((item) => item.id === currentQtn?.id);
+  // const faved = favourite?.find((item:any) => item?.id === currentQtn?.id);
 
   return (
     <>
@@ -72,14 +71,14 @@ const LessonGame = () => {
             <ProgressBar percentage={currentPercentage} />
             <AiFillHeart
               size={40}
-              color={faved ? "red" : "#CBCBCB"}
-              onClick={() => handleFavourite(currentQtn)}
+              // color={faved ? "red" : "#CBCBCB"}
+              // onClick={() => handleFavourite(currentQtn)}
             />
           </div>
 
           {type === "multiple" || type === "multiple_bronze" ? (
             <LessonGameThree
-              question={data}
+              question={lessonQuestions}
               QuestionIndex={QuestionIndex}
               setQuestionIndex={setQuestionIndex}
               setCurrentQtn={setCurrentQtn}
@@ -88,7 +87,7 @@ const LessonGame = () => {
           ) : type === "puzzle" || type === "scramble" ? (
             <LessonGameOne
               topicID={lessonID}
-              question={data}
+              question={lessonQuestions}
               QuestionIndex={QuestionIndex}
               setQuestionIndex={setQuestionIndex}
               setCurrentQtn={setCurrentQtn}
@@ -96,7 +95,7 @@ const LessonGame = () => {
           ) : (
             <LessonGameTwo
               topicID={lessonID}
-              question={data}
+              question={lessonQuestions}
               QuestionIndex={QuestionIndex}
               setQuestionIndex={setQuestionIndex}
               setCurrentQtn={setCurrentQtn}

@@ -1,7 +1,6 @@
 
 import useSWR from "swr";
-import { useDispatch, useSelector } from "react-redux";
-import { lessonLoading, lessonsData } from "../redux/features/lessonsSlice";
+
 import makeApiCall from ".";
 
 //LESSONS

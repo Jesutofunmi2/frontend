@@ -7,7 +7,8 @@ export interface Program {
 }
 
 export interface Profile {
-  id: string
+  student_id:number
+  id:string
   count_down: number
   country: string
   email: string
@@ -18,6 +19,7 @@ export interface Profile {
   phone_number: string
   school_name: string
   type: string
+  
 }
 
 export interface ISchool extends Profile {}

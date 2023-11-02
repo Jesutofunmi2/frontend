@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import React from "react";
-import styles from "./page.module.css";
-import LanguageCard from "@/components/Card/languageCard/LanguageCard";
-import { useGetLanguages } from "@/services/api/languages";
-import {Loader} from "@/components/Loader/Loader";
-import { Fade } from "react-awesome-reveal";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
+import styles from './page.module.css'
+import LanguageCard from '@/components/Card/languageCard/LanguageCard'
+import { useGetLanguages } from '@/services/api/languages'
+import { Loader } from '@/components/Loader/Loader'
+import { Fade } from 'react-awesome-reveal'
+import { useSelector } from 'react-redux'
+import { userData } from '@/services/redux/features/userSlice'
 
 const Languages = () => {
-  const { data, isLoading } = useGetLanguages();
+  const { data: languages, isLoading } = useGetLanguages()
+  const countDown = Number(useSelector(userData).currentUser?.data.count_down!)
+  // const countDown = useSelector(
+  //   (state) => state?.user?.currentUser?.data?.count_down
+  // );
 
-  const countDown = useSelector(
-    (state) => state?.user?.currentUser?.data?.count_down
-  );
-  
-  console.log(data)
+  // console.log(data)
   // useEffect(() => {
   //   const kpo = () => {
   //     toast.error(`${countDown}`, {
@@ -38,23 +38,20 @@ const Languages = () => {
           <h2>Languages</h2>
           <p>Choose your native language</p>
         </div>
-
         <div className={styles.wrapper}>
-          <Fade
+          {/* <Fade
             cascade
             damping={0.1}
-            style={{ maxWidth: "180px", width: "100%" }}
+            style={{ maxWidth: '180px', width: '100%' }}
             direction="right"
-          >
-            {data?.data?.map((post) => (
-              <LanguageCard key={post?.id} post={post} />
-            ))}
-          </Fade>
+          > */}
+            {languages?.map((card) => <LanguageCard key={card?.id} card={card} />)}
+          {/* </Fade> */}
         </div>
         {isLoading ? <Loader /> : null}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Languages;
+export default Languages

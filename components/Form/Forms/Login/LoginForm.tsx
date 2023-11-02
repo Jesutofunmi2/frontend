@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { setToken } from '@/services/api/token'
 import { useDispatch } from 'react-redux'
-import { schoolData, teacherData } from '../../../../services/redux/features/userSlice'
+import { schoolData, teacherData ,studentData} from '../../../../services/redux/features/userSlice'
 import { Loader } from '@/components/Loader/Loader'
 
 const LoginForm = () => {
@@ -80,6 +80,7 @@ const LoginForm = () => {
         let response = await studentLogin(studentPayloadData)
         const { token } = response.token
         setToken(token)
+        dispatch(studentData(response))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })

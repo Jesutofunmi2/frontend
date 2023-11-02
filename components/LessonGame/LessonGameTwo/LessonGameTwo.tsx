@@ -6,70 +6,79 @@ import Button from "@/components/Button/Button";
 import FlashCard from "../FlashCard/FlashCard";
 import { Fade } from "react-awesome-reveal";
 import {
-  useAnsweredQuestion,
-  useCheckAnswer,
+  answeredQuestion,
+  checkAnswer,
 } from "@/services/api/lessonGame";
-import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
-import correctAnswerSound from "@/public/assets/audios/yay.mp3";
+// import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
+// import correctAnswerSound from "@/public/assets/audios/yay.mp3";
 import { useSelector } from "react-redux";
 import CorrectAnswerModal from "@/components/Modal/CorrectAnswerModal/CorrectAnswerModal";
+import { userData } from "@/services/redux/features/userSlice";
 
+interface LessaonGameTwoProps{
+  question:any,
+  QuestionIndex:number,
+  setQuestionIndex:any,
+  setCurrentQtn:any,
+  topicID: number,
+}
 const LessonGameTwo = ({
   question,
   QuestionIndex,
   setQuestionIndex,
   setCurrentQtn,
   topicID,
-}) => {
-  const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
-  const { trigger: sendAnsweredQuestion } = useAnsweredQuestion();
+}:LessaonGameTwoProps) => {
+  // const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
+  // const { trigger: sendAnsweredQuestion } = useAnsweredQuestion();
+  const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const [selected, setSelected] = useState();
-  const studentID = useSelector((state) => state?.user?.currentUser?.data?.student_id);
+  // const studentID = useSelector((state) => state?.user?.currentUser?.data?.student_id);
   const [buttonColor, setButtonColor] = useState("");
-  const gameData = useSelector((state) => state?.lessonGame?.data);
+  // const gameData = useSelector((state) => state?.lessonGame?.data);
 
   
 
   const currentQestion = question?.data[QuestionIndex];
 
   // CORRECT AND WRONG ANSWER CONDITION
-  useEffect(() => {
-    // if data?.data?.is_correct is false
-    if (data?.data?.is_correct === false) {
-      // Update the button color to red
-      setButtonColor("red");
+  // useEffect(() => {
+  //   // if data?.data?.is_correct is false
+  //   if (data?.data?.is_correct === false) {
+  //     // Update the button color to red
+  //     setButtonColor("red");
 
-      // play wrongAnswerSound audio
-      const audio = new Audio("/public/assets/audios/notCorrect.mp3");
-      audio.play();
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor("");
-      }, 1700);
+  //     // play wrongAnswerSound audio
+  //     const audio = new Audio("/public/assets/audios/notCorrect.mp3");
+  //     audio.play();
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor("");
+  //     }, 1700);
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer);
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer);
 
-      // If data?.data?.is_correct is true
-    } else if (data?.data?.is_correct === true) {
-      // Update the button color to green
-      setButtonColor("green");
+  //     // If data?.data?.is_correct is true
+  //   } else if (data?.data?.is_correct === true) {
+  //     // Update the button color to green
+  //     setButtonColor("green");
 
-      // setSelected();
+  //     // setSelected();
 
-      // play correctAnswerSound audio
-      const audio = new Audio("/public/assets/audios/yay.mp3");
-      audio.play();
+  //     // play correctAnswerSound audio
+  //     const audio = new Audio("/public/assets/audios/yay.mp3");
+  //     audio.play();
 
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor("yellowgreen");
-      }, 1700);
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor("yellowgreen");
+  //     }, 1700);
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer);
-    }
-  }, [data, setQuestionIndex]);
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [data, setQuestionIndex]);
 
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   useEffect(() => {
@@ -88,18 +97,18 @@ const LessonGameTwo = ({
   }, [setCurrentQtn, currentQestion]);
 
   // CHECK ANSWER FUNCTION
-  const checkAnswer = () => {
+  const handleCheckAnswer = () => {
     if (buttonColor === "yellowgreen") {
-      sendAnsweredQuestion({
+      answeredQuestion({
         question_id: currentQestion?.id,
         topic_id: topicID,
         student_id: studentID,
       });
-      setQuestionIndex((prev) => prev + 1);
+      setQuestionIndex((prev:any) => prev + 1);
       setButtonColor("");
       setSelected();
     } else {
-      sendAnswer({
+      checkAnswer({
         question_id: currentQestion?.id,
         optionIds: [`${selected}`],
       });
@@ -125,7 +134,7 @@ const LessonGameTwo = ({
                 duration={1500}
                 direction="right"
               >
-                {currentQestion?.options?.map((option) => (
+                {currentQestion?.options?.map((option:any) => (
                   <FlashCard
                     setSelected={setSelected}
                     selected={selected}
@@ -143,7 +152,7 @@ const LessonGameTwo = ({
             </button>
           ) : ( */}
           <Button
-            handleClick={checkAnswer}
+            handleClick={ handleCheckAnswer}
             backgroundColor={`${buttonColor}`}
             text={
               buttonColor === "red"
