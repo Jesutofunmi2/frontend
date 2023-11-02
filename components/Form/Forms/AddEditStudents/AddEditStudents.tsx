@@ -37,6 +37,27 @@ const AddEditStudents = ({
   title,
   classOptions,
 }: AddEditStudentsProps) => {
+  
+  const [isLoading, setLoading] = useState(false)
+  const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
+  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass | any>()
+
+  useEffect(() => {
+    if (selectedOptionForClass) {
+      setLoading(true)
+      const fetchData = async () => {
+        try {
+          let response = await getClassById(schoolID, selectedOptionForClass)
+          setClassArmByID(response)
+          setLoading(false)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      fetchData()
+    }
+  }, [selectedOptionForClass])
+
   const validationSchema = yup.object().shape({
     first_name: yup.string().required('Enter First Name'),
     last_name: yup.string().required('Enter Last Name'),
@@ -48,24 +69,6 @@ const AddEditStudents = ({
     term: yup.string().required('Select your term'),
     // session: yup.string().required('Select your class session'),
   })
-
-  const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
-  const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass | any>()
-
-  useEffect(() => {
-    if (selectedOptionForClass) {
-      const fetchData = async () => {
-        try {
-          let response = await getClassById(schoolID, selectedOptionForClass)
-          setClassArmByID(response)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-      fetchData()
-    }
-  }, [selectedOptionForClass])
-
 
   const genderOptions = [
     { value: 'male', label: 'Male' },
@@ -170,7 +173,7 @@ const AddEditStudents = ({
               />
             )}
           />
-
+     {selectedOptionForClass && (
           <Controller
             name="classarm_id"
             control={control}
@@ -180,9 +183,11 @@ const AddEditStudents = ({
                 label="Class Arm"
                 defaultValue={'Select'}
                 options={classArmoptions}
+                isLoading={isLoading}
               />
             )}
           />
+          )}
         </div>
         <div className={styles.btnWrap}>
           <Button maxWidth="150px" type="submit" text="Save" />
