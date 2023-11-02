@@ -5,16 +5,20 @@ import styles from './SelectImage.module.css'
 import Image from 'next/image'
 import userIcon from '/public/assets/images/userIcon.png'
 import { ToastContainer, toast } from 'react-toastify'
+import { BiErrorCircle } from 'react-icons/bi'
 interface SelectImageProps {
   register: any
+  clearErrors:()=>void
   name?: string
+  errors:any
   preview:string
   setPreview:React.Dispatch<any>
   setFile?: React.Dispatch<React.SetStateAction<File | null | any>>
 }
-const SelectImage = ({ name, setFile, setPreview,preview, register }: SelectImageProps) => {
+const SelectImage = ({ name, clearErrors, errors, setFile, setPreview,preview, register }: SelectImageProps) => {
  
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearErrors()
     if (e.target.files !== null) {
       const selectedFile = e.target.files[0]
       const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/jpg']
@@ -40,7 +44,7 @@ const SelectImage = ({ name, setFile, setPreview,preview, register }: SelectImag
     <>
       <div>
         <label htmlFor="imgInput">
-          {preview?.length>0? (
+          {preview? (
             <Image src={preview} width="100" height="100" alt="logo" className={styles.userPhoto} />
           ) : (
             <Image
@@ -60,9 +64,12 @@ const SelectImage = ({ name, setFile, setPreview,preview, register }: SelectImag
           accept="image/*"
           style={{ display: 'none' }}
           onChange={(e) => handleImageChange(e)}
-          required
+         
         />
       </div>
+      {errors.image_url && errors.image_url.type === 'required' ? (
+           <div className='text-error flex items-center gap-2 absolute bottom-0 right-64'><BiErrorCircle/> <p className=" text-error">Upload image!</p></div>
+          ) :null}
       <ToastContainer />
     </>
   )

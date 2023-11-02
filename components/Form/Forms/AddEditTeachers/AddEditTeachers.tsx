@@ -11,7 +11,8 @@ import Select from '../../FormFields/Select/DropDown'
 import { IClass } from '@/types/class'
 import { getClassById } from '@/services/api/school/class'
 import { AiOutlineClose } from 'react-icons/ai'
-import { Spinner } from '@/components/Loader/Loader'
+
+
 
 type Inputs = {
   name: string
@@ -28,8 +29,8 @@ interface AddEditTeacherProps {
   handleFormSubmit: (values: any, data: any, reset: any) => void
   teacherDetails: any
   title: string
-  setFile: React.Dispatch<React.SetStateAction<File |null|any>>
-  file:File|null|any
+  setFile: React.Dispatch<React.SetStateAction<File | null | any>>
+  file: File | null | any
   classOptions: any
   schoolID: number
 }
@@ -125,9 +126,16 @@ const AddEditTeachers = ({
     )
   }
 
-  const { register, handleSubmit, control, reset } = useForm<Inputs>()
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    clearErrors,
+    formState: { errors },
+  } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-handleFormSubmit(data,selectedClassAndArm,reset) ,setPreview("")
+    handleFormSubmit(data, selectedClassAndArm, reset), setPreview('')
   }
 
   return (
@@ -146,9 +154,12 @@ handleFormSubmit(data,selectedClassAndArm,reset) ,setPreview("")
                 setFile={setFile}
                 preview={preview}
                 setPreview={setPreview}
+                errors={errors}
+                clearErrors={clearErrors}
               />
             )}
           />
+          
         </div>
         <div className="grid grid-cols-2 gap-6 my-8">
           <TextInput

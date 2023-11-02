@@ -8,7 +8,8 @@ const config: Config = {
   ],
   theme: {
     colors: {
-     primary:"hsl(39, 100%, 47%)"
+     primary:"hsl(39, 100%, 47%)",
+     error:"hsl(11, 80%, 60%)"
     },
   },
   plugins: [],

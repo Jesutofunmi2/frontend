@@ -29,7 +29,7 @@ const Teacher = () => {
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const [file, setFile] = useState<File | null|any>(null)
+  const [file, setFile] = useState<File | null | any>(null)
   const { data: allClasses } = useGetClasses(schoolID)
   const [payloadData, setPayloadData] = useState<IPayloadTeacher>({
     image_url: '',
@@ -82,44 +82,46 @@ const Teacher = () => {
 
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: any, selectedClassAndArm: any, reset: () => void) => {
-    if (typeof file === 'string' && !file) {
+    if (file === null) {
+      console.log('yes')
       toast.error('Upload image', {
         position: toast.POSITION.TOP_RIGHT,
       })
       return
-    }
-
-    if (teacherDetails) {
-      // editTeacher({
-      //   image_url: file,
-      //   name: payloadData.name,
-      //   email: payloadData.email,
-      //   address: 'bosss',
-      //   teacher_id: teacherDetails.teacher_id,
-      //   school_id: payloadData.school_id,
-      // })
     } else {
-      const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
-        return { class_id: item.class_id, classarm_id: item.class_arm_id }
-      })
+      if (teacherDetails) {
+        // editTeacher({
+        //   image_url: file,
+        //   name: payloadData.name,
+        //   email: payloadData.email,
+        //   address: 'bosss',
+        //   teacher_id: teacherDetails.teacher_id,
+        //   school_id: payloadData.school_id,
+        // })
+      } else {
+        const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
+          return { class_id: item.class_id, classarm_id: item.class_arm_id }
+        })
 
-      const formData = {
-        image_url: values.image_url,
-        school_id: schoolID,
-        name: values.name,
-        email: values.email,
-        address: values.address,
-        data: classAndClassArmdata,
+        const formData = {
+          image_url: values.image_url,
+          school_id: schoolID,
+          name: values.name,
+          email: values.email,
+          address: values.address,
+          data: classAndClassArmdata,
+        }
+        console.log(formData)
+        const res = await addTeacher(formData)
+        if (res) {
+          mutate()
+        }
       }
-      console.log(formData)
-      const res = await addTeacher(formData)
-      if (res) {
-        mutate()
-      }
+
+      setModalOpen(false)
+      reset()
+      setFile(null)
     }
-    setModalOpen(false)
-    reset()
-    setFile(null)
   }
 
   // HANDLE SEARCH
