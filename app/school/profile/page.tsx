@@ -5,6 +5,7 @@ import styles from './page.module.css'
 import { TextInputValue } from '@/components/Form/FormFields/TextInput/TextInput'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
+import { TitleCase } from '@/utils'
 
 const SchoolProfile = () => {
   const schoolProfileData = useSelector(userData).currentSchool?.data!
@@ -23,10 +24,11 @@ const SchoolProfile = () => {
             <TextInputValue
               name="country"
               label="Country"
-              defaultValue={schoolProfileData?.country}
+              defaultValue={TitleCase(schoolProfileData?.country)}
             />
             <TextInputValue name="email" label="Email" defaultValue={schoolProfileData?.email} />
             <TextInputValue
+              type="number"
               name="phone_number"
               label="Phone Number"
               defaultValue={schoolProfileData?.phone_number}

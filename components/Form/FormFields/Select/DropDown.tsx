@@ -1,21 +1,34 @@
 import React from 'react'
 import styles from './select.module.css'
-import Select from 'react-select'
+import AsyncSelect, { LoadingIndicatorProps, StylesConfig } from 'react-select'
+import { Loader, Spinner } from '@/components/Loader/Loader'
 
 interface SelectProps {
   label: string
   options: any
   onChange: (value: any) => void
   defaultValue: any
-  isMulti?:boolean
+
+  isLoading?:boolean
 }
-const DropDown = ({  isMulti,label, onChange, defaultValue, options }: SelectProps) => {
+export const reactSelectCustomStyles = (): StylesConfig => ({
+  loadingIndicator: () => {
+    return {
+      backgroundImage:`url("../../../../public/assets/images/loading-gif.gif")`,
+    };
+  },
+})
+const DropDown = ({ isLoading,label, onChange, defaultValue, options }: SelectProps) => {
+  const LoadingIndicator = (props: LoadingIndicatorProps) => {
+    return (
+     <Spinner/>
+    );
+  };
   return (
     <>
       <div className={styles.selectWrap}>
         <label>{label}</label>
-        <Select
-     
+        <AsyncSelect
           className={styles.input}
           defaultValue={defaultValue}
           onChange={onChange}
@@ -24,12 +37,18 @@ const DropDown = ({  isMulti,label, onChange, defaultValue, options }: SelectPro
             control: (baseStyles, state) => ({
               ...baseStyles,
               borderColor: state.isFocused ? 'grey' : '#F19C00',
-              minHeight: '43px',
+              minHeight: '49px',
               borderRadius: '14px',
+              fontSize:"15px"
             
             }),
           }}
           required
+          isLoading={isLoading}
+          noOptionsMessage={() => `No ${label} found`}
+          // LoadingMessage={() => 'searching...'}
+          components={{ LoadingIndicator }}
+          
         />
       </div>
     </>

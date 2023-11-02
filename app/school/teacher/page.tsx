@@ -29,7 +29,7 @@ const Teacher = () => {
   const [teacherDetails, setTeacherDetails] = useState<ITeacher | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
-  const [file, setFile] = useState<File | string>('')
+  const [file, setFile] = useState<File | null|any>(null)
   const { data: allClasses } = useGetClasses(schoolID)
   const [payloadData, setPayloadData] = useState<IPayloadTeacher>({
     image_url: '',
@@ -74,21 +74,20 @@ const Teacher = () => {
 
   // HANDLE DELETE STUDENT
   const handleDelete = async (teacherID: string) => {
-   let res= await deleteTeacher(teacherID)
-   if(res){
-    mutate()
-   }
+    let res = await deleteTeacher(teacherID)
+    if (res) {
+      mutate()
+    }
   }
 
   // SUBMIT FORM CONDITION
-  const handleFormSubmit = async (values: any, data: any,reset:()=>void) => {
-    if (typeof file === 'string' && file.length === 0) {
+  const handleFormSubmit = async (values: any, selectedClassAndArm: any, reset: () => void) => {
+    if (typeof file === 'string' && !file) {
       toast.error('Upload image', {
         position: toast.POSITION.TOP_RIGHT,
       })
       return
     }
-    
 
     if (teacherDetails) {
       // editTeacher({
@@ -100,26 +99,27 @@ const Teacher = () => {
       //   school_id: payloadData.school_id,
       // })
     } else {
-      const classAndClassArmdata = data?.map((item: any) => {
+      const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
         return { class_id: item.class_id, classarm_id: item.class_arm_id }
       })
 
       const formData = {
-        image_url: file,
+        image_url: values.image_url,
         school_id: schoolID,
         name: values.name,
         email: values.email,
         address: values.address,
         data: classAndClassArmdata,
       }
+      console.log(formData)
       const res = await addTeacher(formData)
       if (res) {
         mutate()
-        reset()
       }
     }
- 
     setModalOpen(false)
+    reset()
+    setFile(null)
   }
 
   // HANDLE SEARCH
@@ -203,6 +203,7 @@ const Teacher = () => {
           handleFormSubmit={handleFormSubmit}
           teacherDetails={teacherDetails}
           setFile={setFile}
+          file={file}
           classOptions={classOptions}
           schoolID={schoolID}
         />

@@ -14,6 +14,7 @@ interface InputValueProps {
   label: string
   defaultValue?: string
   name: string
+  type?:string
 }
 export const TextInput = ({
   label,
@@ -47,14 +48,14 @@ export const TextInput = ({
   )
 }
 
-export const TextInputValue = ({ label, name, defaultValue }: InputValueProps) => {
+export const TextInputValue = ({ label, name, type,defaultValue }: InputValueProps) => {
   return (
     <>
       <div className={styles.inputWrap}>
         <label className="text-sm font-bold" htmlFor={name}>
           {label}
         </label>
-        <input defaultValue={defaultValue} type={'text'} className={styles.input} readOnly />
+        <input defaultValue={defaultValue} type={type?type:'text'} className={styles.input} readOnly />
       </div>
     </>
   )

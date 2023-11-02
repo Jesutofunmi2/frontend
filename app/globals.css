@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --yellow-color: #FFC400;
   --orange-color: #f19c08;

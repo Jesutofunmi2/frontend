@@ -6,12 +6,11 @@
 
 .select {
   width: 100%;
-  height: 45px;
+  /* height: 45px; */
   border-radius: 15px;
-  border: 1px solid #f19c00;
-  padding: 5px;
+  border: 1px solid hsl(39, 100%, 47%);
+  /* padding: 7px; */
   box-sizing: border-box;
-  padding: 0px 10px;
 }
 
 .label {

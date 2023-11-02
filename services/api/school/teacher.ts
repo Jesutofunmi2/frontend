@@ -21,7 +21,10 @@ export const addTeacher = async (payload: IPayloadTeacher) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+    toast.error('Request failed, Try again', {
+      position: toast.POSITION.TOP_RIGHT,
+    })
+
     return err
   }
 }

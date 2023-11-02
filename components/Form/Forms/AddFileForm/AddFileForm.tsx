@@ -84,7 +84,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
               label="File Upload"
               name="attachment"
               type="file"
-              // placeholder="Enter topic"
+              placeholder="Add Attachment"
             />
           </div>
 

@@ -10,8 +10,8 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import Select from '../../FormFields/Select/DropDown'
 import { IClass } from '@/types/class'
 import { getClassById } from '@/services/api/school/class'
-
 import { AiOutlineClose } from 'react-icons/ai'
+import { Spinner } from '@/components/Loader/Loader'
 
 type Inputs = {
   name: string
@@ -19,15 +19,17 @@ type Inputs = {
   address: string
   class_id: number
   classarm_id: number
+  image_url: File
 }
 
 interface AddEditTeacherProps {
   payloadData: IPayloadTeacher
   setPayloadData: React.Dispatch<React.SetStateAction<IPayloadTeacher>>
-  handleFormSubmit: (values:any,data:any,reset:any) => void
+  handleFormSubmit: (values: any, data: any, reset: any) => void
   teacherDetails: any
   title: string
-  setFile: React.Dispatch<React.SetStateAction<File | string>>
+  setFile: React.Dispatch<React.SetStateAction<File |null|any>>
+  file:File|null|any
   classOptions: any
   schoolID: number
 }
@@ -36,10 +38,13 @@ const AddEditTeachers = ({
   handleFormSubmit,
   teacherDetails,
   title,
+  file,
   setFile,
   classOptions,
 }: AddEditTeacherProps) => {
   const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
+  const [isLoading, setLoading] = useState(false)
+  const [preview, setPreview] = useState<string | any | null>(null)
   const [isViewSelection, setViewSelection] = useState(false)
   const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass | any>()
   const [selectedClassAndArm, setSelectedClassAndArm] = useState<
@@ -48,10 +53,12 @@ const AddEditTeachers = ({
 
   useEffect(() => {
     if (selectedOptionForClass) {
+      setLoading(true)
       const fetchData = async () => {
         try {
           let response = await getClassById(schoolID, selectedOptionForClass.value)
           setClassArmByID(response)
+          setLoading(false)
         } catch (error) {
           console.error(error)
         }
@@ -118,8 +125,10 @@ const AddEditTeachers = ({
     )
   }
 
-  const { register, handleSubmit, control,reset } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => {handleFormSubmit(data,selectedClassAndArm ,reset )}
+  const { register, handleSubmit, control, reset } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+handleFormSubmit(data,selectedClassAndArm,reset) ,setPreview("")
+  }
 
   return (
     <>
@@ -127,9 +136,21 @@ const AddEditTeachers = ({
         <h3 className={styles.title}>{title}</h3>
         <hr />
         <div className={styles.imageWrap}>
-          <SelectImage name="image_url" setFile={setFile} />
+          <Controller
+            name="image_url"
+            control={control}
+            render={({ field }) => (
+              <SelectImage
+                register={{ ...register('image_url', { required: true }) }}
+                name="image_url"
+                setFile={setFile}
+                preview={preview}
+                setPreview={setPreview}
+              />
+            )}
+          />
         </div>
-        <div className={styles.inputWrap}>
+        <div className="grid grid-cols-2 gap-6 my-8">
           <TextInput
             register={{ ...register('name', { required: true }) }}
             type="text"
@@ -156,7 +177,6 @@ const AddEditTeachers = ({
             control={control}
             render={({ field }) => (
               <Select
-                isMulti
                 onChange={(val) => {
                   field.onChange(val.value), setSelectedOptionForClass(val)
                 }}
@@ -175,16 +195,21 @@ const AddEditTeachers = ({
                   onChange={(val) => {
                     field.onChange(val.value), getClassAndClassArmData(val)
                   }}
-                  label="Class Arm(Select class arm for each class)"
+                  label="Class Arm"
                   defaultValue={'Select'}
                   options={classArmoptions}
+                  isLoading={isLoading}
                 />
               )}
             />
           )}
 
           {selectedClassAndArm.length > 0 && (
-            <button type="button" className={styles.viewSeletionBtn} onClick={() => setViewSelection(true)}>
+            <button
+              type="button"
+              className={styles.viewSeletionBtn}
+              onClick={() => setViewSelection(true)}
+            >
               View Selections
             </button>
           )}
