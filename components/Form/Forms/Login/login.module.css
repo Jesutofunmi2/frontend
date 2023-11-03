@@ -1,123 +1,116 @@
-.card{
-    background-image: url(/assets/images/authBkg.png);
-    background-size: contain;
-    background-repeat: no-repeat; 
-    background-position: right;
-    align-self: center;
-    max-width: 450px;
-    width: 100%;
-    height: 500px;
-    background-color: var(--white-color);
-    display: flex;
-    flex-direction: column;
-    margin:0 60px;
-    z-index: 1;
-    padding: 0 20px;
-
+.card {
+  background-image: url(/assets/images/authBkg.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  align-self: center;
+  max-width: 450px;
+  width: 100%;
+  height: 500px;
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  margin: 0 60px;
+  z-index: 1;
+  padding: 0 20px;
 }
 
-.logo{
-    margin-top: -40px;
-    align-self: center;
-    margin-bottom: 15px;
+.logo {
+  margin-top: -40px;
+  align-self: center;
+  margin-bottom: 15px;
 }
 
-
-
-.loginAndToggle{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+.loginAndToggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
-.toggleBtn{
-    display: flex;
-    max-width: 250px;
-    width: 100%;
- 
+.toggleBtn {
+  display: flex;
+  max-width: 250px;
+  width: 100%;
+  gap: 6px;
 }
 
-.toggleBtn button{
-    width: 100%;
-
-    border-radius: 4px; 
-    padding:10px
+.toggleBtn button {
+  width: 100%;
+  border-radius: 4px;
+  padding: 8px 10px;
+  background-color: var(--gray-color);
+  color: black;
 }
 
-.btnActive{
-    background-color: var(--green-color);
-    color: var(--white-color);
-    transition: all .4s ease-in-out;
+.btnActive {
+  background-color: var(--green-color) !important;
+  color: var(--white-color) !important;
+  transition: all 0.4s ease-in-out;
 }
 
-
-.card form{
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
+.card form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
 }
 
-.card form p{
-   text-align: center;
+.card form p {
+  text-align: center;
 }
 
-.inputWrap{
-    max-width: 300px;
-    width: 100%;
-    height: 45px;
-    border-radius: 15px;
-    border: 1px solid  #F19C00;
-
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    background-color: white;
-    padding: 3px 7px;
+.inputWrap {
+  max-width: 300px;
+  width: 100%;
+  /* padding:14px; */
+  border-radius: 15px;
+  border: 1px solid #f19c00;
+  /* box-sizing: border-box; */
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: white;
 }
 
-.inputfield{
-    height: 100%;
-    width: 100%;
-    border-radius: 15px;
-    border: none;
-    box-sizing: border-box;
-    outline: none;
-    background-color: white;
+.inputfield {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  border-radius: 15px;
+  border: none;
+  box-sizing: border-box;
+  outline: none;
+  background-color: white;
 }
 
-
-.card input:-webkit-autofill{
-    -webkit-box-shadow: 0 0 0 30px white inset !important;}
+.card input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
 
 .inputWrap:focus {
-    outline: none !important;
-    border:2px solid orange;
-    box-shadow: 0px 0px 17px -5px rgba(241,156,0,0.75);
--webkit-box-shadow: 0px 0px 17px -5px rgba(241,156,0,0.75);
--moz-box-shadow: 0px 0px 17px -5px rgba(241,156,0,0.75);
-transition: all .2s ease-in-out;
+  outline: none !important;
+  border: 2px solid orange;
+  box-shadow: 0px 0px 17px -5px rgba(241, 156, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 17px -5px rgba(241, 156, 0, 0.75);
+  -moz-box-shadow: 0px 0px 17px -5px rgba(241, 156, 0, 0.75);
+  transition: all 0.2s ease-in-out;
+}
 
-  }
+.revealIcon {
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
 
-
-  .revealIcon{
-    font-size: 20px;
-    cursor: pointer;
-    /* margin-right: 10px; */
-  }
-  
-  
 .loginBtn {
-    font-size: 20px;
+  font-size: 20px;
   max-width: 200px;
   width: 100%;
-  height: 50px;
+  padding: 10px;
   margin: 10px;
   text-align: center;
   text-transform: uppercase;
@@ -129,7 +122,7 @@ transition: all .2s ease-in-out;
   border: 0px;
   font-weight: 700;
   box-shadow: 0px 0px 14px -7px #f09819;
-  background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  background-image: linear-gradient(45deg, #ff512f 0%, #f09819 51%, #ff512f 100%);
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
@@ -146,28 +139,24 @@ transition: all .2s ease-in-out;
   transform: scale(0.95);
 }
 
-
-
-
 /* MEDIA QUERIES */
-@media (max-width: 610px){
-    .card{
-       margin: 0 20px;
-       height: 460px;
-    }
+@media (max-width: 610px) {
+  .card {
+    margin: 0 20px;
+    height: 460px;
+  }
 
-    .card form p{
-        font-size: 14px;
-    }
+  .card form p {
+    font-size: 14px;
+  }
 }
 
-@media (max-width: 370px){
+@media (max-width: 370px) {
+  .card {
+    padding: 0 10px;
+  }
 
-    .card{
-        padding: 0 10px;
-    }
-
-    .card input{
-        height: 40px;
-    }
+  .card input {
+    height: 40px;
+  }
 }
