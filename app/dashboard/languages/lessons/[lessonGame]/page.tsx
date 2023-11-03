@@ -21,7 +21,7 @@ const LessonGame = () => {
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
   const languageID = Number(searchParams.get('lang'))
-  const lessonID = Number(searchParams.get('lesson'))
+  const lessonID = String(searchParams.get('lesson'))
   const type = searchParams.get('type')
 
   // const { trigger } = useAddFavourite(languageID, lessonID);
@@ -38,7 +38,7 @@ const LessonGame = () => {
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  console.log(lessonQuestions)
+  // console.log(lessonQuestions)
 
   const currentPercentage = Math.floor((100 / lessonQuestions?.length) * questionIndex)
 

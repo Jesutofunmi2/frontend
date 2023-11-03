@@ -17,3 +17,6 @@ ensure that the page mutate before closing modal
 
 
 add trial popup
+
+load images with lazy lines
+fix the login token

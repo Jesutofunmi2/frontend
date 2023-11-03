@@ -2,19 +2,19 @@ import React from 'react'
 import styles from './flashCard.module.css'
 import { BsCheck } from 'react-icons/bs'
 import Image from 'next/image'
+import { QuestionOptions } from '@/types/lessontopic'
 
 interface FlashCardProps {
-  selected: any
-  setSelected: any
-  option: any
-  noTitle: any
+  selected: string
+  setSelected: React.Dispatch<React.SetStateAction<string>>
+  option: QuestionOptions
+  noTitle?: any
 }
 
 const FlashCard = ({ selected, setSelected, option, noTitle }: FlashCardProps) => {
-  const handleClick = (opt:any) => {
-    setSelected(opt.id)
-
-    const audio = new Audio(opt.media_url)
+  const handleClick = (option:QuestionOptions) => {
+    setSelected(option.id)
+    const audio = new Audio(option.media_url)
     audio.play()
   }
 

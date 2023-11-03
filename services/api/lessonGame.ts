@@ -3,7 +3,7 @@ import makeApiCall from '.'
 import { LessonQuestion } from '@/types/lessontopic'
 
 //GET GAME QUESTION
-export const useGetLessonQuestions =  (languageID: number, lessonID: number) => {
+export const useGetLessonQuestions =  (languageID: number, lessonID: string) => {
   //NEW WAY TO FETCH DATA
   const fetcher = async () => {
     const res = await makeApiCall(

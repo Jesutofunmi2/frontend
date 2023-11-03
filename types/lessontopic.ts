@@ -31,12 +31,12 @@ export interface LessonQuestion {
   media_type: string
   media_url: string
   next_question_id: 0
-  options:  Options []
+  options:  QuestionOptions  []
   title: string
   topic: Lesson
 }
 
-export interface Options {
+export interface QuestionOptions {
   hint: string
   id: string
   image_url: string
