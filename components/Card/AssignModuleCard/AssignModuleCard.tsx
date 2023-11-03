@@ -7,12 +7,12 @@ import Link from 'next/link'
 import ful from '../../../public/assets/images/logo.png'
 import Image from 'next/image'
 
-interface AssignModuleProps {
+interface AssignModuleCardProps {
   title: string
   module: any
   handleModuleDelete: (id: number) => void
 }
-const AssignModuleCard = ({ title, module, handleModuleDelete }: AssignModuleProps) => {
+const AssignModuleCard = ({ title, module, handleModuleDelete }:AssignModuleCardProps) => {
   return (
     <>
       <div className={styles.card}>

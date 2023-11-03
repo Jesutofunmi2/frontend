@@ -91,7 +91,7 @@ const AddEditStudents = ({
         <h3 className={styles.title}>{title}</h3>
         <hr />
 
-        <div className={styles.inputWrap}>
+        <div className="grid grid-cols-2 gap-10 mt-10">
           <TextInput
             register={{ ...register('first_name', { required: true }) }}
             label="First name"
@@ -190,7 +190,7 @@ const AddEditStudents = ({
           )}
         </div>
         <div className={styles.btnWrap}>
-          <Button maxWidth="150px" type="submit" text="Save" />
+          <Button  type="submit" text="Save" />
         </div>
       </form>
       <ToastContainer />

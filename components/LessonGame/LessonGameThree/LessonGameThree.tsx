@@ -184,8 +184,7 @@ const LessonGameOne = ({
                     ? 'Next'
                     : 'Check'
                 }
-                maxWidth="230px"
-                height="50px"
+             
                 // disabled={
                 //   !selectedAnswer
                 //     ? true

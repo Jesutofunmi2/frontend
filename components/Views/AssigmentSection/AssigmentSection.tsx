@@ -32,7 +32,7 @@ const AssignmentSection = () => {
         <Link href="/teacher/class/i/add-assignment">
           <Button
             text="Add Assignment"
-            width="200px"
+           
             // handleClick={() => handleModalOpen(true)}
           />
         </Link>

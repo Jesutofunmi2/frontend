@@ -168,7 +168,7 @@ const ClassLessonGameTwo = ({
                   ? "Correct" : buttonColor === "yellowgreen" ? "Next"
                   : "Check"
               }
-              maxWidth="200px"
+       
               disabled={!selected ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
             />
           {/* )} */}

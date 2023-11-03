@@ -31,7 +31,7 @@ const AssignVideoForm = () => {
           ))}
         </div>
        <div className={styles.btnWrap}>
-          <Button maxWidth="150px" text="Save" title="Add" />
+          <Button  text="Save"  />
         </div>
       
         

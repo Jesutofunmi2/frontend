@@ -17,9 +17,7 @@ const Users = () => {
       <div>
         <div className={styles.btnWrap}>
           <Button
-            width="150px"
-            height="30px"
-            size="15px"
+            
             text="Add User"
             handleClick={() => handleModalOpen()}
           />

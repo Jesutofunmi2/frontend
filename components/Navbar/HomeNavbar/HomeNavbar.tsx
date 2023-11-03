@@ -43,7 +43,7 @@ const HomeNavbar = ({ noFixedNavbar }: Props) => {
 
             {token ? (
               <Link href="/dashboard/languages" className={styles.loginBtn}>
-                <Button text="Dashboard" maxWidth="200px" width="100%" />
+                <Button text="Dashboard" />
               </Link>
             ) : (
               <Link
@@ -51,7 +51,7 @@ const HomeNavbar = ({ noFixedNavbar }: Props) => {
                 style={{ maxWidth: '200px', width: '100%' }}
                 className={styles.loginBtn}
               >
-                <Button text="Login" maxWidth="200px" />
+                <Button text="Login" />
               </Link>
             )}
 
@@ -73,7 +73,7 @@ const HomeNavbar = ({ noFixedNavbar }: Props) => {
 
             {token ? (
               <Link href="/dashboard/languages" className={styles.loginBtn}>
-                <Button text="Dashboard" maxWidth="200px" width="100%" />
+                <Button text="Dashboard"  />
               </Link>
             ) : (
               <Link

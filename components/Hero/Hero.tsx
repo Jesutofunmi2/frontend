@@ -29,8 +29,7 @@ const Hero = () => {
               text="About us"
               backgroundColor="white"
               color="black"
-              maxWidth="312px"
-              width="100%"
+              
             />
           </Link>
 

@@ -40,9 +40,9 @@ const AssignModuleView = ({}) => {
   };
 
   // Handle Submit
-  // const handleSubmit = () => {
-  //   trigger(payload);
-  // };
+  const handleSubmit = () => {
+    // trigger(payload);
+  };
 
   // HANDLE ADD
   // const handleAdd = (formdata) => {
@@ -94,7 +94,7 @@ const AssignModuleView = ({}) => {
         ) : null}
 
         {addedModule.length > 0 ? (
-          <Button text="Submit" width="200px" handleClick={handleSubmit} />
+          <Button text="Submit"  handleClick={()=>handleSubmit()} />
         ) : null}
       </div>
 

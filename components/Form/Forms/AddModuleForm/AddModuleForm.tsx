@@ -15,17 +15,17 @@ type Inputs = {
  file:File
 }
 interface AddModuleFormProps {
-  handleFormSubmit?: (values:any) => void
+  handleFormSubmit: (values:any) => void
   file?: any
 }
 const AddModuleForm = ({handleFormSubmit, file }: AddModuleFormProps) => {
-  const [formdata, setFormdata] = useState({
-    date: '',
-    time: 0,
-    no_attempt: 0,
-    mark: 0,
-    file: {},
-  })
+  // const [formdata, setFormdata] = useState({
+  //   date: '',
+  //   time: 0,
+  //   no_attempt: 0,
+  //   mark: 0,
+  //   file: {},
+  // })
 
   
 
@@ -90,7 +90,7 @@ const AddModuleForm = ({handleFormSubmit, file }: AddModuleFormProps) => {
         </div>
 
         <div className={styles.btn}>
-          <Button text="Add" width="200px" />
+          <Button text="Add"  />
         </div>
       </form>
 

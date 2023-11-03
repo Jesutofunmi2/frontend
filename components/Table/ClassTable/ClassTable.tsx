@@ -4,6 +4,7 @@ import { BsArrowDown, BsArrowDownUp, BsArrowUp } from 'react-icons/bs'
 import { RiArrowDownSLine, RiDeleteBin6Line } from 'react-icons/ri'
 import { ClassArmPayload } from '@/types/classarm'
 import { deleteClass } from '@/services/api/school/class'
+import Button from '@/components/Button/Button'
 
 const DummyData = [
   { id: 1, name: 'kohn', age: 30, city: 'New York' },
@@ -99,7 +100,7 @@ let res =await deleteClass(schoolID, class_id)
       <div className={styles.container}>
         <table>
           <thead className={styles.thead}>
-            <tr className={styles.tr}>
+            <tr style={{height:"100px"}} className={styles.tr}>
               <th></th>
               <th></th>
               <th>No.</th>
@@ -149,18 +150,19 @@ let res =await deleteClass(schoolID, class_id)
                       <td className={styles.compBlue}>Class arm</td>
                       <td className={styles.compBlue}></td>
                       <td>
-                        <button
-                          className={styles.compudButtons}
-                          onClick={() => {
+                        <Button
+                          // className={styles.compudButtons}
+                        handleClick={() => {
                             setClassArmOpen({
                               class_id: item.id,
                               language_id: item.language_id,
                             }),
                               setOpenClassArm(true)
                           }}
-                        >
-                          Add class arm
-                        </button>
+                          text="Add class arm"
+                          />
+                         
+                        {/* </Button> */}
                       </td>
                     </tr>
                     {item?.class_arms.map((item2: any, idx: any) => (

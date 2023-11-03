@@ -34,10 +34,9 @@ const Footer = () => {
             <input type="search" name="" id="" />
             <Button
               text="Subscribe"
-              url="/kinn"
+              // url="/kinn"
               color="black"
-              maxWidth="250px"
-              width="100%"
+             
             />
           </form>
         </div>

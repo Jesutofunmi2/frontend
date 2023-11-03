@@ -22,7 +22,9 @@ const Modal = ({ open, setOpen, children }: ModalProps) => {
           <div onClick={() => setOpen(false)} className={styles.closeIcon}>
             <RiCloseCircleFill size={50} color="white" />
           </div>
-          {children}
+         <div className='w-[50em] p-8 bg-white min-h-[33em]'>
+         {children}
+         </div>
         </div>
       </div>
     </>,

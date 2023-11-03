@@ -125,7 +125,7 @@ export const BaselineFormStudent = () => {
           </div>
 
           <div className={styles.btnWrap}>
-            <Button text="Submit" width="200px" />
+            <Button text="Submit"  />
           </div>
         </form>
       </div>
@@ -220,7 +220,7 @@ export const BaselineFormTeacher = () => {
               )}
             </div>
           ))}
-          <Button text="Submit" width="300px" />
+          <Button text="Submit" />
         </form>
       </div>
     </>

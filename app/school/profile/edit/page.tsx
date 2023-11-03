@@ -85,7 +85,7 @@ const EditProfile = () => {
           </div>
           <hr />
           <div className={styles.btnWrap}>
-            <Button text="Save" type="submit" maxWidth="200px" width="100%" />
+            <Button text="Save" type="submit"  />
           </div>
         </div>
       </form>

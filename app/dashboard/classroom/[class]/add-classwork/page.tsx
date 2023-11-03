@@ -29,9 +29,9 @@ const AddClassworkPage = () => {
     gendar: "",
   });
 
-  const handleModal = () => {
-    setModalOpen(true);
-  };
+  // const handleModal = () => {
+  //   setModalOpen(true);
+  // };
 
   // TOGGLE USERS
   const handleToggle = (title:string) => {
@@ -50,7 +50,7 @@ const AddClassworkPage = () => {
           </div>
 
           {toggle === "Assign Classwork" ? (
-            <AssignClassworkView />
+            <AssignClassworkView setModalOpen={setModalOpen} />
           ) : (
             <AssignModuleView
           // language={language}
@@ -60,7 +60,7 @@ const AddClassworkPage = () => {
             />
           )}
 
-          <Button width="200px" handleClick={handleModal} />
+          {/* <Button handleClick={handleModal} /> */}
         </div>
       </div>
       {/* MODAL TO MODIFY STUDENTS */}

@@ -12,7 +12,7 @@ import AddModuleForm from '../../Form/Forms/AddModuleForm/AddModuleForm'
 import AddFileForm from '@/components/Form/Forms/AddFileForm/AddFileForm'
 
 interface AssignmentProps {
-  handleAddFile: (formdata: any) => void
+  handleAddFile: (formdata: any, reset:()=>void) => void
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -21,12 +21,12 @@ const AssignmentView = ({ handleAddFile, openModal, setOpenModal }: AssignmentPr
     <>
       <div className={styles.container}>
         <div className={styles.buttonWrap}>
-          <Button text="Add File" width="180px" handleClick={() => setOpenModal(true)} />
+          <Button text="Add File" handleClick={() => setOpenModal(true)} />
           <Link href="/teacher/class/i/assign-module">
-            <Button text="Add Module" width="180px" />
+            <Button text="Add Module"/>
           </Link>
-          <Button text="Add Video" width="180px" />
-          <Button text="Add Quiz" width="180px" />
+          <Button text="Add Video"  />
+          <Button text="Add Quiz" />
         </div>
 
         <div className={styles.cardWrap}>
@@ -40,6 +40,7 @@ const AssignmentView = ({ handleAddFile, openModal, setOpenModal }: AssignmentPr
         <div className={styles.cardWrap}>
           <p className={styles.cardTitle}>MODULE ASSIGNMENTS:</p>
           <div className={styles.cards}>
+             {/* <AssignModuleCard /> */}
             {/* <AssignModuleCard /> */}
             {/* <AssignModuleCard /> */}
             {/* <span className={styles.notAvailable}>No Module Assignment</span> */}

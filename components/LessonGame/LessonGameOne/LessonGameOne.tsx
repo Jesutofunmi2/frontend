@@ -239,7 +239,7 @@ const LessonGameOne = ({
                 ? "Next"
                 : "Check"
             }
-            maxWidth="200px"
+     
             // disabled={answers?.length === 0 ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
           />
         </div>

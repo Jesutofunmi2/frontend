@@ -23,9 +23,6 @@ const BulkUpload = () => {
         <hr />
         <div className={styles.templateBtn}>
           <Button
-            width="180px"
-            height="30px"
-            size="15px"
             text="Download template "
             backgroundColor="green"
           />
@@ -48,7 +45,7 @@ const BulkUpload = () => {
           {file ? <span className={styles.text}>{file?.name}</span> : null}
         </div>
         <div className={styles.saveBtn}>
-          <Button width="150px" height="30px" size="15px" text="Save" />
+          <Button  text="Save" />
         </div>
       </div>
     </>

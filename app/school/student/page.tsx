@@ -109,7 +109,7 @@ const Student = () => {
   const TableBody = () => {
     return allStudentsData?.map((item: any) => {
       return (
-        <tr key={item.student_id}>
+        <tr   key={item.student_id}>
           <td>{item.username}</td>
           <td>{item.language}</td>
           <td>
@@ -143,21 +143,15 @@ const Student = () => {
   return (
     <>
       <div>
-        <h3 className="headerTitle">Student Configuration</h3>
+        <h3 className="p-4 rounded-xl bg-white">Student Configuration</h3>
 
         <div className={styles.btnWrap}>
           <Button
-            width="150px"
-            height="30px"
-            size="15px"
             text="Add Student"
             handleClick={() => handleModalOpen('add', null)}
           />
 
           <Button
-            width="150px"
-            height="30px"
-            size="15px"
             text="Bulk Registration"
             backgroundColor="lightGreen"
             handleClick={() => handleModalOpen('bulk', null)}

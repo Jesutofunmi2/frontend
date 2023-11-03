@@ -4,7 +4,8 @@ import React from 'react'
 import styles from './page.module.css'
 import SelectImage from '@/components/SelectImage/SelectImage'
 import { TextInputValue } from '@/components/Form/FormFields/TextInput/TextInput'
-
+import Image from 'next/image'
+import userIcon from '/public/assets/images/userIcon.png'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 
@@ -15,10 +16,16 @@ const TeacherProfile = () => {
   return (
     <>
       <div className={styles.container}>
-        <h3 className={styles.title}>Profile</h3>
+        <h3 className='bg-white p-4 rounded-xl font-bold'>Profile</h3>
         <div>
           <div className={styles.imageWrap}>
-            <SelectImage />
+          <Image
+              src={userIcon}
+              width="100"
+              height="100"
+              alt="image"
+              className={styles.userIcon}
+            />
           </div>
 
           <div className={styles.details}>

@@ -60,24 +60,13 @@ const Class = () => {
     })
   }
 
-
-
   return (
     <>
       <div>
-        <h3 className="headerTitle">Class Configuration</h3>
+        <h3 className="p-4 rounded-xl bg-white">Class Configuration</h3>
         <div className={styles.btnWrap}>
+          <Button text="Add Class" handleClick={() => handleModalOpen('add', null)} />
           <Button
-            width="150px"
-            height="30px"
-            size="15px"
-            text="Add Class"
-            handleClick={() => handleModalOpen('add', null)}
-          />
-          <Button
-            width="150px"
-            height="30px"
-            size="15px"
             text="Bulk Registration"
             backgroundColor="lightGreen"
             handleClick={() => handleModalOpen('bulk', null)}

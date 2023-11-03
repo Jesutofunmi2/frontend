@@ -216,7 +216,7 @@ const LoginForm = () => {
           )}
 
           <button type="submit" className={styles.loginBtn}>
-            {isLoading ? <Loader /> : 'Submit'}
+            {isLoading ? <Loader /> : 'SIGN IN'}
           </button>
         </form>
         <ToastContainer autoClose={5000} />

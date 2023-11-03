@@ -137,8 +137,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
                     ? "Next"
                     : "Check"
                 }
-                maxWidth="230px"
-                height="50px"
+               
                 // disabled={!selected ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
               />
             </div>

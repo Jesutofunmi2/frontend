@@ -67,7 +67,7 @@ const SelectImage = ({ name, clearErrors, errors, setFile, setPreview,preview, r
          
         />
       </div>
-      {errors.image_url && errors.image_url.type === 'required' ? (
+      {errors?.image_url && errors?.image_url.type === 'required' ? (
            <div className='text-error flex items-center gap-2 absolute bottom-0 right-64'><BiErrorCircle/> <p className=" text-error">Upload image!</p></div>
           ) :null}
       <ToastContainer />

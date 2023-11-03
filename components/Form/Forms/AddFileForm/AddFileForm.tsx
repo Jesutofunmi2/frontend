@@ -14,7 +14,7 @@ type Inputs = {
 }
 
 interface AddFileProps {
-  handleAddFile: (formdata: any) => void
+  handleAddFile: (formdata: any, reset:()=>void) => void
 }
 const AddFileForm = ({ handleAddFile }: AddFileProps) => {
   // const [formdata, setFormdata] = useState({
@@ -49,16 +49,17 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
   //   //   file: {},
   //   // });
   // }
-  const { register, handleSubmit, control } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => handleAddFile(data)
+  const { register, handleSubmit, reset} = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleAddFile(data, reset)
 
   return (
     <>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+        <h1>Add File Assignment</h1>
         <hr />
 
-        <div className={styles.inputWrap}>
-          <div className={styles.attemptWrap}>
+        <div className="grid grid-cols-2 gap-8 mt-10">
+          
             <TextInput
               register={{ ...register('date', { required: true }) }}
               label="Date"
@@ -66,9 +67,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
               type="date"
               placeholder="Enter Date"
             />
-          </div>
-
-          <div className={styles.attemptWrap}>
+         
             <TextInput
               register={{ ...register('topic', { required: true }) }}
               label="Topic"
@@ -76,9 +75,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
               type="text"
               placeholder="Enter topic"
             />
-          </div>
-
-          <div>
+         
             <TextInput
               register={{ ...register('attachment', { required: true }) }}
               label="File Upload"
@@ -86,9 +83,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
               type="file"
               placeholder="Add Attachment"
             />
-          </div>
-
-          {/* Mark */}
+         
           <>
             <TextInput
               register={{ ...register('mark', { required: true }) }}
@@ -101,7 +96,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
         </div>
 
         <div className={styles.btn}>
-          <Button text="Add" type="submit" width="200px" />
+          <Button text="Add" type="submit"  />
         </div>
       </form>
 

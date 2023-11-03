@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Select from '../../FormFields/Select/DropDown'
 import { useGetLanguages } from '@/services/api/languages'
-import { Ilanguage } from '@/types/languages.'
+import { ILanguage } from '@/types/languages.'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { addClass } from '@/services/api/school/class'
 
@@ -54,7 +54,7 @@ const AddEditClass = ({
 
   const { data: languages } = useGetLanguages()
   if (!languages) return
-  const languageOptions = languages.map((item: Ilanguage) => {
+  const languageOptions = languages.map((item: ILanguage) => {
     return { value: item.id, label: item.name }
   })
 
@@ -63,7 +63,7 @@ const AddEditClass = ({
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <h3 className={styles.title}>{title}</h3>
         <hr />
-        <div className={styles.inputWrap}>
+        <div className="grid grid-cols-2 gap-8 mt-8">
           <TextInput
             register={{ ...register('class_room_name', { required: true }) }}
             // defaultValue={classDetails?.first_name}
@@ -87,7 +87,7 @@ const AddEditClass = ({
           />
         </div>
         <div className={styles.btnWrap}>
-          <Button maxWidth="150px" type="submit" text="Save" />
+          <Button  type="submit" text="Save" />
         </div>
       </form>
       <ToastContainer />

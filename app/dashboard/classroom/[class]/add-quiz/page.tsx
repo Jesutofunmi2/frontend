@@ -93,7 +93,7 @@ const AddQuizPage = () => {
           {selectQuiz.length > 0 ? <AddModuleForm /> : null}
 
           {selectQuiz.length > 0 ? (
-            <Button width="200px" text="Add" handleClick={handleModal} />
+            <Button text="Add" handleClick={handleModal} />
           ) : null}
         </div>
       </div>

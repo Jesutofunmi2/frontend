@@ -226,7 +226,7 @@ const AddEditTeachers = ({
           )}
         </div>
         <div className={styles.btnWrap}>
-          <Button type="submit" maxWidth="150px" text="Save" />
+          <Button type="submit" text="Save" />
         </div>
         {selectedClassAndArm && isViewSelection && (
           <ViewSelections setViewSelection={setViewSelection} />

@@ -13,7 +13,7 @@ const SchoolProfile = () => {
   return (
     <>
       <div className={styles.container}>
-        <h3 className={styles.title}>{schoolProfileData?.school_name}</h3>
+        <h3 className="p-4 rounded-xl bg-white">{schoolProfileData?.school_name}</h3>
         <div>
           <div className={styles.details}>
             <TextInputValue

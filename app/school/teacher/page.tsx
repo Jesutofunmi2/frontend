@@ -174,20 +174,15 @@ const Teacher = () => {
   return (
     <>
       <div>
-        <h3 className="headerTitle">Teacher Configuration</h3>
+        <h3 className="p-4 rounded-xl bg-white">Teacher Configuration</h3>
         <div className={styles.actions}>
           <div className={styles.btnWrap}>
             <Button
-              width="150px"
-              height="30px"
-              size="15px"
+             
               text="Add Teacher"
               handleClick={() => handleModalOpen('add', null)}
             />
             <Button
-              width="150px"
-              height="30px"
-              size="15px"
               text="Bulk Registration"
               backgroundColor="lightGreen"
               handleClick={() => handleModalOpen('bulk', null)}

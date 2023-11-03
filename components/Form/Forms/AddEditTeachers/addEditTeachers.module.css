@@ -1,8 +1,6 @@
 .container {
   background-color: var(--white-color);
-  max-width: 950px;
-  width: 100%;
-  padding: 30px;
+ 
   border-radius: 10px;
   box-sizing: border-box;
   position: relative;

@@ -75,7 +75,7 @@ const AddClassArmForm = ({
             />
 
             {index > 0 && (
-              <button type="button" className={styles.iconButton} onClick={() => remove(index)}>
+              <button type="button" className="absolute right-56 top-6" onClick={() => remove(index)}>
                 <AiOutlineCloseCircle size={25} className={styles.closeIcon} />
               </button>
             )}
@@ -94,7 +94,7 @@ const AddClassArmForm = ({
         </button>
 
         <div className={styles.btnWrap}>
-          <Button type="submit" maxWidth="150px" text="Save" />
+          <Button type="submit" text="Save" />
         </div>
       </form>
       <ToastContainer />

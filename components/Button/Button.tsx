@@ -4,43 +4,27 @@ import React from 'react'
 import styles from './button.module.css'
 
 interface ButtonProps {
-  type?:string
+  type?: string
   text?: string
   color?: string
   backgroundColor?: string
-  width?: string
-  height?: string
   size?: string
-  maxWidth?: string
   disabled?: boolean
   handleClick?: () => void
 }
 
-const Button = ({
-  type,
-  text,
-  color,
-  backgroundColor,
-  width,
-  height,
-  size,
-  maxWidth,
-  disabled,
-  handleClick,
-}: ButtonProps) => {
+const Button = ({ type, text, color, backgroundColor, disabled, handleClick }: ButtonProps) => {
   return (
     <button
       style={{
         background: `${backgroundColor}`,
         color: `${color}`,
-        maxWidth: `${maxWidth}`,
-        width: `${width}`,
-        height: `${height}`,
-        fontSize: `${size}`,
+        maxWidth: '200px',
+        width: '200px',
       }}
       onClick={() => (handleClick ? handleClick() : null)}
       className={styles.btn}
-      type={type ==="submit"? "submit":"button"}
+      type={type === 'submit' ? 'submit' : 'button'}
       disabled={disabled}
     >
       {text ? text : 'Button'}

@@ -72,19 +72,19 @@ const ClassRoom = () => {
     <>
       <div>
         <BackNavigation />
-        <h3 className="headerTitle">{classRoomData?.language}</h3>
+        <h3 className="p-4 font-bold text-xl rounded-lg bg-white">
+          {classRoomData?.language} language
+        </h3>
         <div className={styles.tabWrap}>
           <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
         </div>
 
         <div className={styles.views}>
-          <h3>{activeTab}</h3>
-
           <div className={styles.sectionWrap}>
             {activeTab === 'Students' ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === 'Classwork' ? (
-              <ClassworkViewComponent />
+              <ClassworkViewWrapper />
             ) : activeTab === 'Assignment' ? (
               <AssignmentViewWrapper />
             ) : activeTab === 'Gradebook' ? (
@@ -100,7 +100,7 @@ const ClassRoom = () => {
 export default ClassRoom
 
 // CLASSWORK VIEW WRAPPER
- const ClassworkViewComponent = () => {
+const ClassworkViewWrapper = () => {
   const searchParams = useSearchParams()
   const classID = Number(searchParams.get('id'))
   const teacherData = useSelector(userData).currentTeacher?.data!
@@ -160,7 +160,7 @@ const AssignmentViewWrapper = () => {
   // }
 
   // Add module assignment
-  const handleAddFile = async (payload: any) => {
+  const handleAddFile = async (payload: any, reset: () => void) => {
     let formdata = new FormData()
     formdata.append('school_id', teacherData?.school?.id)
     formdata.append('teacher_id', teacherData?.teacher_id)
@@ -174,6 +174,7 @@ const AssignmentViewWrapper = () => {
     if (res) {
       mutate()
       setOpenModal(false)
+      reset()
     }
   }
 

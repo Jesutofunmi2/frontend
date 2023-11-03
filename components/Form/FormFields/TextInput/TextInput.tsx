@@ -29,7 +29,7 @@ export const TextInput = ({
   return (
     <>
       <div className={styles.inputWrap}>
-        <label className={styles.label} htmlFor={name}>
+        <label className="" htmlFor={name}>
           {label}
         </label>
         <input

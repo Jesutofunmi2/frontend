@@ -10,12 +10,15 @@ import { TextInput } from '@/components/Form/FormFields/TextInput/TextInput'
 import { userData } from '@/services/redux/features/userSlice'
 import { ToastContainer, toast } from 'react-toastify'
 
+
 type Inputs = {
   name: string
   attachment: File | any
 }
-
-const AssignClassworkView = () => {
+interface AssignClassworkViewProps{
+  setModalOpen:React.Dispatch<React.SetStateAction<boolean>>
+}
+const AssignClassworkView = ({setModalOpen}:AssignClassworkViewProps) => {
   const searchParams = useSearchParams()
   const classID: any = searchParams.get('id')
   const teacherData = useSelector(userData).currentTeacher?.data!
@@ -36,6 +39,7 @@ const AssignClassworkView = () => {
     formData.append('name', data.name)
     let res = await addClasswork(formData)
     if (res) {
+      setModalOpen(false)
       reset()
     }
   }
@@ -66,7 +70,9 @@ const AssignClassworkView = () => {
           Icon={< GrAttachment />}
         />
 
-        <Button width="200px" type="submit" text="Submit" />
+       <div className='mt-6 text-center'>
+       <Button  type="submit" text="Submit" />
+       </div>
       </form>
       <ToastContainer />
     </>

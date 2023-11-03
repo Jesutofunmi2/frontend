@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './classworkView.module.css'
 import Button from '../../Button/Button'
 import ClassworkCard from '../../Card/ClassworkCard/ClassworkCard'
@@ -8,7 +8,10 @@ import AssignModuleCard from '@/components/Card/AssignModuleCard/AssignModuleCar
 import { useSearchParams } from 'next/navigation'
 import { Loader } from '@/components/Loader/Loader'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
-
+import { active } from 'sortablejs'
+import AddClasswork from '@/components/Form/Forms/AddClassWork/page'
+import AddClassworkPage from '@/components/Form/Forms/AddClassWork/page'
+import Modal from '@/components/Modal/Modal'
 interface ClassWorkProps {
   classworkData?: any
   handleDeleteClasswork: (param: any) => void
@@ -24,12 +27,12 @@ const ClassworkView = ({
 }: ClassWorkProps) => {
   const searchParams = useSearchParams()
   const classID = searchParams.get('id')
-
+  const [modalOpen, setModalOpen] = useState(false)
   const { data: assignedModule, mutate } = useGetAssignedModule({
     school_id: `${school_id}`,
     teacher_id: `${teacher_id}`,
   })
- 
+
   const handleModuleDelete = async (id: number) => {
     let payload = {
       schoolID: school_id,
@@ -45,21 +48,11 @@ const ClassworkView = ({
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.buttonWrap}>
-          <Link
-            href={{
-              pathname: `/teacher/class/classroom/add-classwork`,
-              query: {
-                id: classID,
-              },
-            }}
-          >
-            <Button text="Add Classwork" width="200px" />
-          </Link>
-        </div>
-
         <div className={styles.cardWrap}>
-          <p className={styles.cardTitle}>CLASSWORK:</p>
+          <p className={styles.cardTitle}>CLASSWORK</p>
+          <div className={styles.buttonWrap}>
+          <Button handleClick={() => setModalOpen(true)} text="Add Classwork"  />
+        </div>
           <div className={styles.cards}>
             {classworkData?.length ? (
               classworkData?.map((item: any) => (
@@ -78,7 +71,7 @@ const ClassworkView = ({
         </div>
 
         <div className={styles.cardWrap}>
-          <p className={styles.cardTitle}>MODULE CLASSWORK:</p>
+          <p className={styles.cardTitle}>MODULE CLASSWORK</p>
           <div className={styles.cards}>
             {assignedModule?.length ? (
               assignedModule?.map((module: any) => (
@@ -97,6 +90,10 @@ const ClassworkView = ({
           </div>
         </div>
       </div>
+
+      <Modal open={modalOpen} setOpen={setModalOpen}>
+        <AddClassworkPage setModalOpen={setModalOpen}/>
+      </Modal>
     </>
   )
 }

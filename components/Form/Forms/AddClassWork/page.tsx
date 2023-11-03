@@ -19,9 +19,12 @@ const tabData = [
   { id: 2, title: "Assign Module" },
 ];
 
-const AddClassworkPage = () => {
+interface AddClassworkPageProps{
+  setModalOpen:React.Dispatch<React.SetStateAction<boolean>>
+}
+const AddClassworkPage = ({setModalOpen}:AddClassworkPageProps) => {
   const [selectModule, setselectModule] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
+  // const [modalOpen, setModalOpen] = useState(false);
   // const { data, isValidating } = useGetLessons();
   // const {} = addClasswork();
   const [toggle, setToggle] = useState("Assign Classwork");
@@ -38,15 +41,15 @@ const AddClassworkPage = () => {
   return (
     <>
       <div>
-        <BackNavigation />
-        <h3 className="headerTitle">Add Classwork</h3>
+       
+        <h3 className="headerTitle"> Add Classwork</h3>
         <div className={styles.body}>
           <div className={styles.tabWrap}>
             <Tab2 handleToggle={handleToggle} data={tabData} toggle={toggle} />
           </div>
 
           {toggle === "Assign Classwork" ? (
-            <AssignClassworkView  />
+            <AssignClassworkView  setModalOpen={setModalOpen}  />
           ) : (
             <AssignModuleView
             />
@@ -54,13 +57,13 @@ const AddClassworkPage = () => {
         </div>
       </div>
       {/* MODAL*/}
-      <Modal open={modalOpen} setOpen={setModalOpen}>
+      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddModuleForm
           payloadData={payloadData}
           setPayloadData={setPayloadData}
           selectModule={selectModule}
         />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

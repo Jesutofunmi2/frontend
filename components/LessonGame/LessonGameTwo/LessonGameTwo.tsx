@@ -162,17 +162,17 @@ const LessonGameTwo = ({
                 ? "Next"
                 : "Check"
             }
-            maxWidth="200px"
-            disabled={
-              !selected
-                ? true
-                : false ||
-                  isMutating ||
-                  buttonColor === "green" ||
-                  buttonColor === "red"
-            }
+            
+            // disabled={
+            //   !selected
+            //     ? true
+            //     : false ||
+            //       isMutating ||
+            //       buttonColor === "green" ||
+            //       buttonColor === "red"
+            // }
           />
-          {/* )} */}
+       
         </div>
       </div>
       {questionIndex + 1 > question?.length ? (

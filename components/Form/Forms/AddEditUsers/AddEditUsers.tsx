@@ -52,7 +52,7 @@ const AddEditUsers = () => {
             placeholder="Enter Password"
           />
           <div className={styles.btnWrap}>
-            <Button type="submit" maxWidth="150px" text="Save" />
+            <Button type="submit"  text="Save" />
           </div>
         </div>
       </form>
