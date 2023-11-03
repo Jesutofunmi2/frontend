@@ -29,24 +29,24 @@ const AssignModulePage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [selectQuiz, setselectQuiz] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data, isValidating } = useGetLessons();
+  const { data:lessons, isValidating } = useGetLessons(0); ///language is assumed
   const [payloadData, setPayloadData] = useState({
     first_name: "",
     gendar: "",
   });
 
-  const handleClick = (param) => {
-    const alreadyExisting = selectModule.find((item) => item.id === param.id);
-    if (alreadyExisting) {
-      setselectModule((current) =>
-        current.filter((fruit) => fruit.id !== param.id)
-      );
-    } else {
-      setselectModule((current) => [...current, param]);
-    }
-  };
+  // const handleClick = (param) => {
+  //   const alreadyExisting = selectModule.find((item) => item.id === param.id);
+  //   if (alreadyExisting) {
+  //     setselectModule((current) =>
+  //       current.filter((fruit) => fruit.id !== param.id)
+  //     );
+  //   } else {
+  //     setselectModule((current) => [...current, param]);
+  //   }
+  // };
 
-  const handleModal = (id) => {
+  const handleModal = () => {
     setModalOpen(true);
   };
 
@@ -62,7 +62,7 @@ const AssignModulePage = () => {
             <ModulesSection
               selectModule={selectModule}
               setselectModule={setselectModule}
-              data={data}
+              data={lessons}
               isValidating={isValidating}
             />
           </div>
@@ -79,10 +79,10 @@ const AssignModulePage = () => {
       {/* MODAL TO MODIFY STUDENTS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddClassworkForm
-          payloadData={payloadData}
-          setPayloadData={setPayloadData}
-          selectModule={selectModule}
-          selectQuiz={selectQuiz}
+          // payloadData={payloadData}
+          // setPayloadData={setPayloadData}
+          // selectModule={selectModule}
+          // selectQuiz={selectQuiz}
         />
       </Modal>
     </>

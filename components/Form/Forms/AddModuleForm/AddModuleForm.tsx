@@ -15,8 +15,8 @@ type Inputs = {
  file:File
 }
 interface AddModuleFormProps {
-  handleFormSubmit: (values:any) => void
-  file: any
+  handleFormSubmit?: (values:any) => void
+  file?: any
 }
 const AddModuleForm = ({handleFormSubmit, file }: AddModuleFormProps) => {
   const [formdata, setFormdata] = useState({

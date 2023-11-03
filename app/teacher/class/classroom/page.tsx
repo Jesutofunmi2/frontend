@@ -84,7 +84,7 @@ const ClassRoom = () => {
             {activeTab === 'Students' ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === 'Classwork' ? (
-              <ClassworkViewWrapper />
+              <ClassworkViewComponent />
             ) : activeTab === 'Assignment' ? (
               <AssignmentViewWrapper />
             ) : activeTab === 'Gradebook' ? (
@@ -100,7 +100,7 @@ const ClassRoom = () => {
 export default ClassRoom
 
 // CLASSWORK VIEW WRAPPER
-export const ClassworkViewWrapper = () => {
+ const ClassworkViewComponent = () => {
   const searchParams = useSearchParams()
   const classID = Number(searchParams.get('id'))
   const teacherData = useSelector(userData).currentTeacher?.data!
@@ -138,7 +138,7 @@ export const ClassworkViewWrapper = () => {
 }
 
 // ASSIGNMENT VIEW WRAPPER
-export const AssignmentViewWrapper = () => {
+const AssignmentViewWrapper = () => {
   const searchParams = useSearchParams()
   const classID: any = Number(searchParams.get('id'))
   const teacherData = useSelector(userData).currentTeacher?.data!

@@ -49,42 +49,42 @@ const LessonGameOne = ({
   const currentQuestion = question[questionIndex]
 
   // // CORRECT AND WRONG ANSWER CONDITION
-  useEffect(() => {
-    // **** IF data?.data?.is_correct IS FALSE **** //
-    if (data?.data?.is_correct === false) {
-      // Update the button color to red
-      setButtonColor('red')
+  // useEffect(() => {
+  //   // **** IF data?.data?.is_correct IS FALSE **** //
+  //   if (data?.data?.is_correct === false) {
+  //     // Update the button color to red
+  //     setButtonColor('red')
 
-      // play wrongAnswerSound audio
-      const audio = new Audio('@/public/assets/audios/notCorrect.mp3')
-      audio.play()
+  //     // play wrongAnswerSound audio
+  //     const audio = new Audio('@/public/assets/audios/notCorrect.mp3')
+  //     audio.play()
 
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor('')
-      }, 1000)
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor('')
+  //     }, 1000)
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer)
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer)
 
-      // **** IF data?.data?.is_correct IS TRUE **** //
-    } else if (data?.data?.is_correct === true) {
-      // Update the button color to green
-      setButtonColor('green')
+  //     // **** IF data?.data?.is_correct IS TRUE **** //
+  //   } else if (data?.data?.is_correct === true) {
+  //     // Update the button color to green
+  //     setButtonColor('green')
 
-      // play correctAnswerSound audio
-      const audio = new Audio('/public/assets/audios/yay.mp3')
-      audio.play()
+  //     // play correctAnswerSound audio
+  //     const audio = new Audio('/public/assets/audios/yay.mp3')
+  //     audio.play()
 
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor('yellowgreen')
-      }, 1700)
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor('yellowgreen')
+  //     }, 1700)
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer)
-    }
-  }, [data, setQuestionIndex])
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer)
+  //   }
+  // }, [data, setQuestionIndex])
 
   useEffect(() => {
     setCurrentQtn(currentQuestion)
@@ -186,11 +186,11 @@ const LessonGameOne = ({
                 }
                 maxWidth="230px"
                 height="50px"
-                disabled={
-                  !selectedAnswer
-                    ? true
-                    : false || isMutating || buttonColor === 'green' || buttonColor === 'red'
-                }
+                // disabled={
+                //   !selectedAnswer
+                //     ? true
+                //     : false || isMutating || buttonColor === 'green' || buttonColor === 'red'
+                // }
               />
             </div>
           </Fade>

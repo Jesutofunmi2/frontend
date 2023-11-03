@@ -22,20 +22,20 @@ const tabData = [
 const AddClassworkPage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data, isValidating } = useGetLessons();
+  const { data:language, isValidating } = useGetLessons(1);
   const [toggle, setToggle] = useState("Assign Classwork");
   const [payloadData, setPayloadData] = useState({
     first_name: "",
     gendar: "",
   });
 
-  const handleModal = (id) => {
+  const handleModal = () => {
     setModalOpen(true);
   };
 
   // TOGGLE USERS
-  const handleToggle = (event) => {
-    setToggle(event);
+  const handleToggle = (title:string) => {
+    setToggle(title);
   };
 
   return (
@@ -53,10 +53,10 @@ const AddClassworkPage = () => {
             <AssignClassworkView />
           ) : (
             <AssignModuleView
-              data={data}
-              isValidating={isValidating}
-              setselectModule={setselectModule}
-              selectModule={selectModule}
+          // language={language}
+          //     isValidating={isValidating}
+          //     setselectModule={setselectModule}
+          //     selectModule={selectModule}
             />
           )}
 
@@ -66,9 +66,9 @@ const AddClassworkPage = () => {
       {/* MODAL TO MODIFY STUDENTS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddModuleForm
-          payloadData={payloadData}
-          setPayloadData={setPayloadData}
-          selectModule={selectModule}
+          // payloadData={payloadData}
+          // setPayloadData={setPayloadData}
+          // selectModule={selectModule}
         />
       </Modal>
     </>

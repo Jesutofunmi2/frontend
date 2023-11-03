@@ -2,10 +2,7 @@ import React from 'react'
 import styles from './tab1.module.css'
 
 interface TabProps {
-  tabData: {
-    text: string|any
-    icon: React.JSX.Element
-  }[]
+  tabData: any
   handleActiveTab: (activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') => void
   activeTab: string
 }
@@ -17,7 +14,7 @@ const Tab1 = ({ tabData, activeTab, handleActiveTab }: TabProps) => {
   return (
     <>
       <div className={styles.container}>
-        {tabData?.map((item) => (
+        {tabData?.map((item:any) => (
           <div
             className={activeTab === item.text ? styles.active : styles.card}
             key={item.text}

@@ -10,10 +10,10 @@ import { Loader } from '@/components/Loader/Loader'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 
 interface ClassWorkProps {
-  classworkData: any
+  classworkData?: any
   handleDeleteClasswork: (param: any) => void
-  teacher_id: number
-  school_id: number
+  teacher_id?: number
+  school_id?: number
 }
 
 const ClassworkView = ({

@@ -15,12 +15,12 @@ import ClassworkView from "@/components/Views/ClassworkView/ClassworkView";
 import AssignmentView from "@/components/Views/AssigmentView/AssigmentView";
 import GradebookView from "@/components/Views/GradebookView/GradebookView";
 import { PiBookOpenBold } from "react-icons/pi";
-import { useGetAssignedModuleStudent } from "@/services/APIs/module";
+// import { useGetAssignedModuleStudent } from "@/services/api/module";
 
 
 const tabData = [
   { text: "Students", icon: <BsPeople /> },
-  { text: "Quiz", icon: <TfiBlackboard /> },
+  { text: "Classwork", icon: <TfiBlackboard /> },
   { text: "Assignment", icon: <MdPersonAddAlt /> },
   { text: "Gradebook", icon:<PiBookOpenBold /> },
 ];
@@ -28,10 +28,12 @@ const tabData = [
 const ClassRoom = () => {
   const searchParams = useSearchParams();
   const [toggleTab, setToggleTab] = useState("Students");
-  const activeTab = searchParams.get("tab");
+  const activeTab = String(searchParams.get("tab"))
   // const teacherData = useSelector((state) => state?.user?.currentTeacher?.data);
 
+const handleActiveTab=(activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook')=>{
 
+}
   // // Get assigned module API request hook
   // const { data: assignedModule } = useGetAssignedModuleStudent({
   //   school_id: `${teacherData?.school?.id}`,
@@ -65,11 +67,12 @@ const ClassRoom = () => {
         <h3 className="headerTitle">Yoruba Language</h3>
         <div className={styles.tabWrap}>
           <Tab1
-            data={tabData}
-            toggleTab={toggleTab}
-            setToggleTab={setToggleTab}
+           tabData={tabData}
+            // toggleTab={toggleTab}
+            // setToggleTab={setToggleTab}
+            handleActiveTab={handleActiveTab}
             activeTab={activeTab}
-            url="/dashboard/classroom/class?tab"
+            // url="/dashboard/classroom/class?tab"
           />
         </div>
 

@@ -1,0 +1,16 @@
+// for school
+// edit student not working
+// return exact values for edit example(username / first_name, )
+
+
+// Fix build(after typescript fixes)
+// fix teacher issues in jsx(page not displaying but there is a response)
+
+fixes- reset form
+general testing in school board
+ensure that the page mutate before closing modal
+
+
+// pending endpoints
+// edit/add school-teacher
+// language (add a language)

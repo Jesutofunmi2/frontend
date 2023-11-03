@@ -66,7 +66,7 @@ const AddEditTeachers = ({
       }
       fetchData()
     }
-  }, [selectedOptionForClass])
+  }, [schoolID,selectedOptionForClass])
 
   const classArmoptions = allClassArmByID[0]?.class_arms.map(
     (item: { id: number; name: string }) => {

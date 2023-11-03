@@ -1,7 +1,11 @@
-import React from "react";
-import styles from "./assignQuizCard.module.css"
+import React from 'react'
+import styles from './assignQuizCard.module.css'
 
-const AssignQuizCard = ({item, handleSelectQuiz}) => {
+interface AssignQuizCardProps {
+  item: any
+  handleSelectQuiz: (e: any, item: any) => void
+}
+const AssignQuizCard = ({ item, handleSelectQuiz }: AssignQuizCardProps) => {
   return (
     <>
       <div className={styles.card}>
@@ -13,7 +17,7 @@ const AssignQuizCard = ({item, handleSelectQuiz}) => {
         <p>{item.title}</p>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AssignQuizCard;
+export default AssignQuizCard

@@ -4,84 +4,92 @@ import React, { useEffect, useState } from "react";
 import styles from "./videoLessonQuestion.module.css";
 import { Fade } from "react-awesome-reveal";
 import Button from "../Button/Button";
-import { useCheckAnswer } from "@/services/api/lessonGame";
+import { checkAnswer } from "@/services/api/lessonGame";
 // import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
 // import clickSound from "@/public/assets/audios/click.mp3";
 // import correctAnswerSound from "@/public/assets/audios/yay.mp3";
 import CorrectAnswerModal from "../Modal/CorrectAnswerModal/CorrectAnswerModal";
+import { LessonQuestion, Options } from "@/types/lessontopic";
 
-const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQuestionsPopup }) => {
-  const [selected, setSelected] = useState();
+
+interface VideoLessonQuestionProps{
+  question:LessonQuestion[], 
+    questionIndex:number, 
+  setQuestionIndex:React.Dispatch<React.SetStateAction<number>>,
+  setQuestionsPopup:any
+}
+const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQuestionsPopup }:VideoLessonQuestionProps) => {
+  const [selected, setSelected] = useState<Number>();
   const [closeModal, setCloseModal] = useState(true);
 
-  const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
+  // const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
   const [answers, setAnswers] = useState([]);
-  const [puzzle, setPuzzle] = useState([]);
+  const [puzzle, setPuzzle] = useState<Options[]>([]);
   const [buttonColor, setButtonColor] = useState("");
 
-  const currentQestion = question?.questions[questionIndex];
+  const currentQuestion = question[questionIndex];
 
-  console.log(question);
+  // console.log(question);
 
   // // CORRECT AND WRONG ANSWER CONDITION
-  useEffect(() => {
-    // **** IF data?.data?.is_correct IS FALSE **** //
-    if (data?.data?.is_correct === false) {
-      // Update the button color to red
-      setButtonColor("red");
+  // useEffect(() => {
+  //   // **** IF data?.data?.is_correct IS FALSE **** //
+  //   if (data?.data?.is_correct === false) {
+  //     // Update the button color to red
+  //     setButtonColor("red");
 
-      // play wrongAnswerSound audio
-      const audio = new Audio("@/public/assets/audios/notCorrect.mp3");
-      audio.play();
+  //     // play wrongAnswerSound audio
+  //     const audio = new Audio("@/public/assets/audios/notCorrect.mp3");
+  //     audio.play();
 
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor("");
-      }, 1000);
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor("");
+  //     }, 1000);
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer);
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer);
 
-      // **** IF data?.data?.is_correct IS TRUE **** //
-    } else if (data?.data?.is_correct === true) {
-      // Update the button color to green
-      setButtonColor("green");
+  //     // **** IF data?.data?.is_correct IS TRUE **** //
+  //   } else if (data?.data?.is_correct === true) {
+  //     // Update the button color to green
+  //     setButtonColor("green");
 
-      // play correctAnswerSound audio
-      const audio = new Audio("@/public/assets/audios/yay.mp3");
-      audio.play();
+  //     // play correctAnswerSound audio
+  //     const audio = new Audio("@/public/assets/audios/yay.mp3");
+  //     audio.play();
 
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor("yellowgreen");
-      }, 1700);
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor("yellowgreen");
+  //     }, 1700);
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer);
-    }
-  }, [data]);
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [data]);
 
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   useEffect(() => {
-    setPuzzle(currentQestion?.options);
-  }, [currentQestion]);
+    setPuzzle(currentQuestion?.options);
+  }, [currentQuestion]);
 
   // SELECT ANSWER FUNCTION
-  const selectAnswer = (id) => {
+  const selectAnswer = (id:number) => {
     setSelected(id);
     // const audio = new Audio(clickSound);
     // audio.play();
   };
 
   // CHECK ANSWER FUNCTION
-  const checkAnswer = () => {
+  const handleCheckAnswer = () => {
     if (buttonColor === "yellowgreen") {
       setQuestionIndex((prev) => prev + 1);
       setButtonColor("");
-      setSelected();
+      setSelected(0);
     } else {
-      sendAnswer({
-        question_id: currentQestion?.id,
+     checkAnswer({
+        question_id: currentQuestion?.id,
         optionIds: [`${selected}`],
       });
     }
@@ -95,22 +103,22 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
             {/* QUESTION BOX */}
             <div className={styles.questionBox}>
               <span>
-                Question {questionIndex + 1}/{question?.questions?.length}
+                Question {questionIndex + 1}/{question?.length}
               </span>
-              <span className="languageText">{currentQestion?.title}</span>
+              <span className="languageText">{currentQuestion?.title}</span>
             </div>
 
             {/* ANNSWERS */}
             <div className={styles.answerWrap}>
-              {currentQestion?.options?.map((item) => (
+              {currentQuestion?.options?.map((item:any) => (
                 <div
                   className={
-                    selected === item.id
+                    selected === Number(item.id)
                       ? styles.answerBoxActive
                       : styles.answerBox
                   }
                   key={item.id}
-                  onClick={() => selectAnswer(item.id)}
+                  onClick={() => selectAnswer(Number(item.id))}
                 >
                   <span className="languageText">{item.title}</span>
                 </div>
@@ -118,7 +126,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
             </div>
             <div className={styles.btnWrap}>
               <Button
-                handleClick={checkAnswer}
+                handleClick={handleCheckAnswer}
                 backgroundColor={`${buttonColor}`}
                 text={
                   buttonColor === "red"
@@ -131,13 +139,13 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
                 }
                 maxWidth="230px"
                 height="50px"
-                disabled={!selected ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
+                // disabled={!selected ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
               />
             </div>
           </Fade>
         </div>
       </div>
-      {questionIndex + 1 > question?.questions?.length ? <CorrectAnswerModal closeModal={setQuestionsPopup}/> : null}
+      {questionIndex + 1 > question?.length ? <CorrectAnswerModal closeModal={setQuestionsPopup}/> : null}
     </>
   );
 };

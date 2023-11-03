@@ -29,26 +29,26 @@ const AddQuizPage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [selectQuiz, setselectQuiz] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data, isValidating } = useGetLessons();
+  const { data:lessons, isValidating } = useGetLessons(1); //assumed 1
   const [payloadData, setPayloadData] = useState({
     first_name: "",
     gendar: "",
   });
 
-  const handleClick = (param) => {
-    // setModalOpen(true);
-    setselectModule((current) => [...current, param]);
-  };
+  // const handleClick = (param) => {
+  //   // setModalOpen(true);
+  //   setselectModule((current) => [...current, param]);
+  // };
 
-  const handleSelectQuiz = (e, item) => {
+  const handleSelectQuiz = (e: { target: { checked: any; }; }, item: any) => {
     // setModalOpen(true);
     const chosen = e.target.checked;
     if (chosen) {
-      setselectQuiz((current) => [...current, item]);
+      // setselectQuiz((current) => [...current, item]);
     }
   };
 
-  const handleModal = (id) => {
+  const handleModal = () => {
     setModalOpen(true);
   };
 
@@ -62,7 +62,7 @@ const AddQuizPage = () => {
           <div>
             <p className={styles.selectModuleTitle}>SELECT MODULE</p>
             <ModulesSection
-              data={data}
+              data={lessons}
               isValidating={isValidating}
               setselectModule={setselectModule}
               selectModule={selectModule}
@@ -74,13 +74,13 @@ const AddQuizPage = () => {
               <p className={styles.selectModuleTitle}>SELECT QUIZ</p>
               <div className={styles.cardWrap}>
                 {card?.map((item) => {
-                  let selected = selectModule.find((e) => e.id === item.id);
+                  let selected = selectModule.find((e:any) => e.id === item.id);
                   return (
                     <AssignQuizCard
                       item={item}
                       key={item.id}
                       handleSelectQuiz={handleSelectQuiz}
-                      selected={selected}
+                      // selected={selected}
                     />
                   );
                 })}
@@ -100,10 +100,10 @@ const AddQuizPage = () => {
       {/* MODAL TO MODIFY STUDENTS */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddClassworkForm
-          payloadData={payloadData}
-          setPayloadData={setPayloadData}
-          selectModule={selectModule}
-          selectQuiz={selectQuiz}
+          // payloadData={payloadData}
+          // setPayloadData={setPayloadData}
+          // selectModule={selectModule}
+          // selectQuiz={selectQuiz}
         />
       </Modal>
     </>

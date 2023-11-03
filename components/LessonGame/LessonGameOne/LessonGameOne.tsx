@@ -66,51 +66,51 @@ const LessonGameOne = ({
   console.log(list)
 
   // // CORRECT AND WRONG ANSWER CONDITION
-  useEffect(() => {
-    // if data?.data?.is_correct is false
-    if (data?.data?.is_correct === false) {
-      // Update the button color to red
-      setButtonColor("red");
+  // useEffect(() => {
+  //   // if data?.data?.is_correct is false
+  //   if (data?.data?.is_correct === false) {
+  //     // Update the button color to red
+  //     setButtonColor("red");
 
-      // play wrongAnswerSound audio
-      const audio = new Audio("/public/assets/audios/notCorrect.mp3");
-      audio.play();
+  //     // play wrongAnswerSound audio
+  //     const audio = new Audio("/public/assets/audios/notCorrect.mp3");
+  //     audio.play();
 
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor("");
-      }, 1700);
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor("");
+  //     }, 1700);
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer);
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer);
 
-      // If data?.data?.is_correct is true
-    } else if (data?.data?.is_correct === true) {
-      // Update the button color to green
-      setButtonColor("green");
+  //     // If data?.data?.is_correct is true
+  //   } else if (data?.data?.is_correct === true) {
+  //     // Update the button color to green
+  //     setButtonColor("green");
 
-      // play correctAnswerSound audio
-      const audio = new Audio("/public/assets/audios/yay.mp3");
-      audio.play();
+  //     // play correctAnswerSound audio
+  //     const audio = new Audio("/public/assets/audios/yay.mp3");
+  //     audio.play();
 
-      // move to next question by updating the question index
-      // setQuestionIndex((prev) => prev + 1);
-      setOpenCorrectModal(true);
-      // Create a timer to reset the button color after 1700 milliseconds
-      const timer = setTimeout(() => {
-        setButtonColor("yellowgreen");
-      }, 1700);
+  //     // move to next question by updating the question index
+  //     // setQuestionIndex((prev) => prev + 1);
+  //     setOpenCorrectModal(true);
+  //     // Create a timer to reset the button color after 1700 milliseconds
+  //     const timer = setTimeout(() => {
+  //       setButtonColor("yellowgreen");
+  //     }, 1700);
 
-      // Clean up the timer when the component unmounts or when the dependency changes
-      return () => clearTimeout(timer);
-    }
-  }, [data, setQuestionIndex]);
+  //     // Clean up the timer when the component unmounts or when the dependency changes
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [data, setQuestionIndex]);
 
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   useEffect(() => {
     setCurrentQtn(currentQuestion);
-    setPuzzle(currentQuestion?.options[0]?.title);
-    setList(draggableList)
+    // setPuzzle(currentQuestion?.options[0]?.title);
+    // setList(draggableList)
   }, [setCurrentQtn, currentQuestion]);
 
   // CHECK ANSWER FUNCTION
@@ -124,7 +124,7 @@ const LessonGameOne = ({
       setQuestionIndex((prev) => prev + 1);
       setButtonColor("");
       setAnswers([]);
-      setSelected();
+      // setSelected();
     } else {
       checkAnswer({
         question_id: currentQuestion?.id,
@@ -240,7 +240,7 @@ const LessonGameOne = ({
                 : "Check"
             }
             maxWidth="200px"
-            disabled={answers?.length === 0 ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
+            // disabled={answers?.length === 0 ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
           />
         </div>
       </div>

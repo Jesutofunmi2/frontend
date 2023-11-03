@@ -56,7 +56,7 @@ const AddEditStudents = ({
       }
       fetchData()
     }
-  }, [selectedOptionForClass])
+  }, [schoolID,selectedOptionForClass])
 
   const validationSchema = yup.object().shape({
     first_name: yup.string().required('Enter First Name'),
