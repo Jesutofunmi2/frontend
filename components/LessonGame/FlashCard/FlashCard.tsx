@@ -9,6 +9,7 @@ interface FlashCardProps {
   setSelected: React.Dispatch<React.SetStateAction<string>>
   option: QuestionOptions
   noTitle?: any
+  
 }
 
 const FlashCard = ({ selected, setSelected, option, noTitle }: FlashCardProps) => {

@@ -10,7 +10,6 @@ export const useGetLessonQuestions =  (languageID: number, lessonID: string) => 
       `/api/v1/question?language_id=${languageID}&topic_id=${lessonID} `,
       'get'
     )
-    console.log(res)
     return res?.data
   }
   const { data, isLoading,error} = useSWR<LessonQuestion[],Error>(
@@ -31,7 +30,6 @@ export const useGetLessonQuestions =  (languageID: number, lessonID: string) => 
 export const checkAnswer = async (payload: any) => {
   try {
     const res = await makeApiCall(`/api/v1/option`, 'post', payload)
-    console.log(res)
     return res
   } catch (err) {
     console.log(err)
@@ -43,7 +41,7 @@ export const checkAnswer = async (payload: any) => {
 export const answeredQuestion = async (payload: any) => {
   try {
     const res = await makeApiCall(`/api/v1/questionAnswered`, 'post', payload)
-    console.log(res)
+    // console.log(res)
     return res
   } catch (err) {
     console.log(err)
