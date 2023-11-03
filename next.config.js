@@ -4,17 +4,17 @@ const nextConfig = {images: {
       "course-material-dev.s3.us-east-2.amazonaws.com"
     ]
   }}
-
   module.exports = {
     ...nextConfig,
-    webpack: (config) => {
+    webpack(config, options) {
       config.module.rules.push({
-        test: /\.(mp3|wav|ogg)$/i,
-        use: {
-          loader: 'url-loader',
+        test: /\.(mp3)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "static/chunks/[path][name].[hash][ext]",
         },
       });
   
       return config;
-    }
+    },
   };

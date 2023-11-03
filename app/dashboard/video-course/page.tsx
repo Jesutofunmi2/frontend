@@ -4,12 +4,15 @@ import React from "react";
 import styles from "./page.module.css";
 import { useGetVideoCourse } from "@/services/api/videoCourse";
 import VideoCourseCard from "@/components/Card/VideoCourseCard/VideoCourseCard";
+import { Loader } from "@/components/Loader/Loader";
+import { VideoCourse } from "@/types/videocourse";
 
 const VideoLesson = () => {
-  const { data, isLoading } = useGetVideoCourse();
-
+  const { data:videoCourses, isLoading,error } = useGetVideoCourse();
+  if (!videoCourses) return null
+  if (isLoading) return <Loader />
+  if (error) return <p>error page</p>
   const fakedata = ["a", "b", "", "c", "d", "e", "f", "g"];
-
 
   return (
     <>
@@ -17,8 +20,8 @@ const VideoLesson = () => {
         <h2>Select Language</h2>
 
         <div className={styles.cardWrap}>
-          {data?.data?.map((item) => (
-            <VideoCourseCard item={item} key={item.id} />
+          {videoCourses.map((video:VideoCourse) => (
+            <VideoCourseCard video={video} key={video.id} />
           ))}
         </div>
       </div>

@@ -1,40 +1,43 @@
-import React from "react";
-import styles from "./videoCourseCard.module.css";
-import { BiUser } from "react-icons/bi";
-import Link from "next/link";
-import Image from "next/image";
+import React from 'react'
+import styles from './videoCourseCard.module.css'
+import Link from 'next/link'
+import Image from 'next/image'
+import { VideoCourse } from '@/types/videocourse'
 
-const VideoCourseCard = ({ item }) => {
-  const handleclick = (itm) => {
-    sessionStorage.setItem("courseID", itm?.id);
-  };
+interface VideoCourseCard {
+  video: VideoCourse
+}
+const VideoCourseCard = ({ video }: VideoCourseCard) => {
+  const handleclick = (video: VideoCourse) => {
+    sessionStorage.setItem('courseID', video?.id)
+  }
 
   return (
     <>
       <div className={styles.container}>
-        {item?.status <= 0 ? <div className={styles.overlay}></div> : null}
+        {video?.status <= 0 ? <div className={styles.overlay}></div> : null}
         <Link
           href={{
-            pathname: "/dashboard/video-course/level",
+            pathname: '/dashboard/video-course/level',
           }}
           className={styles.card}
-          onClick={()=>handleclick(item)}
+          onClick={() => handleclick(video)}
         >
           <div className={styles.card}>
             <Image
-              src={item?.image_url}
+              src={video?.image_url}
               className={styles.img}
               width={400}
               height={100}
-              alt={item?.title}
+              alt={video?.title}
             />
             <hr className={styles.break} />
-            <h3>{item?.title}</h3>
+            <h3>{video?.title}</h3>
           </div>
         </Link>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default VideoCourseCard;
+export default VideoCourseCard

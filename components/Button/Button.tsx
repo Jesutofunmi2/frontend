@@ -5,7 +5,7 @@ import styles from './button.module.css'
 
 interface ButtonProps {
   type?: string
-  text?: string
+  text?: string|JSX.Element
   color?: string
   backgroundColor?: string
   size?: string

@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./featureCard.module.css";
-import { FaUserFriends, FaPeopleGroup } from "react-icons/fa";
 
-const FeatureCard = ({ data }) => {
+
+const FeatureCard = ({ data }:any) => {
   
   return (
     <>

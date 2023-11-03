@@ -20,15 +20,12 @@ import { LessonQuestion } from '@/types/lessontopic'
 const LessonGame = () => {
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
+  const [questionIndex, setQuestionIndex] = useState(0)
+  const [currentQtn, setCurrentQtn] = useState<LessonQuestion|null>(null)
+  const [favourite, setFavourite] = useState<Favourite[]>([])
   const languageID = Number(searchParams.get('lang'))
   const lessonID = String(searchParams.get('lesson'))
   const type = searchParams.get('type')
-
-  // const { trigger } = useAddFavourite(languageID, lessonID);
-  const [questionIndex, setQuestionIndex] = useState(0)
-  const [currentQtn, setCurrentQtn] = useState<LessonQuestion>()
-  const [favourite, setFavourite] = useState<Favourite[]>([])
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -37,8 +34,6 @@ const LessonGame = () => {
   if (!lessonQuestions) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
-
-  // console.log(lessonQuestions)
 
   const currentPercentage = Math.floor((100 / lessonQuestions?.length) * questionIndex)
 
@@ -88,6 +83,7 @@ const LessonGame = () => {
               setQuestionIndex={setQuestionIndex}
               setCurrentQtn={setCurrentQtn}
               topicID={lessonID}
+
             />
           ) : type === 'puzzle' || type === 'scramble' ? (
             <LessonGameOne
@@ -104,6 +100,7 @@ const LessonGame = () => {
               questionIndex={questionIndex}
               setQuestionIndex={setQuestionIndex}
               setCurrentQtn={setCurrentQtn}
+              currentQtn={currentQtn}
             />
           )}
         </div>

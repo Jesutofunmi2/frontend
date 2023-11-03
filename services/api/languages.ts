@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import makeApiCall from '.'
-import { Ilanguage } from '@/types/languages.'
+import { ILanguage } from '@/types/languages.'
 
 //GET LANGUAGES
 export const useGetLanguages = () => {
@@ -8,7 +8,7 @@ export const useGetLanguages = () => {
     const res = await makeApiCall(`/api/v1/language`, 'get')
     return res?.data
   }
-  const { data, isLoading, isValidating,error } = useSWR<Ilanguage[], Error>(`/api/v1/language`, fetcher, {
+  const { data, isLoading, isValidating,error } = useSWR<ILanguage[], Error>(`/api/v1/language`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

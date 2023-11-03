@@ -30,6 +30,7 @@ const LoginForm = () => {
     email: '',
     password: '',
   })
+  if(isLoading) return <Loader/>
 
   // TOGGLE USERS
   const handleToggleUser = (event: string) => {
@@ -216,7 +217,7 @@ const LoginForm = () => {
           )}
 
           <button type="submit" className={styles.loginBtn}>
-            {isLoading ? <Loader /> : 'SIGN IN'}
+            SIGN IN
           </button>
         </form>
         <ToastContainer autoClose={5000} />

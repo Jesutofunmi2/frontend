@@ -3,7 +3,7 @@ import styles from "./favouriteCard.module.css"
 import Image from 'next/image'
 import { AiFillHeart } from 'react-icons/ai'
 
-const FavouriteCard = ({data}) => {
+const FavouriteCard = ({data}:any) => {
   console.log(data)
   return (
     <>

@@ -8,7 +8,7 @@ import { BsAirplaneFill, BsRocketFill } from "react-icons/bs";
 import { useGetLevel } from "@/services/api/level";
 
 const LessonLevel = () => {
-  const { data, isLoading } = useGetLevel();
+  const { data:level, isLoading } = useGetLevel();
 
   const fakedata = [
     { text: "Beginner Level", icon: <FaPaperPlane size={50}/> },
@@ -21,7 +21,7 @@ const LessonLevel = () => {
         <h2>Select video lesson level</h2>
         <div className={styles.cardWrap}>
           {fakedata?.map((item) => (
-            <LevelCard item={item} key={item} />
+            <LevelCard item={item} key={item.text} />
           ))}
         </div>
       </div>

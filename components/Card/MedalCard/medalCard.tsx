@@ -1,7 +1,7 @@
 import styles from "./medalCard.module.css";
 import Link from "next/link";
 
-const MedalCard = ({ item }) => {
+const MedalCard = ({ item }:any) => {
   return (
     <Link href="/dashboard/video-course/level/medal/oo" className={styles.card}>
       <span>{item.icon}</span>

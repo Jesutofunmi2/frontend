@@ -1,115 +1,78 @@
-import { request, tokens } from "@/config/config";
-import useSWR from "swr";
-import useSWRMutation from "swr/mutation";
-import {useDispatch, useSelector} from "react-redux";
-import { toast } from "react-toastify";
-import Swal from 'sweetalert2';
-import { useRouter } from "next/navigation";
-import { surveyStatus } from "../redux/features/surveySlice";
+import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 
+import { toast } from 'react-toastify'
+import Swal from 'sweetalert2'
+import { useRouter } from 'next/navigation'
+import { surveyStatus } from '../redux/features/surveySlice'
+import makeApiCall from '.'
 
 //SUBMIT STUDENT SURVEY
-export const useAddStudentSurvey = ( setModalOpen) => {
-  const token = useSelector((state) => state?.user?.currentUser?.token.token);
-  const dispatch = useDispatch();
-  const router = useRouter();
+export const addStudentSurvey = async (payload: any) => {
+  // const token = useSelector((state) => state?.user?.currentUser?.token.token);
+  // const dispatch = useDispatch();
+  // const router = useRouter();
 
-
-  // HEADERS
-  const config = {
-    headers: {
-      Authorization: "Bearer " + `${token}`,
-    },
-  };
-
-  async function sendRequest(url, { arg }) {
-    console.log(arg)
+  // async function sendRequest(url, { arg }) {
+  //   console.log(arg)
     toast.loading("Submitting...", {
       position: toast.POSITION.TOP_CENTER,
     });
-      console.log(arg)
-    try {
-      const res = await request.post(url, arg, config);
-      console.log(res);
-      toast.dismiss()
-     
-      Swal.fire({   
-        title: 'Success',
-        // text: "Form Submitted",
-        icon: 'success',
-        allowOutsideClick: false,
-        confirmButtonText: 'OK'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(surveyStatus(true))
-        }
-      })
-      return res;
-    } catch (err) {
-      toast.dismiss()
-      console.log(err)
-      return err;
-    }
+  //     console.log(arg)
+  try {
+    const res = await makeApiCall(`/api/v1/createStudentSurvey`, 'post', payload)
+    console.log(res)
+    // toast.dismiss()
+
+    Swal.fire({
+      title: 'Success',
+      // text: "Form Submitted",
+      icon: 'success',
+      allowOutsideClick: false,
+      confirmButtonText: 'OK',
+    }).then((result) => {
+      if (result.isConfirmed) {
+      }
+    })
+    return res
+  } catch (err) {
+    toast.dismiss()
+    console.log(err)
+    return err
   }
-
-  const { trigger, data, isMutating } = useSWRMutation(
-    `/api/v1/createStudentSurvey`,
-    sendRequest
-  );
-
-  return { trigger, data, isMutating };
-};
-
-
-
+}
 
 //SUBMIT TEACHER SURVEY
-export const useAddTeacherSurvey = () => {
-  const token = useSelector((state) => state?.user?.currentTeacher?.token.token);
-  const dispatch = useDispatch();
+export const addTeacherSurvey = async(payload:any) => {
 
-
-  // HEADERS
-  const config = {
-    headers: {
-      Authorization: "Bearer " + `${token}`,
-    },
-  };
-
-  async function sendRequest(url, { arg }) {
-    console.log(arg)
-    toast.loading("Submitting...", {
+  // async function sendRequest(url, { arg }) {
+  //   console.log(arg)
+    toast.loading('Submitting...', {
       position: toast.POSITION.TOP_CENTER,
-    });
-      console.log(arg)
+    })
+    // console.log(arg)
     try {
-      const res = await request.post(url, arg, config);
-      console.log(res);
+      const res = await makeApiCall(`/api/v1/create/TeacherSurvey`, "post" ,payload)
+      console.log(res)
       toast.dismiss()
 
-      Swal.fire({   
+      Swal.fire({
         title: 'Form Submitted',
-        text: "Thank you",
+        text: 'Thank you',
         icon: 'success',
         allowOutsideClick: false,
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(surveyStatus(true))
+          // dispatch(surveyStatus(true))
         }
       })
-      return res;
+      return res
     } catch (err) {
       toast.dismiss()
       console.log(err)
-      return err;
+      return err
     }
   }
 
-  const { trigger, data, isMutating } = useSWRMutation(
-    `/api/v1/create/TeacherSurvey`,
-    sendRequest
-  );
 
-  return { trigger, data, isMutating };
-};
