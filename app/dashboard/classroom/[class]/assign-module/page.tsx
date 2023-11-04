@@ -29,7 +29,7 @@ const AssignModulePage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [selectQuiz, setselectQuiz] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data:lessons, isValidating } = useGetLessons(0); ///language is assumed
+  const { data:lessons, isLoading} = useGetLessons(0); ///language is assumed
   const [payloadData, setPayloadData] = useState({
     first_name: "",
     gendar: "",
@@ -59,12 +59,12 @@ const AssignModulePage = () => {
         <div className={styles.body}>
           <div>
             <p className={styles.selectModuleTitle}>SELECT MODULE</p>
-            <ModulesSection
+            {/* <ModulesSection
               selectModule={selectModule}
               setselectModule={setselectModule}
               data={lessons}
-              isValidating={isValidating}
-            />
+              isValidating={isLoading}
+            /> */}
           </div>
 
           {/* <AddModuleForm /> */}

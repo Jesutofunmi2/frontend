@@ -1,13 +1,13 @@
 "use client";
+import { getToken } from "@/services/api/token";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 interface ChildrenProps {
   children: React.ReactNode
 }
 const AuthProvider = ({ children }:ChildrenProps) => {
   const [auth, setAuth] = useState(false)
-  const token = useSelector((state) => state?.user?.currentUser?.token?.token);
+  const token = getToken()
   const router = useRouter();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const AuthProvider = ({ children }:ChildrenProps) => {
     setAuth(true)
   }
 
-  }, [token])
+  }, [router, token])
   
   return <><span>{auth ? children : null}</span></>;
 };

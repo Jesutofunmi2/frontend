@@ -1,27 +1,17 @@
 import { request } from "@/config/config";
 import useSWRMutation from "swr/mutation";
 import useSWR from "swr";
-import { useSelector } from "react-redux";
+
 import { toast } from "react-toastify";
+import makeApiCall from ".";
 
 
 
 //GET GRADEBOOK
-  export const useGetGradebook = (languageID, studentID) => {
-    const total = useSelector((state) => state?.user?.currentUser?.token.token);
-  
-  
-    // HEADERS
-    const config = {
-      headers: {
-        Authorization: "Bearer " + `${total}`,
-      },
-    };
-  
+  export const useGetGradebook = () => {
     //NEW WAY TO FETCH DATA
-    const fetcher = async (...args) => {
-      const res = await request.get(...args, config);
-      console.log(res)
+    const fetcher = async () => {
+      const res = await makeApiCall(`/api/v1/gradebook`,"get");
       return res?.data;
     };
   

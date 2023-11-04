@@ -61,12 +61,12 @@ const AddQuizPage = () => {
         <div className={styles.body}>
           <div>
             <p className={styles.selectModuleTitle}>SELECT MODULE</p>
-            <ModulesSection
+            {/* <ModulesSection
               data={lessons}
               isValidating={isValidating}
               setselectModule={setselectModule}
               selectModule={selectModule}
-            />
+            /> */}
           </div>
 
           {selectModule.length > 0 ? (

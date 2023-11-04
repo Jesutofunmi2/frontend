@@ -1,41 +1,42 @@
-"use client";
+'use client'
 
-import React, { useEffect } from "react";
-import styles from "./videoCourseSidebar.module.css";
-import { IoIosArrowDown } from "react-icons/io";
-import { TbPlayerPlay } from "react-icons/tb";
-import { useState } from "react";
+import React, { useEffect } from 'react'
+import styles from './videoCourseSidebar.module.css'
+import { IoIosArrowDown } from 'react-icons/io'
+import { TbPlayerPlay } from 'react-icons/tb'
+import { useState } from 'react'
 
-const VideoCourseSidebar = ({ data, setVideoData, setQuestionIndex , setQuestionsPopup}) => {
-  const [dropdown, setDropdown] = useState(false);
+interface VideoCourseSidebarProps {
+  videoLesson: any
+  setVideoData: any
+  setQuestionIndex: React.Dispatch<React.SetStateAction<number>>
+  setQuestionsPopup: React.Dispatch<React.SetStateAction<boolean>>
+}
+const VideoCourseSidebar = ({ videoLesson, setVideoData, setQuestionIndex, setQuestionsPopup }: VideoCourseSidebarProps) => {
+  const [dropdown, setDropdown] = useState<any>(false)
 
-  const handleToggle = (id) => {
+  const handleToggle = (id:number) => {
     if (dropdown === id) {
-      setDropdown(false);
+      setDropdown(false)
     } else {
-      setDropdown(id);
+      setDropdown(id)
     }
-  };
+  }
 
-  const handleVideoSelect = (arg) => {
+  const handleVideoSelect = (arg:any) => {
     setVideoData(arg)
     setQuestionIndex(0)
     setQuestionsPopup(false)
-  };
-
-
+  }
 
   return (
     <>
       <div className={styles.container}>
         <h3>Course content</h3>
 
-        {data?.data?.map((item) => (
+        { videoLesson.map((item:any) => (
           <div className={styles.listContainer} key={item.id}>
-            <ul
-              className={styles.listWrap}
-              onClick={() => handleToggle(item.id)}
-            >
+            <ul className={styles.listWrap} onClick={() => handleToggle(item.id)}>
               <li className={styles.list}>
                 <div className={styles.titleWrap}>
                   <span className={styles.title}>{item.title}</span>
@@ -46,7 +47,7 @@ const VideoCourseSidebar = ({ data, setVideoData, setQuestionIndex , setQuestion
             </ul>
             {dropdown === item.id ? (
               <ul className={styles.dropwrap}>
-                {item?.topics?.map((tpc) => (
+                {item?.topics?.map((tpc:any) => (
                   <li
                     className={styles.dropListWrap}
                     key={tpc.id}
@@ -68,7 +69,7 @@ const VideoCourseSidebar = ({ data, setVideoData, setQuestionIndex , setQuestion
         ))}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default VideoCourseSidebar;
+export default VideoCourseSidebar

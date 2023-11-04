@@ -10,6 +10,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { useDispatch } from 'react-redux'
 import { logout, schoolLogout } from '@/services/redux/features/userSlice'
 import { surveyStatus } from '@/services/redux/features/surveySlice'
+import { TOKEN_KEY } from '@/utils/constants'
 
 interface SidebarProps {
   school?: string
@@ -19,7 +20,7 @@ const Sidebar = ({ school, teacher }: SidebarProps) => {
   const pathname = usePathname()
   const dispatch = useDispatch()
   const router = useRouter()
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState<any>("")
 
   // Get url path
   const path = pathname.split('/')[2]
@@ -27,17 +28,18 @@ const Sidebar = ({ school, teacher }: SidebarProps) => {
   // HANDLE LOGOUT REQUEST
   const handleLogout = () => {
     if (school) {
+      localStorage.removeItem(TOKEN_KEY)
       // if on school dashboard clear school auth data from redux store and navigate to login page
-      dispatch(schoolLogout())
+      dispatch(schoolLogout(null))
       router.push('/login')
     } else {
-      dispatch(logout())
+      dispatch(logout(null))
       dispatch(surveyStatus(null))
       router.push('/login')
     }
   }
 
-  const handleToggle = (id) => {
+  const handleToggle = (id:number) => {
     if (dropdownOpen === id) {
       setDropdownOpen(false)
     } else {
@@ -58,18 +60,18 @@ const Sidebar = ({ school, teacher }: SidebarProps) => {
                 <li
                   className={path == `${menu?.route?.split('/')[2]}` ? styles.active : styles.list}
                   onClick={() =>
-                    menu?.dropdown === 'true' ? handleToggle(menu.id) : router.push(menu.route)
+                 dropdownOpen === 'true' ? handleToggle(menu.id) : router.push(menu.route)
                   }
                 >
                   <span>{menu.icon}</span> <p>{menu.title}</p>
-                  {menu?.dropdown === 'true' ? (
+                  {dropdownOpen === 'true' ? (
                     <IoIosArrowDown className={styles.dropIcon} />
                   ) : null}
                 </li>
 
-                {dropdownOpen === menu.id && (
+                {/* {dropdownOpen === menu.id && (
                   <>
-                    {menu.children.map((child) => (
+                    {menu.map((child) => (
                       <Link href={child.route} key={child.id}>
                         <div className={styles.childWrap}>
                           <span>{child.title}</span>
@@ -77,7 +79,7 @@ const Sidebar = ({ school, teacher }: SidebarProps) => {
                       </Link>
                     ))}
                   </>
-                )}
+                )} */}
               </div>
             ))}
             <li className={styles.logout} onClick={() => handleLogout()}>

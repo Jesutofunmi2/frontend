@@ -1,5 +1,6 @@
 'use client'
 
+import { getToken } from '@/services/api/token'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -9,8 +10,7 @@ interface ChildrenProps {
 
 const SchoolAuthProvider = ({ children }: ChildrenProps) => {
   const [auth, setAuth] = useState(false)
-
-  const token = useSelector((state) => state?.user?.currentSchool?.token?.token)
+const token = getToken()
 
   const router = useRouter()
 
@@ -20,6 +20,7 @@ const SchoolAuthProvider = ({ children }: ChildrenProps) => {
     } else {
       setAuth(true)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
   return <div>{auth ? children : null}</div>

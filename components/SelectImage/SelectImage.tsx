@@ -13,7 +13,7 @@ interface SelectImageProps {
   errors:any
   preview:string
   setPreview:React.Dispatch<any>
-  setFile?: React.Dispatch<React.SetStateAction<File | null | any>>
+  setFile: React.Dispatch<React.SetStateAction<File | null | any>>
 }
 const SelectImage = ({ name, clearErrors, errors, setFile, setPreview,preview, register }: SelectImageProps) => {
  

@@ -10,15 +10,15 @@ import { Loader } from "@/components/Loader/Loader";
 import useMediaQuery from "@/utils/hooks/useMediaQuery";
 
 const VideoPlay = () => {
-  const courseID = sessionStorage.getItem("courseID");
+  const courseID =Number( sessionStorage.getItem("courseID"))
   const matches = useMediaQuery("(max-width: 1000px)");
   const [questionsPopup, setQuestionsPopup] = useState(false);
-  const { data, isLoading } = useGetVideoPlay(courseID);
+  const { data:videoLesson, isLoading } = useGetVideoPlay(courseID);
   const [videoData, setVideoData] = useState<any>({});
   const [questionIndex, setQuestionIndex] = useState(0);
 
   //first video in array data on page load
-  const onPageloadVideoData = data?.data[0]?.topics[0];
+  const onPageloadVideoData = videoLesson[0]?.topics[0];
 
   console.log(onPageloadVideoData);
 
@@ -81,7 +81,7 @@ const VideoPlay = () => {
         </div>
         <VideoCourseSidebar
           setVideoData={setVideoData}
-          data={data}
+          videoLesson={videoLesson}
           setQuestionsPopup={setQuestionsPopup}
           setQuestionIndex={setQuestionIndex}
         />

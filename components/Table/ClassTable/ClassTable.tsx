@@ -46,8 +46,8 @@ const ClassTable = ({
         setSortOrder('ascending')
       }
     } else {
-      setData([...data].sort((a, b) => (a[key] < b[key] ? -1 : 1)))
-      setSortBy(key)
+      // setData([...data].sort((a, b) => (a[key] < b[key] ? -1 : 1)))
+      // setSortBy(key)
       setSortOrder('ascending')
     }
   }

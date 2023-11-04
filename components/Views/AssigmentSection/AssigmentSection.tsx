@@ -38,17 +38,17 @@ const AssignmentSection = () => {
         </Link>
 
         <div className={styles.cardWrap}>
-          <AssignModuleCard />
-          <AssignModuleCard />
+          {/* <AssignModuleCard />
+          <AssignModuleCard /> */}
         </div>
       </div>
       {/* MODAL TO MODIFY STUDENTS */}
-      <Modal open={modalOpen} setOpen={setModalOpen}>
+      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddClassWork
           payloadData={payloadData}
           setPayloadData={setPayloadData}
         />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

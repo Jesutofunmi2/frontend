@@ -19,7 +19,7 @@ const lessonGameSlice = createSlice({
             const existingItem = state.answers.find((item) => item === action.payload);
 
             if (!existingItem) {
-                state.answers.push(action.payload);
+                // state.answers.push(action.payload);
 
                 toast.success(`Added ${action.payload.title}`, {
                   position: toast.POSITION.BOTTOM_RIGHT,
@@ -45,10 +45,10 @@ const lessonGameSlice = createSlice({
             position: toast.POSITION.BOTTOM_RIGHT,
           });
 
-          state.total = (
-            state.total * 1 -
-            existingItem.minimum * existingItem.quantity
-          )
+          // state.total = (
+          //   state.total * 1 -
+          //   existingItem.minimum * existingItem.quantity
+          // )
 
         },
 
