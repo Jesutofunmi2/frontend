@@ -58,6 +58,7 @@
     justify-content: flex-end;
     width: fit-content; 
     margin-bottom: 30px;
+    align-items: center;
 }
 
 .playIcon{
