@@ -1,7 +1,10 @@
 import React from 'react'
 import styles from "./notFound.module.css"
 
-const NotFound = ({text}) => {
+interface NotFoundProps{
+  text:string
+}
+const NotFound = ({text}: NotFoundProps) => {
   return (
     <>
     <div className={styles.notfound}>

@@ -79,7 +79,7 @@ const handleActiveTab=(activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gra
         <div className={styles.views}>
           <h3>{toggleTab}</h3>
 
-          <div className={styles.sectionWrap}>
+          {/* <div className={styles.sectionWrap}>
             {activeTab === "Students" ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === "Quiz" ? (
@@ -89,7 +89,7 @@ const handleActiveTab=(activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gra
             ) : activeTab === "Gradebook" ? (
               <GradebookView />
             ) : null}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

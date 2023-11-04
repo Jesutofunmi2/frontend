@@ -46,7 +46,7 @@ const DashboardNav = () => {
           <LuBellPlus color="#FFC400" className={styles.icon} />
           <div className={styles.user}>
             <HiOutlineUserCircle size={35} />
-            <span>{name}</span>
+            {/* <span>{name}</span> */}
           </div>
         </div>
 

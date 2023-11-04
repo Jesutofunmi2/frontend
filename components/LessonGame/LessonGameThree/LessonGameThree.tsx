@@ -190,7 +190,7 @@ const LessonGameOne = ({
           </Fade>
         </div>
       </div>
-      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
+      {/* {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null} */}
     </>
   )
 }

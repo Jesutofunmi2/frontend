@@ -81,7 +81,7 @@ const HomeNavbar = ({ noFixedNavbar }: Props) => {
                 style={{ maxWidth: '200px', width: '100%' }}
                 className={styles.loginBtn}
               >
-                <Button text="Login" maxWidth="200px" />
+                <Button text="Login"  />
               </Link>
             )}
 

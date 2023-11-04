@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './assignCard.module.css'
 import Image from 'next/image'
 import ful from '../../../public/assets/images/logo.png'
-import { useRouter } from 'next/navigation'
 import { AiOutlineClose } from 'react-icons/ai'
 interface AssignCardProps {
   item: any
@@ -11,7 +10,6 @@ interface AssignCardProps {
   handleDelete: (item:any) => void
 }
 const AssignCard = ({ item, selected, handleClick, handleDelete }: AssignCardProps) => {
-  // const navigate = useRouter('')
   return (
     <>
       <div className={styles.card}>

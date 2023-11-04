@@ -90,7 +90,7 @@ const AddQuizPage = () => {
             </div>
           ) : null}
 
-          {selectQuiz.length > 0 ? <AddModuleForm /> : null}
+          {/* {selectQuiz.length > 0 ? <AddModuleForm /> : null} */}
 
           {selectQuiz.length > 0 ? (
             <Button text="Add" handleClick={handleModal} />
@@ -98,14 +98,14 @@ const AddQuizPage = () => {
         </div>
       </div>
       {/* MODAL TO MODIFY STUDENTS */}
-      <Modal open={modalOpen} setOpen={setModalOpen}>
+      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddClassworkForm
           // payloadData={payloadData}
           // setPayloadData={setPayloadData}
           // selectModule={selectModule}
           // selectQuiz={selectQuiz}
         />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

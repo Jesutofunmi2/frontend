@@ -67,24 +67,24 @@ const AssignModulePage = () => {
             />
           </div>
 
-          <AddModuleForm />
+          {/* <AddModuleForm /> */}
 
           <Button
-            width="200px"
+
             text="Create Module"
             handleClick={handleModal}
           />
         </div>
       </div>
       {/* MODAL TO MODIFY STUDENTS */}
-      <Modal open={modalOpen} setOpen={setModalOpen}>
+      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddClassworkForm
           // payloadData={payloadData}
           // setPayloadData={setPayloadData}
           // selectModule={selectModule}
           // selectQuiz={selectQuiz}
         />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

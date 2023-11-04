@@ -64,13 +64,13 @@ const AddClassworkPage = () => {
         </div>
       </div>
       {/* MODAL TO MODIFY STUDENTS */}
-      <Modal open={modalOpen} setOpen={setModalOpen}>
+      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddModuleForm
           // payloadData={payloadData}
           // setPayloadData={setPayloadData}
           // selectModule={selectModule}
         />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

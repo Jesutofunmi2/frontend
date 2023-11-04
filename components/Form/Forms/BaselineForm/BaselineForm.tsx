@@ -25,7 +25,7 @@ type Inputs = {
 export const BaselineFormStudent = () => {
   const [inputName, setInputName] = useState([])
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
-  const schoolID = Number(useSelector(userData).currentUser?.data?.school?.id!)
+  const schoolID = Number(useSelector(userData).currentUser?.data?.id!)
 
   const [payload, setPayload] = useState({
     student_id: studentID,

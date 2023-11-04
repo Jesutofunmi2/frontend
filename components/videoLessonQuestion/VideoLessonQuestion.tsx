@@ -9,7 +9,7 @@ import { checkAnswer } from "@/services/api/lessonGame";
 // import clickSound from "@/public/assets/audios/click.mp3";
 // import correctAnswerSound from "@/public/assets/audios/yay.mp3";
 import CorrectAnswerModal from "../Modal/CorrectAnswerModal/CorrectAnswerModal";
-import { LessonQuestion, Options } from "@/types/lessontopic";
+import { LessonQuestion, QuestionOptions } from "@/types/lessontopic";
 
 
 interface VideoLessonQuestionProps{
@@ -24,7 +24,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
 
   // const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
   const [answers, setAnswers] = useState([]);
-  const [puzzle, setPuzzle] = useState<Options[]>([]);
+  const [puzzle, setPuzzle] = useState<QuestionOptions[]>([]);
   const [buttonColor, setButtonColor] = useState("");
 
   const currentQuestion = question[questionIndex];

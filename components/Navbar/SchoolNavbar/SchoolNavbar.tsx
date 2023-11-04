@@ -12,11 +12,13 @@ import { MobileNavbarViewDash } from "../mobileViewMenu";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar/SearchBar";
+import { userData } from "@/services/redux/features/userSlice";
 // import SearchBar from "@/components/SearchBar/SearchBar";
 
 const SchoolNavbar = () => {
   const [open, setOpen] = useState(false);
-  const name = useSelector((state) => state?.user?.currentUser?.data?.name);
+  const name = useSelector(userData).currentUser?.data?.name!
+  // const name = useSelector((state) => state?.user?.currentUser?.data?.name);
   // console.log(name);
 
   return (

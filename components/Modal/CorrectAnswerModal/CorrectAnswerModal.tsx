@@ -9,7 +9,7 @@ import { Bounce } from 'react-awesome-reveal'
 import { usePathname, useRouter } from 'next/navigation'
 
 interface CorrectAnswerModalProps {
-  closeModal?: boolean
+  closeModal: (event:boolean)=>void
 }
 const CorrectAnswerModal = ({ closeModal }: CorrectAnswerModalProps) => {
   const router = useRouter()

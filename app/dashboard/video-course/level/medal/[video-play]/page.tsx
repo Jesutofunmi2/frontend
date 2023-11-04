@@ -14,7 +14,7 @@ const VideoPlay = () => {
   const matches = useMediaQuery("(max-width: 1000px)");
   const [questionsPopup, setQuestionsPopup] = useState(false);
   const { data, isLoading } = useGetVideoPlay(courseID);
-  const [videoData, setVideoData] = useState();
+  const [videoData, setVideoData] = useState<any>({});
   const [questionIndex, setQuestionIndex] = useState(0);
 
   //first video in array data on page load
@@ -58,13 +58,13 @@ const VideoPlay = () => {
           </div>
 
           {/* QUESTIONS MOBILE VIEW*/}
-          {questionsPopup && matches ? (
+          {/* {questionsPopup && matches ? (
             <VideoLessonQuestion
               question={videoData || onPageloadVideoData}
               questionIndex={questionIndex}
               setQuestionIndex={setQuestionIndex}
             />
-          ) : null}
+          ) : null} */}
 
           {/* OVERVIEW */}
           {!isLoading ? (
@@ -73,9 +73,9 @@ const VideoPlay = () => {
                 <span>Overview</span>
               </div>
 
-              <p className="languageText">
+              {/* <p className="languageText">
                 {videoData?.objective || onPageloadVideoData?.objective}
-              </p>
+              </p> */}
             </div>
           ) : null}
         </div>

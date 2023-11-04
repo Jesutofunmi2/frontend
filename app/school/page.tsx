@@ -33,7 +33,7 @@ const School = () => {
           ))}
         </section>
 
-        <BarChart />
+        {/* <BarChart /> */}
         <section className={styles.doughnutWrap}>
           <DoughnutChart />
           <DoughnutChart />

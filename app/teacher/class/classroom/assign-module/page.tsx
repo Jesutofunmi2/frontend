@@ -29,24 +29,24 @@ const AssignModulePage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [selectQuiz, setselectQuiz] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data, isValidating } = useGetLessons(languageID);
+  // const { data, isValidating } = useGetLessons(languageID);
   const [payloadData, setPayloadData] = useState({
     first_name: "",
     gendar: "",
   });
 
-  const handleClick = (param) => {
-    const alreadyExisting = selectModule.find((item) => item.id === param.id);
-    if (alreadyExisting) {
-      setselectModule((current) =>
-        current.filter((fruit) => fruit.id !== param.id)
-      );
-    } else {
-      setselectModule((current) => [...current, param]);
-    }
-  };
+  // const handleClick = (param) => {
+  //   const alreadyExisting = selectModule.find((item) => item.id === param.id);
+  //   if (alreadyExisting) {
+  //     setselectModule((current) =>
+  //       current.filter((fruit) => fruit.id !== param.id)
+  //     );
+  //   } else {
+  //     setselectModule((current) => [...current, param]);
+  //   }
+  // };
 
-  const handleModal = (id) => {
+  const handleModal = () => {
     setModalOpen(true);
   };
 
@@ -59,32 +59,32 @@ const AssignModulePage = () => {
         <div className={styles.body}>
           <div>
             <p className={styles.selectModuleTitle}>SELECT MODULE</p>
-            <ModulesSection
+            {/* <ModulesSection
               selectModule={selectModule}
               setselectModule={setselectModule}
               data={data}
               isValidating={isValidating}
-            />
+            /> */}
           </div>
 
-          <AddModuleForm />
+          {/* <AddModuleForm /> */}
 
           <Button
-            width="200px"
+          
             text="Create Module"
-            handleClick={handleModal}
+            handleClick={()=>handleModal}
           />
         </div>
       </div>
       {/* MODAL TO MODIFY STUDENTS */}
-      <Modal open={modalOpen} setOpen={setModalOpen}>
+      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddClassworkForm
           payloadData={payloadData}
           setPayloadData={setPayloadData}
           selectModule={selectModule}
           selectQuiz={selectQuiz}
         />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

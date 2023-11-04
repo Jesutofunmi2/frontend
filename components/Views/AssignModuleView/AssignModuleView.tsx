@@ -35,9 +35,9 @@ const AssignModuleView = ({}) => {
   });
 
   // Handle remove card
-  const handleRemoveCard = (param) => {
-    setAddedModule((current) => current.filter((item) => item.id !== param.id));
-  };
+  // const handleRemoveCard = (param:any) => {
+  //   setAddedModule((current) => current.filter((item) => item.id !== param.id));
+  // };
 
   // Handle Submit
   const handleSubmit = () => {
@@ -81,7 +81,7 @@ const AssignModuleView = ({}) => {
           data={data}
           isValidating={isValidating}
         /> */}
-        {addedModule.length > 0 ? (
+        {/* {addedModule.length > 0 ? (
           <div className={styles.cardWrap}>
             {addedModule?.map((item) => (
               <AssignCard
@@ -91,16 +91,16 @@ const AssignModuleView = ({}) => {
               />
             ))}
           </div>
-        ) : null}
+        ) : null} */}
 
         {addedModule.length > 0 ? (
           <Button text="Submit"  handleClick={()=>handleSubmit()} />
         ) : null}
       </div>
 
-      <Modal open={selectedModule ? true : false} setOpen={setSelectedModule}>
+      {/* <Modal open={selectedModule ? true : false} setOpen={setSelectedModule}> */}
         {/* <AddModuleForm handleClick={handleAdd} /> */}
-      </Modal>
+      {/* </Modal> */}
     </>
   );
 };

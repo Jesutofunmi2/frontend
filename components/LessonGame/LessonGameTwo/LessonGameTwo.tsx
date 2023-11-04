@@ -68,6 +68,7 @@ const LessonGameTwo = ({
       fetchAnswer()
     }
     setLoading(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
   const nextQuestion = () => {
@@ -135,7 +136,7 @@ const LessonGameTwo = ({
           />
         </div>
       </div>
-      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
+      {/* {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null} */}
     </>
   )
 }
