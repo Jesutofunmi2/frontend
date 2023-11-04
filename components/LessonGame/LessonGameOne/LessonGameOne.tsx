@@ -57,10 +57,6 @@ const LessonGameOne = ({
 
   // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
-    setCurrentQtn(question[questionIndex])
-    if(!puzzle?.length){
-      setPuzzle(currentQtn?.options[0].title)
-    }
     if (isLoading) {
       const fetchAnswer = async () => {
         let res = await checkAnswer({
@@ -68,14 +64,14 @@ const LessonGameOne = ({
           optionIds: [`${selected}`],
           puzzle_text: answers,
         })
-        console.log(res)
+
         if (res.is_correct) {
           setButtonText('Correct')
           const audio = new Audio(correctAnswerSound)
           audio.play()
           const timer = setTimeout(() => {
             setButtonText('Next')
-            // nextQuestion()
+            nextQuestion()
           }, 1700)
 
           return () => clearTimeout(timer)
@@ -96,24 +92,22 @@ const LessonGameOne = ({
     setLoading(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, questionIndex, currentQtn])
+  }, [isLoading])
 
- 
- 
+  useEffect(() => {
+    setCurrentQtn(question[questionIndex])
+    setPuzzle(currentQtn?.options[0].title)
+  }, [currentQtn, question, questionIndex, setCurrentQtn])
+
   const nextQuestion = () => {
+    setAnswers([])
     setQuestionIndex((prevState) => prevState + 1)
-    
     setCurrentQtn(question[questionIndex])
     setPuzzle(currentQtn?.options[0].title)
     setButtonText('Check')
     setSelected('')
   }
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
-  // useEffect(() => {
-  //   setCurrentQtn(currentQtn);
-  //   setPuzzle(currentQtn?.options[0]?.title);
-  //   // setList(draggableList)
-  // }, [setCurrentQtn, currentQtn]);
 
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
@@ -222,9 +216,14 @@ const LessonGameOne = ({
           </div> */}
           <div className={styles.pickAnswerWrap}>
             {puzzle?.map((option) => (
-              <div className={styles.answer} key={option} onClick={() => handlePickAnswer(option)}>
+              <button
+                className={styles.answer}
+                key={option}
+                onClick={() => handlePickAnswer(option)}
+                disabled={buttonText === 'Next'}
+              >
                 <p className="languageText">{option}</p>
-              </div>
+              </button>
             ))}
           </div>
 
