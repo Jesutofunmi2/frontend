@@ -28,7 +28,7 @@ const AssignModuleView = ({}) => {
   //   class_id: classID,
   //   data: [],
   // });
-// console.log(lessonData )
+
   // Options for Select component
   const options = lessonData?.map((item) => {
     return { value: item, label: item?.title };

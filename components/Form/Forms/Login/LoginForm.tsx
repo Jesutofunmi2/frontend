@@ -89,7 +89,7 @@ const LoginForm = () => {
         setLoading(false)
       }
     } catch (err: any) {
-      console.log(err)
+
       setLoading(false)
       if (err) {
         toast.error(err.message, {

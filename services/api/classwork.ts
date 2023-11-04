@@ -13,7 +13,7 @@ export const addClasswork = async (payload: any) => {
 
   try {
     const res = await makeApiCall(`/api/v1/addClassWork`, 'post', payload)
-    console.log(res)
+
     toast.dismiss()
     if (res) {
       toast.success('Classwork Created!', {
@@ -23,7 +23,7 @@ export const addClasswork = async (payload: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+  
     return err
   }
 }
@@ -51,7 +51,7 @@ export const deleteClasswork = async (param: any) => {
   })
   try {
     const res = await makeApiCall(endpoint, 'delete')
-    console.log(res)
+
     toast.dismiss()
 
     if (res) {
@@ -62,7 +62,7 @@ export const deleteClasswork = async (param: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }

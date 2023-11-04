@@ -19,7 +19,7 @@ const SchoolNavbar = () => {
   const [open, setOpen] = useState(false);
   const name = useSelector(userData).currentUser?.data?.name!
   // const name = useSelector((state) => state?.user?.currentUser?.data?.name);
-  // console.log(name);
+
 
   return (
     <>

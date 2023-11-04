@@ -45,7 +45,7 @@ export const editTeacher = async (payload: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }
@@ -77,7 +77,7 @@ export const deleteTeacher = async (teacher_id: string) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }

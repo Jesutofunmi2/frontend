@@ -20,8 +20,6 @@ const VideoPlay = () => {
   //first video in array data on page load
   const onPageloadVideoData = videoLesson[0]?.topics[0];
 
-  console.log(onPageloadVideoData);
-
   const handleVideoEnd = () => {
     setQuestionsPopup(true);
   };

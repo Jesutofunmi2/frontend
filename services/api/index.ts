@@ -4,7 +4,7 @@ import { TOKEN_KEY } from '@/utils/constants'
 
 const token = getToken()
 const baseURL = 'https://remotedev.izesan.com'
-console.log(token)
+
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }

@@ -17,7 +17,7 @@ const CorrectAnswerModal = ({ closeModal }: CorrectAnswerModalProps) => {
   // Get url path
   const path = pathname.split('/')[2]
 
-  console.log(path)
+
 
   const handleClick = () => {
     if (path === 'video-course') {

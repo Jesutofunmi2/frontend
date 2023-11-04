@@ -14,14 +14,14 @@ export const addStudentSurvey = async (payload: any) => {
   // const router = useRouter();
 
   // async function sendRequest(url, { arg }) {
-  //   console.log(arg)
+
     toast.loading("Submitting...", {
       position: toast.POSITION.TOP_CENTER,
     });
-  //     console.log(arg)
+
   try {
     const res = await makeApiCall(`/api/v1/createStudentSurvey`, 'post', payload)
-    console.log(res)
+
     // toast.dismiss()
 
     Swal.fire({
@@ -37,7 +37,7 @@ export const addStudentSurvey = async (payload: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }
@@ -45,15 +45,15 @@ export const addStudentSurvey = async (payload: any) => {
 //SUBMIT TEACHER SURVEY
 export const addTeacherSurvey = async(payload:any) => {
 
-  // async function sendRequest(url, { arg }) {
-  //   console.log(arg)
+
+
     toast.loading('Submitting...', {
       position: toast.POSITION.TOP_CENTER,
     })
-    // console.log(arg)
+
     try {
       const res = await makeApiCall(`/api/v1/create/TeacherSurvey`, "post" ,payload)
-      console.log(res)
+
       toast.dismiss()
 
       Swal.fire({
@@ -70,7 +70,7 @@ export const addTeacherSurvey = async(payload:any) => {
       return res
     } catch (err) {
       toast.dismiss()
-      console.log(err)
+
       return err
     }
   }

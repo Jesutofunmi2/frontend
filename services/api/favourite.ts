@@ -8,7 +8,7 @@ export const addFavourite = async (payload: any) => {
     const res = await makeApiCall(`/api/v1/auth/createFourite`, 'post', payload)
     return res
   } catch (err) {
-    console.log(err)
+
     return err
   }
 }

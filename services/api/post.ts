@@ -19,7 +19,7 @@ export const addAssignmentFile = async (payload:any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }

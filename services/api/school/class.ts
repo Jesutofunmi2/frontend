@@ -39,7 +39,7 @@ export const addClass = async (school_id: number, language_id: number, class_roo
         position: toast.POSITION.TOP_RIGHT,
       })
     }
-    console.log(err)
+
     return err
   }
 }
@@ -72,7 +72,7 @@ export const deleteClass = async (school_id: number, class_id: number) => {
         position: toast.POSITION.TOP_RIGHT,
       })
     }
-    console.log(err)
+
     return err
   }
 }

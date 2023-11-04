@@ -28,7 +28,7 @@ const EditProfile = () => {
     formState: { errors },
   } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+    
   }
   return (
     <>

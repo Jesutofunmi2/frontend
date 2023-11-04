@@ -1,4 +1,3 @@
-
 import useSWR from 'swr'
 
 import { toast } from 'react-toastify'
@@ -22,7 +21,7 @@ export const addStudent = async (payload: IFormStudent) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }
@@ -33,7 +32,7 @@ export const addStudent = async (payload: IFormStudent) => {
 // }
 
 //EDIT STUDENT
-export const editStudent = async (studentId: string, payload:any) => {
+export const editStudent = async (studentId: string, payload: any) => {
   // async function sendRequest(url, { arg }) {
 
   toast.loading('Updating...', {
@@ -41,7 +40,7 @@ export const editStudent = async (studentId: string, payload:any) => {
   })
   try {
     const res = await makeApiCall(`/api/v1/updateStudent?student_id=${studentId}`, 'put', payload)
-    console.log(res)
+
     toast.dismiss()
     if (res) {
       toast.success('Student Updated!', {
@@ -51,7 +50,7 @@ export const editStudent = async (studentId: string, payload:any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }
@@ -80,7 +79,7 @@ export const deleteStudent = async (studentId: string) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }

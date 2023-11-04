@@ -9,7 +9,7 @@ export const useGetVideoCourse = () => {
   //NEW WAY TO FETCH DATA
   const fetcher = async () => {
     const res = await makeApiCall(`/api/v1/getCourse`,"get");
-    console.log(res)
+
     return res?.data;
   };
 

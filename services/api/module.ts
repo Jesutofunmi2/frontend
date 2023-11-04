@@ -14,7 +14,7 @@ export const useAddModule = async (payload: any) => {
 
   try {
     const res = await makeApiCall(`/api/v1/teacher/assignedModule`, 'post', payload)
-    console.log(res)
+
     toast.dismiss()
     if (res) {
       toast.success('Module Created!', {
@@ -25,7 +25,7 @@ export const useAddModule = async (payload: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }
@@ -71,7 +71,7 @@ export const deleteModule = async (param: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-    console.log(err)
+
     return err
   }
 }
@@ -92,7 +92,7 @@ export const useGetAssignedModuleStudent = (param: any) => {
       `api/v1/student/assignedModule?school_id=${param?.school_id}&class_id=${param?.teacher_id}`,
       'get'
     )
-    console.log(res)
+
     return res?.data
   }
 

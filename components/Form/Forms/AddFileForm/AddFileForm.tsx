@@ -38,7 +38,7 @@ const AddFileForm = ({ handleAddFile }: AddFileProps) => {
   // }
 
   // const handleAdd = (e) => {
-  //   console.log(formdata)
+ 
   //   e.preventDefault()
   //   handleClick(formdata)
   //   // setFormdata({

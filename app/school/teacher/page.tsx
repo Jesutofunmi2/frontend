@@ -83,7 +83,6 @@ const Teacher = () => {
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: any, selectedClassAndArm: any, reset: () => void) => {
     if (file === null) {
-      console.log('yes')
       toast.error('Upload image', {
         position: toast.POSITION.TOP_RIGHT,
       })
@@ -111,7 +110,7 @@ const Teacher = () => {
           address: values.address,
           data: classAndClassArmdata,
         }
-        console.log(formData)
+   
         const res = await addTeacher(formData)
         if (res) {
           mutate()

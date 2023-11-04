@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { AiFillHeart } from 'react-icons/ai'
 
 const FavouriteCard = ({data}:any) => {
-  console.log(data)
+
   return (
     <>
     <div

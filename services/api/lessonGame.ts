@@ -32,7 +32,7 @@ export const checkAnswer = async (payload: any) => {
     const res = await makeApiCall(`/api/v1/option`, 'post', payload)
     return res
   } catch (err) {
-    console.log(err)
+
     return err
   }
 }
@@ -41,10 +41,10 @@ export const checkAnswer = async (payload: any) => {
 export const answeredQuestion = async (payload: any) => {
   try {
     const res = await makeApiCall(`/api/v1/questionAnswered`, 'post', payload)
-    // console.log(res)
+
     return res
   } catch (err) {
-    console.log(err)
+
     return err
   }
 }
