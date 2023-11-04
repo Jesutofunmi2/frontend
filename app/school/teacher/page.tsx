@@ -103,14 +103,13 @@ const Teacher = () => {
         })
 
         const formData = {
-          image_url: values.image_url,
+          image_url: 'https://course-material-dev.s3.us-east-2.amazonaws.com/logoi.png', //values.image"_url,
           school_id: schoolID,
           name: values.name,
           email: values.email,
           address: values.address,
           data: classAndClassArmdata,
         }
-   
         const res = await addTeacher(formData)
         if (res) {
           mutate()
@@ -119,7 +118,7 @@ const Teacher = () => {
 
       setModalOpen(false)
       reset()
-      setFile(null)
+      // setFile(null)
     }
   }
 
@@ -176,11 +175,7 @@ const Teacher = () => {
         <h3 className="p-4 rounded-xl bg-white">Teacher Configuration</h3>
         <div className={styles.actions}>
           <div className={styles.btnWrap}>
-            <Button
-             
-              text="Add Teacher"
-              handleClick={() => handleModalOpen('add', null)}
-            />
+            <Button text="Add Teacher" handleClick={() => handleModalOpen('add', null)} />
             <Button
               text="Bulk Registration"
               backgroundColor="lightGreen"

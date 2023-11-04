@@ -77,8 +77,8 @@ const Student = () => {
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: IFormStudent) => {
     values.school_id = String(schoolID)
-    values.age=Number(values.age)
-    values.country="Nigeria"
+    values.age = Number(values.age)
+    values.country = 'Nigeria'
     let formData = { ...values }
     if (studentDetails) {
       const updatedItems = allStudentsData.map((el) =>
@@ -107,9 +107,9 @@ const Student = () => {
   ]
   // TABLE BODY
   const TableBody = () => {
-    return allStudentsData?.map((item: any) => {
+    return allStudentsData?.map((item: any, index: number) => {
       return (
-        <tr   key={item.student_id}>
+        <tr key={index}>
           <td>{item.username}</td>
           <td>{item.language}</td>
           <td>
@@ -146,10 +146,7 @@ const Student = () => {
         <h3 className="p-4 rounded-xl bg-white">Student Configuration</h3>
 
         <div className={styles.btnWrap}>
-          <Button
-            text="Add Student"
-            handleClick={() => handleModalOpen('add', null)}
-          />
+          <Button text="Add Student" handleClick={() => handleModalOpen('add', null)} />
 
           <Button
             text="Bulk Registration"

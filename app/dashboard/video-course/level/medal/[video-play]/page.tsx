@@ -1,28 +1,29 @@
-"use client";
+'use client'
 
-import ProgressBar from "@/components/ProgressBar/ProgressBar";
-import VideoCourseSidebar from "@/components/Sidebar/VideoCourseSidebar/VideoCourseSidebar";
-import React, { useState } from "react";
-import styles from "./page.module.css";
-import VideoLessonQuestion from "@/components/videoLessonQuestion/VideoLessonQuestion";
-import { useGetVideoPlay } from "@/services/api/videoplay";
-import { Loader } from "@/components/Loader/Loader";
-import useMediaQuery from "@/utils/hooks/useMediaQuery";
+import ProgressBar from '@/components/ProgressBar/ProgressBar'
+import VideoCourseSidebar from '@/components/Sidebar/VideoCourseSidebar/VideoCourseSidebar'
+import React, { useState } from 'react'
+import styles from './page.module.css'
+import VideoLessonQuestion from '@/components/videoLessonQuestion/VideoLessonQuestion'
+import { useGetVideoPlay } from '@/services/api/videoplay'
+import { Loader } from '@/components/Loader/Loader'
+import useMediaQuery from '@/utils/hooks/useMediaQuery'
 
 const VideoPlay = () => {
-  const courseID =Number( sessionStorage.getItem("courseID"))
-  const matches = useMediaQuery("(max-width: 1000px)");
-  const [questionsPopup, setQuestionsPopup] = useState(false);
-  const { data:videoLesson, isLoading } = useGetVideoPlay(courseID);
-  const [videoData, setVideoData] = useState<any>({});
-  const [questionIndex, setQuestionIndex] = useState(0);
-
-  //first video in array data on page load
-  const onPageloadVideoData = videoLesson[0]?.topics[0];
+  const courseID = String(sessionStorage.getItem('courseID'))
+  const matches = useMediaQuery('(max-width: 1000px)')
+  const [questionsPopup, setQuestionsPopup] = useState(false)
+  const { data: videoLesson, isLoading } = useGetVideoPlay(courseID)
+  const [videoData, setVideoData] = useState<any>({})
+  const [questionIndex, setQuestionIndex] = useState(0)
+  
+  if (!videoLesson) return null
+  if (isLoading || !courseID) return <Loader />
+  const onPageloadVideoData = videoLesson[0]?.topics[0]
 
   const handleVideoEnd = () => {
-    setQuestionsPopup(true);
-  };
+    setQuestionsPopup(true)
+  }
   return (
     <>
       <div className={styles.container}>
@@ -86,7 +87,7 @@ const VideoPlay = () => {
       </div>
       {isLoading ? <Loader /> : null}
     </>
-  );
-};
+  )
+}
 
-export default VideoPlay;
+export default VideoPlay

@@ -7,8 +7,8 @@ interface SelectProps {
   label: string
   options: any
   onChange: (value: any) => void
-  defaultValue: any
-
+  defaultValue?: any
+placeholder?:string
   isLoading?:boolean
 }
 export const reactSelectCustomStyles = (): StylesConfig => ({
@@ -18,7 +18,7 @@ export const reactSelectCustomStyles = (): StylesConfig => ({
     };
   },
 })
-const DropDown = ({ isLoading,label, onChange, defaultValue, options }: SelectProps) => {
+const DropDown = ({placeholder, isLoading,label, onChange, defaultValue, options }: SelectProps) => {
   const LoadingIndicator = (props: LoadingIndicatorProps) => {
     return (
      <Spinner/>
@@ -36,17 +36,20 @@ const DropDown = ({ isLoading,label, onChange, defaultValue, options }: SelectPr
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,
-              borderColor: state.isFocused ? 'grey' : '#F19C00',
+              borderColor: state.isFocused ? '#3753b8' : '#FFB700',
               minHeight: '49px',
               borderRadius: '14px',
-              fontSize:"15px"
+              fontSize:"15px",
+              boxShadow: "none",
+              borderWidth: "1px",
             
             }),
           }}
+          placeholder={placeholder}
           required
+          isOptionDisabled={(option) => option.disabled}
           isLoading={isLoading}
-          noOptionsMessage={() => `No ${label} found`}
-          // LoadingMessage={() => 'searching...'}
+          noOptionsMessage={() => `No ${label} found`} 
           components={{ LoadingIndicator }}
           
         />

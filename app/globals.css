@@ -3,24 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --yellow-color: #FFC400;
+  --yellow-color: #ffc400;
   --orange-color: #f19c08;
   --white-color: white;
-  --green-color: #1A8754;
-  --white-grey:#F9F9F9;
-  --gray-color: #E1E1E1;
+  --green-color: #1a8754;
+  --white-grey: #f9f9f9;
+  --gray-color: #e1e1e1;
   --red-color: red;
-
 }
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* overflow-x: hidden; */
-  /* max-width: 1570px; */
 }
-
 
 ul,
 li,
@@ -42,23 +38,32 @@ a {
   color: inherit;
 }
 
-button{
+button {
   cursor: pointer;
   border: none;
 }
 
-
-
-.headerTitle{
-  background-color: white;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  border-radius: 10px;
+.input-group label {
+  font-size: 2.8rem;
 }
 
-.copyBox{
+input[type='radio'] {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-clip: content-box;
+  border: 1px solid var(--yellow-color);
+  background-color: transparent;
+}
+
+input[type='radio']:checked {
+  background-color: var(--yellow-color);
+  padding: 2px;
+  border: 1px solid var(--yellow-color);
+}
+
+.copyBox {
   cursor: pointer;
   width: fit-content;
   border: 1px solid lightgrey;
@@ -71,40 +76,37 @@ button{
   align-items: center;
 }
 
-
 /* TABLE ACTION CSS */
- .action{
+.action {
   display: flex;
   gap: 20px;
   justify-content: center;
   align-items: center;
 }
 
-.editIcon{
+.editIcon {
   cursor: pointer;
   font-size: 18px;
   color: var(--green-color);
 }
 
-.deleteIcon{
+.deleteIcon {
   cursor: pointer;
   font-size: 18px;
   color: var(--red-color);
 }
 
-.languageText{
+.languageText {
   font-family: Helvetica;
   font-weight: 400;
 }
 
-
 /* DASHBOARDS LAYOUT CSS */
-.layout{
+.layout {
   display: flex;
-  
 }
 
-.main{
+.main {
   flex: 8;
   background-color: whitesmoke;
   padding: 25px 30px;
@@ -112,6 +114,3 @@ button{
   overflow: hidden;
   border-radius: 20px;
 }
-
-
-

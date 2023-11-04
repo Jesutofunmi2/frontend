@@ -19,6 +19,9 @@ const VideoCourseCard = ({ video }: VideoCourseCard) => {
         <Link
           href={{
             pathname: '/dashboard/video-course/level',
+            query: {
+              course_id: video.id,
+            },
           }}
           className={styles.card}
           onClick={() => handleclick(video)}

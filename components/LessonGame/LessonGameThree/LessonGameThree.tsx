@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux'
 // import { pickAnswer, removeAnswer } from '@/services/redux/features/lessonGameSlice'
 import Image from 'next/image'
 import { answeredQuestion, checkAnswer } from '@/services/api/lessonGame'
-import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
+import wrongAnswerSound from '@/public/assets/audios/notCorrect.mp3'
 import clickSound from '@/public/assets/audios/click.mp3'
-import correctAnswerSound from "/public/assets/audios/yay.mp3";
+import correctAnswerSound from '/public/assets/audios/yay.mp3'
 import OptionButton from './OptionButton/OptionButton'
 import { Fade } from 'react-awesome-reveal'
 import Button from '@/components/Button/Button'
@@ -17,13 +17,15 @@ import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAns
 import { useSearchParams } from 'next/navigation'
 import { userData } from '@/services/redux/features/userSlice'
 import { LessonQuestion, QuestionOptions } from '@/types/lessontopic'
+import { Loader } from '@/components/Loader/Loader'
 
 interface LessonGameProps {
   question: LessonQuestion[]
   questionIndex: number
   setQuestionIndex: React.Dispatch<React.SetStateAction<number>>
-  setCurrentQtn: React.Dispatch<React.SetStateAction<LessonQuestion | null>>
+  setCurrentQtn: React.Dispatch<React.SetStateAction<LessonQuestion>>
   topicID: string
+  currentQtn: LessonQuestion
 }
 const LessonGameOne = ({
   question,
@@ -31,8 +33,8 @@ const LessonGameOne = ({
   setQuestionIndex,
   setCurrentQtn,
   topicID,
+  currentQtn,
 }: LessonGameProps) => {
- 
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
   const [selectedAnswer, setSelectedAnswer] = useState<number>()
@@ -40,52 +42,52 @@ const LessonGameOne = ({
   const [puzzle, setPuzzle] = useState<QuestionOptions[]>([])
   const type = searchParams.get('type')
   const [buttonColor, setButtonColor] = useState('')
-
-  const currentQuestion = question[questionIndex]
+  const [isLoading, setLoading] = useState(false)
+  const [selected, setSelected] = useState('')
+  const [buttonText, setButtonText] = useState('Check')
 
   // // CORRECT AND WRONG ANSWER CONDITION
-  // useEffect(() => {
-  //   // **** IF data?.data?.is_correct IS FALSE **** //
-  //   if (data?.data?.is_correct === false) {
-  //     // Update the button color to red
-  //     setButtonColor('red')
-
-  //     // play wrongAnswerSound audio
-  //     const audio = new Audio('@/public/assets/audios/notCorrect.mp3')
-  //     audio.play()
-
-  //     // Create a timer to reset the button color after 1700 milliseconds
-  //     const timer = setTimeout(() => {
-  //       setButtonColor('')
-  //     }, 1000)
-
-  //     // Clean up the timer when the component unmounts or when the dependency changes
-  //     return () => clearTimeout(timer)
-
-  //     // **** IF data?.data?.is_correct IS TRUE **** //
-  //   } else if (data?.data?.is_correct === true) {
-  //     // Update the button color to green
-  //     setButtonColor('green')
-
-  //     // play correctAnswerSound audio
-  //     const audio = new Audio('/public/assets/audios/yay.mp3')
-  //     audio.play()
-
-  //     // Create a timer to reset the button color after 1700 milliseconds
-  //     const timer = setTimeout(() => {
-  //       setButtonColor('yellowgreen')
-  //     }, 1700)
-
-  //     // Clean up the timer when the component unmounts or when the dependency changes
-  //     return () => clearTimeout(timer)
-  //   }
-  // }, [data, setQuestionIndex])
-
   useEffect(() => {
-    setCurrentQtn(currentQuestion)
-    setPuzzle(currentQuestion?.options)
-  }, [setCurrentQtn, currentQuestion])
+    setCurrentQtn(question[questionIndex])
+    if (isLoading) {
+      const fetchAnswer = async () => {
+        let res = await checkAnswer({
+          question_id: currentQtn?.id,
+          optionIds: [`${selected}`],
+        })
+        if (res.is_correct) {
+          setButtonText('Correct')
+          const audio = new Audio(correctAnswerSound)
+          audio.play()
+          const timer = setTimeout(() => {
+            setButtonText('Next')
+            // nextQuestion()
+          }, 1700)
 
+          return () => clearTimeout(timer)
+        } else {
+          setButtonText('Wrong')
+          const audio = new Audio(wrongAnswerSound)
+          audio.play()
+          setSelected('')
+          const timer = setTimeout(() => {
+            setButtonText('Check')
+          }, 1700)
+          return () => clearTimeout(timer)
+        }
+      }
+      fetchAnswer()
+    }
+    setLoading(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, questionIndex, currentQtn])
+
+  // useEffect(() => {
+  //   setCurrentQtn(currentQuestion)
+  //   setPuzzle(currentQuestion?.options)
+  // }, [setCurrentQtn, currentQuestion])
+
+  if (!currentQtn) return <Loader />
   // SELECT ANSWER FUNCTION
   const selectAnswer = (id: number) => {
     setSelectedAnswer(id)
@@ -94,26 +96,12 @@ const LessonGameOne = ({
   }
 
   // CHECK ANSWER FUNCTION
-  const handlecheckAnswer = () => {
-    if (buttonColor === 'yellowgreen') {
-      answeredQuestion({
-        question_id: currentQuestion?.id,
-        topic_id: topicID,
-        student_id: studentID,
-      })
-      setQuestionIndex((prev: number) => prev + 1)
-      setButtonColor('')
-      setSelectedAnswer(0)
-    } else {
-      checkAnswer({
-        question_id: currentQuestion?.id,
-        optionIds: [`${selectedAnswer}`],
-      })
-    }
+  const handleCheckAnswer = () => {
+    setLoading(true)
   }
 
   const handlePlayAudio = () => {
-    const audio = new Audio(currentQuestion?.media_url)
+    const audio = new Audio(currentQtn?.media_url)
     audio.play()
   }
 
@@ -125,15 +113,25 @@ const LessonGameOne = ({
           <div className={styles.textWrap}>
             <h2>Translate this sentence</h2>
             <h3>Question No. {questionIndex + 1}</h3>
-            <h3>{currentQuestion?.title}</h3>
+            <h3>{currentQtn?.title}</h3>
           </div>
 
           {/* SPEAKER */}
           <div className={styles.speakerWrap}>
-            <Image src={currentQuestion?.image_url} height={250} width={250} alt="image" />
+            {currentQtn?.options.map((option) => {
+              return (
+                <Image
+                  key={option.id}
+                  src={option.image_url}
+                  height={150}
+                  width={150}
+                  alt="image"
+                />
+              )
+            })}
             <Image
               src="/assets/images/speaker.png"
-              height="50"
+              height="20"
               width={50}
               alt="speaker"
               onClick={() => handlePlayAudio()}
@@ -144,50 +142,47 @@ const LessonGameOne = ({
           <hr />
 
           {/* PICK ANSWER BOX */}
-          <Fade cascade damping={0.1} style={{ width: '100%' }} duration={1300} direction="up">
-            <ul className={styles.pickAnswerWrap}>
-              {puzzle?.map((option: any) => {
-                let chosenAnswer = selectedAnswer === option.id ? 'orange' : '#E1E1E1'
-                return (
-                  <OptionButton
-                    backgroundColor={`${chosenAnswer}`}
-                    text={option.title}
-                    key={option.id}
-                    handleClick={selectAnswer}
-                    id={option.id}
-                  />
-                )
-              })}
-            </ul>
+          {/* <Fade cascade damping={0.1} style={{ width: '100%' }} duration={1300} direction="up"> */}
+          <ul className={styles.pickAnswerWrap}>
+            {puzzle?.map((option: any) => {
+              let chosenAnswer = selectedAnswer === option.id ? 'orange' : '#E1E1E1'
+              return (
+                <OptionButton
+                  backgroundColor={`${chosenAnswer}`}
+                  text={option.title}
+                  key={option.id}
+                  handleClick={selectAnswer}
+                  id={option.id}
+                />
+              )
+            })}
+          </ul>
 
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '7px',
-              }}
-            >
-              <Button
-                handleClick={handlecheckAnswer}
-                backgroundColor={`${buttonColor}`}
-                text={
-                  buttonColor === 'red'
-                    ? 'Wrong'
-                    : buttonColor === 'green'
-                    ? 'Correct'
-                    : buttonColor === 'yellowgreen'
-                    ? 'Next'
-                    : 'Check'
-                }
-
-                disabled={
-                  !selectedAnswer
-                    ? true
-                    : false || buttonColor === 'green' || buttonColor === 'red'
-                }
-              />
-            </div>
-          </Fade>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '7px',
+            }}
+          >
+            <Button
+              handleClick={() => handleCheckAnswer()}
+              backgroundColor={`${buttonColor}`}
+              text={
+                buttonColor === 'red'
+                  ? 'Wrong'
+                  : buttonColor === 'green'
+                  ? 'Correct'
+                  : buttonColor === 'yellowgreen'
+                  ? 'Next'
+                  : 'Check'
+              }
+              disabled={
+                !selectedAnswer ? true : false || buttonColor === 'green' || buttonColor === 'red'
+              }
+            />
+          </div>
+          {/* </Fade> */}
         </div>
       </div>
       {/* {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null} */}

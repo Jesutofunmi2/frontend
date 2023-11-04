@@ -25,7 +25,7 @@ export interface Lesson {
 export interface LessonQuestion {
   answered_type: string
   id: string
-  image_url: string
+  image_url: string |any
   instruction: string
   language: ILanguage
   media_type: string

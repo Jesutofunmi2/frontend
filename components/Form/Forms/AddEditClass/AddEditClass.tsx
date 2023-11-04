@@ -55,9 +55,9 @@ const AddEditClass = ({
   const { data: languages } = useGetLanguages()
   if (!languages) return
   const languageOptions = languages.map((item: ILanguage) => {
-    return { value: item.id, label: item.name }
+    return { value: item.id, label: item.name, disabled: item.status === 1 ? false : true }
   })
-
+  console.log(languages)
   return (
     <>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +87,7 @@ const AddEditClass = ({
           />
         </div>
         <div className={styles.btnWrap}>
-          <Button  type="submit" text="Save" />
+          <Button type="submit" text="Save" />
         </div>
       </form>
       <ToastContainer />

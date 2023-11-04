@@ -1,16 +1,18 @@
-.inputWrap{
-    max-width: 430px;
+.inputWrap {
+  max-width: 430px;
 }
 
-
-.input{
-    margin-top: 6px;
-    width: 100%;
-    border-radius: 15px;
-    border: 1px solid  #F19C00;
-    box-sizing: border-box;
-    padding: 13px 14px ;
-    display: block;
-font-size: 14px;
-
+.input {
+  margin-top: 6px;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #f19c00;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  display: block;
+  font-size: 14px;
+  outline: none;
+}
+.input:focus {
+  border: 1px solid #3753b8!important;
 }

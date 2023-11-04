@@ -24,7 +24,6 @@ export const addTeacher = async (payload: IPayloadTeacher) => {
     toast.error('Request failed, Try again', {
       position: toast.POSITION.TOP_RIGHT,
     })
-
     return err
   }
 }

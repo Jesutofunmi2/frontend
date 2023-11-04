@@ -21,7 +21,7 @@ const LessonGame = () => {
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
   const [questionIndex, setQuestionIndex] = useState(0)
-  const [currentQtn, setCurrentQtn] = useState<LessonQuestion|null>(null)
+  const [currentQtn, setCurrentQtn] = useState<LessonQuestion|any>()
   const [favourite, setFavourite] = useState<Favourite[]>([])
   const languageID = Number(searchParams.get('lang'))
   const lessonID = String(searchParams.get('lesson'))
@@ -57,7 +57,7 @@ const LessonGame = () => {
 
   // GET FAVOURITED
   const faved = favourite?.find((item: any) => item?.id === currentQtn?.id)
-
+console.log(lessonQuestions)
   return (
     <>
       {isLoading ? (
@@ -83,6 +83,7 @@ const LessonGame = () => {
               setQuestionIndex={setQuestionIndex}
               setCurrentQtn={setCurrentQtn}
               topicID={lessonID}
+              currentQtn={currentQtn}
 
             />
           ) : type === 'puzzle' || type === 'scramble' ? (
@@ -92,6 +93,7 @@ const LessonGame = () => {
               questionIndex={questionIndex}
               setQuestionIndex={setQuestionIndex}
               setCurrentQtn={setCurrentQtn}
+              currentQtn={currentQtn}
             />
           ) : (
             <LessonGameTwo

@@ -73,7 +73,8 @@ export const deleteStudent = async (studentId: string) => {
     const res = await makeApiCall(`/api/v1/deleteStudent?student_id=${studentId}`, 'delete')
     if (res) {
       toast.success('Student Deleted!', {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose:1000
       })
     }
     return res

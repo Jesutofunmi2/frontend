@@ -1,24 +1,20 @@
-"use client"
+'use client'
 
-import React, { useEffect } from "react";
-import styles from "./page.module.css";
-import Image from "next/image";
-import LoginForm from '@/components/Form/Forms/Login/LoginForm';
-import tree from "/public/assets/images/tree.png";
-import HomeNavbar from "@/components/Navbar/HomeNavbar/HomeNavbar";
-import { useRouter } from "next/navigation";
-
+import React, { useEffect } from 'react'
+import styles from './page.module.css'
+import Image from 'next/image'
+import LoginForm from '@/components/Form/Forms/Login/LoginForm'
+import tree from '/public/assets/images/tree.png'
+import HomeNavbar from '@/components/Navbar/HomeNavbar/HomeNavbar'
+import { getToken, removeToken } from '@/services/api/token'
 
 const MyLogin = () => {
-  const token = false
-  // const token = useSelector((state) => state?.user?.currentUser?.token?.token)
-  const router = useRouter();
+  const token = getToken()
   useEffect(() => {
-   if (token) {
-    router.back()
-   }
-  }, [token, router])
-
+    if (token) {
+      removeToken()
+    }
+  }, [token])
   return (
     <>
       <HomeNavbar noFixedNavbar={true} />
@@ -29,7 +25,7 @@ const MyLogin = () => {
         <LoginForm />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default MyLogin;
+export default MyLogin

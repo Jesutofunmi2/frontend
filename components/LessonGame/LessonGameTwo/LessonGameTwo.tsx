@@ -12,15 +12,15 @@ import { useSelector } from 'react-redux'
 import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAnswerModal'
 import { userData } from '@/services/redux/features/userSlice'
 import { LessonQuestion, QuestionOptions } from '@/types/lessontopic'
-import { Spinner } from '@/components/Loader/Loader'
+import { Loader, Spinner } from '@/components/Loader/Loader'
 
 interface LessonGameTwoProps {
   question: LessonQuestion[]
   questionIndex: number
   setQuestionIndex: React.Dispatch<React.SetStateAction<number>>
-  setCurrentQtn: React.Dispatch<React.SetStateAction<LessonQuestion |null>>
+  setCurrentQtn: React.Dispatch<React.SetStateAction<LessonQuestion>>
   topicID: string
-  currentQtn: LessonQuestion|null
+  currentQtn: LessonQuestion
 }
 const LessonGameTwo = ({
   question,
@@ -71,6 +71,7 @@ const LessonGameTwo = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
+  if (!currentQtn) return <Loader />
   const nextQuestion = () => {
     setQuestionIndex((prevState) => prevState + 1)
     setCurrentQtn(question[questionIndex])
@@ -79,7 +80,7 @@ const LessonGameTwo = ({
   }
 
   // CHECK ANSWER FUNCTION
-  const handleCheckAnswer = async () => {
+  const handleCheckAnswer = () => {
     setLoading(true)
   }
 

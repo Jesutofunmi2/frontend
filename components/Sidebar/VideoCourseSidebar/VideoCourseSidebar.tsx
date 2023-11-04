@@ -34,7 +34,7 @@ const VideoCourseSidebar = ({ videoLesson, setVideoData, setQuestionIndex, setQu
       <div className={styles.container}>
         <h3>Course content</h3>
 
-        { videoLesson.map((item:any) => (
+        { videoLesson?.map((item:any) => (
           <div className={styles.listContainer} key={item.id}>
             <ul className={styles.listWrap} onClick={() => handleToggle(item.id)}>
               <li className={styles.list}>
