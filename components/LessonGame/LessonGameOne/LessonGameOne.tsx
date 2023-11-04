@@ -48,11 +48,9 @@ const LessonGameOne = ({
   currentQtn,
 }: LessonGameOneProps) => {
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
-  const [selectedAnswer, setSelectedAnswer] = useState<number>()
   const [openCorrectModal, setOpenCorrectModal] = useState(false)
-  const [answers, setAnswers] = useState<string[]|any>([])
+  const [answers, setAnswers] = useState<string[] | any>([])
   const [puzzle, setPuzzle] = useState<string[]>([])
-  const [buttonColor, setButtonColor] = useState('')
   const [list, setList] = useState([])
   const [isLoading, setLoading] = useState(false)
   const [selected, setSelected] = useState('')
@@ -60,8 +58,6 @@ const LessonGameOne = ({
 
   // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
-    setCurrentQtn(question[questionIndex])
-    setPuzzle(currentQtn?.options[0].title)
     if (isLoading) {
       const fetchAnswer = async () => {
         let res = await checkAnswer({
@@ -89,8 +85,13 @@ const LessonGameOne = ({
         }
       }
       fetchAnswer()
+      setLoading(false)
+    } else {
+      setCurrentQtn(question[questionIndex])
+      setPuzzle(currentQtn?.options[0].title)
+      setAnswers([])
     }
-    setLoading(false)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
@@ -101,25 +102,25 @@ const LessonGameOne = ({
   //   setPuzzle(currentQtn?.options[0]?.title);
   //   // setList(draggableList)
   // }, [setCurrentQtn, currentQtn]);
-console.log(puzzle)
+
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
     setLoading(true)
   }
 
-  const handlePickAnswer = (opt:string) => {
-    setAnswers([...answers, opt]);
-    setPuzzle((current) => current.filter((fruit) => fruit !== opt));
-    const audio = new Audio(clickSound );
-    audio.play();
-    // dispatch(pickAnswer(opt))
-  };
-
-  const handleRemoveAnswer = (opt:string) => {
-      setPuzzle((current) => [...current, opt]);
-    setAnswers((current: string[]) => current.filter((fruit) => fruit !== opt));
+  const handlePickAnswer = (opt: string) => {
+    setAnswers([...answers, opt])
+    setPuzzle((current) => current.filter((fruit) => fruit !== opt))
+    const audio = new Audio(clickSound)
+    audio.play()
   }
 
+  const handleRemoveAnswer = (opt: string) => {
+    const audio = new Audio(clickSound)
+    audio.play()
+    setPuzzle((current) => [...current, opt])
+    setAnswers((current: string[]) => current.filter((fruit) => fruit !== opt))
+  }
 
   //   // dispatch(removeAnswer(opt))
   // };
@@ -129,7 +130,7 @@ console.log(puzzle)
     const audio = new Audio(currentQtn.options[0]?.media_url)
     audio.play()
   }
- 
+
   return (
     <>
       <div className={styles.lessonContainer}>
@@ -175,7 +176,7 @@ console.log(puzzle)
               easing="ease-out"
               className={styles.answersWrap}
             >
-              {answers?.map((item:string) => (
+              {answers?.map((item: string) => (
                 <div
                   className={styles.showAnswer}
                   key={item}
@@ -209,18 +210,13 @@ console.log(puzzle)
               </div>
             ))}
           </div> */}
-           <div className={styles.pickAnswerWrap}>
+          <div className={styles.pickAnswerWrap}>
             {puzzle?.map((option) => (
-              <div
-                className={styles.answer}
-                key={option}
-                onClick={() => handlePickAnswer(option)}
-              >
-                 <p className="languageText">{option}</p>
+              <div className={styles.answer} key={option} onClick={() => handlePickAnswer(option)}>
+                <p className="languageText">{option}</p>
               </div>
             ))}
           </div>
-
 
           <Button
             handleClick={handleCheckAnswer}
@@ -231,14 +227,11 @@ console.log(puzzle)
                 ? 'green'
                 : buttonText === 'Check'
                 ? '#FFC400'
-                : buttonText === ''
-                ? '#e1e1e1'
                 : ''
             }
             text={buttonText}
             disabled={
-              selected === ' ' ||
-              buttonText === '' ||
+              !answers.length ||
               buttonText === 'Correct' ||
               buttonText === 'Wrong'
             }

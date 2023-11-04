@@ -37,7 +37,7 @@ const LessonGameOne = ({
 }: LessonGameProps) => {
   // const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
-  const [selectedAnswer, setSelectedAnswer] = useState<number>()
+  // const [selectedAnswer, setSelectedAnswer] = useState<number>()
   // const [answers, setAnswers] = useState([])
   // const [puzzle, setPuzzle] = useState<QuestionOptions[]>([])
   const type = searchParams.get('type')
@@ -87,12 +87,12 @@ const LessonGameOne = ({
 
   if (!currentQtn || !currentQtn.options.length) return <Loader />
   // SELECT ANSWER FUNCTION
-  const selectAnswer = (id: number) => {
-    setSelectedAnswer(id)
-    setButtonText('Check')
-    const audio = new Audio(clickSound)
-    audio.play()
-  }
+  // const selectAnswer = (id: number) => {
+  //   // setSelectedAnswer(id)
+  //   setButtonText('Check')
+  //   const audio = new Audio(clickSound)
+  //   audio.play()
+  // }
 
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
@@ -144,13 +144,13 @@ const LessonGameOne = ({
           {/* <Fade cascade damping={0.1} style={{ width: '100%' }} duration={1300} direction="up"> */}
           <ul className={styles.pickAnswerWrap}>
             {currentQtn.options?.map((option: any) => {
-              let chosenAnswer = selectedAnswer === option.id ? 'orange' : '#E1E1E1'
+              let chosenAnswer = selected === option.id ? 'orange' : '#E1E1E1'
               return (
                 <OptionButton
                   backgroundColor={`${chosenAnswer}`}
                   text={option.title}
                   key={option.id}
-                  handleClick={selectAnswer}
+                  handleClick={()=>setSelected(option.id)}
                   id={option.id}
                 />
               )
@@ -173,17 +173,10 @@ const LessonGameOne = ({
                   ? 'green'
                   : buttonText === 'Check'
                   ? '#FFC400'
-                  : buttonText === ''
-                  ? '#e1e1e1'
                   : ''
               }
               text={buttonText}
-              disabled={
-                selected === ' ' ||
-                buttonText === '' ||
-                buttonText === 'Correct' ||
-                buttonText === 'Wrong'
-              }
+              disabled={!selected || buttonText === 'Correct' || buttonText === 'Wrong'}
             />
           </div>
           {/* </Fade> */}
