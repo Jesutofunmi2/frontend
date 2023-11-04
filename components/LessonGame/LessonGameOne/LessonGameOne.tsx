@@ -47,29 +47,35 @@ const LessonGameOne = ({
   topicID,
   currentQtn,
 }: LessonGameOneProps) => {
-  const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
-  const [openCorrectModal, setOpenCorrectModal] = useState(false)
+  // const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
+
   const [answers, setAnswers] = useState<string[] | any>([])
   const [puzzle, setPuzzle] = useState<string[]>([])
-  const [list, setList] = useState([])
   const [isLoading, setLoading] = useState(false)
   const [selected, setSelected] = useState('')
   const [buttonText, setButtonText] = useState('Check')
 
   // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
+    setCurrentQtn(question[questionIndex])
+    if(!puzzle?.length){
+      setPuzzle(currentQtn?.options[0].title)
+    }
     if (isLoading) {
       const fetchAnswer = async () => {
         let res = await checkAnswer({
           question_id: currentQtn?.id,
           optionIds: [`${selected}`],
+          puzzle_text: answers,
         })
+        console.log(res)
         if (res.is_correct) {
           setButtonText('Correct')
           const audio = new Audio(correctAnswerSound)
           audio.play()
           const timer = setTimeout(() => {
             setButtonText('Next')
+            // nextQuestion()
           }, 1700)
 
           return () => clearTimeout(timer)
@@ -85,17 +91,23 @@ const LessonGameOne = ({
         }
       }
       fetchAnswer()
-      setLoading(false)
     } else {
-      setCurrentQtn(question[questionIndex])
-      setPuzzle(currentQtn?.options[0].title)
-      setAnswers([])
     }
+    setLoading(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
-  // console.log(currentQtn)
+ 
+ 
+  const nextQuestion = () => {
+    setQuestionIndex((prevState) => prevState + 1)
+    
+    setCurrentQtn(question[questionIndex])
+    setPuzzle(currentQtn?.options[0].title)
+    setButtonText('Check')
+    setSelected('')
+  }
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   // useEffect(() => {
   //   setCurrentQtn(currentQtn);
@@ -106,6 +118,7 @@ const LessonGameOne = ({
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
     setLoading(true)
+    setSelected(currentQtn.options[0].id)
   }
 
   const handlePickAnswer = (opt: string) => {
@@ -121,9 +134,6 @@ const LessonGameOne = ({
     setPuzzle((current) => [...current, opt])
     setAnswers((current: string[]) => current.filter((fruit) => fruit !== opt))
   }
-
-  //   // dispatch(removeAnswer(opt))
-  // };
 
   const handlePlayAudio = () => {
     // play wrongAnswerSound audio
@@ -230,11 +240,7 @@ const LessonGameOne = ({
                 : ''
             }
             text={buttonText}
-            disabled={
-              !answers.length ||
-              buttonText === 'Correct' ||
-              buttonText === 'Wrong'
-            }
+            disabled={!answers.length || buttonText === 'Correct' || buttonText === 'Wrong'}
           />
         </div>
       </div>

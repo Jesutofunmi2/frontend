@@ -39,7 +39,7 @@ const FlashCard = ({ selected, setSelected, option, noTitle }: FlashCardProps) =
             width={150}
             height={130}
             className={styles.img}
-            alt={option?.title}
+            alt={option.media_type}
           />
         </div>
 
