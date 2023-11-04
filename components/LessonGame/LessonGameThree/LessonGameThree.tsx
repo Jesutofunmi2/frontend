@@ -59,6 +59,8 @@ const LessonGameOne = ({
           audio.play()
           const timer = setTimeout(() => {
             setButtonText('Next')
+            nextQuestion()
+
           }, 1700)
 
           return () => clearTimeout(timer)
@@ -85,13 +87,14 @@ const LessonGameOne = ({
   // }, [setCurrentQtn, currentQuestion])
 
   if (!currentQtn || !currentQtn.options.length) return <Loader />
-  // SELECT ANSWER FUNCTION
-  // const selectAnswer = (id: number) => {
-  //   // setSelectedAnswer(id)
-  //   setButtonText('Check')
-  //   const audio = new Audio(clickSound)
-  //   audio.play()
-  // }
+ 
+
+  const nextQuestion = () => {
+    setQuestionIndex((prevState) => prevState + 1)
+    setCurrentQtn(question[questionIndex])
+    setButtonText('Check')
+    setSelected('')
+  }
 
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
