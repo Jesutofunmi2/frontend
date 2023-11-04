@@ -57,7 +57,7 @@ const LessonGame = () => {
 
   // GET FAVOURITED
   const faved = favourite?.find((item: any) => item?.id === currentQtn?.id)
-console.log(lessonQuestions)
+
   return (
     <>
       {isLoading ? (

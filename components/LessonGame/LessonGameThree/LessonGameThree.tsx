@@ -35,13 +35,12 @@ const LessonGameOne = ({
   topicID,
   currentQtn,
 }: LessonGameProps) => {
-  const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
+  // const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
   const [selectedAnswer, setSelectedAnswer] = useState<number>()
-  const [answers, setAnswers] = useState([])
-  const [puzzle, setPuzzle] = useState<QuestionOptions[]>([])
+  // const [answers, setAnswers] = useState([])
+  // const [puzzle, setPuzzle] = useState<QuestionOptions[]>([])
   const type = searchParams.get('type')
-  const [buttonColor, setButtonColor] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [selected, setSelected] = useState('')
   const [buttonText, setButtonText] = useState('Check')
@@ -61,7 +60,6 @@ const LessonGameOne = ({
           audio.play()
           const timer = setTimeout(() => {
             setButtonText('Next')
-            // nextQuestion()
           }, 1700)
 
           return () => clearTimeout(timer)
@@ -87,11 +85,12 @@ const LessonGameOne = ({
   //   setPuzzle(currentQuestion?.options)
   // }, [setCurrentQtn, currentQuestion])
 
-  if (!currentQtn) return <Loader />
+  if (!currentQtn || !currentQtn.options.length) return <Loader />
   // SELECT ANSWER FUNCTION
   const selectAnswer = (id: number) => {
     setSelectedAnswer(id)
-    const audio = new Audio('/public/assets/audios/click.mp3')
+    setButtonText('Check')
+    const audio = new Audio(clickSound)
     audio.play()
   }
 
@@ -144,7 +143,7 @@ const LessonGameOne = ({
           {/* PICK ANSWER BOX */}
           {/* <Fade cascade damping={0.1} style={{ width: '100%' }} duration={1300} direction="up"> */}
           <ul className={styles.pickAnswerWrap}>
-            {puzzle?.map((option: any) => {
+            {currentQtn.options?.map((option: any) => {
               let chosenAnswer = selectedAnswer === option.id ? 'orange' : '#E1E1E1'
               return (
                 <OptionButton
@@ -167,18 +166,23 @@ const LessonGameOne = ({
           >
             <Button
               handleClick={() => handleCheckAnswer()}
-              backgroundColor={`${buttonColor}`}
-              text={
-                buttonColor === 'red'
-                  ? 'Wrong'
-                  : buttonColor === 'green'
-                  ? 'Correct'
-                  : buttonColor === 'yellowgreen'
-                  ? 'Next'
-                  : 'Check'
+              backgroundColor={
+                buttonText === 'Wrong'
+                  ? 'red'
+                  : buttonText === 'Correct' || buttonText === 'Next'
+                  ? 'green'
+                  : buttonText === 'Check'
+                  ? '#FFC400'
+                  : buttonText === ''
+                  ? '#e1e1e1'
+                  : ''
               }
+              text={buttonText}
               disabled={
-                !selectedAnswer ? true : false || buttonColor === 'green' || buttonColor === 'red'
+                selected === ' ' ||
+                buttonText === '' ||
+                buttonText === 'Correct' ||
+                buttonText === 'Wrong'
               }
             />
           </div>

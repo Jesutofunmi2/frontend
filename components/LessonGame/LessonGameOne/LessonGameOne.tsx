@@ -50,8 +50,8 @@ const LessonGameOne = ({
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const [selectedAnswer, setSelectedAnswer] = useState<number>()
   const [openCorrectModal, setOpenCorrectModal] = useState(false)
-  const [answers, setAnswers] = useState([])
-  const [puzzle, setPuzzle] = useState([])
+  const [answers, setAnswers] = useState<string[]|any>([])
+  const [puzzle, setPuzzle] = useState<string[]>([])
   const [buttonColor, setButtonColor] = useState('')
   const [list, setList] = useState([])
   const [isLoading, setLoading] = useState(false)
@@ -61,6 +61,7 @@ const LessonGameOne = ({
   // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
     setCurrentQtn(question[questionIndex])
+    setPuzzle(currentQtn?.options[0].title)
     if (isLoading) {
       const fetchAnswer = async () => {
         let res = await checkAnswer({
@@ -73,7 +74,6 @@ const LessonGameOne = ({
           audio.play()
           const timer = setTimeout(() => {
             setButtonText('Next')
-            // nextQuestion()
           }, 1700)
 
           return () => clearTimeout(timer)
@@ -94,50 +94,33 @@ const LessonGameOne = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
+  // console.log(currentQtn)
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   // useEffect(() => {
   //   setCurrentQtn(currentQtn);
-  //   // setPuzzle(currentQuestion?.options[0]?.title);
+  //   setPuzzle(currentQtn?.options[0]?.title);
   //   // setList(draggableList)
   // }, [setCurrentQtn, currentQtn]);
-
+console.log(puzzle)
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
-    if (buttonColor === 'yellowgreen') {
-      answeredQuestion({
-        question_id: currentQtn?.id,
-        topic_id: topicID,
-        student_id: studentID,
-      })
-      setQuestionIndex((prev) => prev + 1)
-      setButtonColor('')
-      setAnswers([])
-      // setSelected("");
-    } else {
-      checkAnswer({
-        question_id: currentQtn?.id,
-        optionIds: [`${currentQtn?.options[0]?.id}`],
-        puzzle_text: answers,
-      })
-    }
+    setLoading(true)
   }
 
-  // const handlePickAnswer = (opt) => {
-  //   setAnswers((current) => [...current, opt]);
+  const handlePickAnswer = (opt:string) => {
+    setAnswers([...answers, opt]);
+    setPuzzle((current) => current.filter((fruit) => fruit !== opt));
+    const audio = new Audio(clickSound );
+    audio.play();
+    // dispatch(pickAnswer(opt))
+  };
 
-  //   setPuzzle((current) => current.filter((fruit) => fruit !== opt));
+  const handleRemoveAnswer = (opt:string) => {
+      setPuzzle((current) => [...current, opt]);
+    setAnswers((current: string[]) => current.filter((fruit) => fruit !== opt));
+  }
 
-  //   const audio = new Audio("/public/assets/audios/click.mp3");
-  //   audio.play();
-  //   // dispatch(pickAnswer(opt))
-  // };
 
-  // const handleRemoveAnswer = (opt:any) => {
-  //   if (!isMutating) {
-  //   setAnswers((current) => current.filter((fruit) => fruit !== opt));
-  //   }
-
-  //   setPuzzle((current) => [...current, opt]);
   //   // dispatch(removeAnswer(opt))
   // };
 
@@ -146,7 +129,7 @@ const LessonGameOne = ({
     const audio = new Audio(currentQtn.options[0]?.media_url)
     audio.play()
   }
-
+ 
   return (
     <>
       <div className={styles.lessonContainer}>
@@ -192,11 +175,11 @@ const LessonGameOne = ({
               easing="ease-out"
               className={styles.answersWrap}
             >
-              {answers?.map((item) => (
+              {answers?.map((item:string) => (
                 <div
                   className={styles.showAnswer}
                   key={item}
-                  // onClick={() => handleRemoveAnswer(item)}
+                  onClick={() => handleRemoveAnswer(item)}
                 >
                   {item}
                 </div>
@@ -207,34 +190,57 @@ const LessonGameOne = ({
           <hr />
 
           {/* PICK ANSWER BOX */}
-          <div className={styles.pickAnswerWrap}>
+          {/* <div className={styles.pickAnswerWrap}>
+            {currentQtn?.options?.map((option) => (
+              <div
+                key={option.id}
+                
+              >
+               <div className='flex gap-5 items-center my-6 justify-center'>
+               {option.title.map((ele, index) => {
+                  return (
+                    <button onClick={() => handlePickAnswer(ele)}  key={index} className={styles.answer} >
+                      {ele}
+                    </button>
+                  )
+                })}
+               </div>
+               
+              </div>
+            ))}
+          </div> */}
+           <div className={styles.pickAnswerWrap}>
             {puzzle?.map((option) => (
               <div
                 className={styles.answer}
                 key={option}
-                // onClick={() => handlePickAnswer(option)}
+                onClick={() => handlePickAnswer(option)}
               >
-                <p className="languageText">{option}</p>
+                 <p className="languageText">{option}</p>
               </div>
             ))}
           </div>
 
+
           <Button
             handleClick={handleCheckAnswer}
-            backgroundColor={`${buttonColor}`}
-            text={
-              buttonColor === 'red'
-                ? 'Wrong'
-                : buttonColor === 'green'
-                ? 'Correct'
-                : buttonColor === 'yellowgreen'
-                ? 'Next'
-                : 'Check'
+            backgroundColor={
+              buttonText === 'Wrong'
+                ? 'red'
+                : buttonText === 'Correct' || buttonText === 'Next'
+                ? 'green'
+                : buttonText === 'Check'
+                ? '#FFC400'
+                : buttonText === ''
+                ? '#e1e1e1'
+                : ''
             }
+            text={buttonText}
             disabled={
-              answers?.length === 0
-                ? true
-                : false || buttonColor === 'green' || buttonColor === 'red'
+              selected === ' ' ||
+              buttonText === '' ||
+              buttonText === 'Correct' ||
+              buttonText === 'Wrong'
             }
           />
         </div>

@@ -42,5 +42,5 @@ export interface QuestionOptions {
   image_url: string
   media_type: string
   media_url: string
-  title: string
+  title: string[]
 }

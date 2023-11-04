@@ -27,6 +27,7 @@ const OptionButton = ({
   handleClick,
   id,
 }: OptionsProps) => {
+  console.log()
   return (
     <ul
       style={{
