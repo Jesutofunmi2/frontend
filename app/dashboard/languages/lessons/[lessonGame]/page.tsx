@@ -16,6 +16,7 @@ import BackNavigation from '@/components/BackNavigation/BackNavigation'
 import { userData } from '@/services/redux/features/userSlice'
 import { Favourite } from '@/types/favourite'
 import { LessonQuestion } from '@/types/lessontopic'
+import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAnswerModal'
 
 const LessonGame = () => {
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
@@ -62,7 +63,7 @@ const LessonGame = () => {
     <>
       {!lessonQuestions.length ? (
         <div className="flex items-center justify-center text-2xl h-full font-bold">
-          No Lesson Available !
+        <CorrectAnswerModal/>
         </div>
       ) : (
         <div className={styles.gameWrap}>
