@@ -35,7 +35,6 @@ const LessonGameTwo = ({
   const [buttonText, setButtonText] = useState('Check')
   const [isLoading, setLoading] = useState(false)
 
-
   useEffect(() => {
     setCurrentQtn(question[questionIndex])
     if (isLoading) {
@@ -68,10 +67,10 @@ const LessonGameTwo = ({
       fetchAnswer()
     }
     setLoading(false)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
-  if (!currentQtn) return <Loader />
+  // if (!currentQtn) return <Loader />
   const nextQuestion = () => {
     setQuestionIndex((prevState) => prevState + 1)
     setCurrentQtn(question[questionIndex])
@@ -88,7 +87,6 @@ const LessonGameTwo = ({
     <>
       <div className={styles.LGTwoContainer}>
         <div className={styles.wrapper}>
-      
           <div className={styles.textWrap}>
             <h3>Question No. {questionIndex + 1}</h3>
           </div>
@@ -114,7 +112,6 @@ const LessonGameTwo = ({
               {/* </Fade> */}
             </div>
           </div>
-       
 
           <Button
             handleClick={() => handleCheckAnswer()}
@@ -132,7 +129,7 @@ const LessonGameTwo = ({
           />
         </div>
       </div>
-      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
+      {questionIndex === question?.length ? <CorrectAnswerModal /> : null}
     </>
   )
 }

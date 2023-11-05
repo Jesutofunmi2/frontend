@@ -208,7 +208,7 @@ const LessonGameOne = ({
           />
         </div>
       </div>
-      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
+      {questionIndex === question?.length ? <CorrectAnswerModal /> : null}
     </>
   )
 }
