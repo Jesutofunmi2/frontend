@@ -59,6 +59,7 @@
     width: fit-content; 
     margin-bottom: 30px;
     align-items: center;
+    gap:40px
 }
 
 .playIcon{

@@ -14,9 +14,7 @@ import { Fade } from 'react-awesome-reveal'
 import Button from '@/components/Button/Button'
 import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAnswerModal'
 import { useSearchParams } from 'next/navigation'
-import { userData } from '@/services/redux/features/userSlice'
 import { LessonQuestion } from '@/types/lessontopic'
-import { Loader } from '@/components/Loader/Loader'
 
 interface LessonGameProps {
   question: LessonQuestion[]
@@ -34,7 +32,6 @@ const LessonGameOne = ({
   topicID,
   currentQtn,
 }: LessonGameProps) => {
-  
   const searchParams = useSearchParams()
   const type = searchParams.get('type')
   const [isLoading, setLoading] = useState(false)
@@ -57,7 +54,6 @@ const LessonGameOne = ({
           const timer = setTimeout(() => {
             setButtonText('Next')
             nextQuestion()
-
           }, 1700)
 
           return () => clearTimeout(timer)
@@ -78,10 +74,9 @@ const LessonGameOne = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
- 
+  console.log(currentQtn)
 
   // if (!currentQtn || !currentQtn.options.length) return <Loader />
- 
 
   const nextQuestion = () => {
     setQuestionIndex((prevState) => prevState + 1)
@@ -112,12 +107,13 @@ const LessonGameOne = ({
           </div>
 
           {/* SPEAKER */}
-          <button type="button"  onClick={() => handlePlayAudio()} className={styles.speakerWrap}>
+          <button type="button" onClick={() => handlePlayAudio()} className={styles.speakerWrap}>
+            <Image src={'' || currentQtn?.image_url} height={250} width={250} alt="image" />
             <Image
               src="/assets/images/speaker.png"
-              height="40" width={70} 
+              height="40"
+              width={70}
               alt="speaker"
-            
               className={styles.playIcon}
             />
           </button>
@@ -134,7 +130,7 @@ const LessonGameOne = ({
                   backgroundColor={`${chosenAnswer}`}
                   text={option.title}
                   key={option.id}
-                  handleClick={()=>setSelected(option.id)}
+                  handleClick={() => setSelected(option.id)}
                   id={option.id}
                 />
               )
