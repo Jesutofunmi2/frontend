@@ -10,11 +10,10 @@ ensure that the page mutate before closing modal
 // edit/add school-teacher
 // language (add a language)
 add trial popup
-load images with lazy lines
+load images with lazy loading
 fix the login token
 
 
 
-
-disable laguage with status = 0 
-2 games
+- fix baseline
+- trial version

@@ -15,7 +15,7 @@ import Button from '@/components/Button/Button'
 import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAnswerModal'
 import { useSearchParams } from 'next/navigation'
 import { userData } from '@/services/redux/features/userSlice'
-import { LessonQuestion, QuestionOptions } from '@/types/lessontopic'
+import { LessonQuestion } from '@/types/lessontopic'
 import { Loader } from '@/components/Loader/Loader'
 
 interface LessonGameProps {
@@ -34,11 +34,8 @@ const LessonGameOne = ({
   topicID,
   currentQtn,
 }: LessonGameProps) => {
-  // const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
+  
   const searchParams = useSearchParams()
-  // const [selectedAnswer, setSelectedAnswer] = useState<number>()
-  // const [answers, setAnswers] = useState([])
-  // const [puzzle, setPuzzle] = useState<QuestionOptions[]>([])
   const type = searchParams.get('type')
   const [isLoading, setLoading] = useState(false)
   const [selected, setSelected] = useState('')
@@ -81,10 +78,7 @@ const LessonGameOne = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
-  // useEffect(() => {
-  //   setCurrentQtn(currentQuestion)
-  //   setPuzzle(currentQuestion?.options)
-  // }, [setCurrentQtn, currentQuestion])
+ 
 
   if (!currentQtn || !currentQtn.options.length) return <Loader />
  
@@ -118,27 +112,15 @@ const LessonGameOne = ({
           </div>
 
           {/* SPEAKER */}
-          <div className={styles.speakerWrap}>
-            {currentQtn?.options.map((option) => {
-              return (
-                <Image
-                  key={option.id}
-                  src={option.image_url}
-                  height={150}
-                  width={150}
-                  alt="image"
-                />
-              )
-            })}
+          <button type="button"  onClick={() => handlePlayAudio()} className={styles.speakerWrap}>
             <Image
               src="/assets/images/speaker.png"
-              height="20"
-              width={50}
+              height="40" width={70} 
               alt="speaker"
-              onClick={() => handlePlayAudio()}
+            
               className={styles.playIcon}
             />
-          </div>
+          </button>
 
           <hr />
 
@@ -184,7 +166,7 @@ const LessonGameOne = ({
           {/* </Fade> */}
         </div>
       </div>
-      {/* {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null} */}
+      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
     </>
   )
 }

@@ -15,6 +15,7 @@ import { LessonQuestion } from '@/types/lessontopic'
 import wrongAnswerSound from '@/public/assets/audios/notCorrect.mp3'
 import clickSound from '@/public/assets/audios/click.mp3'
 import correctAnswerSound from '@/public/assets/audios/yay.mp3'
+import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAnswerModal'
 
 const draggableList = [
   {
@@ -47,8 +48,6 @@ const LessonGameOne = ({
   topicID,
   currentQtn,
 }: LessonGameOneProps) => {
-  // const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
-
   const [answers, setAnswers] = useState<string[] | any>([])
   const [puzzle, setPuzzle] = useState<string[]>([])
   const [isLoading, setLoading] = useState(false)
@@ -107,7 +106,7 @@ const LessonGameOne = ({
     setButtonText('Check')
     setSelected('')
   }
-  // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
+  
 
   // CHECK ANSWER FUNCTION
   const handleCheckAnswer = () => {
@@ -130,7 +129,6 @@ const LessonGameOne = ({
   }
 
   const handlePlayAudio = () => {
-    // play wrongAnswerSound audio
     const audio = new Audio(currentQtn.options[0]?.media_url)
     audio.play()
   }
@@ -148,25 +146,10 @@ const LessonGameOne = ({
 
           {/* IMAGE AND SPEAKER */}
           <div className={styles.imgAndSpeaker}>
-            {currentQtn?.options.map((option) => {
-              return (
-                <Image
-                  key={option.id}
-                  src={option.image_url}
-                  height={150}
-                  width={150}
-                  alt="image"
-                />
-              )
-            })}
-            <div className={styles.speakerWrap}>
-              <Image src="/assets/images/speaker.png" height="30" width={50} alt="speaker" />
-              <BsFillPlayFill
-                color="#28B8F8"
-                onClick={() => handlePlayAudio()}
-                className={styles.playIcon}
-              />
-            </div>
+            <button type="button"  onClick={() => handlePlayAudio()} className={styles.speakerWrap}>
+              {/* <Image src="/assets/images/speaker.png" height="30" width={50} alt="speaker" /> */}
+              <Image src="/assets/images/speaker.png" height="40" width={70} alt="speaker" />
+            </button>
           </div>
 
           {/* SHOW ANSWER BOX */}
@@ -195,25 +178,7 @@ const LessonGameOne = ({
           <hr />
 
           {/* PICK ANSWER BOX */}
-          {/* <div className={styles.pickAnswerWrap}>
-            {currentQtn?.options?.map((option) => (
-              <div
-                key={option.id}
-                
-              >
-               <div className='flex gap-5 items-center my-6 justify-center'>
-               {option.title.map((ele, index) => {
-                  return (
-                    <button onClick={() => handlePickAnswer(ele)}  key={index} className={styles.answer} >
-                      {ele}
-                    </button>
-                  )
-                })}
-               </div>
-               
-              </div>
-            ))}
-          </div> */}
+
           <div className={styles.pickAnswerWrap}>
             {puzzle?.map((option) => (
               <button
@@ -243,6 +208,7 @@ const LessonGameOne = ({
           />
         </div>
       </div>
+      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
     </>
   )
 }

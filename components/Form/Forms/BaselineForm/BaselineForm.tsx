@@ -5,29 +5,23 @@ import styles from './baselineForm.module.css'
 import { baselineData, baselineFirstMonth } from './data'
 import Button from '@/components/Button/Button'
 import { addStudentSurvey, addTeacherSurvey } from '@/services/api/survey'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
-import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import Swal from 'sweetalert2'
+import { surveyStatus } from '@/services/redux/features/surveySlice'
 
-type Inputs = {
-  first_name: string
-  last_name: string
-  language: string
-  age: number
-  gendar: string
-  country: 'Nigeria'
-  class_id: number
-  classarm_id: number
-  term: string
-  session: string
+
+interface IPayloadForm {
+  [index: string]: string | number | any
 }
-
 export const BaselineFormStudent = () => {
-  const [inputName, setInputName] = useState([])
-  const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
+  const dispatch = useDispatch()
+  const [inputName, setInputName] = useState<[] | any>([])
+  const studentID = String(useSelector(userData).currentUser?.data?.student_id!)
   const schoolID = Number(useSelector(userData).currentUser?.data?.id!)
 
-  const [payload, setPayload] = useState({
+  const [payload, setPayload] = useState<IPayloadForm>({
     student_id: studentID,
     school_id: schoolID,
     interested: '',
@@ -38,28 +32,33 @@ export const BaselineFormStudent = () => {
     prefer: [],
   })
 
-  // // HANDLE INPUT
-  // const handleChange = (e, ans, type, name) => {
-  //   if (name && type === "checkBox") {
-  //     setInputName((current) => [...current, { name: name }]);
-  //   }
-
-  //   if (type === "checkBox") {
-  //     const data = { ...payload };
-  //     data[e.target.name].push(ans);
-  //     setPayload(data);
-  //   } else {
-  //     const data = { ...payload };
-  //     data[e.target.name] = ans;
-  //     setPayload(data);
-  //   }
-  // };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    answer: string,
+    buttonType: string,
+    name?: string
+  ) => {
+    if (name && buttonType === 'checkBox') {
+      setInputName((current: any) => [...current, { name: name }])
+    }
+    if (buttonType === 'checkBox') {
+      const data = { ...payload }
+      data[e.target.name].push(answer)
+      setPayload(data)
+    } else {
+      const data = { ...payload }
+      data[e.target.name] = answer
+      setPayload(data)
+    }
+  }
 
   // HANDLE SUBMIT
-  const handleFormSubmit = async (data: any) => {
-    await addStudentSurvey({
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    console.log(payload)
+    let res = await addStudentSurvey({
       student_id: studentID,
-      school_id: `${schoolID}`,
+      school_id: String(schoolID),
       interested: payload.interested,
       opportunity: payload.opportunity,
       ability: payload.ability,
@@ -68,18 +67,29 @@ export const BaselineFormStudent = () => {
       prefer: JSON.stringify(payload.prefer),
       scale_of_1_5: 2,
     })
+    if (res) {
+      Swal.fire({
+        title: 'Success',
+        // text: "Form Submitted",
+        icon: 'success',
+        allowOutsideClick: false,
+        confirmButtonText: 'OK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(surveyStatus(true))
+        }
+      })
+    }
   }
 
-  // const checkBoxNames = inputName.map((item) => item.name);
-
-  const { register, handleSubmit, control } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
+  const checkBoxNames = inputName.map((item: { name: string }) => item.name)
 
   return (
     <>
       <div className={styles.container}>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <h2>Baseline Survey</h2>
+        <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+          <h2 className="text-2xl">Baseline Survey</h2>
+
           <p className={styles.intro}>
             The Baseline and Endline survey is designed to understand the student learning
             preferences and get information about learning Nigerian languages in class using
@@ -101,9 +111,7 @@ export const BaselineFormStudent = () => {
                             type="radio"
                             name={item.name}
                             id="radio"
-                            // onChange={(e) =>
-                            //   handleChange(e, ans.answer, item.type)
-                            // }
+                            onChange={(e) => handleChange(e, ans.answer, item.type)}
                             className={styles.input}
                             required
                           />
@@ -116,12 +124,8 @@ export const BaselineFormStudent = () => {
                             name={item.name}
                             id="check"
                             className={styles.input}
-                            // onChange={(e) =>
-                            //   handleChange(e, ans.answer, item.type, item.name)
-                            // }
-                            // required={
-                            //   checkBoxNames.includes(item.name) ? false : true
-                            // }
+                            onChange={(e) => handleChange(e, ans.answer, item.type, item.name)}
+                            required={checkBoxNames.includes(item.name) ? false : true}
                           />
                           <label htmlFor="check">{ans.answer}</label>
                         </div>
@@ -142,6 +146,9 @@ export const BaselineFormStudent = () => {
   )
 }
 
+interface IPayloadTeacherForm {
+  [index: string]: string | number | any
+}
 // TEACHER FORM
 export const BaselineFormTeacher = () => {
   // const teacherID = useSelector(
@@ -150,8 +157,8 @@ export const BaselineFormTeacher = () => {
   const teacherID = Number(useSelector(userData).currentTeacher?.data.teacher_id!)
   const schoolID = Number(useSelector(userData).currentTeacher?.data.school?.id!)
 
-  const [number, setnumber] = useState()
-  const [payload, setPayload] = useState({
+  const [number, setNumber] = useState<Number | any>()
+  const [payload, setPayload] = useState<IPayloadTeacherForm>({
     teacher_id: `${teacherID}`,
     school_id: `${schoolID}`,
     years: '',
@@ -167,33 +174,45 @@ export const BaselineFormTeacher = () => {
   })
 
   // // HANDLE INPUT
-  // const handleChange = (e, name) => {
-  //   const data = { ...payload };
-  //   data[name] = e.target.value;
-  //   setPayload(data);
-  // };
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>, name: string) => {
+    const data = { ...payload }
+    data[name] = e.target.value
+    setPayload(data)
+  }
 
   // HANDLE INPUT
-  // const handleChangeNumber = (e, name) => {
-  //   const input = e.target.value
-  //   const num = input.replace(/[^0-9]/g, "")
-  //   setnumber(num)
-  //   // const data = { ...payload };
-  //   // data[name] = number;
-  //   setPayload({...payload, hours: num});
-  // };
+  const handleChangeNumber = (e: React.ChangeEvent<HTMLTextAreaElement>, name: string) => {
+    const input = e.target.value
+    const num = Number(input.replace(/[^0-9]/g, ''))
+    setNumber(num)
+    // const data = { ...payload };
+    // data[name] = number;
+    setPayload({ ...payload, hours: num })
+  }
 
   // HANDLE SUBMIT
-  const handleFormSubmit = (data: any) => {
-    addStudentSurvey(data)
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    let res = await addStudentSurvey(payload)
+    if (res) {
+      Swal.fire({
+        title: 'Success',
+        // text: "Form Submitted",
+        icon: 'success',
+        allowOutsideClick: false,
+        confirmButtonText: 'OK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(surveyStatus(true))
+        }
+      })
+    }
   }
-  const { register, handleSubmit, control } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
 
   return (
     <>
       <div className={styles.container}>
-        <form className={styles.form2} onSubmit={handleSubmit(onSubmit)}>
+        <form className={styles.form2} onSubmit={(e) => handleSubmit(e)}>
           <h2 className={styles.title}>Baseline Survey</h2>
           <p className={styles.intro}>
             The Baseline and Endline survey is designed to understand the student learning
@@ -213,7 +232,7 @@ export const BaselineFormTeacher = () => {
                   value={number}
                   // cols=10
                   // rows="4"
-                  // onChange={(e) => handleChangeNumber(e, item?.name)}
+                  onChange={(e) => handleChangeNumber(e, item?.name)}
                   required
                 />
               ) : (
@@ -222,7 +241,7 @@ export const BaselineFormTeacher = () => {
                   id=""
                   // cols="10"
                   // rows="4"
-                  // onChange={(e) => handleChange(e, item?.name)}
+                  onChange={(e) => handleChange(e, item?.name)}
                   required
                 />
               )}
@@ -233,4 +252,7 @@ export const BaselineFormTeacher = () => {
       </div>
     </>
   )
+}
+function dispatch(arg0: { payload: any; type: 'surveyStatus/surveyStatus' }) {
+  throw new Error('Function not implemented.')
 }

@@ -114,12 +114,7 @@ const LessonGameTwo = ({
               {/* </Fade> */}
             </div>
           </div>
-          {/* {openCorrectModal ? (
-            <button className={styles.nextBtn} onClick={() => handleNext()}>
-              Next
-              <HiOutlineArrowNarrowRight size={30} />
-            </button>
-          ) : ( */}
+       
 
           <Button
             handleClick={() => handleCheckAnswer()}
@@ -137,7 +132,7 @@ const LessonGameTwo = ({
           />
         </div>
       </div>
-      {/* {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null} */}
+      {questionIndex + 1 > question?.length ? <CorrectAnswerModal /> : null}
     </>
   )
 }

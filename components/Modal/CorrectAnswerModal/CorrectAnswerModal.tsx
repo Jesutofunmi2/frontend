@@ -9,7 +9,7 @@ import { Bounce } from 'react-awesome-reveal'
 import { usePathname, useRouter } from 'next/navigation'
 
 interface CorrectAnswerModalProps {
-  closeModal: (event:boolean)=>void
+  closeModal?:  React.Dispatch<React.SetStateAction<boolean>>
 }
 const CorrectAnswerModal = ({ closeModal }: CorrectAnswerModalProps) => {
   const router = useRouter()
@@ -20,7 +20,7 @@ const CorrectAnswerModal = ({ closeModal }: CorrectAnswerModalProps) => {
 
 
   const handleClick = () => {
-    if (path === 'video-course') {
+    if (path === 'video-course' && closeModal) {
       closeModal(false)
     } else {
       router.back()
