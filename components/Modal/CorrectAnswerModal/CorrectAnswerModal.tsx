@@ -34,7 +34,7 @@ const CorrectAnswerModal = ({ closeModal }: CorrectAnswerModalProps) => {
   return ReactDOM.createPortal(
     <>
       <div className={styles.overlay}>
-        <Bounce style={{ width: '100%' }}>
+        {/* <Bounce style={{ width: '100%' }}> */}
           <div className={styles.cont}>
             {/* <div onClick={() => closeModal(false)} className={styles.closeIcon}>
               <RiCloseCircleFill size={50} color="white" />
@@ -54,7 +54,7 @@ const CorrectAnswerModal = ({ closeModal }: CorrectAnswerModalProps) => {
               </button>
             </div>
           </div>
-        </Bounce>
+        {/* </Bounce> */}
       </div>
     </>,
     document.getElementById('modal-root')!

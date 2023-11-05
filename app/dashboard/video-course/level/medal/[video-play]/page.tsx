@@ -18,9 +18,10 @@ const VideoPlay = () => {
   const [questionIndex, setQuestionIndex] = useState(0)
 
   // if (!videoLesson) return null
+ 
   if (isLoading || !courseID ||!videoLesson) return <Loader />
   const onPageloadVideoData = videoLesson[0]?.topics[0]
-
+  console.log(onPageloadVideoData)
   const handleVideoEnd = () => {
     setQuestionsPopup(true)
   }
@@ -32,12 +33,12 @@ const VideoPlay = () => {
           <div className={styles.videoWrap}>
             {questionsPopup && !matches ? (
               <VideoLessonQuestion
-                question={videoData || onPageloadVideoData}
+                question={ onPageloadVideoData.questions}
                 questionIndex={questionIndex}
                 setQuestionIndex={setQuestionIndex}
                 setQuestionsPopup={setQuestionsPopup}
               />
-            ) : null}
+           ) : null} 
             {!isLoading ? (
               <video
                 controls
