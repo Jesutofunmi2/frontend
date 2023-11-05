@@ -108,7 +108,7 @@ const LessonGameOne = ({
 
           {/* SPEAKER */}
           <button type="button" onClick={() => handlePlayAudio()} className={styles.speakerWrap}>
-            <Image src={'' || currentQtn?.image_url} height={250} width={250} alt="image" />
+           {currentQtn?.image_url ? <Image src={currentQtn?.image_url} height={250} width={250} alt="image" />:null}
             <Image
               src="/assets/images/speaker.png"
               height="40"
