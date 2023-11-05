@@ -62,6 +62,7 @@ const VideoPlay = () => {
               question={videoData || onPageloadVideoData}
               questionIndex={questionIndex}
               setQuestionIndex={setQuestionIndex}
+              setQuestionsPopup={ setQuestionsPopup}
             />
           ) : null}
 

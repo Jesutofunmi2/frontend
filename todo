@@ -3,17 +3,17 @@
 // return exact values for edit example(username / first_name, )
 // Fix build(after typescript fixes)
 // fix teacher issues in jsx(page not displaying but there is a response)
-fixes- reset form
-general testing in school board
-ensure that the page mutate before closing modal
+// fixes- reset form
+// general testing in school board
+// ensure that the page mutate before closing modal
 // pending endpoints
 // edit/add school-teacher
 // language (add a language)
-add trial popup
-load images with lazy loading
-fix the login token
+// add trial popup
+// load images with lazy loading
+// fix the login token
 
 
 
 
-- trial version
+// - trial version

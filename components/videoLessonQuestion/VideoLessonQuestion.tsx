@@ -16,10 +16,10 @@ interface VideoLessonQuestionProps{
   question:LessonQuestion[], 
     questionIndex:number, 
   setQuestionIndex:React.Dispatch<React.SetStateAction<number>>,
-  setQuestionsPopup:any
+  setQuestionsPopup:React.Dispatch<React.SetStateAction<boolean>>
 }
 const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQuestionsPopup }:VideoLessonQuestionProps) => {
-  const [selected, setSelected] = useState<Number>();
+  const [selected, setSelected] = useState("");
   const [closeModal, setCloseModal] = useState(true);
 
   // const { trigger: sendAnswer, data, isMutating } = useCheckAnswer();
@@ -34,10 +34,11 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
 
   // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
+    const currentQuestion = question[questionIndex];
     if (isLoading) {
       const fetchAnswer = async () => {
         let res = await checkAnswer({
-          question_id: currentQtn?.id,
+          question_id: currentQuestion?.id,
           optionIds: [`${selected}`],
         })
         if (res.is_correct) {
@@ -46,7 +47,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
           audio.play()
           const timer = setTimeout(() => {
             setButtonText('Next')
-            nextQuestion()
+            // nextQuestion()
           }, 1700)
 
           return () => clearTimeout(timer)
@@ -98,7 +99,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
     //   // Clean up the timer when the component unmounts or when the dependency changes
     //   return () => clearTimeout(timer);
     // }
-  }, [isLoading, questionIndex, currentQtn])
+  }, [isLoading, questionIndex, currentQuestion])
 
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   useEffect(() => {
@@ -106,7 +107,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
   }, [currentQuestion]);
 
   // SELECT ANSWER FUNCTION
-  const selectAnswer = (id:number) => {
+  const selectAnswer = (id:string) => {
     setSelected(id);
     const audio = new Audio(clickSound);
     audio.play();
@@ -117,7 +118,7 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
     if (buttonColor === "yellowgreen") {
       setQuestionIndex((prev) => prev + 1);
       setButtonColor("");
-      setSelected(0);
+      setSelected("");
     } else {
      checkAnswer({
         question_id: currentQuestion?.id,
@@ -144,12 +145,12 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
               {currentQuestion?.options?.map((item:any) => (
                 <div
                   className={
-                    selected === Number(item.id)
+                    selected ===(item.id)
                       ? styles.answerBoxActive
                       : styles.answerBox
                   }
                   key={item.id}
-                  onClick={() => selectAnswer(Number(item.id))}
+                  onClick={() => selectAnswer(item.id)}
                 >
                   <span className="languageText">{item.title}</span>
                 </div>
