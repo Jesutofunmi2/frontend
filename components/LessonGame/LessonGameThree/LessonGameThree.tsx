@@ -74,7 +74,6 @@ const LessonGameOne = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, questionIndex, currentQtn])
 
-  console.log(currentQtn)
 
   // if (!currentQtn || !currentQtn.options.length) return <Loader />
 
