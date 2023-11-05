@@ -21,7 +21,7 @@ import CorrectAnswerModal from '@/components/Modal/CorrectAnswerModal/CorrectAns
 const LessonGame = () => {
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
-  const [questionIndex, setQuestionIndex] = useState(18)
+  const [questionIndex, setQuestionIndex] = useState(0)
   const [currentQtn, setCurrentQtn] = useState<LessonQuestion | any>()
   const [favourite, setFavourite] = useState<Favourite[]>([])
   const languageID = Number(searchParams.get('lang'))
