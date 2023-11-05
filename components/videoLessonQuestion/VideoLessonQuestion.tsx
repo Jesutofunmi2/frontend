@@ -5,9 +5,9 @@ import styles from "./videoLessonQuestion.module.css";
 import { Fade } from "react-awesome-reveal";
 import Button from "../Button/Button";
 import { checkAnswer } from "@/services/api/lessonGame";
-// import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
-// import clickSound from "@/public/assets/audios/click.mp3";
-// import correctAnswerSound from "@/public/assets/audios/yay.mp3";
+import wrongAnswerSound from "@/public/assets/audios/notCorrect.mp3";
+import clickSound from "@/public/assets/audios/click.mp3";
+import correctAnswerSound from "@/public/assets/audios/yay.mp3";
 import CorrectAnswerModal from "../Modal/CorrectAnswerModal/CorrectAnswerModal";
 import { LessonQuestion, QuestionOptions } from "@/types/lessontopic";
 
@@ -26,48 +26,79 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
   const [answers, setAnswers] = useState([]);
   const [puzzle, setPuzzle] = useState<QuestionOptions[]>([]);
   const [buttonColor, setButtonColor] = useState("");
-
+  const [buttonText, setButtonText] = useState('Check')
   const currentQuestion = question[questionIndex];
+  const [isLoading, setLoading] = useState(false)
 
   // console.log(question);
 
   // // CORRECT AND WRONG ANSWER CONDITION
-  // useEffect(() => {
-  //   // **** IF data?.data?.is_correct IS FALSE **** //
-  //   if (data?.data?.is_correct === false) {
-  //     // Update the button color to red
-  //     setButtonColor("red");
+  useEffect(() => {
+    if (isLoading) {
+      const fetchAnswer = async () => {
+        let res = await checkAnswer({
+          question_id: currentQtn?.id,
+          optionIds: [`${selected}`],
+        })
+        if (res.is_correct) {
+          setButtonText('Correct')
+          const audio = new Audio(correctAnswerSound)
+          audio.play()
+          const timer = setTimeout(() => {
+            setButtonText('Next')
+            nextQuestion()
+          }, 1700)
 
-  //     // play wrongAnswerSound audio
-  //     const audio = new Audio("@/public/assets/audios/notCorrect.mp3");
-  //     audio.play();
+          return () => clearTimeout(timer)
+        } else {
+          setButtonText('Wrong')
+          const audio = new Audio(wrongAnswerSound)
+          audio.play()
+          setSelected('')
+          const timer = setTimeout(() => {
+            setButtonText('Check')
+          }, 1700)
+          return () => clearTimeout(timer)
+        }
+      }
+      fetchAnswer()
+    }
+    setLoading(false)
+    // // **** IF data?.data?.is_correct IS FALSE **** //
+    // if (data?.data?.is_correct === false) {
+    //   // Update the button color to red
+    //   setButtonColor("red");
 
-  //     // Create a timer to reset the button color after 1700 milliseconds
-  //     const timer = setTimeout(() => {
-  //       setButtonColor("");
-  //     }, 1000);
+    //   // play wrongAnswerSound audio
+    //   const audio = new Audio("@/public/assets/audios/notCorrect.mp3");
+    //   audio.play();
 
-  //     // Clean up the timer when the component unmounts or when the dependency changes
-  //     return () => clearTimeout(timer);
+    //   // Create a timer to reset the button color after 1700 milliseconds
+    //   const timer = setTimeout(() => {
+    //     setButtonColor("");
+    //   }, 1000);
 
-  //     // **** IF data?.data?.is_correct IS TRUE **** //
-  //   } else if (data?.data?.is_correct === true) {
-  //     // Update the button color to green
-  //     setButtonColor("green");
+    //   // Clean up the timer when the component unmounts or when the dependency changes
+    //   return () => clearTimeout(timer);
 
-  //     // play correctAnswerSound audio
-  //     const audio = new Audio("@/public/assets/audios/yay.mp3");
-  //     audio.play();
+    //   // **** IF data?.data?.is_correct IS TRUE **** //
+    // } else if (data?.data?.is_correct === true) {
+    //   // Update the button color to green
+    //   setButtonColor("green");
 
-  //     // Create a timer to reset the button color after 1700 milliseconds
-  //     const timer = setTimeout(() => {
-  //       setButtonColor("yellowgreen");
-  //     }, 1700);
+    //   // play correctAnswerSound audio
+    //   const audio = new Audio("@/public/assets/audios/yay.mp3");
+    //   audio.play();
 
-  //     // Clean up the timer when the component unmounts or when the dependency changes
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [data]);
+    //   // Create a timer to reset the button color after 1700 milliseconds
+    //   const timer = setTimeout(() => {
+    //     setButtonColor("yellowgreen");
+    //   }, 1700);
+
+    //   // Clean up the timer when the component unmounts or when the dependency changes
+    //   return () => clearTimeout(timer);
+    // }
+  }, [isLoading, questionIndex, currentQtn])
 
   // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
   useEffect(() => {
@@ -77,8 +108,8 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
   // SELECT ANSWER FUNCTION
   const selectAnswer = (id:number) => {
     setSelected(id);
-    // const audio = new Audio(clickSound);
-    // audio.play();
+    const audio = new Audio(clickSound);
+    audio.play();
   };
 
   // CHECK ANSWER FUNCTION
@@ -127,18 +158,17 @@ const VideoLessonQuestion = ({ question, questionIndex, setQuestionIndex, setQue
             <div className={styles.btnWrap}>
               <Button
                 handleClick={handleCheckAnswer}
-                backgroundColor={`${buttonColor}`}
-                text={
-                  buttonColor === "red"
-                    ? "Wrong"
-                    : buttonColor === "green"
-                    ? "Correct"
-                    : buttonColor === "yellowgreen"
-                    ? "Next"
-                    : "Check"
+                backgroundColor={
+                  buttonText === 'Wrong'
+                    ? 'red'
+                    : buttonText === 'Correct' || buttonText === 'Next'
+                    ? 'green'
+                    : buttonText === 'Check'
+                    ? '#FFC400'
+                    : ''
                 }
-               
-                // disabled={!selected ? true : false || isMutating || buttonColor === "green" || buttonColor === "red"}
+                text={buttonText}
+                disabled={!selected || buttonText === 'Correct' || buttonText === 'Wrong'}
               />
             </div>
           </Fade>

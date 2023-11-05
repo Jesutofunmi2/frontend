@@ -16,9 +16,9 @@ const VideoPlay = () => {
   const { data: videoLesson, isLoading } = useGetVideoPlay(courseID)
   const [videoData, setVideoData] = useState<any>({})
   const [questionIndex, setQuestionIndex] = useState(0)
-  
-  if (!videoLesson) return null
-  if (isLoading || !courseID) return <Loader />
+
+  // if (!videoLesson) return null
+  if (isLoading || !courseID ||!videoLesson) return <Loader />
   const onPageloadVideoData = videoLesson[0]?.topics[0]
 
   const handleVideoEnd = () => {
@@ -26,7 +26,6 @@ const VideoPlay = () => {
   }
   return (
     <>
-    
       <div className={styles.container}>
         <div className={styles.videoAndProgressWrap}>
           {/* <ProgressBar percentage={50} width="600px" /> */}
@@ -58,13 +57,13 @@ const VideoPlay = () => {
           </div>
 
           {/* QUESTIONS MOBILE VIEW*/}
-          {/* {questionsPopup && matches ? (
+          {questionsPopup && matches ? (
             <VideoLessonQuestion
               question={videoData || onPageloadVideoData}
               questionIndex={questionIndex}
               setQuestionIndex={setQuestionIndex}
             />
-          ) : null} */}
+          ) : null}
 
           {/* OVERVIEW */}
           {!isLoading ? (
@@ -73,9 +72,9 @@ const VideoPlay = () => {
                 <span>Overview</span>
               </div>
 
-              {/* <p className="languageText">
+              <p className="languageText">
                 {videoData?.objective || onPageloadVideoData?.objective}
-              </p> */}
+              </p>
             </div>
           ) : null}
         </div>
