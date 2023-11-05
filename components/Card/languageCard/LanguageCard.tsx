@@ -14,7 +14,7 @@ const LanguageCard = ({ card}: LanguageCardProps) => {
   return (
     <>
       <div  className={styles.container}>
-        {/* {card?.status <= 0 ? <div className={styles.overlay}></div> : null} */}
+        {card?.status <= 0 ? <div className={styles.overlay}></div> : null}
         <Link
           href={{
             pathname: `/dashboard/languages/lessons`,

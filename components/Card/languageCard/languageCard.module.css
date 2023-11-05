@@ -10,7 +10,7 @@
     bottom: 0;
     top: 0;
     background-color:rgba(245, 245, 245, 0.714);
-    /* filter: blur(20px); */
+
     border-radius: 10px;
     cursor: not-allowed;
 }
