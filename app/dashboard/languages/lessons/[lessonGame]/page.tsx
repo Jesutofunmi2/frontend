@@ -21,7 +21,7 @@ const LessonGame = () => {
   const studentID = Number(useSelector(userData).currentUser?.data?.student_id!)
   const searchParams = useSearchParams()
   const [questionIndex, setQuestionIndex] = useState(0)
-  const [currentQtn, setCurrentQtn] = useState<LessonQuestion|any>()
+  const [currentQtn, setCurrentQtn] = useState<LessonQuestion | any>()
   const [favourite, setFavourite] = useState<Favourite[]>([])
   const languageID = Number(searchParams.get('lang'))
   const lessonID = String(searchParams.get('lesson'))
@@ -31,8 +31,8 @@ const LessonGame = () => {
   }, [])
 
   const { data: lessonQuestions, isLoading, error } = useGetLessonQuestions(languageID, lessonID)
-  if (!lessonQuestions) return null
-  if (isLoading) return <Loader />
+  // if (!lessonQuestions||!lessonQuestions) return null
+  if (isLoading || !lessonQuestions) return <Loader />
   if (error) return <p>error page</p>
 
   const currentPercentage = Math.floor((100 / lessonQuestions?.length) * questionIndex)
@@ -60,8 +60,10 @@ const LessonGame = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
+      {!lessonQuestions.length ? (
+        <div className="flex items-center justify-center text-2xl h-full font-bold">
+          No Lesson Available !
+        </div>
       ) : (
         <div className={styles.gameWrap}>
           <BackNavigation />
@@ -84,7 +86,6 @@ const LessonGame = () => {
               setCurrentQtn={setCurrentQtn}
               topicID={lessonID}
               currentQtn={currentQtn}
-
             />
           ) : type === 'puzzle' || type === 'scramble' ? (
             <LessonGameOne

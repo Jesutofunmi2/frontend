@@ -10,7 +10,9 @@ interface LanguageCardProps {
   card: ILanguage
 
 }
+
 const LanguageCard = ({ card}: LanguageCardProps) => {
+  
   return (
     <>
       <div  className={styles.container}>

@@ -26,6 +26,7 @@ const VideoPlay = () => {
   }
   return (
     <>
+    
       <div className={styles.container}>
         <div className={styles.videoAndProgressWrap}>
           {/* <ProgressBar percentage={50} width="600px" /> */}
