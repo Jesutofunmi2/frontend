@@ -21,7 +21,7 @@ const TeacherLayoutProvider = ({ children }) => {
           <div className="main">{children}</div>
         </div>
       {/* </AuthProvider> */}
-      {surveyStatus === false && surveyFormStatus === false ?<BaselineFormTeacher/>: null}
+      {/* {surveyStatus === false && surveyFormStatus === false ?<BaselineFormTeacher/>: null} */}
     </>
   );
 };

@@ -5,19 +5,20 @@ import styles from './baselineForm.module.css'
 import { baselineData, baselineFirstMonth } from './data'
 import Button from '@/components/Button/Button'
 import { addStudentSurvey, addTeacherSurvey } from '@/services/api/survey'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 import Swal from 'sweetalert2'
-import { surveyStatus } from '@/services/redux/features/surveySlice'
 
 interface IPayloadForm {
   [index: string]: string | number | any
 }
-export const BaselineFormStudent = () => {
-  const dispatch = useDispatch()
+interface BaselineFormProps {
+  setSurvey: React.Dispatch<React.SetStateAction<boolean>>
+}
+export const BaselineFormStudent = ({ setSurvey }: BaselineFormProps) => {
   const [inputName, setInputName] = useState<[] | any>([])
   const studentID = String(useSelector(userData).currentUser?.data?.student_id!)
-  const schoolID = Number(useSelector(userData).currentUser?.data?.id!)
+  const schoolID = useSelector(userData).currentUser?.data?.school.id!
 
   const [payload, setPayload] = useState<IPayloadForm>({
     student_id: studentID,
@@ -51,9 +52,8 @@ export const BaselineFormStudent = () => {
   }
 
   // HANDLE SUBMIT
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(payload)
     let res = await addStudentSurvey({
       student_id: studentID,
       school_id: String(schoolID),
@@ -65,16 +65,15 @@ export const BaselineFormStudent = () => {
       prefer: JSON.stringify(payload.prefer),
       scale_of_1_5: 2,
     })
-    if (res) {
+    if (res.message) {
       Swal.fire({
         title: 'Success',
-        // text: "Form Submitted",
         icon: 'success',
         allowOutsideClick: false,
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(surveyStatus(true))
+          setSurvey(true)
         }
       })
     }
@@ -147,19 +146,13 @@ export const BaselineFormStudent = () => {
 interface IPayloadTeacherForm {
   [index: string]: string | number | any
 }
-// TEACHER FORM
-export const BaselineFormTeacher = () => {
-  const dispatch = useDispatch()
-  // const teacherID = useSelector(
-  //   (state) => state?.user?.currentTeacher?.data.teacher_id
-  // );
-  const teacherID = Number(useSelector(userData).currentTeacher?.data.teacher_id!)
-  const schoolID = Number(useSelector(userData).currentTeacher?.data.school?.id!)
-
+export const BaselineFormTeacher = ({ setSurvey }: BaselineFormProps) => {
+  const teacherID = useSelector(userData).currentTeacher?.data.teacher_id!
+  const schoolID = useSelector(userData).currentTeacher?.data.school?.id!
   const [number, setNumber] = useState<Number | any>()
   const [payload, setPayload] = useState<IPayloadTeacherForm>({
-    teacher_id: `${teacherID}`,
-    school_id: `${schoolID}`,
+    teacher_id: teacherID,
+    school_id: schoolID,
     years: '',
     hours: null,
     challeges: '',
@@ -184,8 +177,6 @@ export const BaselineFormTeacher = () => {
     const input = e.target.value
     const num = Number(input.replace(/[^0-9]/g, ''))
     setNumber(num)
-    // const data = { ...payload };
-    // data[name] = number;
     setPayload({ ...payload, hours: num })
   }
 
@@ -193,7 +184,7 @@ export const BaselineFormTeacher = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     let res = await addTeacherSurvey(payload)
-    if (res) {
+    if (res.message) {
       Swal.fire({
         title: 'Success',
         icon: 'success',
@@ -201,7 +192,7 @@ export const BaselineFormTeacher = () => {
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(surveyStatus(true))
+          setSurvey(true)
         }
       })
     }
@@ -228,28 +219,20 @@ export const BaselineFormTeacher = () => {
                     <textarea
                       name=""
                       id=""
-                      // value={number}
-                      // cols={60}
-                      // rows={4}
                       onChange={(e) => handleChangeNumber(e, item?.name)}
                       required
-                    // placeholder='No of Experience'
                     />
                   ) : (
-                    <textarea
-                      name=""
-                      id=""
-                      // cols={60}
-                      // rows={4}
-                      onChange={(e) => handleChange(e, item?.name)}
-                      required
-                    />
+                    <textarea name="" onChange={(e) => handleChange(e, item?.name)} required />
                   )}
                 </div>
               </div>
             </div>
           ))}
-          <div className='ny-6 text-center'>          <Button text="Submit" type="submit" /></div>
+          <div className="ny-6 text-center">
+            {' '}
+            <Button text="Submit" type="submit" />
+          </div>
         </form>
       </div>
     </>

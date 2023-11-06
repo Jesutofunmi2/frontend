@@ -88,17 +88,15 @@ const LoginForm = () => {
         router.push('/dashboard/languages')
         setLoading(false)
       }
+      toast.dismiss()
     } catch (err: any) {
-
       setLoading(false)
       if (err) {
         toast.error(err.message, {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.TOP_RIGHT,
         })
       }
-    } finally {
-      toast.dismiss()
-    }
+    } 
   }
   return (
     <>
