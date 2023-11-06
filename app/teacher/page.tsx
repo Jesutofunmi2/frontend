@@ -1,8 +1,7 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './page.module.css'
-
 import { TextInputValue } from '@/components/Form/FormFields/TextInput/TextInput'
 import Image from 'next/image'
 import userIcon from '/public/assets/images/userIcon.png'
