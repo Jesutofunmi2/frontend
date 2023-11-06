@@ -11,40 +11,22 @@ import { userData } from '@/services/redux/features/userSlice'
 import { ILanguage } from '@/types/languages.'
 import { BaselineFormStudent } from '@/components/Form/Forms/BaselineForm/BaselineForm'
 import { toast } from 'react-toastify'
+import { surveyStatus, userSurvey } from '@/services/redux/features/surveySlice'
 
 const Languages = () => {
   const { data: languages, isLoading, error } = useGetLanguages()
-  const user = useSelector(userData).currentUser?.data!
-  const [survey, setSurvey] = useState<boolean>(user.survey_status)
-  // const surveyStatus = user.survey_status;
-  // const countDown = Number(useSelector(userData).currentUser?.data.count_down!)
+  const currentUserSurvey = useSelector(userSurvey)
 
-  // useEffect(() => {
-  //   if (!user.survey_status) {
-  //     setSurvey(false)
-  //   } else {
-  //     setSurvey(true)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [survey, user.survey_status])
-  console.log(user)
+ 
+
   if (!languages) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  // if (!user.survey_status) {
-  //   return <BaselineFormStudent />
-  // }
-  // if (user.count_down){
-  //   toast.error(`${user.count_down}`, {
-  //     position: toast.POSITION.TOP_RIGHT,
-  //     autoClose: false,
-  //     theme: 'colored',
-  //   })
-  // }
+ 
   return (
     <>
-      {survey ? (
+      {currentUserSurvey  ? (
         <div>
           <div className={styles.textWrap}>
             <h2>Languages</h2>
@@ -62,7 +44,7 @@ const Languages = () => {
           </div>
         </div>
       ) : (
-        <BaselineFormStudent setSurvey={setSurvey} />
+        <BaselineFormStudent />
       )}
     </>
   )

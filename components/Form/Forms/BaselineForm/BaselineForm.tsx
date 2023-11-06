@@ -5,17 +5,17 @@ import styles from './baselineForm.module.css'
 import { baselineData, baselineFirstMonth } from './data'
 import Button from '@/components/Button/Button'
 import { addStudentSurvey, addTeacherSurvey } from '@/services/api/survey'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 import Swal from 'sweetalert2'
+import { surveyStatus } from '@/services/redux/features/surveySlice'
 
 interface IPayloadForm {
   [index: string]: string | number | any
 }
-interface BaselineFormProps {
-  setSurvey: React.Dispatch<React.SetStateAction<boolean>>
-}
-export const BaselineFormStudent = ({ setSurvey }: BaselineFormProps) => {
+
+export const BaselineFormStudent = () => {
+  const dispatch = useDispatch()
   const [inputName, setInputName] = useState<[] | any>([])
   const studentID = String(useSelector(userData).currentUser?.data?.student_id!)
   const schoolID = useSelector(userData).currentUser?.data?.school.id!
@@ -65,6 +65,7 @@ export const BaselineFormStudent = ({ setSurvey }: BaselineFormProps) => {
       prefer: JSON.stringify(payload.prefer),
       scale_of_1_5: 2,
     })
+
     if (res.message) {
       Swal.fire({
         title: 'Success',
@@ -73,7 +74,7 @@ export const BaselineFormStudent = ({ setSurvey }: BaselineFormProps) => {
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          setSurvey(true)
+          dispatch(surveyStatus(true))
         }
       })
     }
@@ -146,7 +147,8 @@ export const BaselineFormStudent = ({ setSurvey }: BaselineFormProps) => {
 interface IPayloadTeacherForm {
   [index: string]: string | number | any
 }
-export const BaselineFormTeacher = ({ setSurvey }: BaselineFormProps) => {
+export const BaselineFormTeacher = () => {
+  const dispatch = useDispatch()
   const teacherID = useSelector(userData).currentTeacher?.data.teacher_id!
   const schoolID = useSelector(userData).currentTeacher?.data.school?.id!
   const [number, setNumber] = useState<Number | any>()
@@ -192,7 +194,7 @@ export const BaselineFormTeacher = ({ setSurvey }: BaselineFormProps) => {
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          setSurvey(true)
+          dispatch(surveyStatus(true))
         }
       })
     }

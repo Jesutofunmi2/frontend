@@ -30,9 +30,6 @@ const VideoLessonQuestion = ({
   const currentQuestion = question[questionIndex]
   const [isLoading, setLoading] = useState(false)
 
-  console.log(question)
-
-  // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
     if (isLoading) {
       const fetchAnswer = async () => {
@@ -65,7 +62,6 @@ const VideoLessonQuestion = ({
     setLoading(false)
   }, [currentQuestion?.id, isLoading, selected])
 
-  // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
 
   // SELECT ANSWER FUNCTION
   const selectAnswer = (id: string) => {

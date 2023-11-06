@@ -11,6 +11,7 @@ import { setToken } from '@/services/api/token'
 import { useDispatch } from 'react-redux'
 import { schoolData, teacherData ,studentData} from '../../../../services/redux/features/userSlice'
 import { Loader } from '@/components/Loader/Loader'
+import { surveyStatus } from '@/services/redux/features/surveySlice'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
@@ -62,6 +63,7 @@ const LoginForm = () => {
         const { token } = response.token
         setToken(token)
         dispatch(schoolData(response))
+    
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
@@ -72,6 +74,7 @@ const LoginForm = () => {
         const { token } = response.token
         setToken(token)
         dispatch(teacherData(response))
+        dispatch(surveyStatus(response.data.survey_status))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
@@ -81,7 +84,9 @@ const LoginForm = () => {
         let response = await studentLogin(studentPayloadData)
         const { token } = response.token
         setToken(token)
+     
         dispatch(studentData(response))
+        dispatch(surveyStatus(response.data.survey_status))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })

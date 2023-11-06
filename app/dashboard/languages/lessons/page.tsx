@@ -23,7 +23,6 @@ const Lessons = () => {
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  // console.log(card)
   return (
     <>
       <div className={styles.lessons}>
