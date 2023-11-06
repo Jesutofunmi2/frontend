@@ -8,15 +8,22 @@ import { ToastContainer, toast } from 'react-toastify'
 import { BiErrorCircle } from 'react-icons/bi'
 interface SelectImageProps {
   register: any
-  clearErrors:()=>void
+  clearErrors: () => void
   name?: string
-  errors:any
-  preview:string
-  setPreview:React.Dispatch<any>
+  errors: any
+  preview: string
+  setPreview: React.Dispatch<any>
   setFile: React.Dispatch<React.SetStateAction<File | null | any>>
 }
-const SelectImage = ({ name, clearErrors, errors, setFile, setPreview,preview, register }: SelectImageProps) => {
- 
+const SelectImage = ({
+  name,
+  clearErrors,
+  errors,
+  setFile,
+  setPreview,
+  preview,
+  register,
+}: SelectImageProps) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearErrors()
     if (e.target.files !== null) {
@@ -35,7 +42,6 @@ const SelectImage = ({ name, clearErrors, errors, setFile, setPreview,preview, r
         }
         reader.readAsDataURL(selectedFile)
         setFile(selectedFile)
-       
       }
     }
   }
@@ -44,7 +50,7 @@ const SelectImage = ({ name, clearErrors, errors, setFile, setPreview,preview, r
     <>
       <div>
         <label htmlFor="imgInput">
-          {preview? (
+          {preview ? (
             <Image src={preview} width="100" height="100" alt="logo" className={styles.userPhoto} />
           ) : (
             <Image
@@ -64,12 +70,13 @@ const SelectImage = ({ name, clearErrors, errors, setFile, setPreview,preview, r
           accept="image/*"
           style={{ display: 'none' }}
           onChange={(e) => handleImageChange(e)}
-         
         />
       </div>
       {errors?.image_url && errors?.image_url.type === 'required' ? (
-           <div className='text-error flex items-center gap-2 absolute bottom-0 right-64'><BiErrorCircle/> <p className=" text-error">Upload image!</p></div>
-          ) :null}
+        <div className="text-error flex items-center gap-2 absolute bottom-0 right-44">
+          <BiErrorCircle /> <p className=" text-error">Upload image!</p>
+        </div>
+      ) : null}
       <ToastContainer />
     </>
   )

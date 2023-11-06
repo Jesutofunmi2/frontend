@@ -7,10 +7,8 @@ import Button from '@/components/Button/Button'
 import { addStudentSurvey, addTeacherSurvey } from '@/services/api/survey'
 import { useDispatch, useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
-import { useForm, SubmitHandler } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import { surveyStatus } from '@/services/redux/features/surveySlice'
-
 
 interface IPayloadForm {
   [index: string]: string | number | any
@@ -151,6 +149,7 @@ interface IPayloadTeacherForm {
 }
 // TEACHER FORM
 export const BaselineFormTeacher = () => {
+  const dispatch = useDispatch()
   // const teacherID = useSelector(
   //   (state) => state?.user?.currentTeacher?.data.teacher_id
   // );
@@ -193,11 +192,10 @@ export const BaselineFormTeacher = () => {
   // HANDLE SUBMIT
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    let res = await addStudentSurvey(payload)
+    let res = await addTeacherSurvey(payload)
     if (res) {
       Swal.fire({
         title: 'Success',
-        // text: "Form Submitted",
         icon: 'success',
         allowOutsideClick: false,
         confirmButtonText: 'OK',
@@ -213,7 +211,7 @@ export const BaselineFormTeacher = () => {
     <>
       <div className={styles.container}>
         <form className={styles.form2} onSubmit={(e) => handleSubmit(e)}>
-          <h2 className={styles.title}>Baseline Survey</h2>
+          <h2 className="text-2xl">Baseline Survey</h2>
           <p className={styles.intro}>
             The Baseline and Endline survey is designed to understand the student learning
             preferences and get information about learning Nigerian languages in class using
@@ -223,36 +221,37 @@ export const BaselineFormTeacher = () => {
             <div className={styles.qtnWrap} key={index}>
               <div className={styles.qtn2}>
                 <h3>{index + 1}.</h3>
-                <p>{item.question}</p>
+                <div>
+                  {' '}
+                  <p>{item.question}</p>
+                  {item.name === 'hours' ? (
+                    <textarea
+                      name=""
+                      id=""
+                      // value={number}
+                      // cols={60}
+                      // rows={4}
+                      onChange={(e) => handleChangeNumber(e, item?.name)}
+                      required
+                    // placeholder='No of Experience'
+                    />
+                  ) : (
+                    <textarea
+                      name=""
+                      id=""
+                      // cols={60}
+                      // rows={4}
+                      onChange={(e) => handleChange(e, item?.name)}
+                      required
+                    />
+                  )}
+                </div>
               </div>
-              {item.name === 'hours' ? (
-                <textarea
-                  name=""
-                  id=""
-                  value={number}
-                  // cols=10
-                  // rows="4"
-                  onChange={(e) => handleChangeNumber(e, item?.name)}
-                  required
-                />
-              ) : (
-                <textarea
-                  name=""
-                  id=""
-                  // cols="10"
-                  // rows="4"
-                  onChange={(e) => handleChange(e, item?.name)}
-                  required
-                />
-              )}
             </div>
           ))}
-          <Button text="Submit" />
+          <div className='ny-6 text-center'>          <Button text="Submit" type="submit" /></div>
         </form>
       </div>
     </>
   )
-}
-function dispatch(arg0: { payload: any; type: 'surveyStatus/surveyStatus' }) {
-  throw new Error('Function not implemented.')
 }
