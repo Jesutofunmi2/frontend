@@ -1,9 +1,7 @@
 import useSWR from "swr";
 import makeApiCall from ".";
 
-
   export const useGetGradebook = () => {
-    //NEW WAY TO FETCH DATA
     const fetcher = async () => {
       const res = await makeApiCall(`/api/v1/gradebook`,"get");
       return res?.data;

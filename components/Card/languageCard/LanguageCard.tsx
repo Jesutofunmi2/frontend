@@ -4,7 +4,7 @@ import React from 'react'
 import styles from './languageCard.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ILanguage } from '@/types/languages.'
+import { ILanguage } from '@/types/languages'
 
 interface LanguageCardProps {
   card: ILanguage

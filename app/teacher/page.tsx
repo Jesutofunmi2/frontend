@@ -7,20 +7,26 @@ import Image from 'next/image'
 import userIcon from '/public/assets/images/userIcon.png'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
-import {BaselineFormTeacher } from '@/components/Form/Forms/BaselineForm/BaselineForm'
-import { userSurvey } from '@/services/redux/features/surveySlice'
+import { toast } from 'react-toastify'
 
 const TeacherProfile = () => {
   const teacherData = useSelector(userData).currentTeacher?.data!
-  const currentUserSurvey = useSelector(userSurvey)
-
-    return (
+  const countDown = useSelector(userData).currentUser?.data.count_down
+  if (countDown) {
+    toast.warning(<p className="text-lg">{countDown}</p>, {
+      position: toast.POSITION.TOP_RIGHT,
+      toastId: 'countdown_teacher',
+      theme: 'colored',
+      autoClose: false,
+    })
+  }
+  return (
     <>
-     { currentUserSurvey? (<div className={styles.container}>
-        <h3 className='bg-white p-4 rounded-xl font-bold'>Profile</h3>
+      <div className={styles.container}>
+        <h3 className="bg-white p-4 rounded-xl font-bold">Profile</h3>
         <div>
           <div className={styles.imageWrap}>
-          <Image
+            <Image
               src={userIcon}
               width="100"
               height="100"
@@ -34,13 +40,9 @@ const TeacherProfile = () => {
             <TextInputValue name="email" label="Email" defaultValue={teacherData?.email} />
           </div>
           <hr />
-          <div className={styles.btnWrap}>
-            {/* <Button text="Edit" maxWidth="200px" width="100%"/> */}
-          </div>
+          <div className={styles.btnWrap}></div>
         </div>
-      </div>) : (
-        <BaselineFormTeacher/>
-      )}
+      </div>
     </>
   )
 }

@@ -9,7 +9,6 @@ export const addTeacher = async (payload: IPayloadTeacher) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
-
   try {
     const res = await makeApiCall('api/v1/addTeacher', 'post', payload)
     toast.dismiss()
@@ -44,7 +43,6 @@ export const editTeacher = async (payload: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-
     return err
   }
 }
@@ -76,7 +74,6 @@ export const deleteTeacher = async (teacher_id: string) => {
     return res
   } catch (err) {
     toast.dismiss()
-
     return err
   }
 }

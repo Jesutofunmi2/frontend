@@ -1,9 +1,8 @@
 import './globals.css'
 import { Josefin_Sans } from 'next/font/google'
 import localFont from 'next/font/local'
-import { ReduxProvider } from '@/Providers/reduxProvider'
-import { ToastProvider } from "@/Providers/ToastProvider";
-
+import { ToastProvider } from '@/Providers/ToastProvider'
+import { ReduxProvider } from '@/Providers/ReduxProvider'
 
 
 const font = localFont({ src: '../public/assets/fonts/Octarine-Light.ttf' })

@@ -1,4 +1,4 @@
-import { ILanguage } from './languages.'
+import { ILanguage } from './languages'
 
 export interface LessonTopic {
   data: Lesson[]

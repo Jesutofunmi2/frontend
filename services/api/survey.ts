@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify'
 import makeApiCall from '.'
-import Swal from 'sweetalert2'
 
 //SUBMIT STUDENT SURVEY
 export const addStudentSurvey = async (payload: any) => {
@@ -34,7 +33,6 @@ export const addTeacherSurvey = async (payload: any) => {
     toast.error('Request Failed!', {
       position: toast.POSITION.TOP_RIGHT,
     })
-
     return err
   }
 }

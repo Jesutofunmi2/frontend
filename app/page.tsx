@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./page.module.css"
 import Hero from "@/components/Hero/Hero";
 import CloudMenu from "@/components/clouds/cloudMenus/CloudMenu";
 import Mission from "@/components/mission/Mission";
