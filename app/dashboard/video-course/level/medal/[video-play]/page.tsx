@@ -24,7 +24,8 @@ const VideoPlay = () => {
       setVideoLessonData(videoLesson)
       setVideoData(videoLesson[0]?.topics[0])
     }
-  }, [videoLesson])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   if (isLoading || !courseID || !videoLesson) {
     return <Loader />
   }
