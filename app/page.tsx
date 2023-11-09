@@ -1,17 +1,8 @@
 import React from 'react'
-import styles from './page.module.css'
-import Hero from '@/components/Hero/Hero'
-import CloudMenu from '@/components/clouds/cloudMenus/CloudMenu'
-import Mission from '@/components/mission/Mission'
-import CloudTitle from '@/components/clouds/cloudTitle/CloudTitle'
-import OurPrograms from '@/components/OurPrograms/OurPrograms'
-import StatsCloud from '@/components/clouds/statsCloud/statsCloud'
-import LeaderBoard from '@/components/LeaderBoard/LeaderBoard'
-import BookTutor from '@/components/BookTutor/BookTutor'
 import Footer from '@/components/Footer/Footer'
 import HomeNavbar from '@/components/Navbar/HomeNavbar/HomeNavbar'
 import Image from 'next/image'
-import { BsArrowRightCircleFill, BsArrowRightShort } from 'react-icons/bs'
+import { BsArrowRightShort } from 'react-icons/bs'
 
 const Home = () => {
   const phoneImages = [
@@ -43,7 +34,6 @@ const Home = () => {
             backgroundImage: `url(/assets/images/landingpage/hero_background.svg)`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
-            // height: '90vh',
             width: '100%',
             backgroundPosition: 'center',
           }}
@@ -200,7 +190,7 @@ const Home = () => {
           </p>
         </section>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   )
 }
