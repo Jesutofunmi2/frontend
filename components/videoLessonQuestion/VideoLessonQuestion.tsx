@@ -9,7 +9,7 @@ import wrongAnswerSound from '@/public/assets/audios/notCorrect.mp3'
 import clickSound from '@/public/assets/audios/click.mp3'
 import correctAnswerSound from '@/public/assets/audios/yay.mp3'
 import CorrectAnswerModal from '../Modal/CorrectAnswerModal/CorrectAnswerModal'
-import { LessonQuestion, QuestionOptions } from '@/types/lessontopic'
+import { LessonQuestion } from '@/types/lessontopic'
 
 interface VideoLessonQuestionProps {
   question: LessonQuestion[]
@@ -25,14 +25,10 @@ const VideoLessonQuestion = ({
 }: VideoLessonQuestionProps) => {
   const [selected, setSelected] = useState('')
   const [closeModal, setCloseModal] = useState(true)
-
   const [buttonText, setButtonText] = useState('Check')
   const currentQuestion = question[questionIndex]
   const [isLoading, setLoading] = useState(false)
 
-  console.log(question)
-
-  // // CORRECT AND WRONG ANSWER CONDITION
   useEffect(() => {
     if (isLoading) {
       const fetchAnswer = async () => {
@@ -64,8 +60,6 @@ const VideoLessonQuestion = ({
     }
     setLoading(false)
   }, [currentQuestion?.id, isLoading, selected])
-
-  // FUNCTION TO AUTO-PLAY QUESTION WHEN YOU LAND ON PAGE AND WHEN YOU MOVE TO NEXT QUESTION
 
   // SELECT ANSWER FUNCTION
   const selectAnswer = (id: string) => {

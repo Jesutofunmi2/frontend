@@ -12,7 +12,6 @@ const VideoLesson = () => {
   if (!videoCourses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
-  const fakedata = ["a", "b", "", "c", "d", "e", "f", "g"];
 
   return (
     <>

@@ -1,5 +1,3 @@
-// import { request, tokens } from "@/config/config";
-import useSWRMutation from 'swr/mutation'
 import { toast } from 'react-toastify'
 import makeApiCall from '.'
 
@@ -19,7 +17,6 @@ export const addAssignmentFile = async (payload:any) => {
     return res
   } catch (err) {
     toast.dismiss()
-
     return err
   }
 }

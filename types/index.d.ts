@@ -9,7 +9,7 @@ export interface Program {
 export interface Profile {
   student_id:number
   id:string
-  count_down: number
+  count_down: string
   country: string
   email: string
   how_do_you_see_us: string
@@ -19,6 +19,8 @@ export interface Profile {
   phone_number: string
   school_name: string
   type: string
+  school:any
+  survey_status:boolean
   
 }
 
@@ -38,11 +40,8 @@ export interface TeacherShool extends Profile {
   updated_at: string
   created_at: string
   verification_token: string
+  
 }
-
-
-
-
 
 
 export interface InitialState {

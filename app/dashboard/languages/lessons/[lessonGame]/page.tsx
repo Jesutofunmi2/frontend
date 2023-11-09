@@ -32,7 +32,6 @@ const LessonGame = () => {
   }, [])
 
   const { data: lessonQuestions, isLoading, error } = useGetLessonQuestions(languageID, lessonID)
-  // if (!lessonQuestions||!lessonQuestions) return null
   if (isLoading || !lessonQuestions) return <Loader />
   if (error) return <p>error page</p>
 

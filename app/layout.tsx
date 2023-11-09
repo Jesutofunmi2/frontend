@@ -1,19 +1,18 @@
 import './globals.css'
-import { Josefin_Sans } from 'next/font/google'
+// import { Josefin_Sans } from 'next/font/google'
 import localFont from 'next/font/local'
-import { ReduxProvider } from '@/Providers/reduxProvider'
-import { ToastProvider } from "@/Providers/ToastProvider";
-
+import { ToastProvider } from '@/providers/ToastProvider'
+import { ReduxProvider } from '@/providers/ReduxProvider'
 
 
 const font = localFont({ src: '../public/assets/fonts/Octarine-Light.ttf' })
 
-const josefin_Sans = Josefin_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-Josefin_Sans',
-  weight: ['300', '400'],
-})
+// const josefin_Sans = Josefin_Sans({
+//   subsets: ['latin'],
+//   display: 'swap',
+//   variable: '--font-Josefin_Sans',
+//   weight: ['300', '400'],
+// })
 
 export const metadata = {
   title: 'Izesan!',

@@ -39,7 +39,6 @@ export const addClass = async (school_id: number, language_id: number, class_roo
         position: toast.POSITION.TOP_RIGHT,
       })
     }
-
     return err
   }
 }

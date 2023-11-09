@@ -1,16 +1,11 @@
-
 import useSWR from "swr";
 import makeApiCall from ".";
 import { Lesson} from "@/types/lessontopic";
 
 //LESSONS
 export const useGetLessons = (languageID:number) => {
- 
-
-  //NEW WAY TO FETCH DATA
   const fetcher = async () => {
     const res = await makeApiCall(`/api/v1/type?type=standalone&language_id=${languageID}`, "get");
-
       return res?.data;
   };
   const { data,isLoading, error,isValidating } = useSWR<Lesson[],Error>(`/api/v1/type?type=standalone&language_id=${languageID}`, fetcher, {
@@ -18,7 +13,5 @@ export const useGetLessons = (languageID:number) => {
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
-
-  // dispatch(lessonLoading(isValidating))
   return { data,isLoading, error, isValidating };
 };

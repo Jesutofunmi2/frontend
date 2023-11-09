@@ -23,7 +23,6 @@ const Lessons = () => {
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  // console.log(card)
   return (
     <>
       <div className={styles.lessons}>
@@ -31,7 +30,7 @@ const Lessons = () => {
           <span className={styles.backIcon}>
             <BackNavigation />
           </span>
-          <h1 className="text-xl font-bold">Lessons</h1>
+          <h1 className="text-xl ml-4 font-bold">Lessons</h1>
         </div>
         <div className={styles.wrapper}>
           {languageLessons?.map((lesson: Lesson) => (
