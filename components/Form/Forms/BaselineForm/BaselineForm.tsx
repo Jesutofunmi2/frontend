@@ -146,7 +146,7 @@ export const BaselineFormStudent = ({ setSurvey }: BaselineFormProps) => {
 interface IPayloadTeacherForm {
   [index: string]: string | number | any
 }
-export const BaselineFormTeacher = ({ setSurvey }: BaselineFormProps) => {
+export const BaselineFormTeacher = () => {
   const teacherID = useSelector(userData).currentTeacher?.data.teacher_id!
   const schoolID = useSelector(userData).currentTeacher?.data.school?.id!
   const [number, setNumber] = useState<Number | any>()
@@ -192,7 +192,7 @@ export const BaselineFormTeacher = ({ setSurvey }: BaselineFormProps) => {
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          setSurvey(true)
+         
         }
       })
     }

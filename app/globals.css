@@ -16,6 +16,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  height: 100vh;
 }
 
 ul,
@@ -114,3 +115,33 @@ input[type='radio']:checked {
   overflow: hidden;
   border-radius: 20px;
 }
+
+.landingpage {
+  position: relative;
+  z-index: 0;
+  display: table;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  color: rgb(86, 45, 45);
+  background-color: transparent;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.landingpage:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url('/assets/images/landingpage/african_background.svg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  z-index: -1;
+}
+
