@@ -1,28 +1,32 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './page.module.css'
-import SelectImage from '@/components/SelectImage/SelectImage'
 import { TextInputValue } from '@/components/Form/FormFields/TextInput/TextInput'
 import Image from 'next/image'
 import userIcon from '/public/assets/images/userIcon.png'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
-import {BaselineFormTeacher } from '@/components/Form/Forms/BaselineForm/BaselineForm'
+import { toast } from 'react-toastify'
 
 const TeacherProfile = () => {
   const teacherData = useSelector(userData).currentTeacher?.data!
-
-if(!teacherData.survey_status){
-return <BaselineFormTeacher/>
+  const countDown = useSelector(userData).currentUser?.data.count_down
+  if (countDown) {
+    toast.warning(<p className="text-lg">{countDown}</p>, {
+      position: toast.POSITION.TOP_RIGHT,
+      toastId: 'countdown_teacher',
+      theme: 'colored',
+      autoClose: false,
+    })
   }
-    return (
+  return (
     <>
       <div className={styles.container}>
-        <h3 className='bg-white p-4 rounded-xl font-bold'>Profile</h3>
+        <h3 className="bg-white p-4 rounded-xl font-bold">Profile</h3>
         <div>
           <div className={styles.imageWrap}>
-          <Image
+            <Image
               src={userIcon}
               width="100"
               height="100"
@@ -36,9 +40,7 @@ return <BaselineFormTeacher/>
             <TextInputValue name="email" label="Email" defaultValue={teacherData?.email} />
           </div>
           <hr />
-          <div className={styles.btnWrap}>
-            {/* <Button text="Edit" maxWidth="200px" width="100%"/> */}
-          </div>
+          <div className={styles.btnWrap}></div>
         </div>
       </div>
     </>

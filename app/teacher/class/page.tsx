@@ -16,7 +16,7 @@ const TeacherClass = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const teacherData = useSelector(userData).currentTeacher?.data!
 
-  const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData.school.id)
+  const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData?.school.id)
   if (!allSchoolClasses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>

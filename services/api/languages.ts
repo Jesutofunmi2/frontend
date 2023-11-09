@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import makeApiCall from '.'
-import { ILanguage } from '@/types/languages.'
+import { ILanguage } from '@/types/languages'
 
 //GET LANGUAGES
 export const useGetLanguages = () => {

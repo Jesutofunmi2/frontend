@@ -5,14 +5,15 @@ import styles from './videoCourseSidebar.module.css'
 import { IoIosArrowDown } from 'react-icons/io'
 import { TbPlayerPlay } from 'react-icons/tb'
 import { useState } from 'react'
+import { IVideoLessons } from '@/types/videocourse'
 
 interface VideoCourseSidebarProps {
-  videoLesson: any
-  setVideoData: any
+  videoLessonData:IVideoLessons[]
+  setVideoData: React.Dispatch<React.SetStateAction<IVideoLessons | undefined>>
   setQuestionIndex: React.Dispatch<React.SetStateAction<number>>
   setQuestionsPopup: React.Dispatch<React.SetStateAction<boolean>>
 }
-const VideoCourseSidebar = ({ videoLesson, setVideoData, setQuestionIndex, setQuestionsPopup }: VideoCourseSidebarProps) => {
+const VideoCourseSidebar = ({ videoLessonData, setVideoData, setQuestionIndex, setQuestionsPopup }: VideoCourseSidebarProps) => {
   const [dropdown, setDropdown] = useState<any>(false)
 
   const handleToggle = (id:number) => {
@@ -27,6 +28,7 @@ const VideoCourseSidebar = ({ videoLesson, setVideoData, setQuestionIndex, setQu
     setVideoData(arg)
     setQuestionIndex(0)
     setQuestionsPopup(false)
+    
   }
 
   return (
@@ -34,7 +36,7 @@ const VideoCourseSidebar = ({ videoLesson, setVideoData, setQuestionIndex, setQu
       <div className={styles.container}>
         <h3>Course content</h3>
 
-        { videoLesson?.map((item:any) => (
+        { videoLessonData?.map((item:any) => (
           <div className={styles.listContainer} key={item.id}>
             <ul className={styles.listWrap} onClick={() => handleToggle(item.id)}>
               <li className={styles.list}>

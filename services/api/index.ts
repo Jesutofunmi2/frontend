@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { getToken } from './token'
-import { TOKEN_KEY } from '@/utils/constants'
+import { getToken, removeToken } from './token'
 
 const token = getToken()
 const baseURL = 'https://remotedev.izesan.com'
@@ -30,7 +29,7 @@ async function makeApiCall<T = any>(
   } catch (error: any) {
     if (error.response) {
       if (error.response.status === 401) {
-        localStorage.removeItem(TOKEN_KEY)
+        removeToken()
         // window.location.assign('/login')
       }
       throw new Error(error.response.data.message)

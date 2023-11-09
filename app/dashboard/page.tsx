@@ -1,15 +1,10 @@
-
-import React from "react";
-
-
+import React from 'react'
 const MyLogin = () => {
-
   return (
     <>
-      {/* <BaselineFormStudent/> */}
       <div>love</div>
     </>
-  );
-};
+  )
+}
 
-export default MyLogin;
+export default MyLogin

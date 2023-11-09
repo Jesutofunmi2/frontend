@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Select from '../../FormFields/Select/DropDown'
 import { useGetLanguages } from '@/services/api/languages'
-import { ILanguage } from '@/types/languages.'
+import { ILanguage } from '@/types/languages'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { addClass } from '@/services/api/school/class'
 
@@ -57,7 +57,6 @@ const AddEditClass = ({
   const languageOptions = languages.map((item: ILanguage) => {
     return { value: item.id, label: item.name, disabled: item.status === 1 ? false : true }
   })
-  console.log(languages)
   return (
     <>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>

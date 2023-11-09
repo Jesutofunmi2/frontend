@@ -9,8 +9,9 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { setToken } from '@/services/api/token'
 import { useDispatch } from 'react-redux'
-import { schoolData, teacherData ,studentData} from '../../../../services/redux/features/userSlice'
+import { schoolData, teacherData, studentData } from '../../../../services/redux/features/userSlice'
 import { Loader } from '@/components/Loader/Loader'
+import { surveyStatus } from '@/services/redux/features/surveySlice'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const LoginForm = () => {
     email: '',
     password: '',
   })
-  if(isLoading) return <Loader/>
+  if (isLoading) return <Loader />
 
   // TOGGLE USERS
   const handleToggleUser = (event: string) => {
@@ -62,6 +63,7 @@ const LoginForm = () => {
         const { token } = response.token
         setToken(token)
         dispatch(schoolData(response))
+
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
@@ -72,6 +74,7 @@ const LoginForm = () => {
         const { token } = response.token
         setToken(token)
         dispatch(teacherData(response))
+        dispatch(surveyStatus(response.data.survey_status))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
@@ -82,6 +85,7 @@ const LoginForm = () => {
         const { token } = response.token
         setToken(token)
         dispatch(studentData(response))
+        dispatch(surveyStatus(response.data.survey_status))
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
@@ -96,7 +100,7 @@ const LoginForm = () => {
           position: toast.POSITION.TOP_RIGHT,
         })
       }
-    } 
+    }
   }
   return (
     <>
