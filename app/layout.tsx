@@ -1,5 +1,5 @@
 import './globals.css'
-import { Josefin_Sans } from 'next/font/google'
+// import { Josefin_Sans } from 'next/font/google'
 import localFont from 'next/font/local'
 import { ToastProvider } from '@/providers/ToastProvider'
 import { ReduxProvider } from '@/providers/ReduxProvider'
