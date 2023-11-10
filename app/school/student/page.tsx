@@ -147,7 +147,6 @@ const Student = () => {
 
         <div className={styles.btnWrap}>
           <Button text="Add Student" handleClick={() => handleModalOpen('add', null)} />
-
           <Button
             text="Bulk Registration"
             backgroundColor="lightGreen"
@@ -170,7 +169,7 @@ const Student = () => {
 
       {/* MODAL TO MODIFY STUDENTS */}
       <Modal open={bulkOpen} setOpen={setBulkOpen}>
-        <BulkUpload />
+        <BulkUpload schoolID={schoolID} classOptions={classOptions} setBulkOpen={setBulkOpen}/>
       </Modal>
       <ToastContainer />
     </>

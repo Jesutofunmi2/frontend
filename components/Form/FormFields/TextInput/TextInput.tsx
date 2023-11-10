@@ -9,6 +9,8 @@ interface InputProps {
   register: any
   style?: any
   Icon?: JSX.Element
+  clearErrors?: () => void
+  errors?: any
 }
 interface InputValueProps {
   label: string
@@ -25,6 +27,8 @@ export const TextInput = ({
   name,
   style,
   Icon,
+  clearErrors,
+  errors,
 }: InputProps) => {
   return (
     <>
@@ -43,7 +47,11 @@ export const TextInput = ({
         />
         {/* {Icon? <span>{Icon}</span>: null} */}
       </div>
-
+      {errors?.term && errors?.term.type === 'required' ? (
+        <div className="text-error flex items-center gap-2 absolute bottom-0 right-44">
+    <p className=" text-error">Upload image!</p>
+        </div>
+      ) : null}
     </>
   )
 }
