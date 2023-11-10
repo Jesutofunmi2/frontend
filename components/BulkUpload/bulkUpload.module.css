@@ -1,9 +1,10 @@
 .container{
-    background-color: var(--white-color);
-    max-width: 550px;
+    /* background-color: var(--white-color); */
+    /* max-width: 550px; */
     width: 100%;
     border-radius: 10px;
     box-sizing: border-box;
+    padding:2em
 }
 
 .title{
@@ -26,6 +27,7 @@
     flex-direction: column;
     justify-content: center;
     height: 300px;
+    position: relative;
 }
 
 .selectWrap{
@@ -37,15 +39,16 @@
 
 .selectBox{
     border: 2px dashed lightgray;
-    height: 100px;
-    max-width: 200px;
-    width: 100%;
+    padding:1em;
     display: grid;
     place-items: center;
     font-size: 60px;
+    cursor: pointer;
 }
 
 .text{
+    position: absolute;
+    bottom: -30px;
     width: fit-content;
     align-self: center;
     margin-top: 10px;
@@ -56,5 +59,6 @@
 
 .saveBtn{
     display: flex;
+    margin-top:2em;
     justify-content: center;
 }

@@ -8,22 +8,30 @@ interface SelectProps {
   options: any
   onChange: (value: any) => void
   defaultValue?: any
-placeholder?:string
-  isLoading?:boolean
+  placeholder?: string
+  isLoading?: boolean
+  value?: any
 }
 export const reactSelectCustomStyles = (): StylesConfig => ({
   loadingIndicator: () => {
     return {
-      backgroundImage:`url("../../../../public/assets/images/loading-gif.gif")`,
-    };
+      backgroundImage: `url("../../../../public/assets/images/loading-gif.gif")`,
+    }
   },
 })
-const DropDown = ({placeholder, isLoading,label, onChange, defaultValue, options }: SelectProps) => {
+const DropDown = ({
+  placeholder,
+
+  value,
+  isLoading,
+  label,
+  onChange,
+  defaultValue,
+  options,
+}: SelectProps) => {
   const LoadingIndicator = (props: LoadingIndicatorProps) => {
-    return (
-     <Spinner/>
-    );
-  };
+    return <Spinner />
+  }
   return (
     <>
       <div className={styles.selectWrap}>
@@ -33,25 +41,24 @@ const DropDown = ({placeholder, isLoading,label, onChange, defaultValue, options
           defaultValue={defaultValue}
           onChange={onChange}
           options={options}
+          value={value}
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,
               borderColor: state.isFocused ? '#3753b8' : '#FFB700',
               minHeight: '49px',
               borderRadius: '14px',
-              fontSize:"15px",
-              boxShadow: "none",
-              borderWidth: "1px",
-            
+              fontSize: '15px',
+              boxShadow: 'none',
+              borderWidth: '1px',
             }),
           }}
           placeholder={placeholder}
           required
           isOptionDisabled={(option) => option.disabled}
           isLoading={isLoading}
-          noOptionsMessage={() => `No ${label} found`} 
+          noOptionsMessage={() => `No ${label} found`}
           components={{ LoadingIndicator }}
-          
         />
       </div>
     </>

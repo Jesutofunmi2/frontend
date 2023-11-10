@@ -5,7 +5,6 @@ import Button from '@/components/Button/Button'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IClass } from '@/types/class'
-import * as yup from 'yup'
 import { getClassById } from '@/services/api/school/class'
 import Select from '../../FormFields/Select/DropDown'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
@@ -37,7 +36,6 @@ const AddEditStudents = ({
   title,
   classOptions,
 }: AddEditStudentsProps) => {
-  
   const [isLoading, setLoading] = useState(false)
   const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
   const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass | any>()
@@ -56,19 +54,7 @@ const AddEditStudents = ({
       }
       fetchData()
     }
-  }, [schoolID,selectedOptionForClass])
-
-  const validationSchema = yup.object().shape({
-    first_name: yup.string().required('Enter First Name'),
-    last_name: yup.string().required('Enter Last Name'),
-    language: yup.string().required('Enter your language'),
-    // gendar: yup.string().required('Enter Gender'),
-    age: yup.number().required('Enter Age'),
-    // class_id: yup.number().required('Select your class'),
-    // classarm_id: yup.number().required('Select your class Arm'),
-    term: yup.string().required('Select your term'),
-    // session: yup.string().required('Select your class session'),
-  })
+  }, [schoolID, selectedOptionForClass])
 
   const genderOptions = [
     { value: 'male', label: 'Male' },
@@ -98,15 +84,15 @@ const AddEditStudents = ({
             name="first_name"
             type="text"
             placeholder="Enter name"
-            defaultValue={studentDetails? studentDetails.username:""}
-                     />
+            defaultValue={studentDetails ? studentDetails.username : ''}
+          />
           <TextInput
             register={{ ...register('last_name', { required: true }) }}
             label="Last Name"
             name="last_name"
             type="text"
             placeholder="Last name"
-            defaultValue={studentDetails? studentDetails.last_name:""}
+            defaultValue={studentDetails ? studentDetails.last_name : ''}
           />
           <TextInput
             register={{ ...register('language', { required: true }) }}
@@ -114,7 +100,7 @@ const AddEditStudents = ({
             name="language"
             type="text"
             placeholder="Enter language"
-            defaultValue={studentDetails? studentDetails.language:""}
+            defaultValue={studentDetails ? studentDetails.language : ''}
           />
           <TextInput
             register={{ ...register('age', { required: true }) }}
@@ -122,7 +108,7 @@ const AddEditStudents = ({
             name="age"
             type="number"
             placeholder="Enter age (number)"
-            defaultValue={studentDetails? studentDetails.age:""}
+            defaultValue={studentDetails ? studentDetails.age : ''}
           />
 
           <Controller
@@ -132,7 +118,7 @@ const AddEditStudents = ({
               <Select
                 onChange={(val) => field.onChange(val.value)}
                 label="Gender"
-                defaultValue={genderOptions.find(({ value }) => value == "Male")}
+                defaultValue={genderOptions.find(({ value }) => value == 'Male')}
                 options={genderOptions}
               />
             )}
@@ -143,7 +129,7 @@ const AddEditStudents = ({
             name="term"
             type="text"
             placeholder="Enter school term"
-            defaultValue={studentDetails? studentDetails.term:""}
+            defaultValue={studentDetails ? studentDetails.term : ''}
           />
 
           <Controller
@@ -173,24 +159,24 @@ const AddEditStudents = ({
               />
             )}
           />
-     {selectedOptionForClass && (
-          <Controller
-            name="classarm_id"
-            control={control}
-            render={({ field }) => (
-              <Select
-                onChange={(val) => field.onChange(val.value)}
-                label="Class Arm"
-                defaultValue={'Select'}
-                options={classArmoptions}
-                isLoading={isLoading}
-              />
-            )}
-          />
+          {selectedOptionForClass && (
+            <Controller
+              name="classarm_id"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  onChange={(val) => field.onChange(val.value)}
+                  label="Class Arm"
+                  defaultValue={'Select'}
+                  options={classArmoptions}
+                  isLoading={isLoading}
+                />
+              )}
+            />
           )}
         </div>
         <div className={styles.btnWrap}>
-          <Button  type="submit" text="Save" />
+          <Button type="submit" text="Save" />
         </div>
       </form>
       <ToastContainer />
