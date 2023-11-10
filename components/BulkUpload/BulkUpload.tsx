@@ -10,17 +10,19 @@ import { TextInput } from '../Form/FormFields/TextInput/TextInput'
 import { IClass } from '@/types/class'
 import { getClassById } from '@/services/api/school/class'
 import { bulkAddStudent } from '@/services/api/school/student'
-import { BiErrorCircle } from 'react-icons/bi'
+import { BiDownload, BiErrorCircle } from 'react-icons/bi'
+import { TitleCase } from '@/utils'
 
 type Inputs = {
-  class_id: number
-  classarm_id: number
+  class_id: number | any
+  classarm_id: number | any
   term: string
   session: string
-  file: File | any
+  file: File
 }
 
 interface BulkUploadProps {
+  mutate: any
   schoolID: number
   classOptions:
     | {
@@ -30,13 +32,14 @@ interface BulkUploadProps {
     | any
   setBulkOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
-const BulkUpload = ({ schoolID, classOptions, setBulkOpen }: BulkUploadProps) => {
-  const [file, setFile] = useState<string>()
+const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadProps) => {
+  const [file, setFile] = useState<File | any>()
+  const [selectedFile, setSelectedFile] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [fileUploadError, setFileUploadError] = useState(false)
   const [allClassArmByID, setClassArmByID] = useState<IClass[]>([])
   const [selectedOptionForClass, setSelectedOptionForClass] = useState<IClass | any>()
-  const [selectedValue, setSelectedValue] = useState('')
+
   useEffect(() => {
     if (selectedOptionForClass) {
       setLoading(true)
@@ -62,36 +65,36 @@ const BulkUpload = ({ schoolID, classOptions, setBulkOpen }: BulkUploadProps) =>
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFileUploadError(false)
     if (e.target !== null && e.target.files !== null) {
-      setFile(e.target.files[0].name)
+      setFile(e.target.files[0])
+      setSelectedFile(e.target.files[0].name)
     }
   }
   const handleBulkUpload = async (data: Inputs) => {
     setBulkOpen(false)
-    const payload = {
-      school_id: String(schoolID),
-      class_id: data.class_id,
-      class_arm_id: data.classarm_id,
-      term: data.term,
-      session: Number(data.session),
-      batch_file: data.file,
-    }
-    await bulkAddStudent(payload)
+
+    let formData: any = new FormData()
+    formData.append('school_id', String(schoolID))
+    formData.append('class_id', data.class_id)
+    formData.append('class_arm_id', data.classarm_id)
+    formData.append('term', TitleCase(data.term))
+    formData.append('session', data.session)
+    formData.append('batch_file', file)
+    let res = await bulkAddStudent(formData)
+    setFile('')
+    setSelectedFile('')
+    mutate()
   }
 
   const sessionOptions = [{ value: 2023, label: '2023' }]
 
-  const { register, handleSubmit, control, reset, setValue } = useForm<Inputs>()
+  const { register, handleSubmit, control, reset } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
-    // setIsClearable(!isClearable)
-    // if (!data.file) {
-    //   setFileUploadError(true)
-    // } else {
-    //   handleBulkUpload(data)
-    // setSelectedValue('')
-    reset({ term: '', class_id: 0, classarm_id: 0, session: '', file: '' })
-    // }
-    // reset({ term: '', class_id: 0, classarm_id: 0, session: '', file: null })
+    if (!data.file) {
+      setFileUploadError(true)
+    } else {
+      handleBulkUpload(data)
+      reset({ term: '', class_id: 0, classarm_id: 0, session: '' })
+    }
   }
 
   return (
@@ -165,6 +168,14 @@ const BulkUpload = ({ schoolID, classOptions, setBulkOpen }: BulkUploadProps) =>
               </div>
             </div>
             <div className={styles.wrapper}>
+              <a
+                className="text-bold text-base my-4 gap-4 flex items-center justify-center text-primary"
+                href="https://remotedev.izesan.com/exceluploads/studentBatch.xlsx"
+                download="your file name"
+              >
+                Download a template <BiDownload className="text-primary text-2xl" />
+              </a>
+
               <label htmlFor="fileInput" className={styles.selectWrap}>
                 <div className={styles.selectBox}>
                   <AiOutlineFileAdd color="green" />
@@ -181,16 +192,16 @@ const BulkUpload = ({ schoolID, classOptions, setBulkOpen }: BulkUploadProps) =>
                   <div>
                     <input
                       name="file"
-                      value={value}
                       type="file"
                       id="fileInput"
                       accept=".csv,.xls,.xlsx,"
                       style={{ display: 'none' }}
                       onChange={(val) => {
+
                         handleImageChange(val), onChange(val)
                       }}
                     />
-                    {file ? <span className={styles.text}>{file}</span> : null}
+                    {selectedFile ? <span className={styles.text}>{selectedFile}</span> : null}
                   </div>
                 )}
               />

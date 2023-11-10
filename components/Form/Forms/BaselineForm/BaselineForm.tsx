@@ -65,7 +65,6 @@ export const BaselineFormStudent = () => {
       prefer: JSON.stringify(payload.prefer),
       scale_of_1_5: 2,
     })
-    // console.log(res)
     if (res.message) {
       Swal.fire({
         title: 'Success',
