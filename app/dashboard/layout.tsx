@@ -16,7 +16,7 @@ const DashboadLayout = ({ children }: ChildrenProps) => {
   const isOnUserPage = pathname === '/dashboard'
   const currentUserSurvey = useSelector(userSurvey)
 
- 
+
   return (
     <>
       {currentUserSurvey ? (
