@@ -55,6 +55,13 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
       fetchData()
     }
   }, [schoolID, selectedOptionForClass])
+  const sessionOptions = [{ value: 2023, label: '2023/2024' }]
+  const termOptions = [
+    { value: 'First', label: 'First Term' },
+    { value: 'Second', label: 'Second Term' },
+    { value: 'Third', label: 'Third Term' },
+  ]
+
 
   const classArmoptions = allClassArmByID[0]?.class_arms.map(
     (item: { id: number; name: string }) => {
@@ -71,7 +78,6 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
   }
   const handleBulkUpload = async (data: Inputs) => {
     setBulkOpen(false)
-
     let formData: any = new FormData()
     formData.append('school_id', String(schoolID))
     formData.append('class_id', data.class_id)
@@ -79,15 +85,14 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
     formData.append('term', TitleCase(data.term))
     formData.append('session', data.session)
     formData.append('batch_file', file)
-    let res = await bulkAddStudent(formData)
+    await bulkAddStudent(formData)
     setFile('')
     setSelectedFile('')
     mutate()
   }
 
-  const sessionOptions = [{ value: 2023, label: '2023' }]
-
-  const { register, handleSubmit, control, reset } = useForm<Inputs>()
+ 
+  const { handleSubmit, control, reset } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!data.file) {
       setFileUploadError(true)
@@ -107,13 +112,21 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
           <div className="flex items-center gap-20 justify-between">
             <div className="w-3/6">
               <div className="my-6">
-                <TextInput
-                  register={{ ...register('term', { required: true }) }}
-                  label="Term"
-                  name="term"
-                  type="text"
-                  placeholder="Enter school term"
-                />
+                <div className="my-6">
+                  <Controller
+                    name="term"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        onChange={(val) => onChange(val.value)}
+                        value={termOptions.find((c) => c.value === value) || value}
+                        label="School Term"
+                        defaultValue={value}
+                        options={termOptions}
+                      />
+                    )}
+                  />
+                </div>
               </div>
               <div className="my-6">
                 <Controller
@@ -188,7 +201,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
               <Controller
                 name="file"
                 control={control}
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange } }) => (
                   <div>
                     <input
                       name="file"
@@ -197,7 +210,6 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
                       accept=".csv,.xls,.xlsx,"
                       style={{ display: 'none' }}
                       onChange={(val) => {
-
                         handleImageChange(val), onChange(val)
                       }}
                     />
