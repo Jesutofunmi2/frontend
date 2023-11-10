@@ -15,7 +15,7 @@ type Inputs = {
   last_name: string
   language: string
   age: number
-  gendar: string
+  gender: string
   country: 'Nigeria'
   class_id: number
   classarm_id: number
@@ -126,7 +126,7 @@ const AddEditStudents = ({
           />
 
           <Controller
-            name="gendar"
+            name="gender"
             control={control}
             render={({ field }) => (
               <Select
