@@ -169,7 +169,12 @@ const Student = () => {
 
       {/* MODAL TO MODIFY STUDENTS */}
       <Modal open={bulkOpen} setOpen={setBulkOpen}>
-        <BulkUpload schoolID={schoolID}    mutate={   mutate} classOptions={classOptions} setBulkOpen={setBulkOpen}/>
+        <BulkUpload
+          schoolID={schoolID}
+          mutate={mutate}
+          classOptions={classOptions}
+          setBulkOpen={setBulkOpen}
+        />
       </Modal>
       <ToastContainer />
     </>
