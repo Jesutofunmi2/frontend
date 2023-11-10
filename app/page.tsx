@@ -1,10 +1,20 @@
+'use client'
 import React from 'react'
 import Footer from '@/components/Footer/Footer'
 import HomeNavbar from '@/components/Navbar/HomeNavbar/HomeNavbar'
 import Image from 'next/image'
 import { BsArrowRightShort } from 'react-icons/bs'
+import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
+import { Carousel } from 'react-responsive-carousel'
 
 const Home = () => {
+  let settings = {
+    // dots: true,
+    // infinite: true,
+    // speed: 500,
+    // slidesToShow: 1,
+    // slidesToScroll: 1
+  }
   const phoneImages = [
     {
       name: 'Game',
@@ -37,6 +47,7 @@ const Home = () => {
             width: '100%',
             backgroundPosition: 'center',
           }}
+          className="z-40 relative"
         >
           <div className="flex items-center font-medium justify-between p-12 text-white">
             <div className="basis-[40%]">
@@ -66,8 +77,12 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="py-16 px-20 text-brown text-center ">
-          <div className=" 2-40 text-center font-bold my-4">
+        <section className="z-30 py-16 px-20 relative text-brown text-center ">
+          <div
+            style={{ zIndex: '-1' }}
+            className="absolute -top-40 w-full bg-[#ffffffb0] right-0 h-[830px] overflow-hidden"
+          ></div>
+          <div className="text-center font-bold my-4 ">
             {' '}
             <h2 className="text-3xl font-bold ">From Second language to second nature</h2>
             <p className="text-base font-medium mx-auto w-[40%] my-4">
@@ -159,14 +174,32 @@ const Home = () => {
           </div>
           <div className=""></div>
         </section>
-        <section className="my-20 text-black">
+        <section className="my-8 relative py-20 font-bold bg-white bg-gray-100">
           <h2 className="text-5xl">Our Accreditation</h2>
           <div className="flex items-center my-4 justify-center gap-6">
             <hr className="border-black w-48" />
             <span className="rounded-full bg-black p-1"></span>
             <hr className="border-black w-48" />
           </div>
-          <p className="text-xl font-bold p-20">
+          <div className="flex items-center justify-center gap-10 mt-12">
+            <Image
+              src={'/assets/images/landingpage/national_institute.svg'}
+              alt="logo"
+              height={100}
+              width={100}
+              className="h-[100px] w-auto"
+            />
+            <hr className="rotate-90 border-black border-2 w-20" />
+
+            <Image
+              src={'/assets/images/landingpage/national_institute.svg'}
+              alt="logo"
+              height={100}
+              width={100}
+              className="h-[100px] w-auto"
+            />
+          </div>
+          <p className="text-lg font-bold pt-20 px-20">
             At Izesan! we take pride in being your premier language learning institution, dedicated
             to providing top-notch education in collaboration with the Federal Government of Nigeria
             and the National Institute for Nigerian languages Nigerian Language Institute. With a
@@ -174,20 +207,69 @@ const Home = () => {
             language courses that empower individuals to communicate
           </p>
         </section>
-        <section className="my-20 text-black">
-          <h2 className="text-5xl">Our Subscribed Partners</h2>
-          <div className="flex items-center my-4 justify-center gap-6">
-            <hr className="border-black w-48" />
-            <span className="rounded-full bg-black p-1"></span>
-            <hr className="border-black w-48" />
+        <section className="my-8 py-20 bg-gray-100 text-black ">
+          <h2 className="text-5xl font-bold">Our Subscribed Partners</h2>
+          <div className="mx-auto my-12">
+            <Carousel
+              className=""
+              showIndicators={false}
+              showThumbs={false}
+              showStatus={false}
+              showArrows
+            >
+              <div className="flex items-center gap-10 justify-center">
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo A</p>
+                  <p className="text-lg">School A</p>
+                </div>
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo B</p>
+                  <p className="text-lg">School B</p>
+                </div>
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo C</p>
+                  <p className="text-lg">School C</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-10 justify-center">
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo D</p>
+                  <p className="text-lg">School D</p>
+                </div>
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo E</p>
+                  <p className="text-lg">School E</p>
+                </div>
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo F</p>
+                  <p className="text-lg">School F</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-10 justify-center">
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo G</p>
+                  <p className="text-lg">School G</p>
+                </div>
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo H</p>
+                  <p className="text-lg">School H</p>
+                </div>
+                <div className="text-center bg-white p-8 font-bold">
+                  <p className="bg-primary px-8 text-sm py-2">Logo I</p>
+                  <p className="text-lg">School J</p>
+                </div>
+              </div>
+            </Carousel>
           </div>
-          <p className="text-xl font-bold p-20">
-            At Izesan! we take pride in being your premier language learning institution, dedicated
-            to providing top-notch education in collaboration with the Federal Government of Nigeria
-            and the National Institute for Nigerian languages Nigerian Language Institute. With a
-            commitment to excellence and a passion for linguistic diversity, we offer accredited
-            language courses that empower individuals to communicate
-          </p>
+          <div
+            style={{
+              backgroundImage: `url(/assets/images/landingpage/bg-people.svg)`,
+              backgroundSize: 'contain',
+              width: '100%',
+              height:"100px",
+              backgroundPosition: 'center',
+            }}
+          ></div>
         </section>
       </main>
       <Footer />
