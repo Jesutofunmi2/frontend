@@ -200,9 +200,9 @@ const Teacher = () => {
         />
       </Modal>
       {/* MODAL TO MODIFY STUDENTS */}
-      <Modal open={bulkOpen} setOpen={setBulkOpen}>
+      {/* <Modal open={bulkOpen} setOpen={setBulkOpen}>
         <BulkUpload />
-      </Modal>
+      </Modal> */}
       <ToastContainer />
     </>
   )

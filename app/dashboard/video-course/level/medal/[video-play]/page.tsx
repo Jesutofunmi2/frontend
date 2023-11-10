@@ -20,16 +20,15 @@ const VideoPlay = () => {
   const [questionIndex, setQuestionIndex] = useState(0)
 
   useEffect(() => {
-    if (videoLesson) {
+    if (videoLesson && !videoData) {
       setVideoLessonData(videoLesson)
       setVideoData(videoLesson[0]?.topics[0])
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoLesson])
   if (isLoading || !courseID || !videoLesson) {
     return <Loader />
   }
-
   const handleVideoEnd = () => {
     setQuestionsPopup(true)
   }

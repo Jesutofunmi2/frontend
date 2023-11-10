@@ -93,9 +93,9 @@ const Class = () => {
       </Modal>
 
       {/* MODAL TO MODIFY STUDENTS */}
-      <Modal open={bulkOpen} setOpen={setBulkOpen}>
+      {/* <Modal open={bulkOpen} setOpen={setBulkOpen}>
         <BulkUpload />
-      </Modal>
+      </Modal> */}
       <ToastContainer />
 
       {/* ADD CLASS ARM MODAL */}
