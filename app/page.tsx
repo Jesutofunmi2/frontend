@@ -81,7 +81,7 @@ const Home = () => {
         <section className="z-30 lg:py-16 px-4 lg:px-20 h-full relative text-brown text-center ">
           <div
             style={{ zIndex: '-1' }}
-            className="absolute -top-40 w-full bg-[#ffffffb0] right-0 h-[100em] overflow-hidden"
+            className="absolute -top-40 w-full bg-[#ffffffb0] right-0 h-[90em] overflow-hidden"
           ></div>
           <div className="text-center font-bold lg:my-4">
             {' '}
