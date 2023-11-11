@@ -8,13 +8,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loa
 import { Carousel } from 'react-responsive-carousel'
 
 const Home = () => {
-  let settings = {
-    // dots: true,
-    // infinite: true,
-    // speed: 500,
-    // slidesToShow: 1,
-    // slidesToScroll: 1
-  }
+  
   const phoneImages = [
     {
       name: 'Game',
@@ -49,7 +43,7 @@ const Home = () => {
           }}
           className="z-40 relative"
         >
-          <div className="flex items-center font-medium justify-between p-12 text-white">
+          <div className="flex items-center font-medium justify-between px-12 pt-12 pb-36 text-white">
             <div className="basis-[40%]">
               <h1 className="text-5xl">
                 Welcome to <span className="7xl font-bold"> Izesan!</span>
@@ -72,7 +66,7 @@ const Home = () => {
               alt="logo"
               height={100}
               width={100}
-              className="h-[450px] w-auto"
+              className="h-[500px] w-auto"
             />
           </div>
         </section>
