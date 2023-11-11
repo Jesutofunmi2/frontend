@@ -16,9 +16,9 @@ import { surveyStatus } from '@/services/redux/features/surveySlice'
 const LoginForm = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const [toggleUser, setToggleUser] = useState('school')
   const [inputType, setInputType] = useState('password')
   const [isLoading, setLoading] = useState(false)
-  const [selectedTab, setSelectedTab] = useState('School')
   const [studentPayloadData, setStudentPayloadData] = useState({
     login_id: '',
     password: '12345678',
@@ -32,6 +32,11 @@ const LoginForm = () => {
     password: '',
   })
   if (isLoading) return <Loader />
+
+  // TOGGLE USERS
+  const handleToggleUser = (event: string) => {
+    setToggleUser(event)
+  }
 
   const revealPassword = () => {
     if (inputType === 'password') {
@@ -53,17 +58,18 @@ const LoginForm = () => {
     setLoading(true)
     e.preventDefault()
     try {
-      if (selectedTab === 'school') {
+      if (toggleUser === 'school') {
         let response = await schoolLogin(schoolPayloadData)
         const { token } = response.token
         setToken(token)
         dispatch(schoolData(response))
+
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
         router.push('/school/profile')
         setLoading(false)
-      } else if (selectedTab === 'Teacher') {
+      } else if (toggleUser === 'teacher') {
         let response = await teacherLogin(teacherPayloadData)
         const { token } = response.token
         setToken(token)
@@ -74,7 +80,7 @@ const LoginForm = () => {
         })
         router.push('/teacher')
         setLoading(false)
-      } else if (selectedTab === 'Student') {
+      } else if (toggleUser === 'student') {
         let response = await studentLogin(studentPayloadData)
         const { token } = response.token
         setToken(token)
@@ -97,43 +103,51 @@ const LoginForm = () => {
     }
   }
   return (
-    <div className="md:w-5/6 my-20 mx-auto rounded-xl shadow-2xl flex justify-center items-start">
-      <div className="hidden lg:flex bg-brown w-1/2 h-screen relative fel-col items-center justify-center rounded-xl">
-        <div className="absolute top-10 -left-8 bg-yellow px-10 rounded-xl h-12 w-64">
-          <p className="text-white font-bold text-[25px] absolute -top-3">Welcome back!</p>
-        </div>
+    <>
+      <div className={styles.card}>
         <Image
-          src={'/assets/images/landingpage/login_welcome.svg'}
-          height={100}
-          width={100}
-          className="h-[24em] 2xl:h-[40em] w-auto"
-          alt="login_bg"
+          src="/assets/images/logo.png"
+          width="80"
+          height="80"
+          alt="logo"
+          className={styles.logo}
         />
-      </div>
-      <div className="w-full lg:w-1/2 bg-white p-4 md:p-16">
-        <div className="flex items-center justify-center text-brown gap-10">
-          <hr className="border-brown border-[2px] w-20" />
-          <h1 className="font-bold text-3xl">Login</h1>
-          <hr className="border-brown border-[2px] w-20" />
+
+        <div className={styles.loginAndToggle}>
+          <h3>Login</h3>
+
+          <div className={styles.toggleBtn}>
+            {/* school button */}
+            <button
+              className={toggleUser === 'school' ? styles.btnActive : ''}
+              onClick={() => handleToggleUser('school')}
+            >
+              School
+            </button>
+
+            {/* student button */}
+            <button
+              className={toggleUser === 'student' ? styles.btnActive : ''}
+              onClick={() => handleToggleUser('student')}
+            >
+              Student
+            </button>
+
+            {/* teacher button */}
+            <button
+              className={toggleUser === 'teacher' ? styles.btnActive : ''}
+              onClick={() => handleToggleUser('teacher')}
+            >
+              Teacher
+            </button>
+          </div>
         </div>
-        <div className="my-10 flex items-center text-lg flex-wrap justify-center font-bold text-brown gap-5">
-          {['School', 'Student', 'Teacher'].map((tab) => {
-            return (
-              <button
-                onClick={() => setSelectedTab(tab)}
-                className={`${
-                  selectedTab === tab ? 'bg-brown' : 'bg-yellow'
-                } px-6 py-2 text-white rounded-lg text-lg`}
-                key={tab}
-              >
-                {tab}
-              </button>
-            )
-          })}
-        </div>
-        <form onSubmit={handleSubmit} className='max-w-xl mx-auto'>
-          <p className="text-yellow text-center text-lg">Sign in to your account to continue.</p>
-          {selectedTab === 'School' ? (
+
+        <form onSubmit={handleSubmit}>
+          {/* SIGN IN INPUT */}
+          <p>Sign in to your account to continue </p>
+
+          {toggleUser === 'school' ? (
             <>
               <span className={styles.inputWrap}>
                 <input
@@ -164,7 +178,7 @@ const LoginForm = () => {
                 )}
               </span>
             </>
-          ) : selectedTab === 'Student' ? (
+          ) : toggleUser === 'student' ? (
             <>
               <div className={styles.inputWrap}>
                 <input
@@ -183,7 +197,7 @@ const LoginForm = () => {
               </div>
             </>
           ) : (
-            selectedTab === 'Teacher' && (
+            toggleUser === 'teacher' && (
               <>
                 <div className={styles.inputWrap}>
                   <input
@@ -203,15 +217,14 @@ const LoginForm = () => {
               </>
             )
           )}
-          <div className="text-center mt-12">
-            <button type="submit" className={styles.loginBtn}>
-              SIGN IN
-            </button>
-          </div>
+
+          <button type="submit" className={styles.loginBtn}>
+            SIGN IN
+          </button>
         </form>
         <ToastContainer autoClose={5000} />
       </div>
-    </div>
+    </>
   )
 }
 
