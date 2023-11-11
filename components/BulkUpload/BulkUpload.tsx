@@ -105,7 +105,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
   return (
     <>
       <div className={styles.container}>
-        <h3 className="text-xl mb-4 font-bold">Bulk Registration</h3>
+        <h3 className="text-xl mb-4">Bulk Registration</h3>
         <hr />
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -192,7 +192,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
               <label htmlFor="fileInput" className={styles.selectWrap}>
                 <div className={styles.selectBox}>
                   <AiOutlineFileAdd color="green" />
-                  <p className="text-base font-bold">Upload file </p>
+                  <p className="text-base">Upload file </p>
                   <p className="font-italic text-xs">
                     (<sup>*</sup>csv, .xls,.xlsx,<sup>*</sup> )
                   </p>

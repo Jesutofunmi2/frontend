@@ -83,9 +83,9 @@ const Home = () => {
             style={{ zIndex: '-1' }}
             className="absolute -top-40 w-full bg-[#ffffffb0] right-0 h-[100em] overflow-hidden"
           ></div>
-          <div className="text-center font-bold lg:my-4 ">
+          <div className="text-center font-bold lg:my-4">
             {' '}
-            <h2 className="text-3xl font-bold ">From Second language to second nature</h2>
+            <h2 className="text-3xl font-bold">From Second language to second nature</h2>
             <p className="text-base font-medium mx-auto lg:w-[40%] my-4">
               Izesan gets you confortable with real-life communication by tapping into your brainss
               natural ability to learn.
@@ -112,18 +112,18 @@ const Home = () => {
             })}
           </div>
         </section>
-        <section className="relative z-40 bg-cover lg:bg-contain bg-brown flex flex-col lg:flex-row lg:gap-16 items-center text-white">
+        <section className="relative z-40 bg-brown flex flex-col lg:flex-row lg:gap-16 items-center text-white justify-between">
           <div
             style={{
               backgroundImage: `url(/assets/images/landingpage/rounded_rectangle.svg)`,
               backgroundRepeat: 'no-repeat',
-              width: '100%',
+              // width: '100%',
               backgroundPosition: 'left',
             }}
-            className="text-left px-8 pt-8 lg:p-12"
+            className="text-left px-8 pt-8 lg:p-12 bg-cover md:bg-contain"
           >
-            <div className="lg:w-[90%]">
-              <div className="lg:w-[80%]">
+            <div className="md:w-[80%] ">
+              <div>
                 <h2 className="text-4xl font-bold lg:w-5/6 mb-3">Language learning for all</h2>
                 <p>
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus illo magni

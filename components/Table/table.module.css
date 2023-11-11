@@ -24,7 +24,6 @@
   padding: 0px 10px;
 }
 .thead tr {
-  font-weight: bold;
 }
 .container tbody tr {
   border-bottom: 1px solid lightgray;
@@ -40,7 +39,6 @@
 .container th {
   text-align: center;
   font-size: 13px;
-  font-weight: bold;
   background-color: whitesmoke;
 }
 

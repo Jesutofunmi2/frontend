@@ -24,7 +24,6 @@
 
 .topWrap .percentage{
     font-size: 20px;
-    font-weight: bold;
 }
 
 .progressBar{
@@ -143,6 +142,5 @@
     background-color: var(--green-color);
     color: white;
     border-radius: 5px;
-    font-weight: bold;
     font-size: 18px;
 }

@@ -31,7 +31,6 @@ const LoginForm = () => {
     email: '',
     password: '',
   })
-  if (isLoading) return <Loader />
 
   const revealPassword = () => {
     if (inputType === 'password') {
@@ -53,7 +52,7 @@ const LoginForm = () => {
     setLoading(true)
     e.preventDefault()
     try {
-      if (selectedTab === 'school') {
+      if (selectedTab === 'School') {
         let response = await schoolLogin(schoolPayloadData)
         const { token } = response.token
         setToken(token)
@@ -97,8 +96,8 @@ const LoginForm = () => {
     }
   }
   return (
-    <div className="md:w-5/6 my-20 mx-auto rounded-xl shadow-2xl flex justify-center items-start">
-      <div className="hidden lg:flex bg-brown w-1/2 h-screen relative fel-col items-center justify-center rounded-xl">
+    <div className="md:w-5/6 my-12 mx-auto rounded-l-xl shadow-2xl flex justify-center items-start">
+      <div className="hidden lg:flex bg-brown w-1/2 h-screen relative fel-col items-center justify-center rounded-l-xl">
         <div className="absolute top-10 -left-8 bg-yellow px-10 rounded-xl h-12 w-64">
           <p className="text-white font-bold text-[25px] absolute -top-3">Welcome back!</p>
         </div>
@@ -131,7 +130,7 @@ const LoginForm = () => {
             )
           })}
         </div>
-        <form onSubmit={handleSubmit} className='max-w-xl mx-auto'>
+        <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
           <p className="text-yellow text-center text-lg">Sign in to your account to continue.</p>
           {selectedTab === 'School' ? (
             <>
@@ -211,6 +210,7 @@ const LoginForm = () => {
         </form>
         <ToastContainer autoClose={5000} />
       </div>
+      {isLoading ? <Loader /> : null}
     </div>
   )
 }

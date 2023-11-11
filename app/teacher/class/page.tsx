@@ -46,7 +46,7 @@ const TeacherClass = () => {
   return (
     <>
       <div className={styles.dash}>
-        <h3 className='bg-white p-4 rounded-xl font-bold'>Classes</h3>
+        <h3 className='bg-white p-4 rounded-xl'>Classes</h3>
         <div className={styles.btnWrap}>
           <Button text="Add Class" handleClick={() => handleModalOpen('add', '')} />
         </div>

@@ -72,7 +72,7 @@ const ClassRoom = () => {
     <>
       <div>
         <BackNavigation />
-        <h3 className="p-4 font-bold mt-3 text-xl rounded-lg bg-white">
+        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">
           {classRoomData?.language} language
         </h3>
         <div className={styles.tabWrap}>
