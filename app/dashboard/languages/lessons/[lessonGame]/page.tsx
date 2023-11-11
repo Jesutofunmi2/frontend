@@ -61,7 +61,7 @@ const LessonGame = () => {
   return (
     <>
       {!lessonQuestions.length ? (
-        <div className="flex items-center justify-center text-2xl h-full font-bold">
+        <div className="flex items-center justify-center text-2xl h-full">
         <CorrectAnswerModal/>
         </div>
       ) : (

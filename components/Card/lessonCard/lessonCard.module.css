@@ -53,7 +53,6 @@ cursor: pointer;
 }
 
 .progressWrap p{
-    font-weight: bold;
 }
 
 .progressWrap span:nth-child(1){

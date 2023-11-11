@@ -23,7 +23,7 @@ const TeacherProfile = () => {
   return (
     <>
       <div className={styles.container}>
-        <h3 className="bg-white p-4 rounded-xl font-bold">Profile</h3>
+        <h3 className="bg-white p-4 rounded-xl">Profile</h3>
         <div>
           <div className={styles.imageWrap}>
             <Image

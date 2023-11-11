@@ -10,17 +10,12 @@
 .btn{
     color: black;
     transition: all .2s ease-in-out;
-
     border-radius: 6px;
-    font-weight: bold;
 }
 
 .btnActive{
     background-color: var(--green-color);
     color: var(--white-color);
     transition: all .2s ease-in-out;
-
     border-radius: 6px;
-  
-    font-weight: bold;
 }

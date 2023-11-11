@@ -32,7 +32,6 @@
 
 .dashNav p span{
     color: #f19c08;
-    font-weight: bold;
 } 
 
 .user{
@@ -79,7 +78,6 @@
     align-items: center;
     gap: 14px;
     color:  #CBCBCB;
-    font-weight: bold;
     font-size: 14px;
 }
 
@@ -92,7 +90,6 @@
 .mobileWrapper .list:hover{
     color: gray;
     cursor: pointer;
-    font-weight: bold;
 }
 
 .mobileWrapper .active{
@@ -100,7 +97,6 @@
     align-items: center;
     gap: 14px;
     color: var(--green-color);
-    font-weight: bold;
     font-size: 14px;
 }
 

@@ -60,7 +60,7 @@ export const TextInputValue = ({ label, name, type,defaultValue }: InputValuePro
   return (
     <>
       <div className={styles.inputWrap}>
-        <label className="text-sm font-bold" htmlFor={name}>
+        <label className="text-sm" htmlFor={name}>
           {label}
         </label>
         <input defaultValue={defaultValue} type={type?type:'text'} className={styles.input} readOnly />
