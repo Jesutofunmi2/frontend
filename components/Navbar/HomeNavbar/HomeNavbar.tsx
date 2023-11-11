@@ -1,91 +1,101 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import styles from './homeNavbar.module.css'
+import Button from '../../Button/Button'
 import Link from 'next/link'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { usePathname } from 'next/navigation'
-import useMediaQuery from '@/utils/hooks/useMediaQuery'
-import { MdClose } from 'react-icons/md'
+import { MobileNavbarViewHome } from '../mobileViewMenu'
+// import { usePathname } from 'next/navigation'
+import { useSelector } from 'react-redux'
 
+interface Props {
+  noFixedNavbar?: boolean
+}
+const HomeNavbar = ({ noFixedNavbar }: Props) => {
+  const token = false
+  const [colorChange, setColorchange] = useState(false)
+  const [open, setOpen] = useState(false)
+  // const pathname = usePathname()
 
-const HomeNavbar = () => {
-  const pathname = usePathname()
-  const matches = useMediaQuery('(max-width: 640px)')
-  const [openMobileMenu, setOpenMobileMenu] = useState(false)
+  const changeNavbarColor = () => {
+    if (window.scrollY >= 80) {
+      setColorchange(true)
+    } else {
+      setColorchange(false)
+    }
+  }
 
-  const navLinks = [
-    { name: 'Home', link: '/' },
-    { name: 'About', link: '/about' },
-    { name: 'Izesan For Schools', link: '/izesan_for_schools' },
-  ]
+  useEffect(() => {
+    window.addEventListener('scroll', changeNavbarColor)
+  }, [])
+
   return (
     <>
-      <nav className="flex items-center justify-between px-6 py-2 bg-white">
-        <Link href="/">
-          <Image src="/assets/images/logo.png" height={57} width={57} alt="logo" />
-        </Link>
-        {!matches ? (
-          <div className="flex gap-10 items-center">
-            {navLinks.map((ele) => {
-              return (
-                <Link
-                  key={ele.name}
-                  href={ele.link}
-                  className={
-                    pathname === ele.link
-                      ? 'border-b-2 border-secondary '
-                      : 'border-b-2 border-white'
-                  }
-                >
-                  {ele.name}
-                </Link>
-              )
-            })}
-            <Link href="/login" className="rounded-lg font-bold px-6 py-2 bg-brown text-white">
-              Login
-            </Link>
-          </div>
-        ) : (
-          <button onClick={() => setOpenMobileMenu(true)}>
-            <GiHamburgerMenu className="text-3xl text-brown hover:text-yellow" />
-          </button>
-        )}
-      </nav>
-      {openMobileMenu ? (
-        <nav className="shadow-2xl h-full fixed bg-white w-[90%] z-40 top-0 right-0  pl-12 pr-6 py-2 bg-white">
-          <div className="flex items-center justify-between">
+      {noFixedNavbar ? (
+        <nav className={styles.nofixedNav}>
+          <div className={styles.container}>
             <Link href="/">
               <Image src="/assets/images/logo.png" height={57} width={57} alt="logo" />
             </Link>
-            <button onClick={() => setOpenMobileMenu(false)}>
-              {' '}
-              <MdClose className="text-3xl text-brown hover:text-yellow" />
-            </button>
-          </div>
 
-          <div className="flex gap-6  mt-8 flex-col items-start">
-            {navLinks.map((ele) => {
-              return (
-                <Link
-                  key={ele.name}
-                  href={ele.link}
-                  className={
-                    pathname === ele.link
-                      ? 'border-b-2 border-secondary '
-                      : 'border-b-2 border-white'
-                  }
-                >
-                  {ele.name}
-                </Link>
-              )
-            })}
-            <Link href="/login" className="rounded-lg font-bold px-6 py-2 bg-brown text-white">
-              Login
-            </Link>
+            {token ? (
+              <Link href="/dashboard/languages" className={styles.loginBtn}>
+                <Button text="Dashboard" />
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                style={{ maxWidth: '200px', width: '100%' }}
+                className={styles.loginBtn}
+              >
+                <Button text="Login" />
+              </Link>
+            )}
+
+            <GiHamburgerMenu
+              size={30}
+              color="white"
+              onClick={() => setOpen(true)}
+              className={styles.hamburger}
+            />
+
+            {/* WHEN SCREEN IS REDUCED TO MOBILE VIEW */}
+            <MobileNavbarViewHome open={open} setOpen={setOpen} />
           </div>
         </nav>
-      ) : null}
+      ) : (
+        <nav className={colorChange ? styles.active : styles.nav}>
+          <div className={styles.container}>
+            <Image src="/assets/images/logo.png" width="70" height="70" alt="logo" />
+
+            {token ? (
+              <Link href="/dashboard/languages" className={styles.loginBtn}>
+                <Button text="Dashboard"  />
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                style={{ maxWidth: '200px', width: '100%' }}
+                className={styles.loginBtn}
+              >
+                <Button text="Login"  />
+              </Link>
+            )}
+
+            <GiHamburgerMenu
+              size={30}
+              color="white"
+              onClick={() => setOpen(true)}
+              className={styles.hamburger}
+            />
+
+            {/* WHEN SCREEN IS REDUCED TO MOBILE VIEW */}
+            <MobileNavbarViewHome open={open} setOpen={setOpen} />
+          </div>
+        </nav>
+      )}
     </>
   )
 }

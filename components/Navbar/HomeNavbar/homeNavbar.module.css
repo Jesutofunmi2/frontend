@@ -1,0 +1,104 @@
+.nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: .2s ease-in;
+    padding: 0 40px;
+    background-color: transparent;
+}
+
+
+.nofixedNav{
+    transition: .2s ease-in;
+    padding: 0 40px;
+    background-color: rgba(161, 186, 153, 0.6);
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 0px;
+}
+
+.active{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: .2s ease-in;
+    padding: 0 40px;
+    background-color: rgba(135, 159, 128, 0.6);
+}
+
+.authBtns{
+display: flex;
+align-items: center;
+background-color: aqua;
+}
+
+.authBtns span{
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--white-color);
+}
+
+
+.hamburger{
+    display: none;
+}
+
+
+
+
+/********** MOBILE MENU CSS **********/
+.closeIcon{
+    align-self: flex-end;
+}
+
+.topWrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.menuWrap{
+    margin-top: 20px;
+    display: grid;
+    place-items: start;
+    gap: 20px;
+    font-size: 22px;
+    
+}
+
+.menuWrap li{
+    cursor: pointer;
+    transition: all .1s linear;
+    color: navy;
+}
+
+.menuWrap li:hover{
+    color: rgb(12, 176, 241);
+    transition: all .1s linear;
+}
+
+
+
+/*MEDIA QUERIES   */
+@media (max-width: 800px){
+    .authBtns{
+        display: none;
+    }
+
+    .hamburger{
+        display: block;
+    }
+
+    .loginBtn{
+        display: none;
+    }
+}

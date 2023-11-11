@@ -8,14 +8,9 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      primary: 'hsl(39, 100%, 47%)',
-      error: 'hsl(11, 80%, 60%)',
-      white: '#ffff',
-      black: '#2C2C2C',
-      secondary: '#FFBA19',
-      brown: '#88361E',
-      "gray-100":"#F9F8F4",
-      yellow:"hsl(38, 94%, 49%);"
+     primary:"hsl(39, 100%, 47%)",
+     error:"hsl(11, 80%, 60%)",
+     white:"#ffff"
     },
   },
   plugins: [],

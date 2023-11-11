@@ -8,7 +8,7 @@ import HomeNavbar from "@/components/Navbar/HomeNavbar/HomeNavbar";
 const About = () => {
   return (
     <>
-      <HomeNavbar  />
+      <HomeNavbar noFixedNavbar={true} />
       <div className={styles.aboutContainer}>
         <div className={styles.textAndImgWrap}>
           <div className={styles.textWrap}>
