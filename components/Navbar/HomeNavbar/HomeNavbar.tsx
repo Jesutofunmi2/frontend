@@ -32,17 +32,17 @@ const HomeNavbar = () => {
                 <Link
                   key={ele.name}
                   href={ele.link}
-                  className={
-                    pathname === ele.link
+                  className={`
+                    ${pathname === ele.link
                       ? 'border-b-2 border-secondary '
-                      : 'border-b-2 border-white'
+                      : 'border-b-2 border-white' } hover:text-yellow` 
                   }
                 >
                   {ele.name}
                 </Link>
               )
             })}
-            <Link href="/login" className="rounded-lg font-bold px-6 py-2 bg-brown text-white">
+            <Link href="/login" className="rounded-lg font-bold px-6 py-2 bg-brown text-white hover:bg-yellow">
               Login
             </Link>
           </div>
