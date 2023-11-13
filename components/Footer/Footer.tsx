@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { IoLogoYoutube } from 'react-icons/io'
 import { AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
 import { BiLogoFacebook } from 'react-icons/bi'
+import { FaXTwitter } from 'react-icons/fa6'
 
 const Footer = () => {
   return (
@@ -26,29 +27,50 @@ const Footer = () => {
       </div>
       <div className="p-10 flex flex-col lg:flex-row gap-8 lg:gap-6 justify-center items-start lg:items-center text-white bg-[#333333]">
         <Image src="/assets/images/logo.png" width="50" height="50" alt="logo" />
-        <div className='text-sm text-left'>
+        <div className="text-sm text-left">
           <p>2016-2023</p>
           <p>Izesan. All right reserved.</p>
           <p>A division of Otaigbe Groups</p>
         </div>
         <hr className="border-white w-10 rotate-90 hidden lg:block" />
-        <div className='text-sm text-left'>
-          <p >Sign up for the special offer</p>
+        <div className="text-sm text-left">
+          <p>Sign up for the special offer</p>
           <div className="mt-2 text-left">
-            <input type="email" placeholder="email" className="border-none rounded-lg py-2 px-6" />
-            <button className="bg-primary rounded-lg px-6 mt-2 lg:mt-0 lg:ml-4 py-2 font-bold">Subscribed</button>
+            <input
+              type="email"
+              placeholder="Email"
+              className="border-transparent border-2 text-black rounded-lg outline-none p-2 focus-visible:border-2 focus-visible:border-solid focus-visible:border-yellow"
+            />
+            <button className="bg-primary rounded-lg px-6 mt-2 lg:mt-0 lg:ml-4 py-2 font-bold">
+              Subscribed
+            </button>
           </div>
         </div>
         <hr className="border-white rotate-90 w-10 hidden lg:block" />
-        <div className='text-left'>
-          <Link className=" block " href="/">Register</Link>
-          <Link  className=" block " href="/">Sign In</Link>
+        <div className="text-left">
+          <Link className="block hover:text-yellow" href="/">
+            Register
+          </Link>
+          <Link className=" block hover:text-yellow" href="/">
+            Sign In
+          </Link>
         </div>
         <hr className="border-white rotate-90 w-10 hidden lg:block" />
-      <div className='flex gap-4 justify-center  items-center '>  <Link className="text-xl" href="#"><IoLogoYoutube/></Link>
-        <Link className="text-xl" href="#"><AiOutlineInstagram/></Link>
-        <Link className="text-xl" href="#"><AiOutlineTwitter/></Link>
-        <Link className="text-xl" href="#"><BiLogoFacebook/></Link></div>
+        <div className="flex gap-4 justify-center  items-center ">
+          {' '}
+          <Link className="text-xl hover:text-yellow" href="#">
+            <IoLogoYoutube />
+          </Link>
+          <Link className="text-xl  hover:text-yellow" href="#">
+            <AiOutlineInstagram />
+          </Link>
+          <Link className="text-xl  hover:text-yellow" href="#">
+            <FaXTwitter />
+          </Link>
+          <Link className="text-xl  hover:text-yellow" href="#">
+            <BiLogoFacebook />
+          </Link>
+        </div>
       </div>
     </section>
   )

@@ -14,6 +14,7 @@ const config: Config = {
       black: '#2C2C2C',
       secondary: '#FFBA19',
       brown: '#88361E',
+      "brown-500":'hsl(13.2deg 50% 19.61%)',
       "gray-100":"#F9F8F4",
       yellow:"hsl(38, 94%, 49%);"
     },
