@@ -17,7 +17,7 @@ const HomeNavbar = () => {
   const navLinks = [
     { name: 'Home', link: '/' },
     { name: 'About', link: '/about' },
-    { name: 'Izesan For Schools', link: '/izesan_for_schools' },
+    // { name: 'Izesan For Schools', link: '/izesan_for_schools' },
   ]
   return (
     <>

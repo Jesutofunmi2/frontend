@@ -98,8 +98,8 @@ const LoginForm = () => {
   return (
     <div className="md:w-5/6 my-12 mx-auto rounded-l-xl shadow-2xl flex justify-center items-start">
       <div className="hidden lg:flex bg-brown w-1/2 h-screen relative fel-col items-center justify-center rounded-xl">
-        <div className="absolute top-10 -left-8 bg-yellow px-10 rounded-xl h-12 w-64">
-          <p className="text-white font-bold text-[25px] absolute -top-3">Welcome back!</p>
+        <div className="absolute top-10 -left-8 bg-yellow px-10 rounded-xl py-2">
+          <p className="text-white font-bold text-[28px]">Welcome back!</p>
         </div>
         <Image
           src={'/assets/images/landingpage/login_welcome.svg'}

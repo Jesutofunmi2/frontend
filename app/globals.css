@@ -149,15 +149,17 @@ input[type='radio']:checked {
   background-color: transparent !important;
 }
 .carousel .control-next.control-arrow:before {
-  border-left:8px solid brown!important
+  border-left: 8px solid brown !important;
 }
-.carousel .control-prev.control-arrow:before{
-  border-right:8px solid brown!important
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid brown !important;
 }
-.carousel-slider{
+.carousel-slider {
   /* max-width: 60rem !important; */
-  margin: auto!important;
+  margin: auto !important;
 }
-.slide{
-  /* min-width: 20%!important */
+@media (min-width: 980px) {
+  .slide {
+    min-width: 25% !important;
+  }
 }

@@ -3,7 +3,7 @@ export const phoneImages = [
     name: 'Game',
     image: '/assets/images/landingpage/phone_game.svg',
     description:
-      'Dive into the world of Izesan, where learning a new language feels like an epic adventure',
+      'Dive into the world of Izesan! , where learning a new language feels like an epic adventure.',
   },
   {
     name: 'Animation',
@@ -15,7 +15,7 @@ export const phoneImages = [
     name: 'Stories',
     image: '/assets/images/landingpage/phone_animation.svg',
     description:
-      "Embark on linguistic adventures with Izesan's stories that transport you to new worlds and cultures.",
+      "Embark on linguistic adventure with Izesan's stories that transport you to new worlds and cultures.",
   },
 ]
 

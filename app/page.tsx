@@ -41,7 +41,7 @@ const Home = () => {
                 Welcome to <span className="7xl font-bold"> Izesan!</span>
               </h1>
               <p className="py-4 text-xl w-full font-bold">
-                Where Traditon Meets Technology In Language Learning!
+                Where tradition meets technology in language learning!
               </p>
               <div className="mx-auto md:ml-auto w-fit lg:w-auto">
                 <div className="bg-white py-2 w-fit gap-10 my-6 px-4 rounded-2xl flex items-center justify-between">
@@ -77,10 +77,10 @@ const Home = () => {
           ></div>
           <div className="text-center font-bold text-brown-500 lg:my-4">
             {' '}
-            <h2 className="text-3xl font-bold">From Second language to second nature</h2>
+            <h2 className="text-3xl font-bold">From second language to second nature</h2>
             <p className="text-lg mx-auto lg:w-[50%] my-4 font-bold">
-              Izesan gets you confortable with real-life communication by tapping into your
-              brains&apos;s natural ability to learn.
+              Izesan! gets you comfortable with real-life communication by tapping into your
+              brain&apos;s natural ability to learn.
             </p>
           </div>
 
@@ -118,19 +118,19 @@ const Home = () => {
             />
           </div>
         </section>
-        <section className="relative z-40 bg-brown flex flex-col lg:flex-row lg:gap-16 items-center text-white justify-between">
+        <section className="relative z-40 bg-brown flex flex-col lg:flex-row lg:gap-12 items-center text-white justify-between">
           <div
             style={{
               backgroundImage: `url(/assets/images/landingpage/rounded_rectangle.svg)`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left',
             }}
-            className="text-left px-8 pt-8 lg:p-12 bg-cover md:bg-contain"
+            className="text-left px-8 pt-8 lg:px-16 lg:py-20 bg-cover md:bg-contain"
           >
-            <div className="md:w-[80%] ">
+            <div className="md:w-[80%]">
               <div>
-                <h2 className="text-4xl font-bold lg:w-5/6 mb-3">Language learning for all</h2>
-                <p>
+                <h2 className="text-4xl font-bold lg:w-3/6 mb-3">Language learning for all</h2>
+                <p className="text-justify">
                   At<strong> Izesan!</strong> we stand on the pillars of heritage, authenticity, and
                   progress. Our commitment to preserving African languages goes beyond rhetoric;
                   it&apos;s a dedication to empowering communities through linguistic preservation.
@@ -140,28 +140,28 @@ const Home = () => {
                 {
                   name: 'For Schools',
                   image: '/assets/images/landingpage/school.svg',
-                  subtext: 'Empowering Education Through language',
+                  subtext: 'Empowering education through language',
                   description:
-                    'Izesan recognizes the pivotal role language plays in education. Our platform offers schools a comprehensive language curriculum designed to enhance students linguistic capabilities.',
+                    'Izesan! recognizes the pivotal role language plays in education. Our platform offers schools a comprehensive language curriculum designed to enhance students linguistic capabilities.',
                 },
                 {
                   name: 'Animation',
                   image: '/assets/images/landingpage/animation.svg',
-                  subtext: 'Personalized Learning Journey',
+                  subtext: 'Personalized learning journey',
                   description:
-                    'Individuals, whether language enthusiasts or those looking to boost their career prospects, can harness the power of Izesan for personal growth. Heres what individuals can expect.',
+                    'Individuals, whether language enthusiasts or those looking to boost their career prospects, can harness the power of Izesan! for personal growth.',
                 },
                 {
                   name: 'Stories',
                   image: '/assets/images/landingpage/enterprise-image.svg',
-                  subtext: 'Elevating Global Communication',
+                  subtext: 'Elevating Global communication',
                   description:
-                    'In a globalized business landscape, effective communication is paramount. Izesan empowers enterprises with language learning solutions tailored to professional development.',
+                    'In a globalized business landscape, effective communication is paramount. Izesan! empowers enterprises with language learning solutions tailored to professional development.',
                 },
               ].map((ele) => {
                 return (
                   <div
-                    className="flex flex-col md:flex-row gap-8 my-12 text-2xl items-center"
+                    className="flex flex-col md:flex-row md:gap-8 my-12 text-2xl items-center"
                     key={ele.name}
                   >
                     <Image src={ele.image} alt="logo" height={100} width={100} className=" w-64" />
@@ -174,22 +174,22 @@ const Home = () => {
                         </span>
                       </div>
                       <p className="text-sm font-bold">{ele.subtext}...</p>
-                      <p className="text-xs font-normal">{ele.description}</p>
+                      <p className="text-xs font-normal text-justify">{ele.description}</p>
                     </div>
                   </div>
                 )
               })}
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-center lg:flex-col px-4  pt-6 lg:px-8 gap-8 md:gap-16">
+          <div className="flex flex-col md:flex-row justify-center lg:flex-col px-4 pt-6 lg:pr-16 lg:pl-8 gap-8 md:gap-16">
             {[
               {
                 image: '/assets/images/landingpage/library.svg',
-                description: 'Over 40,000 Cultural/Educational resources.',
+                description: 'Over 40,000 Cultural/Educational resources',
               },
               {
                 image: '/assets/images/landingpage/government-building.svg',
-                description: 'Governmental Approved',
+                description: 'Government Approved',
               },
               {
                 image: '/assets/images/landingpage/location.svg',
@@ -203,15 +203,15 @@ const Home = () => {
                     alt="logo"
                     height={100}
                     width={100}
-                    className="h-auto w-auto mx-auto"
+                    className="h-20 w-auto mx-auto"
                   />
-                  <p className="text-lg font-bold my-4">{ele.description}</p>
+                  <p className="text-base md:text-lg font-bold my-4">{ele.description}</p>
                 </div>
               )
             })}
           </div>
         </section>
-        <section className="my-8 relative px-4 py-8 lg:py-20 font-bold bg-white bg-gray-100">
+        <section className="my-8 relative px-12 py-8 lg:py-20 font-bold bg-white bg-gray-100">
           <Image
             src="/assets/images/landingpage/quote_icon_start.svg"
             alt="logo"
@@ -219,36 +219,38 @@ const Home = () => {
             width={100}
             className="h-30 w-30 absolute top-0 left-0"
           />
-          <h2 className="text-4xl lg:text-[2.3rem]">Our Accreditation</h2>
+          <h2 className="text-4xl lg:text-[2.3rem]">Our Partners</h2>
           <div className="flex items-center my-4 justify-center gap-10">
             <hr className="border-black w-36" />
             <span className="rounded-full bg-black p-1"></span>
             <hr className="border-black w-36" />
           </div>
           <div className="flex items-center flex-col gap-4 md:gap-0 lg:flex-row justify-center gap-0 mt-12">
-            <Image
-              src={'/assets/images/landingpage/federal_ministry_logo.svg'}
-              alt="logo"
-              height={100}
-              width={100}
-              className="h-[60px] md:h-[150px] w-[30em]"
-            />
-            <hr className="hidden lg:block rotate-90 border-black border-2 w-20" />
+            {[
+              '/assets/images/landingpage/federal_ministry_logo.svg',
+              '/assets/images/landingpage/nigerian_institute_logo.svg',
+              '/assets/images/landingpage/universal_basic_education.svg',
+            ].map((ele, index) => {
+              return (
+                <div key={index}>
+                  <Image
+                    src={ele}
+                    alt="logo"
+                    height={100}
+                    width={100}
+                    className="h-[80px] w-[30em]"
+                  />
+                </div>
+              )
+            })}
 
-            <Image
-              src={'/assets/images/landingpage/nigerian_institute_logo.svg'}
-              alt="logo"
-              height={100}
-              width={100}
-              className="h-[60px] md:h-[150px] w-[30em]"
-            />
+            {/* <hr className="hidden lg:block rotate-90 border-black border-2 w-20" /> */}
           </div>
           <p className="text-lg font-bold pt-8 md:pt-20 lg:px-20">
             At Izesan! we take pride in being your premier language learning institution, dedicated
-            to providing top-notch education in collaboration with the Federal Government of Nigeria
-            and the National Institute for Nigerian languages Nigerian Language Institute. With a
-            commitment to excellence and a passion for linguistic diversity, we offer accredited
-            language courses that empower individuals to communicate.
+            to providing top-notch education in collaboration with the Federal Ministry of
+            Education, the National Institute for Nigerian languages, and the Universal Basic
+            Education Commission.
           </p>
           <Image
             src="/assets/images/landingpage/quote_icon_bottom.svg"
@@ -259,14 +261,13 @@ const Home = () => {
           />
         </section>
         <section className="my-8 px-4 py-8 lg:py-20 bg-white text-black ">
-          <h2 className="text-4xl lg:text-[2.3rem] font-bold">Our Subscribed Partners</h2>
-          <div className="mx-auto my-12 w-[90%] lg:w-4/6 flex items-center justify-center">
+          <h2 className="text-4xl lg:text-[2.3rem] font-bold">Our Subscribers</h2>
+          <div className="mx-auto my-12 w-[90%] lg:w-5/6 flex items-center justify-center">
             <button className="" onClick={() => previoushandler()}>
               <BiSolidLeftArrow className="text-brown text-2xl md:text-3xl" />
             </button>
             <div className="w-5/6 mx-auto">
               <Carousel
-                className=""
                 selectedItem={currentImageIndex}
                 showIndicators={false}
                 showThumbs={false}
