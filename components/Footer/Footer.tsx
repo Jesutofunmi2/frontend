@@ -29,7 +29,7 @@ const Footer = () => {
         <Image src="/assets/images/logo.png" width="50" height="50" alt="logo" />
         <div className="text-sm text-left">
           <p>&copy;{new Date().getFullYear()}</p>
-          <p>Izesan. All right reserved.</p>
+          <p className='py-1'>Izesan. All right reserved.</p>
           <p>A division of Otaigbe Groups</p>
         </div>
         <hr className="border-white w-10 rotate-90 hidden lg:block" />
@@ -39,7 +39,7 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Email"
-              className="border-transparent border-2 text-black rounded-lg outline-none p-2 focus-visible:border-2 focus-visible:border-solid focus-visible:border-yellow"
+              className="border-transparent w-64 border-2 text-black rounded-lg outline-none p-2 focus-visible:border-2 focus-visible:border-solid focus-visible:border-yellow"
             />
             <button className="bg-primary rounded-lg px-6 mt-2 lg:mt-0 lg:ml-4 py-2 font-bold">
               Subscribed
@@ -51,12 +51,12 @@ const Footer = () => {
           <Link className="block hover:text-yellow" href="/">
             Register
           </Link>
-          <Link className=" block hover:text-yellow" href="/login">
+          <Link className=" block hover:text-yellow py-1" href="/login">
             Sign In
           </Link>
         </div>
         <hr className="border-white rotate-90 w-10 hidden lg:block" />
-        <div className="flex gap-4 justify-center  items-center ">
+        <div className="flex gap-4 justify-center items-center ">
           {' '}
           <Link className="text-xl hover:text-yellow" href="https://www.youtube.com/@izesan392">
             <IoLogoYoutube />
