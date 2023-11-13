@@ -14,13 +14,29 @@ import useMediaQuery from '@/utils/hooks/useMediaQuery'
 const Home = () => {
   const matches = useMediaQuery('(max-width: 700px)')
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
   const nexthandler = () => {
-    setCurrentImageIndex(currentImageIndex + 1)
+    if (currentImageIndex === schoolLogo.length) {
+      setCurrentImageIndex(0)
+    } else {
+      setCurrentImageIndex(currentImageIndex + 1)
+    }
   }
 
   const previoushandler = () => {
-    setCurrentImageIndex(currentImageIndex - 1)
+    if (currentImageIndex === 0) {
+      setCurrentImageIndex(0)
+    } else {
+      setCurrentImageIndex(currentImageIndex - 1)
+    }
   }
+
+  const handleChange = (selectedIndex: number) => {
+    if (selectedIndex == schoolLogo.length - 8) {
+      setCurrentImageIndex(0)
+    }
+  }
+
   return (
     <div className="landingpage">
       <HomeNavbar />
@@ -55,7 +71,7 @@ const Home = () => {
                 </div>
               </div>
               <p className="text-lg pt-2">
-                Embark on a transformative journey with <strong>Izesan!</strong> a pioneering
+                Embark on a transformative journey with <strong>Izesan!</strong> , a pioneering
                 e-learning platform designed to bring the richness of indigenous languages directly
                 to your fingertips.
               </p>
@@ -118,19 +134,21 @@ const Home = () => {
             />
           </div>
         </section>
-        <section className="relative z-40 bg-brown flex flex-col lg:flex-row lg:gap-12 items-center text-white justify-between">
+        <section className="relative z-40 bg-brown flex flex-col lg:flex-row lg:gap-0 items-center text-white justify-between">
           <div
             style={{
               backgroundImage: `url(/assets/images/landingpage/rounded_rectangle.svg)`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left',
             }}
-            className="text-left px-8 pt-8 lg:px-16 lg:py-20 bg-cover md:bg-contain"
+            className="text-left px-8 pt-8 lg:px-16 lg:py-20 bg-cover lg:bg-contain"
           >
             <div className="md:w-[80%]">
               <div>
-                <h2 className="text-4xl font-bold lg:w-3/6 mb-3">Language learning for all</h2>
-                <p className="text-justify">
+                <h2 className="text-4xl font-bold lg:w-3/6 leading-normal mb-3">
+                  Language learning for all
+                </h2>
+                <p className="text-justify mt-6">
                   At<strong> Izesan!</strong> we stand on the pillars of heritage, authenticity, and
                   progress. Our commitment to preserving African languages goes beyond rhetoric;
                   it&apos;s a dedication to empowering communities through linguistic preservation.
@@ -142,7 +160,7 @@ const Home = () => {
                   image: '/assets/images/landingpage/school.svg',
                   subtext: 'Empowering education through language',
                   description:
-                    'Izesan! recognizes the pivotal role language plays in education. Our platform offers schools a comprehensive language curriculum designed to enhance students linguistic capabilities.',
+                    'Our platform offers schools comprehensive language learning resources designed to fit seamlessly into any and every school’s curriculum.',
                 },
                 {
                   name: 'Animation',
@@ -168,13 +186,13 @@ const Home = () => {
                     <div>
                       <div className="flex gap-4 mb-4 items-center">
                         {' '}
-                        <h3 className="text-xl font-bold">{ele.name}</h3>{' '}
+                        <h3 className="text-[1.4rem] font-bold">{ele.name}</h3>{' '}
                         <span className="bg-brown-500 rounded-full">
                           <BsArrowRightShort className="text-white text-base" />
                         </span>
                       </div>
-                      <p className="text-sm font-bold">{ele.subtext}...</p>
-                      <p className="text-xs font-normal text-justify">{ele.description}</p>
+                      <p className="text-[17px] font-bold">{ele.subtext}...</p>
+                      <p className="text-base text-justify">{ele.description}</p>
                     </div>
                   </div>
                 )
@@ -277,6 +295,7 @@ const Home = () => {
                 autoPlay
                 centerMode={matches ? false : true}
                 centerSlidePercentage={matches ? 0 : 30}
+                onChange={handleChange}
               >
                 {schoolLogo.map((ele: string, index: number) => {
                   return (
