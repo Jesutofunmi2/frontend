@@ -16,7 +16,7 @@ const About = () => {
               <p>
                 We believe that every language is a living entity, pulsating with the heartbeat of
                 culture, and our platform serves as a bridge between the timeless wisdom of
-                tradition and the boundless possibilities of technology
+                tradition and the boundless possibilities of technology.
               </p>
             </div>
             <div className="lg:w-[45%] mt-4 md:mt-0">
