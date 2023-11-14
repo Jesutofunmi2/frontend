@@ -25,11 +25,11 @@ interface BulkUploadProps {
   mutate: any
   schoolID: number
   classOptions:
-    | {
-        value: number
-        label: string
-      }[]
-    | any
+  | {
+    value: number
+    label: string
+  }[]
+  | any
   setBulkOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadProps) => {
@@ -151,7 +151,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
                       onChange={(val) => {
                         onChange(val.value), setSelectedOptionForClass(val.value)
                       }}
-                      value={classOptions.find((c: any) => c.value === Number(value)) || value}
+                      value={classOptions?.find((c: any) => c.value === Number(value)) || value}
                       label="Class"
                       defaultValue={'Select'}
                       options={classOptions}

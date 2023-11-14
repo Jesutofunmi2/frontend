@@ -21,7 +21,7 @@ interface AddEditClassProps {
   setModalOpen: any
   mutate: any
   classDetails: any
-  teacherID: number
+  teacherID?: number
 }
 
 const AddEditClass = ({
@@ -37,14 +37,20 @@ const AddEditClass = ({
     if (classDetails) {
       // editClass()
     } else {
-      let res = await addClass(
-        Number(schoolID),
-        teacherID,
-        Number(data.language_id),
-        data.class_room_name
-      )
-
-      mutate()
+      let res
+      if (teacherID) {
+        res = await addClass(
+          Number(schoolID),
+          Number(data.language_id),
+          data.class_room_name,
+          teacherID
+        )
+      } else {
+        res = await addClass(Number(schoolID), Number(data.language_id), data.class_room_name)
+      }
+      if (res.message) {
+        mutate()
+      }
     }
   }
   const { register, handleSubmit, control, reset } = useForm<Inputs>({

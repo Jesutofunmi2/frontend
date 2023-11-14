@@ -1,43 +1,43 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import styles from "./page.module.css";
+import React, { useState } from 'react'
+import styles from './page.module.css'
 
-import Image from "next/image";
-import BackNavigation from "@/components/BackNavigation/BackNavigation";
-import Button from "@/components/Button/Button";
-import { useGetLessons } from "@/services/api/lessons";
-import Modal from "@/components/Modal/Modal";
-import { Spinner } from "@/components/Loader/Loader";
-import Tab2 from "@/components/Tab/Tab2/Tab2";
-import AssignClassworkView from "@/components/Views/AssignClassworkView/AssignClassworkView";
-import AssignModuleView from "@/components/Views/AssignModuleView/AssignModuleView";
-import AddModuleForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
+import Image from 'next/image'
+import BackNavigation from '@/components/BackNavigation/BackNavigation'
+import Button from '@/components/Button/Button'
+import { useGetLessons } from '@/services/api/lessons'
+import Modal from '@/components/Modal/Modal'
+import { Spinner } from '@/components/Loader/Loader'
+import Tab2 from '@/components/Tab/Tab2/Tab2'
+import AssignClassworkView from '@/components/Views/AssignClassworkView/AssignClassworkView'
+import AssignModuleView from '@/components/Views/AssignModuleView/AssignModuleView'
+import AddModuleForm from '@/components/Form/Forms/AddModuleForm/AddModuleForm'
 
 const tabData = [
-  { id: 1, title: "Assign Classwork" },
-  { id: 2, title: "Assign Module" },
-];
+  { id: 1, title: 'Assign Classwork' },
+  { id: 2, title: 'Assign Module' },
+]
 
 const AddClassworkPage = () => {
-  const [selectModule, setselectModule] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const { data:language, isValidating } = useGetLessons(1);
-  const [toggle, setToggle] = useState("Assign Classwork");
+  const [selectModule, setselectModule] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const { data: language, isValidating } = useGetLessons(1)
+  const [toggle, setToggle] = useState('Assign Classwork')
   const [payloadData, setPayloadData] = useState({
-    first_name: "",
-    gendar: "",
-  });
+    first_name: '',
+    gendar: '',
+  })
 
   // const handleModal = () => {
   //   setModalOpen(true);
   // };
 
   // TOGGLE USERS
-  const handleToggle = (title:string) => {
-    setToggle(title);
-  };
-
+  const handleToggle = (title: string) => {
+    setToggle(title)
+  }
+  const handleFormSubmit = () => {}
   return (
     <>
       <div>
@@ -49,14 +49,14 @@ const AddClassworkPage = () => {
             <Tab2 handleToggle={handleToggle} data={tabData} toggle={toggle} />
           </div>
 
-          {toggle === "Assign Classwork" ? (
-            <AssignClassworkView setModalOpen={setModalOpen} />
+          {toggle === 'Assign Classwork' ? (
+            <AssignClassworkView handleFormSubmit={handleFormSubmit} setModalOpen={setModalOpen} />
           ) : (
             <AssignModuleView
-          // language={language}
-          //     isValidating={isValidating}
-          //     setselectModule={setselectModule}
-          //     selectModule={selectModule}
+            // language={language}
+            //     isValidating={isValidating}
+            //     setselectModule={setselectModule}
+            //     selectModule={selectModule}
             />
           )}
 
@@ -72,7 +72,7 @@ const AddClassworkPage = () => {
         />
       </Modal> */}
     </>
-  );
-};
+  )
+}
 
-export default AddClassworkPage;
+export default AddClassworkPage
