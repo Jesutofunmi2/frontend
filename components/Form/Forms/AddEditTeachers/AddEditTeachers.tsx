@@ -149,7 +149,7 @@ const AddEditTeachers = ({
             control={control}
             render={({ field }) => (
               <SelectImage
-                register={{ ...register('image_url', { required: true }) }}
+                register={{ ...register('image_url') }}
                 name="image_url"
                 setFile={setFile}
                 preview={preview}

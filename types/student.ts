@@ -22,6 +22,7 @@ export interface IFormStudent {
   }
   
 export interface IStudent {
+  username: any;
   age: number
   class?: string
   classarm?: string

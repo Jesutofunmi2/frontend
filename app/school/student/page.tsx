@@ -75,13 +75,13 @@ const Student = () => {
   }
 
   // SUBMIT FORM CONDITION
-  const handleFormSubmit = async (values: IFormStudent) => {
+  const handleFormSubmit = async (values: IFormStudent|any) => {
     values.school_id = String(schoolID)
     values.age = Number(values.age)
     values.country = 'Nigeria'
     let formData = { ...values }
     if (studentDetails) {
-      const updatedItems = allStudentsData.map((el) =>
+      const updatedItems:any = allStudentsData.map((el) =>
         el.student_id === studentDetails.student_id ? formData : el
       )
       mutate(updatedItems, false)

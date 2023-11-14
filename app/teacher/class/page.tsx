@@ -10,14 +10,19 @@ import { useSelector } from 'react-redux'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { addClass, deleteClass, useGetClasses } from '@/services/api/school/class'
+import { useGetTeacherClasses } from '@/services/api/teacher/class'
 
 const TeacherClass = () => {
   const [classDetails, setclassDetails] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const teacherData = useSelector(userData).currentTeacher?.data!
 
-  const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData?.school.id)
-  if (!allSchoolClasses) return null
+  // const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData?.school.id)
+  const { data: allTeacherClasses , isLoading, error, mutate} = useGetTeacherClasses(
+    teacherData.school.id,
+    teacherData.teacher_id
+  )
+  if (!allTeacherClasses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
@@ -43,17 +48,18 @@ const TeacherClass = () => {
       mutate()
     }
   }
+
   return (
     <>
       <div className={styles.dash}>
-        <h3 className='bg-white p-4 rounded-xl'>Classes</h3>
+        <h3 className="bg-white p-4 rounded-xl">Classes</h3>
         <div className={styles.btnWrap}>
           <Button text="Add Class" handleClick={() => handleModalOpen('add', '')} />
         </div>
 
         <div className={styles.classWrap}>
-          {allSchoolClasses.length ? (
-            allSchoolClasses.map((classroom: any) => (
+          {allTeacherClasses?.length ? (
+            allTeacherClasses.map((classroom: any) => (
               <ClassCard
                 key={classroom.id}
                 classroom={classroom}
@@ -73,6 +79,7 @@ const TeacherClass = () => {
           classDetails={classDetails}
           mutate={mutate}
           schoolID={teacherData.school.id}
+          teacherID={teacherData.teacher_id}
         />
       </Modal>
     </>

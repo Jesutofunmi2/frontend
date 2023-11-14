@@ -16,13 +16,14 @@ export const useGetClasses = (schoolID: number) => {
 }
 
 //ADD CLASS
-export const addClass = async (school_id: number, language_id: number, class_room_name: string) => {
+export const addClass = async (school_id: number, teacherID:number,language_id: number, class_room_name: string) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
+  // api/v1/addClass?school_id=7&teacher_id=Bal/2023/IZESAN/00021&language_id=3&class_room_name=ss3
   try {
     const res = await makeApiCall(
-      `/api/v1/addClass?school_id=${school_id}&language_id=${language_id}&class_room_name=${class_room_name}`,
+      `/api/v1/addClass?school_id=${school_id}&teacher_id=${teacherID}&language_id=${language_id}&class_room_name=${class_room_name}`,
       'post'
     )
     toast.dismiss()

@@ -17,13 +17,14 @@ import GradebookView from '@/components/Views/GradebookView/GradebookView'
 import { PiBookOpenBold } from 'react-icons/pi'
 import { LuSettings } from 'react-icons/lu'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
-import { deleteClasswork, useGetClasswork } from '@/services/api/classwork'
+
 import { useSelector } from 'react-redux'
 import { addAssignmentFile } from '@/services/api/post'
 import { userData } from '@/services/redux/features/userSlice'
 import { useGetClasses } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
-import { mutate } from 'swr'
+// import { mutate } from 'swr'b
+import { useGetStudents } from '@/services/api/school/student'
 
 const tabData = [
   { text: 'Students', icon: <BsPeople /> },
@@ -41,6 +42,8 @@ const ClassRoom = () => {
   )
   const teacherData = useSelector(userData).currentTeacher?.data!
   const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData.school.id)
+  const { data: allStudents } = useGetStudents(teacherData.school.id)
+
   if (!allSchoolClasses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
@@ -48,33 +51,47 @@ const ClassRoom = () => {
   const classRoomData = allSchoolClasses.find((classroom) => classroom.id === classroomID)
   const handleActiveTab = (activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') =>
     setActiveTab(activeTab)
-  // TABLE HEAD
+
   const tableHead = ['NAME', 'LANGUAGE', 'GENDER', '']
 
-  // TABLE BODY
+  const getClassroomStudent = allStudents?.filter(
+    (ele) => classRoomData?.classs_room_name === ele.class
+  )
+
   const tableBody = () => {
     return (
-      <tr>
-        <td>James</td>
-        <td>Idoma</td>
-        <td>Male</td>
-        <td>
+      <>
+        {getClassroomStudent?.map((ele) => {
+          return (
+            <tr key={ele.id}>
+              <td>{ele?.username}</td>
+              <td>{ele?.language}</td>
+              <td>{ele?.gendar}</td>
+              <td>
+                <div className="action">
+                  <AiFillEdit className="editIcon" />
+                  <RiDeleteBin6Line className="deleteIcon" />
+                </div>
+              </td>
+            </tr>
+          )
+        })}
+      </>
+    )
+  }
+  {
+    /* <td>
           <div className="action">
             <AiFillEdit className="editIcon" />
             <RiDeleteBin6Line className="deleteIcon" />
           </div>
-        </td>
-      </tr>
-    )
+        </td> */
   }
-
   return (
     <>
       <div>
         <BackNavigation />
-        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">
-          {classRoomData?.language} language
-        </h3>
+        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">{classRoomData?.classs_room_name}</h3>
         <div className={styles.tabWrap}>
           <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
         </div>
@@ -84,7 +101,7 @@ const ClassRoom = () => {
             {activeTab === 'Students' ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === 'Classwork' ? (
-              <ClassworkViewWrapper />
+              <ClassworkView />
             ) : activeTab === 'Assignment' ? (
               <AssignmentViewWrapper />
             ) : activeTab === 'Gradebook' ? (
@@ -98,44 +115,6 @@ const ClassRoom = () => {
 }
 
 export default ClassRoom
-
-// CLASSWORK VIEW WRAPPER
-const ClassworkViewWrapper = () => {
-  const searchParams = useSearchParams()
-  const classID = Number(searchParams.get('id'))
-  const teacherData = useSelector(userData).currentTeacher?.data!
-
-  const { data: classworkData, mutate } = useGetClasswork(
-    teacherData?.teacher_id,
-    teacherData?.school?.id,
-    classID
-  )
-
-  // Delete Class function
-  const handleDeleteClasswork = async (param: any) => {
-    let payload = {
-      name: param?.name,
-      teacherID: teacherData?.teacher_id,
-      schoolID: teacherData?.school?.id,
-      classID: classID,
-    }
-    let res = await deleteClasswork(payload)
-    if (res) {
-      mutate()
-    }
-  }
-
-  return (
-    <>
-      <ClassworkView
-        classworkData={classworkData}
-        handleDeleteClasswork={handleDeleteClasswork}
-        teacher_id={teacherData?.teacher_id}
-        school_id={teacherData?.school?.id}
-      />
-    </>
-  )
-}
 
 // ASSIGNMENT VIEW WRAPPER
 const AssignmentViewWrapper = () => {

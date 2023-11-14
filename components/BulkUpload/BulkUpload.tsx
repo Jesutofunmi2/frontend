@@ -62,7 +62,6 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
     { value: 'Third', label: 'Third Term' },
   ]
 
-
   const classArmoptions = allClassArmByID[0]?.class_arms.map(
     (item: { id: number; name: string }) => {
       return { label: item?.name, value: item.id }
@@ -91,7 +90,6 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
     mutate()
   }
 
- 
   const { handleSubmit, control, reset } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!data.file) {
