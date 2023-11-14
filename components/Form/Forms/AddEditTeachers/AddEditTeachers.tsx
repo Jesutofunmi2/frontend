@@ -12,8 +12,6 @@ import { IClass } from '@/types/class'
 import { getClassById } from '@/services/api/school/class'
 import { AiOutlineClose } from 'react-icons/ai'
 
-
-
 type Inputs = {
   name: string
   email: string
@@ -66,7 +64,7 @@ const AddEditTeachers = ({
       }
       fetchData()
     }
-  }, [schoolID,selectedOptionForClass])
+  }, [schoolID, selectedOptionForClass])
 
   const classArmoptions = allClassArmByID[0]?.class_arms.map(
     (item: { id: number; name: string }) => {
@@ -159,7 +157,6 @@ const AddEditTeachers = ({
               />
             )}
           />
-          
         </div>
         <div className="grid grid-cols-2 gap-6 my-8">
           <TextInput

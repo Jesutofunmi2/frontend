@@ -18,10 +18,12 @@ const TeacherClass = () => {
   const teacherData = useSelector(userData).currentTeacher?.data!
 
   // const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData?.school.id)
-  const { data: allTeacherClasses , isLoading, error, mutate} = useGetTeacherClasses(
-    teacherData.school.id,
-    teacherData.teacher_id
-  )
+  const {
+    data: allTeacherClasses,
+    isLoading,
+    error,
+    mutate,
+  } = useGetTeacherClasses(teacherData.school.id, teacherData.teacher_id)
   if (!allTeacherClasses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
@@ -53,9 +55,9 @@ const TeacherClass = () => {
     <>
       <div className={styles.dash}>
         <h3 className="bg-white p-4 rounded-xl">Classes</h3>
-        <div className={styles.btnWrap}>
+        {/* <div className={styles.btnWrap}>
           <Button text="Add Class" handleClick={() => handleModalOpen('add', '')} />
-        </div>
+        </div> */}
 
         <div className={styles.classWrap}>
           {allTeacherClasses?.length ? (

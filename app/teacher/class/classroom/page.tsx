@@ -23,7 +23,6 @@ import { addAssignmentFile } from '@/services/api/post'
 import { userData } from '@/services/redux/features/userSlice'
 import { useGetClasses } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
-// import { mutate } from 'swr'b
 import { useGetStudents } from '@/services/api/school/student'
 
 const tabData = [
@@ -41,7 +40,7 @@ const ClassRoom = () => {
     'Students'
   )
   const teacherData = useSelector(userData).currentTeacher?.data!
-  const { data: allSchoolClasses, isLoading, error, mutate } = useGetClasses(teacherData.school.id)
+  const { data: allSchoolClasses, isLoading, error } = useGetClasses(teacherData.school.id)
   const { data: allStudents } = useGetStudents(teacherData.school.id)
 
   if (!allSchoolClasses) return null
@@ -57,7 +56,7 @@ const ClassRoom = () => {
   const getClassroomStudent = allStudents?.filter(
     (ele) => classRoomData?.classs_room_name === ele.class
   )
-
+  console.log(classRoomData)
   const tableBody = () => {
     return (
       <>

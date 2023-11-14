@@ -1,0 +1,6 @@
+// Balogun endpoints
+// return error response for duplicated emails in creating teachers
+// duplicated class and class arm unacceptable
+// No duplicate on adding classes 
+
+
