@@ -25,11 +25,11 @@ interface BulkUploadProps {
   mutate: any
   schoolID: number
   classOptions:
-    | {
-        value: number
-        label: string
-      }[]
-    | any
+  | {
+    value: number
+    label: string
+  }[]
+  | any
   setBulkOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadProps) => {
@@ -62,7 +62,6 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
     { value: 'Third', label: 'Third Term' },
   ]
 
-
   const classArmoptions = allClassArmByID[0]?.class_arms.map(
     (item: { id: number; name: string }) => {
       return { label: item?.name, value: item.id }
@@ -91,7 +90,6 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
     mutate()
   }
 
- 
   const { handleSubmit, control, reset } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!data.file) {
@@ -153,7 +151,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
                       onChange={(val) => {
                         onChange(val.value), setSelectedOptionForClass(val.value)
                       }}
-                      value={classOptions.find((c: any) => c.value === Number(value)) || value}
+                      value={classOptions?.find((c: any) => c.value === Number(value)) || value}
                       label="Class"
                       defaultValue={'Select'}
                       options={classOptions}
