@@ -33,7 +33,7 @@ const Home = () => {
   }
 
   const handleChange = (selectedIndex: number) => {
-    if (selectedIndex == schoolLogo.length - 8) {
+    if (selectedIndex == schoolLogo.length - 10) {
       setCurrentImageIndex(0)
     }
   }
@@ -61,11 +61,11 @@ const Home = () => {
                 Where tradition meets technology in language learning!
               </p>
               <div className="mx-auto md:ml-auto w-fit lg:w-auto">
-                <div className="bg-white py-2 w-fit gap-10 my-6 px-4 rounded-2xl flex items-center justify-between">
-                  <span className="text-black font-bold"> Choose from 15 languages </span>
+                <div className="bg-white py-2 w-fit gap-6 md:gap-10 my-6 px-4 rounded-2xl flex items-center justify-between">
+                  <span className="text-black font-bold"> Choose from 14 languages </span>
                   <Link
                     href="/login"
-                    className="py-2 px-6 bg-brown rounded-lg font-bold hover:bg-yellow w-auto"
+                    className="py-2 px-6 bg-brown rounded-lg font-bold hover:bg-yellow w-48 text-center md:w-auto"
                   >
                     Join Now
                   </Link>
@@ -146,7 +146,7 @@ const Home = () => {
               matchesImages ? 'bg-cover' : 'bg-contain'
             } text-left px-8 pt-8 lg:px-16 lg:py-20`}
           >
-            <div className={useMediaQuery('(max-width: 1100px)')?"w-full":"w-5/6"}>
+            <div className={useMediaQuery('(max-width: 1100px)') ? 'w-full' : 'w-5/6'}>
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold lg:w-3/6 leading-normal mb-3">
                   Language learning for all
@@ -282,7 +282,7 @@ const Home = () => {
         <section className="my-8 px-4 py-8 lg:py-20 bg-white text-black ">
           <h2 className="text-4xl lg:text-[2.3rem] font-bold">Our Subscribers</h2>
           <div className="mx-auto my-12 w-[90%] lg:w-5/6 flex items-center justify-center">
-            <button className="" onClick={() => previoushandler()}>
+            <button onClick={() => previoushandler()}>
               <BiSolidLeftArrow className="text-brown text-2xl md:text-3xl" />
             </button>
             <div className="w-5/6 mx-auto">
@@ -327,6 +327,7 @@ const Home = () => {
               height: '100px',
               backgroundPosition: 'center',
             }}
+            className='bg-no-repeat md:bg-repeat'
           ></div>
         </section>
       </main>

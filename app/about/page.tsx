@@ -5,7 +5,6 @@ import HomeNavbar from '@/components/Navbar/HomeNavbar/HomeNavbar'
 import useMediaQuery from '@/utils/hooks/useMediaQuery'
 
 const About = () => {
-  const matches = useMediaQuery('(min-width: 1024px)')
   return (
     <>
       <HomeNavbar />
@@ -17,7 +16,7 @@ const About = () => {
               <p>
                 We believe that every language is a living entity, pulsating with the heartbeat of
                 culture, and our platform serves as a bridge between the timeless wisdom of
-                tradition and the boundless possibilities of technology
+                tradition and the boundless possibilities of technology.
               </p>
             </div>
             <div className="lg:w-[45%] mt-4 md:mt-0">
