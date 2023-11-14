@@ -13,6 +13,7 @@ import useMediaQuery from '@/utils/hooks/useMediaQuery'
 
 const Home = () => {
   const matches = useMediaQuery('(max-width: 700px)')
+  const matchesImages = useMediaQuery('(max-width: 1096px)')
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const nexthandler = () => {
@@ -106,7 +107,7 @@ const Home = () => {
               alt="logo"
               height={100}
               width={100}
-              className="h-28 w-28 absolute bottom-52 left-48"
+              className="hidden lg:block h-28 w-28 absolute bottom-52 left-48"
             />
             {phoneImages.map((ele) => {
               return (
@@ -130,7 +131,7 @@ const Home = () => {
               alt="logo"
               height={100}
               width={100}
-              className="h-28 w-28 absolute top-0 right-48"
+              className="hidden lg:block h-28 w-28 absolute top-0 right-48"
             />
           </div>
         </section>
@@ -141,11 +142,13 @@ const Home = () => {
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left',
             }}
-            className="text-left px-8 pt-8 lg:px-16 lg:py-20 bg-cover lg:bg-contain"
+            className={` ${
+              matchesImages ? 'bg-cover' : 'bg-contain'
+            } text-left px-8 pt-8 lg:px-16 lg:py-20`}
           >
-            <div className="md:w-[80%]">
+            <div className={useMediaQuery('(max-width: 1100px)')?"w-full":"w-5/6"}>
               <div>
-                <h2 className="text-4xl font-bold lg:w-3/6 leading-normal mb-3">
+                <h2 className="text-3xl md:text-4xl font-bold lg:w-3/6 leading-normal mb-3">
                   Language learning for all
                 </h2>
                 <p className="text-justify mt-6">
@@ -184,7 +187,7 @@ const Home = () => {
                   >
                     <Image src={ele.image} alt="logo" height={100} width={100} className=" w-64" />
                     <div>
-                      <div className="flex gap-4 mb-4 items-center">
+                      <div className="flex gap-4 my-4 lg:my-0 items-center">
                         {' '}
                         <h3 className="text-[1.4rem] font-bold">{ele.name}</h3>{' '}
                         <span className="bg-brown-500 rounded-full">
@@ -229,13 +232,13 @@ const Home = () => {
             })}
           </div>
         </section>
-        <section className="my-8 relative px-12 py-8 lg:py-20 font-bold bg-white bg-gray-100">
+        <section className="my-8 relative px-8 lg:px-12 py-8 lg:py-20 font-bold bg-white bg-gray-100">
           <Image
             src="/assets/images/landingpage/quote_icon_start.svg"
             alt="logo"
             height={100}
             width={100}
-            className="h-30 w-30 absolute top-0 left-0"
+            className="hidden lg:block h-30 w-30 absolute top-0 left-0"
           />
           <h2 className="text-4xl lg:text-[2.3rem]">Our Partners</h2>
           <div className="flex items-center my-4 justify-center gap-10">
@@ -243,7 +246,7 @@ const Home = () => {
             <span className="rounded-full bg-black p-1"></span>
             <hr className="border-black w-36" />
           </div>
-          <div className="flex items-center flex-col gap-4 md:gap-0 lg:flex-row justify-center gap-0 mt-12">
+          <div className="flex items-center flex-col gap-4 lg:gap-8 md:flex-row flex-wrap justify-center  mt-12">
             {[
               '/assets/images/landingpage/federal_ministry_logo.svg',
               '/assets/images/landingpage/nigerian_institute_logo.svg',
@@ -256,15 +259,13 @@ const Home = () => {
                     alt="logo"
                     height={100}
                     width={100}
-                    className="h-[80px] w-[30em]"
+                    className="w-[20em] h-[80px] lg:w-auto"
                   />
                 </div>
               )
             })}
-
-            {/* <hr className="hidden lg:block rotate-90 border-black border-2 w-20" /> */}
           </div>
-          <p className="text-lg font-bold pt-8 md:pt-20 lg:px-20">
+          <p className="text-justify md:text-center text-lg font-bold pt-8 md:pt-20 lg:px-20">
             At Izesan! we take pride in being your premier language learning institution, dedicated
             to providing top-notch education in collaboration with the Federal Ministry of
             Education, the National Institute for Nigerian languages, and the Universal Basic
@@ -275,7 +276,7 @@ const Home = () => {
             alt="logo"
             height={100}
             width={100}
-            className="h-20 md:h-30 w-30 absolute bottom-0 md:bottom-10 right-0"
+            className="hidden lg:block h-20 md:h-30 w-30 absolute bottom-0 md:bottom-10 right-0"
           />
         </section>
         <section className="my-8 px-4 py-8 lg:py-20 bg-white text-black ">
