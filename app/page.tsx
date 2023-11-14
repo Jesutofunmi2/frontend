@@ -78,7 +78,7 @@ const Home = () => {
               </p>
             </div>
             <Image
-              src={'/assets/images/landingpage/map02.svg'}
+              src={'/assets/images/landingpage/map-updated.svg'}
               alt="logo"
               height={100}
               width={100}
