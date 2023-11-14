@@ -5,7 +5,6 @@ import HomeNavbar from '@/components/Navbar/HomeNavbar/HomeNavbar'
 import useMediaQuery from '@/utils/hooks/useMediaQuery'
 
 const About = () => {
-  const matches = useMediaQuery('(min-width: 1024px)')
   return (
     <>
       <HomeNavbar />

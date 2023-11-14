@@ -9,20 +9,20 @@ import { FaXTwitter } from 'react-icons/fa6'
 const Footer = () => {
   return (
     <section className="bg-[#262626]">
-      <div className="flex flex-col md:flex-row items-center flex-wrap p-4 md:p-8 justify-center gap-4">
+      <div className="flex  md:flex-row items-center flex-wrap p-4 md:p-8 justify-center gap-4">
         <Image
           src={'/assets/images/landingpage/google-Image.svg'}
           alt="logo"
           height={100}
           width={100}
-          className="h-[50px] w-auto"
+          className="h-[50px]  md:w-auto"
         />
         <Image
           src={'/assets/images/landingpage/iphone-Image.svg'}
           alt="logo"
           height={100}
           width={100}
-          className="h-[50px] w-auto"
+          className="h-[50px] md:w-auto"
         />
       </div>
       <div className="p-10 flex flex-col lg:flex-row gap-8 lg:gap-6 justify-center items-start lg:items-center text-white bg-[#333333]">
