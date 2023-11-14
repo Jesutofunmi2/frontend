@@ -20,7 +20,7 @@ const About = () => {
                 tradition and the boundless possibilities of technology
               </p>
             </div>
-            <div className="lg:w-[45%]">
+            <div className="lg:w-[45%] mt-4 md:mt-0">
               <p>
                 Join us on this journey where each word is a brushstroke, each keystroke a note, and
                 each language a masterpiece in the making. Izesan! : where the past whispers to the
