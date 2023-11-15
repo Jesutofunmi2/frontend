@@ -10,10 +10,10 @@
 }
 
 .cards{
-justify-content: space-between;
+justify-content: flex-start;
     display:flex;
     flex-wrap: wrap;
-row-gap: 30px;
+gap: 30px;
 }
 
 .cardTitle{

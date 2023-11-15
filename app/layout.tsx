@@ -1,18 +1,23 @@
 import './globals.css'
-// import { Josefin_Sans } from 'next/font/google'
 import localFont from 'next/font/local'
 import { ToastProvider } from '@/providers/ToastProvider'
 import { ReduxProvider } from '@/providers/ReduxProvider'
 
+const font = localFont({
+  src: [
+    {
+      path: '../public/assets/fonts/Octarine-Light.otf',
+      weight: '400',
+      style: 'normal',
+    },
 
-const font = localFont({ src: '../public/assets/fonts/Octarine-Light.ttf' })
-
-// const josefin_Sans = Josefin_Sans({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   variable: '--font-Josefin_Sans',
-//   weight: ['300', '400'],
-// })
+    {
+      path: '../public/assets/fonts/Octarine-Bold.otf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+})
 
 export const metadata = {
   title: 'Izesan!',
@@ -28,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <body id="modal-root" className={font.className}>
         <ToastProvider>
-        <ReduxProvider>{children}</ReduxProvider>
+          <ReduxProvider>{children}</ReduxProvider>
         </ToastProvider>
       </body>
     </html>

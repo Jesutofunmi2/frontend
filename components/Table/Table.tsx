@@ -25,18 +25,7 @@ const Table = ({
         <tbody className={styles.tbody}>
           {body ? (
             body()
-          ) : (
-            <tr className={styles.tr}>
-              <td className={styles.td}>Primary 1</td>
-              <td className={styles.td}>Yoruba language</td>
-              <td>
-                <div className={styles.action}>
-                  <AiFillEdit className={styles.editIcon} />
-                  <RiDeleteBin6Line className={styles.deleteIcon} />
-                </div>
-              </td>
-            </tr>
-          )
+          ) : null
           }
         </tbody>
       </table>

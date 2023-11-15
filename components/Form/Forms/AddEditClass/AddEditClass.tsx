@@ -21,6 +21,7 @@ interface AddEditClassProps {
   setModalOpen: any
   mutate: any
   classDetails: any
+  teacherID?: number
 }
 
 const AddEditClass = ({
@@ -29,20 +30,28 @@ const AddEditClass = ({
   schoolID,
   mutate,
   setModalOpen,
+  teacherID,
 }: AddEditClassProps) => {
-  const handleFormSubmit = async (data: any, reset: () => void) => {
+  const handleFormSubmit = async (data: any) => {
+    setModalOpen(false)
     if (classDetails) {
       // editClass()
     } else {
-      // mutate({ ...allClassesData, values })
-      let res = await addClass(Number(schoolID), Number(data.language_id), data.class_room_name)
-      if (res) {
+      let res
+      if (teacherID) {
+        res = await addClass(
+          Number(schoolID),
+          Number(data.language_id),
+          data.class_room_name,
+          teacherID
+        )
+      } else {
+        res = await addClass(Number(schoolID), Number(data.language_id), data.class_room_name)
+      }
+      if (res.message) {
         mutate()
-        reset()
       }
     }
-    mutate()
-    setModalOpen(false)
   }
   const { register, handleSubmit, control, reset } = useForm<Inputs>({
     defaultValues: {
@@ -50,7 +59,13 @@ const AddEditClass = ({
       language_id: 0,
     },
   })
-  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data, reset)
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    handleFormSubmit(data),
+      reset({
+        class_room_name: '',
+        language_id: 0,
+      })
+  }
 
   const { data: languages } = useGetLanguages()
   if (!languages) return
@@ -75,10 +90,11 @@ const AddEditClass = ({
           <Controller
             name="language_id"
             control={control}
-            render={({ field }) => (
+            render={({ field: { onChange, value } }) => (
               <Select
-                onChange={(val) => field.onChange(val.value)}
+                onChange={(val) => onChange(val.value)}
                 label="Language"
+                value={languageOptions.find((c) => c.value === value) || value}
                 defaultValue={'Select'}
                 options={languageOptions}
               />

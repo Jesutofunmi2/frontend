@@ -20,9 +20,10 @@ const tabData = [
 ];
 
 interface AddClassworkPageProps{
+  handleFormSubmit:(data:any, reset:()=>void)=>void
   setModalOpen:React.Dispatch<React.SetStateAction<boolean>>
 }
-const AddClassworkPage = ({setModalOpen}:AddClassworkPageProps) => {
+const AddClassworkPage = ({setModalOpen, handleFormSubmit}:AddClassworkPageProps) => {
   const [selectModule, setselectModule] = useState([]);
   // const [modalOpen, setModalOpen] = useState(false);
   // const { data, isValidating } = useGetLessons();
@@ -49,7 +50,7 @@ const AddClassworkPage = ({setModalOpen}:AddClassworkPageProps) => {
           </div>
 
           {toggle === "Assign Classwork" ? (
-            <AssignClassworkView  setModalOpen={setModalOpen}  />
+            <AssignClassworkView  handleFormSubmit={ handleFormSubmit} setModalOpen={setModalOpen}  />
           ) : (
             <AssignModuleView
             />

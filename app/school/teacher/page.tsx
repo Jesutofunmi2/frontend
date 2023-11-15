@@ -82,44 +82,44 @@ const Teacher = () => {
 
   // SUBMIT FORM CONDITION
   const handleFormSubmit = async (values: any, selectedClassAndArm: any, reset: () => void) => {
-    if (file === null) {
-      toast.error('Upload image', {
-        position: toast.POSITION.TOP_RIGHT,
-      })
-      return
+    // if (file === null) {
+    //   toast.error('Upload image', {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   })
+    //   return
+    // } else {
+    if (teacherDetails) {
+      // editTeacher({
+      //   image_url: file,
+      //   name: payloadData.name,
+      //   email: payloadData.email,
+      //   address: 'bosss',
+      //   teacher_id: teacherDetails.teacher_id,
+      //   school_id: payloadData.school_id,
+      // })
     } else {
-      if (teacherDetails) {
-        // editTeacher({
-        //   image_url: file,
-        //   name: payloadData.name,
-        //   email: payloadData.email,
-        //   address: 'bosss',
-        //   teacher_id: teacherDetails.teacher_id,
-        //   school_id: payloadData.school_id,
-        // })
-      } else {
-        const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
-          return { class_id: item.class_id, classarm_id: item.class_arm_id }
-        })
+      const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
+        return { class_id: item.class_id, classarm_id: item.class_arm_id }
+      })
 
-        const formData = {
-          image_url: 'https://course-material-dev.s3.us-east-2.amazonaws.com/logoi.png', //values.image"_url,
-          school_id: schoolID,
-          name: values.name,
-          email: values.email,
-          address: values.address,
-          data: classAndClassArmdata,
-        }
-        const res = await addTeacher(formData)
-        if (res) {
-          mutate()
-        }
+      const formData = {
+        image_url: 'https://course-material-dev.s3.us-east-2.amazonaws.com/logoi.png', //values.image"_url,
+        school_id: schoolID,
+        name: values.name,
+        email: values.email,
+        address: values.address,
+        data: classAndClassArmdata,
       }
-
-      setModalOpen(false)
-      reset()
-      // setFile(null)
+      const res = await addTeacher(formData)
+      if (res) {
+        mutate()
+      }
     }
+
+    setModalOpen(false)
+    reset()
+    // setFile(null)
+    // }
   }
 
   // HANDLE SEARCH

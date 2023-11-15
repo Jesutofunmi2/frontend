@@ -16,9 +16,9 @@ import { surveyStatus } from '@/services/redux/features/surveySlice'
 const LoginForm = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const [toggleUser, setToggleUser] = useState('school')
   const [inputType, setInputType] = useState('password')
   const [isLoading, setLoading] = useState(false)
+  const [selectedTab, setSelectedTab] = useState('School')
   const [studentPayloadData, setStudentPayloadData] = useState({
     login_id: '',
     password: '12345678',
@@ -31,12 +31,6 @@ const LoginForm = () => {
     email: '',
     password: '',
   })
-  if (isLoading) return <Loader />
-
-  // TOGGLE USERS
-  const handleToggleUser = (event: string) => {
-    setToggleUser(event)
-  }
 
   const revealPassword = () => {
     if (inputType === 'password') {
@@ -58,18 +52,17 @@ const LoginForm = () => {
     setLoading(true)
     e.preventDefault()
     try {
-      if (toggleUser === 'school') {
+      if (selectedTab === 'School') {
         let response = await schoolLogin(schoolPayloadData)
         const { token } = response.token
         setToken(token)
         dispatch(schoolData(response))
-
         toast.loading('Signing you in...', {
           position: toast.POSITION.TOP_CENTER,
         })
         router.push('/school/profile')
         setLoading(false)
-      } else if (toggleUser === 'teacher') {
+      } else if (selectedTab === 'Teacher') {
         let response = await teacherLogin(teacherPayloadData)
         const { token } = response.token
         setToken(token)
@@ -80,7 +73,7 @@ const LoginForm = () => {
         })
         router.push('/teacher')
         setLoading(false)
-      } else if (toggleUser === 'student') {
+      } else if (selectedTab === 'Student') {
         let response = await studentLogin(studentPayloadData)
         const { token } = response.token
         setToken(token)
@@ -103,51 +96,43 @@ const LoginForm = () => {
     }
   }
   return (
-    <>
-      <div className={styles.card}>
-        <Image
-          src="/assets/images/logo.png"
-          width="80"
-          height="80"
-          alt="logo"
-          className={styles.logo}
-        />
-
-        <div className={styles.loginAndToggle}>
-          <h3>Login</h3>
-
-          <div className={styles.toggleBtn}>
-            {/* school button */}
-            <button
-              className={toggleUser === 'school' ? styles.btnActive : ''}
-              onClick={() => handleToggleUser('school')}
-            >
-              School
-            </button>
-
-            {/* student button */}
-            <button
-              className={toggleUser === 'student' ? styles.btnActive : ''}
-              onClick={() => handleToggleUser('student')}
-            >
-              Student
-            </button>
-
-            {/* teacher button */}
-            <button
-              className={toggleUser === 'teacher' ? styles.btnActive : ''}
-              onClick={() => handleToggleUser('teacher')}
-            >
-              Teacher
-            </button>
-          </div>
+    <div className="md:w-5/6 my-12 mx-auto rounded-l-xl shadow-2xl flex justify-center items-start">
+      <div className="hidden lg:flex bg-brown w-1/2 h-screen relative fel-col items-center justify-center rounded-xl">
+        <div className="absolute top-10 -left-8 bg-yellow px-10 rounded-xl py-2">
+          <p className="text-white font-bold text-[28px]">Welcome back!</p>
         </div>
-
-        <form onSubmit={handleSubmit}>
-          {/* SIGN IN INPUT */}
-          <p>Sign in to your account to continue </p>
-
-          {toggleUser === 'school' ? (
+        <Image
+          src={'/assets/images/landingpage/login_welcome.svg'}
+          height={100}
+          width={100}
+          className="h-[24em] 2xl:h-[40em] w-auto"
+          alt="login_bg"
+        />
+      </div>
+      <div className="w-full lg:w-1/2 bg-white p-4 md:p-16">
+        <div className="flex items-center justify-center text-brown gap-10">
+          <hr className="border-brown border-[2px] w-20" />
+          <h1 className="font-bold text-3xl">Login</h1>
+          <hr className="border-brown border-[2px] w-20" />
+        </div>
+        <div className="my-10 flex items-center text-lg flex-wrap justify-center font-bold text-brown gap-5">
+          {['School', 'Student', 'Teacher'].map((tab) => {
+            return (
+              <button
+                onClick={() => setSelectedTab(tab)}
+                className={`${
+                  selectedTab === tab ? 'bg-brown' : 'bg-yellow'
+                } px-6 py-2 text-white rounded-lg text-lg`}
+                key={tab}
+              >
+                {tab}
+              </button>
+            )
+          })}
+        </div>
+        <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
+          <p className="text-yellow text-center text-lg">Sign in to your account to continue.</p>
+          {selectedTab === 'School' ? (
             <>
               <span className={styles.inputWrap}>
                 <input
@@ -178,7 +163,7 @@ const LoginForm = () => {
                 )}
               </span>
             </>
-          ) : toggleUser === 'student' ? (
+          ) : selectedTab === 'Student' ? (
             <>
               <div className={styles.inputWrap}>
                 <input
@@ -197,7 +182,7 @@ const LoginForm = () => {
               </div>
             </>
           ) : (
-            toggleUser === 'teacher' && (
+            selectedTab === 'Teacher' && (
               <>
                 <div className={styles.inputWrap}>
                   <input
@@ -217,14 +202,16 @@ const LoginForm = () => {
               </>
             )
           )}
-
-          <button type="submit" className={styles.loginBtn}>
-            SIGN IN
-          </button>
+          <div className="text-center mt-12">
+            <button type="submit" className={styles.loginBtn}>
+              SIGN IN
+            </button>
+          </div>
         </form>
         <ToastContainer autoClose={5000} />
       </div>
-    </>
+      {isLoading ? <Loader /> : null}
+    </div>
   )
 }
 

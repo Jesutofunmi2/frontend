@@ -4,7 +4,6 @@
     height: 90px;
     color: white;
     border-radius: 5px;
-    font-weight: bold;
     font-size: 17px;
 }
 
@@ -27,7 +26,6 @@
 
 .answer{
   box-sizing: border-box;
-  font-weight: bold;
   font-size: 18px;
     padding: 15px 10px;
     background-color: var(--gray-color);
@@ -45,7 +43,6 @@
 
 .answerChecked{
   box-sizing: border-box;
-  font-weight: bold;
   color: white;
   font-size: 19px;
     padding: 15px 10px;

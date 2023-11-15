@@ -193,6 +193,7 @@ export const BaselineFormTeacher = () => {
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
+         
           dispatch(surveyStatus(true))
         }
       })

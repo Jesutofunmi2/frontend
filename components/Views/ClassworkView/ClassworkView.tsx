@@ -10,33 +10,54 @@ import { Loader } from '@/components/Loader/Loader'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 import { active } from 'sortablejs'
 import AddClasswork from '@/components/Form/Forms/AddClassWork/page'
+import { addClasswork, deleteClasswork, useGetClasswork } from '@/services/api/classwork'
 import AddClassworkPage from '@/components/Form/Forms/AddClassWork/page'
 import Modal from '@/components/Modal/Modal'
-interface ClassWorkProps {
-  classworkData?: any
-  handleDeleteClasswork: (param: any) => void
-  teacher_id?: number
-  school_id?: number
-}
+import { useSelector } from 'react-redux'
+import { userData } from '@/services/redux/features/userSlice'
+import { ToastContainer, toast } from 'react-toastify'
+import NotFound from '@/components/NotFound/NotFound'
 
-const ClassworkView = ({
-  classworkData,
-  handleDeleteClasswork,
-  school_id,
-  teacher_id,
-}: ClassWorkProps) => {
+const ClassworkView = () => {
   const searchParams = useSearchParams()
-  const classID = searchParams.get('id')
   const [modalOpen, setModalOpen] = useState(false)
-  const { data: assignedModule, mutate } = useGetAssignedModule({
-    school_id: `${school_id}`,
-    teacher_id: `${teacher_id}`,
+  const teacherData = useSelector(userData).currentTeacher?.data!
+  const classID = Number(searchParams.get('id'))
+  const { data: assignedModule } = useGetAssignedModule({
+    school_id: teacherData?.school.id,
+    teacher_id: `${teacherData?.teacher_id}`,
   })
+  const {
+    data: classworkData,
+    mutate,
+    error,
+  } = useGetClasswork(teacherData?.teacher_id, teacherData?.school?.id, classID)
+  console.log(error)
+  const handleFormSubmit = async (data: any, reset: () => void) => {
+    if (data.attachment[0].size > 1000000) {
+      toast.error('File is too large', {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+      return
+    }
+    let formData: any = new FormData()
+    formData.append('media_url', data.attachment[0])
+    formData.append('teacher_id', teacherData?.teacher_id)
+    formData.append('class_id', classID)
+    formData.append('school_id', teacherData?.school?.id)
+    formData.append('name', data.name)
 
+    let res = await addClasswork(formData)
+    if (res) {
+      setModalOpen(false)
+      reset()
+      mutate()
+    }
+  }
   const handleModuleDelete = async (id: number) => {
     let payload = {
-      schoolID: school_id,
-      teacherID: teacher_id,
+      schoolID: teacherData?.school_id,
+      teacherID: teacherData?.teacher_id,
       id: id,
     }
     let res = await deleteModule(payload)
@@ -45,14 +66,29 @@ const ClassworkView = ({
     }
   }
 
+  // Delete Class function
+  const handleDeleteClasswork = async (param: any) => {
+    let payload = {
+      name: param?.name,
+      teacherID: teacherData?.teacher_id,
+      schoolID: teacherData?.school?.id,
+      classID: classID,
+    }
+    let res = await deleteClasswork(payload)
+    if (res) {
+      mutate()
+    }
+  }
+  console.log(classworkData)
+  console.log(classID)
   return (
     <>
       <div className={styles.container}>
         <div className={styles.cardWrap}>
           <p className={styles.cardTitle}>CLASSWORK</p>
           <div className={styles.buttonWrap}>
-          <Button handleClick={() => setModalOpen(true)} text="Add Classwork"  />
-        </div>
+            <Button handleClick={() => setModalOpen(true)} text="Add Classwork" />
+          </div>
           <div className={styles.cards}>
             {classworkData?.length ? (
               classworkData?.map((item: any) => (
@@ -64,6 +100,8 @@ const ClassworkView = ({
               ))
             ) : classworkData?.length === 0 ? (
               <span className={styles.noItem}>No Classwork</span>
+            ) : error ? (
+              <NotFound text={'Server Error'} />
             ) : (
               <Loader />
             )}
@@ -84,6 +122,8 @@ const ClassworkView = ({
               ))
             ) : assignedModule?.length === 0 ? (
               <span className={styles.noItem}>No Module</span>
+            ) : error ? (
+              <NotFound text={'Server Error'} />
             ) : (
               <Loader />
             )}
@@ -92,7 +132,7 @@ const ClassworkView = ({
       </div>
 
       <Modal open={modalOpen} setOpen={setModalOpen}>
-        <AddClassworkPage setModalOpen={setModalOpen}/>
+        <AddClassworkPage handleFormSubmit={handleFormSubmit} setModalOpen={setModalOpen} />
       </Modal>
     </>
   )

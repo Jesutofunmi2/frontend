@@ -11,6 +11,7 @@ interface ClassCardProps {
 }
 
 const ClassCard = ({ classroom, handleDeleteClass, url }: ClassCardProps) => {
+  console.log(classroom)
   return (
     <>
       <div className={styles.card}>
@@ -28,15 +29,14 @@ const ClassCard = ({ classroom, handleDeleteClass, url }: ClassCardProps) => {
               id: classroom.id,
             },
           }}
-         
           className={styles.wrap}
         >
           <div className={styles.titleWrap}>
-            <span>{classroom?.classs_room_name}</span>
+            <span>{classroom.class[0]?.name}</span>
           </div>
           <div className={styles.studentCount}>
             <FaPeopleGroup size={20} className={styles.icon} />
-            <span>1 Students</span>
+            <span>{classroom.class_arm[0]?.name}</span>
           </div>
         </Link>
       </div>
