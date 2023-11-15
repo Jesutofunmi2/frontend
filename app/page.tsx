@@ -72,7 +72,7 @@ const Home = () => {
                 </div>
               </div>
               <p className="text-lg pt-2">
-                Embark on a transformative journey with <strong>Izesan!</strong> , a pioneering
+                Embark on a transformative journey with <strong>Izesan!</strong>, a pioneering
                 e-learning platform designed to bring the richness of indigenous languages directly
                 to your fingertips.
               </p>
