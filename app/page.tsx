@@ -52,12 +52,12 @@ const Home = () => {
           }}
           className="z-40 relative"
         >
-          <div className="flex flex-col lg:flex-row items-center font-medium justify-between px-8 lg:px-12 pt-12 pb-36 text-white">
+          <div className="flex flex-col lg:flex-row items-center font-medium justify-between pb-28 px-8 lg:px-12 pt-12 md:pb-36 text-white">
             <div className="basis-[40%] text-left">
               <h1 className="text-5xl">
                 Welcome to <span className="7xl font-bold"> Izesan!</span>
               </h1>
-              <p className="py-4 text-xl w-full font-bold">
+              <p className="py-4 text-[1.15rem] md:text-xl w-full font-bold">
                 Where tradition meets technology in language learning!
               </p>
               <div className="mx-auto md:ml-auto w-fit lg:w-auto">
@@ -82,7 +82,7 @@ const Home = () => {
               alt="logo"
               height={100}
               width={100}
-              className="h-96 lg:h-[500px] w-auto"
+              className="md:h-96 lg:h-[500px] w-auto"
             />
           </div>
         </section>
@@ -151,7 +151,7 @@ const Home = () => {
                 <h2 className="text-3xl md:text-4xl font-bold lg:w-3/6 leading-normal mb-3">
                   Language learning for all
                 </h2>
-                <p className="text-justify mt-6">
+                <p className="text-lg md:text-base md:text-justify mt-6">
                   At<strong> Izesan!</strong> we stand on the pillars of heritage, authenticity, and
                   progress. Our commitment to preserving African languages goes beyond rhetoric;
                   it&apos;s a dedication to empowering communities through linguistic preservation.
@@ -195,7 +195,7 @@ const Home = () => {
                         </span>
                       </div>
                       <p className="text-[17px] font-bold">{ele.subtext}...</p>
-                      <p className="text-base text-justify">{ele.description}</p>
+                      <p className="text-lg md:text-base md:text-justify">{ele.description}</p>
                     </div>
                   </div>
                 )
@@ -265,7 +265,7 @@ const Home = () => {
               )
             })}
           </div>
-          <p className="text-justify md:text-center text-lg font-bold pt-8 md:pt-20 lg:px-20">
+          <p className="md:text-center text-lg font-bold pt-8 md:pt-20 lg:px-20">
             At Izesan! we take pride in being your premier language learning institution, dedicated
             to providing top-notch education in collaboration with the Federal Ministry of
             Education, the National Institute for Nigerian languages, and the Universal Basic
