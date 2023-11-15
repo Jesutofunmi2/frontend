@@ -2,5 +2,11 @@
 // return error response for duplicated emails in creating teachers
 // duplicated class and class arm unacceptable
 // No duplicate on adding classes 
+// error handling - return error response
+// add pdf to attachment
+
+
+// Sandy
+// error page
 
 

@@ -21,7 +21,7 @@ import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 import { useSelector } from 'react-redux'
 import { addAssignmentFile } from '@/services/api/post'
 import { userData } from '@/services/redux/features/userSlice'
-import { useGetClasses } from '@/services/api/school/class'
+import { useGetClasses, useGetTeacherClassStudent } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
 import { useGetStudents } from '@/services/api/school/student'
 import { useGetTeacherClasses } from '@/services/api/teacher/class'
@@ -48,7 +48,10 @@ const ClassRoom = () => {
     error,
     mutate,
   } = useGetTeacherClasses(teacherData.school.id, teacherData.teacher_id)
-  const { data: allStudents } = useGetStudents(teacherData.school.id)
+  const { data: teacherClassStudents } = useGetTeacherClassStudent(
+    classroomID,
+    teacherData.teacher_id
+  )
 
   if (!allTeacherClasses) return null
   if (isLoading) return <Loader />
@@ -60,19 +63,19 @@ const ClassRoom = () => {
 
   const tableHead = ['NAME', 'LANGUAGE', 'GENDER', '']
 
-  const getClassroomStudent = allStudents?.filter(
-    (ele) => classRoomData?.classs_room_name === ele.class
-  )
-
+  // const getClassroomStudent = allStudents?.filter(
+  //   (ele) => classRoomData?.classs_room_name === ele.class
+  // )
+  console.log(teacherClassStudents)
   const tableBody = () => {
-    return (
+    return teacherClassStudents?.length ? (
       <>
-        {getClassroomStudent?.map((ele) => {
+        {teacherClassStudents?.map((ele: any) => {
           return (
             <tr key={ele.id}>
-              <td>{ele?.username}</td>
+              <td>{ele?.first_name}</td>
               <td>{ele?.language}</td>
-              <td>{ele?.gendar}</td>
+              <td>{ele?.gender}</td>
               <td>
                 <div className="action">
                   <AiFillEdit className="editIcon" />
@@ -83,6 +86,8 @@ const ClassRoom = () => {
           )
         })}
       </>
+    ) : (
+      <tr className="w-full p-4">No Student</tr>
     )
   }
   {
@@ -97,7 +102,7 @@ const ClassRoom = () => {
     <>
       <div>
         <BackNavigation />
-        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">{classRoomData?.class[0].name}</h3>
+        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">{classRoomData?.class[0]?.name}{" "}{classRoomData?.class_arm[0]?.name}</h3>
         <div className={styles.tabWrap}>
           <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
         </div>
