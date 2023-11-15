@@ -2,7 +2,7 @@
 import React from 'react'
 import Footer from '@/components/Footer/Footer'
 import HomeNavbar from '@/components/Navbar/HomeNavbar/HomeNavbar'
-import useMediaQuery from '@/utils/hooks/useMediaQuery'
+
 
 const About = () => {
   return (
@@ -11,20 +11,12 @@ const About = () => {
       <div>
         <div className="py-8 px-8 lg:px-16">
           <h1 className="text-4xl lg:text-5xl font-bold">Who we are</h1>
-          <div className="block md:flex items-start text-xl text-black leading-loose justify-between my-8 gap-12 text-justify">
-            <div className="lg:w-[45%]">
+          <div className="block md:flex items-start text-2xl text-black leading-loose justify-between my-8 gap-12 text-justify">
+            <div className="">
               <p>
                 We believe that every language is a living entity, pulsating with the heartbeat of
                 culture, and our platform serves as a bridge between the timeless wisdom of
                 tradition and the boundless possibilities of technology.
-              </p>
-            </div>
-            <div className="lg:w-[45%] mt-4 md:mt-0">
-              <p>
-                Join us on this journey where each word is a brushstroke, each keystroke a note, and
-                each language a masterpiece in the making. Izesan! : where the past whispers to the
-                future, and every digital chapter adds a layer to the epic tale of linguistic
-                evolution.
               </p>
             </div>
           </div>
