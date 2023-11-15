@@ -28,11 +28,11 @@ export const useGetClasswork = (teacherID: number, schoolID: number, classID: nu
     const res = await makeApiCall( `/api/v1/ClassWork?school_id=${schoolID}&class_id=${classID}&teacher_id=${teacherID}`,'get')
     return res?.data
   }
-  const { data, isValidating, mutate } = useSWR(
+  const { data, isValidating, mutate ,error} = useSWR(
     `/api/v1/ClassWork?school_id=${schoolID}&class_id=${classID}&teacher_id=${teacherID}`,
     fetcher
   )
-  return { data, isValidating, mutate }
+  return { data, isValidating, mutate ,error}
 }
 
 // DELETE CLASSWORK
