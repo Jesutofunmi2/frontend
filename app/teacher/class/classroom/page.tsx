@@ -56,7 +56,7 @@ const ClassRoom = () => {
   const getClassroomStudent = allStudents?.filter(
     (ele) => classRoomData?.classs_room_name === ele.class
   )
-  console.log(classRoomData)
+  // console.log(classRoomData)
   const tableBody = () => {
     return (
       <>
