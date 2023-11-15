@@ -24,6 +24,7 @@ import { userData } from '@/services/redux/features/userSlice'
 import { useGetClasses } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
 import { useGetStudents } from '@/services/api/school/student'
+import { useGetTeacherClasses } from '@/services/api/teacher/class'
 
 const tabData = [
   { text: 'Students', icon: <BsPeople /> },
@@ -40,14 +41,20 @@ const ClassRoom = () => {
     'Students'
   )
   const teacherData = useSelector(userData).currentTeacher?.data!
-  const { data: allSchoolClasses, isLoading, error } = useGetClasses(teacherData.school.id)
+  // const { data: allSchoolClasses, isLoading, error } = useGetClasses(teacherData.school.id)
+  const {
+    data: allTeacherClasses,
+    isLoading,
+    error,
+    mutate,
+  } = useGetTeacherClasses(teacherData.school.id, teacherData.teacher_id)
   const { data: allStudents } = useGetStudents(teacherData.school.id)
 
-  if (!allSchoolClasses) return null
+  if (!allTeacherClasses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  const classRoomData = allSchoolClasses.find((classroom) => classroom.id === classroomID)
+  const classRoomData = allTeacherClasses.find((classroom: any) => classroom.id === classroomID)
   const handleActiveTab = (activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') =>
     setActiveTab(activeTab)
 
@@ -56,7 +63,7 @@ const ClassRoom = () => {
   const getClassroomStudent = allStudents?.filter(
     (ele) => classRoomData?.classs_room_name === ele.class
   )
-  // console.log(classRoomData)
+
   const tableBody = () => {
     return (
       <>
@@ -79,18 +86,18 @@ const ClassRoom = () => {
     )
   }
   {
-    /* <td>
-          <div className="action">
-            <AiFillEdit className="editIcon" />
-            <RiDeleteBin6Line className="deleteIcon" />
-          </div>
-        </td> */
+    ;<td>
+      <div className="action">
+        <AiFillEdit className="editIcon" />
+        <RiDeleteBin6Line className="deleteIcon" />
+      </div>
+    </td>
   }
   return (
     <>
       <div>
         <BackNavigation />
-        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">{classRoomData?.classs_room_name}</h3>
+        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">{classRoomData?.class[0].name}</h3>
         <div className={styles.tabWrap}>
           <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
         </div>

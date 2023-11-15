@@ -16,6 +16,7 @@ import Modal from '@/components/Modal/Modal'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 import { ToastContainer, toast } from 'react-toastify'
+import NotFound from '@/components/NotFound/NotFound'
 
 const ClassworkView = () => {
   const searchParams = useSearchParams()
@@ -26,11 +27,12 @@ const ClassworkView = () => {
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
   })
-  const { data: classworkData, mutate } = useGetClasswork(
-    teacherData?.teacher_id,
-    teacherData?.school?.id,
-    classID
-  )
+  const {
+    data: classworkData,
+    mutate,
+    error,
+  } = useGetClasswork(teacherData?.teacher_id, teacherData?.school?.id, classID)
+  console.log(error)
   const handleFormSubmit = async (data: any, reset: () => void) => {
     if (data.attachment[0].size > 1000000) {
       toast.error('File is too large', {
@@ -77,7 +79,8 @@ const ClassworkView = () => {
       mutate()
     }
   }
-
+  console.log(classworkData)
+  console.log(classID)
   return (
     <>
       <div className={styles.container}>
@@ -97,6 +100,8 @@ const ClassworkView = () => {
               ))
             ) : classworkData?.length === 0 ? (
               <span className={styles.noItem}>No Classwork</span>
+            ) : error ? (
+              <NotFound text={'Server Error'} />
             ) : (
               <Loader />
             )}
@@ -117,6 +122,8 @@ const ClassworkView = () => {
               ))
             ) : assignedModule?.length === 0 ? (
               <span className={styles.noItem}>No Module</span>
+            ) : error ? (
+              <NotFound text={'Server Error'} />
             ) : (
               <Loader />
             )}
