@@ -32,11 +32,11 @@ const ClassCard = ({ classroom, handleDeleteClass, url }: ClassCardProps) => {
           className={styles.wrap}
         >
           <div className={styles.titleWrap}>
-            <span>{classroom.class[0].name}</span>
+            <span>{classroom.class[0]?.name}</span>
           </div>
           <div className={styles.studentCount}>
             <FaPeopleGroup size={20} className={styles.icon} />
-            <span>{classroom.class_arm[0].name}</span>
+            <span>{classroom.class_arm[0]?.name}</span>
           </div>
         </Link>
       </div>
