@@ -9,7 +9,7 @@ interface ClassCardProps {
 }
 
 const ClassCard = ({ classroom, url }: ClassCardProps) => {
-  // console.log(classroom)
+
   return (
     <>
       <div className={styles.card}>

@@ -11,9 +11,8 @@ interface ClassworkCardProps {
   handleDeleteClasswork: (data: any) => void
 }
 const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
-  // HANDLE DELETE STUDENT
   const [modalOpen, setModalOpen] = useState(false)
-  console.log(data)
+
   return (
     <>
       <div className={styles.card}>
@@ -29,7 +28,7 @@ const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
           <div className={styles.studentCount}>
             <span>{data?.name}</span>
           </div>
-          <button  onClick={ ()=>setModalOpen(true)} className={styles.attachment}>
+          <button onClick={() => setModalOpen(true)} className={styles.attachment}>
             <RiAttachment2 size={22} /> See Attachment
           </button>
         </div>

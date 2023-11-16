@@ -40,11 +40,11 @@ const TeacherClass = () => {
               />
             ))
           ) : (
-            <p>No Classwork</p>
+            <tr>No Class</tr>
           )}
         </div>
       </div>
-      <Modal open={modalOpen} setOpen={setModalOpen}>
+      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
         <AddEditClass
           title={classDetails ? 'Edit Class' : 'Add Class'}
           setModalOpen={setModalOpen}
@@ -53,7 +53,7 @@ const TeacherClass = () => {
           schoolID={teacherData.school.id}
           teacherID={teacherData.teacher_id}
         />
-      </Modal>
+      </Modal> */}
     </>
   )
 }

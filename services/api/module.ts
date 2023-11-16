@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import makeApiCall from '.'
 
 //ADD MODULE FOR TEACHER
-export const useAddModule = async (payload: any) => {
+export const addAssignModule = async (payload: any) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })

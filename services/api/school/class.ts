@@ -139,7 +139,7 @@ export const useGetTeacherClassStudent  = (classID: number, teacherID: string) =
     const res = await makeApiCall(url, 'get', ...args)
     return res?.data
   }
-  const { data, isLoading, error, mutate } = useSWR<IClass[], Error>(url, fetcher)
+  const { data, isLoading, error, mutate } = useSWR(url, fetcher)
   return { data, isLoading, error, mutate }
 }
 

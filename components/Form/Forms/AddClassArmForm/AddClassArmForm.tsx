@@ -67,7 +67,6 @@ const AddClassArmForm = ({
           <div className={styles.inputWrap} key={index}>
             <TextInput
               register={{ ...register(`data.${index}.name`, { required: true }) }}
-              // defaultValue={classDetails?.first_name}
               label="Class arm name"
               name={`data.${index}.name`}
               type="text"
@@ -75,7 +74,11 @@ const AddClassArmForm = ({
             />
 
             {index > 0 && (
-              <button type="button" className="absolute right-56 top-6" onClick={() => remove(index)}>
+              <button
+                type="button"
+                className="absolute right-56 top-6"
+                onClick={() => remove(index)}
+              >
                 <AiOutlineCloseCircle size={25} className={styles.closeIcon} />
               </button>
             )}

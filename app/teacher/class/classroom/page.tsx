@@ -41,7 +41,6 @@ const ClassRoom = () => {
     'Students'
   )
   const teacherData = useSelector(userData).currentTeacher?.data!
-  // const { data: allSchoolClasses, isLoading, error } = useGetClasses(teacherData.school.id)
   const {
     data: allTeacherClasses,
     isLoading,
@@ -63,10 +62,7 @@ const ClassRoom = () => {
 
   const tableHead = ['NAME', 'LANGUAGE', 'GENDER', '']
 
-  // const getClassroomStudent = allStudents?.filter(
-  //   (ele) => classRoomData?.classs_room_name === ele.class
-  // )
-  console.log(teacherClassStudents)
+
   const tableBody = () => {
     return teacherClassStudents?.length ? (
       <>
@@ -87,7 +83,7 @@ const ClassRoom = () => {
         })}
       </>
     ) : (
-      <tr className="w-full p-4">No Student</tr>
+      <tr className="w-full p-4"><td>No Student</td></tr>
     )
   }
   {
