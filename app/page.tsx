@@ -246,21 +246,32 @@ const Home = () => {
             <span className="rounded-full bg-black p-1"></span>
             <hr className="border-black w-36" />
           </div>
-          <div className="flex items-center flex-col gap-4 lg:gap-8 md:flex-row flex-wrap justify-center  mt-12">
+          <div className="flex items-center  flex-col gap-4 lg:gap-8 md:flex-row flex-wrap justify-center mt-12">
             {[
               '/assets/images/landingpage/federal_ministry_logo.svg',
               '/assets/images/landingpage/nigerian_institute_logo.svg',
               '/assets/images/landingpage/universal_basic_education.svg',
             ].map((ele, index) => {
               return (
-                <div key={index}>
-                  <Image
+                <div
+                  key={index}
+                  style={{
+                    backgroundImage: `url(${ele})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                   
+                    backgroundPosition: 'center',
+                  }}
+                  className="w-72 md:w-[350px] h-24 "
+                >
+                  {/* <Image
+                  key={index}
                     src={ele}
                     alt="logo"
                     height={100}
                     width={100}
-                    className="w-[20em] h-[80px] lg:w-auto"
-                  />
+                    className="w-[500px] h-[80px] lg:w-auto"
+                  /> */}
                 </div>
               )
             })}
@@ -327,7 +338,7 @@ const Home = () => {
               height: '100px',
               backgroundPosition: 'center',
             }}
-            className='bg-no-repeat md:bg-repeat'
+            className="bg-no-repeat md:bg-repeat"
           ></div>
         </section>
       </main>
