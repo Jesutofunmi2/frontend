@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './classworkCard.module.css'
 import { AiTwotoneDelete } from 'react-icons/ai'
 import { RiAttachment2 } from 'react-icons/ri'
-import Link from 'next/link'
+import Modal from '@/components/Modal/Modal'
+import ViewAttachment from '@/components/ViewAttachment/ViewAttachment'
 
 interface ClassworkCardProps {
   data: any
-  handleDeleteClasswork: (data:any) => void
+  handleDeleteClasswork: (data: any) => void
 }
 const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
-  // HANDLE DELETE STUDENT
-
+  const [modalOpen, setModalOpen] = useState(false)
   return (
     <>
       <div className={styles.card}>
@@ -19,18 +19,21 @@ const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
           color="red"
           className={styles.icon}
           onClick={() => {
-            window.confirm('Delete this class?') &&handleDeleteClasswork(data)
+            window.confirm('Delete this class?') && handleDeleteClasswork(data)
           }}
         />
         <div className={styles.wrap}>
           <div className={styles.studentCount}>
             <span>{data?.name}</span>
           </div>
-          <Link href="/teacher/class/loo/classwork" className={styles.attachment}>
+          <button onClick={() => setModalOpen(true)} className={styles.attachment}>
             <RiAttachment2 size={22} /> See Attachment
-          </Link>
+          </button>
         </div>
       </div>
+      <Modal open={modalOpen} setOpen={setModalOpen}>
+        <ViewAttachment url={data?.media_url} />
+      </Modal>
     </>
   )
 }

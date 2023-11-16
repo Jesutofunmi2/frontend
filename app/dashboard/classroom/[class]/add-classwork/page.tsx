@@ -6,7 +6,7 @@ import styles from './page.module.css'
 import Image from 'next/image'
 import BackNavigation from '@/components/BackNavigation/BackNavigation'
 import Button from '@/components/Button/Button'
-import { useGetLessons } from '@/services/api/lessons'
+
 import Modal from '@/components/Modal/Modal'
 import { Spinner } from '@/components/Loader/Loader'
 import Tab2 from '@/components/Tab/Tab2/Tab2'
@@ -22,7 +22,7 @@ const tabData = [
 const AddClassworkPage = () => {
   const [selectModule, setselectModule] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-  const { data: language, isValidating } = useGetLessons(1)
+
   const [toggle, setToggle] = useState('Assign Classwork')
   const [payloadData, setPayloadData] = useState({
     first_name: '',
@@ -49,8 +49,8 @@ const AddClassworkPage = () => {
             <Tab2 handleToggle={handleToggle} data={tabData} toggle={toggle} />
           </div>
 
-          {toggle === 'Assign Classwork' ? (
-            <AssignClassworkView handleFormSubmit={handleFormSubmit} setModalOpen={setModalOpen} />
+          {/* {toggle === 'Assign Classwork' ? (
+            <AssignClassworkView handleFormSubmit={handleFormSubmit} />
           ) : (
             <AssignModuleView
             // language={language}
@@ -58,7 +58,7 @@ const AddClassworkPage = () => {
             //     setselectModule={setselectModule}
             //     selectModule={selectModule}
             />
-          )}
+          )} */}
 
           {/* <Button handleClick={handleModal} /> */}
         </div>

@@ -12,11 +12,9 @@ interface SelectProps {
   title: string
   handleChange?: (newValue: SingleValue<Options>) => void
   options: any
-  // value?: IClass
 }
 
 const Select2 = ({ title, handleChange, options }: SelectProps) => {
-  // Select component styles
   const colourStyles = {
     control: (baseStyles: any, state: any) => ({
       ...baseStyles,
