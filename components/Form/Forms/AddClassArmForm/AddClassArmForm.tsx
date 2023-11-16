@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './addClassArmForm.module.css'
 import { TextInput } from '../../FormFields/TextInput/TextInput'
 import Button from '@/components/Button/Button'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// import Select from "../../FormFields/Select/Select";
-import { useGetLanguages } from '@/services/api/languages'
+
 import { addClass, addClassArm } from '@/services/api/school/class'
-import { useSelector } from 'react-redux'
 import { AiOutlinePlusCircle, AiOutlineCloseCircle } from 'react-icons/ai'
-import { useForm, SubmitHandler, useFieldArray, Controller } from 'react-hook-form'
+import { useForm, SubmitHandler, useFieldArray} from 'react-hook-form'
 import { ClassArmPayload } from '@/types/classarm'
 
 type Inputs = {

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './page.module.css'
 import Tab2 from '@/components/Tab/Tab2/Tab2'
 import AssignClassworkView from '@/components/Views/AssignClassworkView/AssignClassworkView'
@@ -13,19 +13,17 @@ const tabData = [
 
 interface AddClassworkPageProps {
   toggle: string
+ 
   handleToggle: (toggle: string) => void
   handleFormSubmit: (data: any, reset: () => void) => void
   handleModuleSubmit: (
-    selectedModules: {
-      id: number
-      value: string
-      label: string
-    }[],
+ 
     data: { module: ''; data: { deadline: string; attempts: ''; time: ''; mark: '' }[] },
-    reset: (value:any) => void
+    reset: (value: any) => void
   ) => void
 }
 const AddClassworkPage = ({
+
   toggle,
   handleToggle,
   handleFormSubmit,
@@ -41,7 +39,7 @@ const AddClassworkPage = ({
           {toggle === 'Assign Classwork' ? (
             <AssignClassworkView handleFormSubmit={handleFormSubmit} />
           ) : (
-            <AssignModuleView handleModuleSubmit={handleModuleSubmit} />
+            <AssignModuleView  handleModuleSubmit={handleModuleSubmit} />
           )}
         </div>
       </div>

@@ -1,25 +1,20 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './page.module.css'
 import ClassCard from '@/components/Card/ClassCard/ClassCard'
-import Modal from '@/components/Modal/Modal'
-import AddEditClass from '@/components/Form/Forms/AddEditClass/AddEditClass'
 import { useSelector } from 'react-redux'
 import { Loader } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { useGetTeacherClasses } from '@/services/api/teacher/class'
 
 const TeacherClass = () => {
-  const [classDetails, setclassDetails] = useState(null)
-  const [modalOpen, setModalOpen] = useState(false)
   const teacherData = useSelector(userData).currentTeacher?.data!
 
   const {
     data: allTeacherClasses,
     isLoading,
     error,
-    mutate,
   } = useGetTeacherClasses(teacherData.school.id, teacherData.teacher_id)
   if (!allTeacherClasses) return null
   if (isLoading) return <Loader />
@@ -28,7 +23,9 @@ const TeacherClass = () => {
   return (
     <>
       <div className={styles.dash}>
-        <h3 className="bg-white p-4 rounded-xl">Classes</h3>
+        <h3 className="bg-white p-4 rounded-xl">
+          {allTeacherClasses?.length > 1 ? 'Classes' : 'Class'}
+        </h3>
 
         <div className={styles.classWrap}>
           {allTeacherClasses?.length ? (
@@ -44,16 +41,6 @@ const TeacherClass = () => {
           )}
         </div>
       </div>
-      {/* <Modal open={modalOpen} setOpen={setModalOpen}>
-        <AddEditClass
-          title={classDetails ? 'Edit Class' : 'Add Class'}
-          setModalOpen={setModalOpen}
-          classDetails={classDetails}
-          mutate={mutate}
-          schoolID={teacherData.school.id}
-          teacherID={teacherData.teacher_id}
-        />
-      </Modal> */}
     </>
   )
 }

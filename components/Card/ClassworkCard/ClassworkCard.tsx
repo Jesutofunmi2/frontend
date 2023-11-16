@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styles from './classworkCard.module.css'
 import { AiTwotoneDelete } from 'react-icons/ai'
 import { RiAttachment2 } from 'react-icons/ri'
-import Link from 'next/link'
 import Modal from '@/components/Modal/Modal'
 import ViewAttachment from '@/components/ViewAttachment/ViewAttachment'
 
@@ -12,7 +11,6 @@ interface ClassworkCardProps {
 }
 const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
   const [modalOpen, setModalOpen] = useState(false)
-
   return (
     <>
       <div className={styles.card}>

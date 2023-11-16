@@ -1,9 +1,7 @@
 import React from 'react'
 import styles from './assignModuleCard.module.css'
 import { TiDocumentText } from 'react-icons/ti'
-import { AiOutlineDelete } from 'react-icons/ai'
-import AssignCard from '../AssignCard/AssignCard'
-import Link from 'next/link'
+import { AiTwotoneDelete } from 'react-icons/ai'
 import ful from '../../../public/assets/images/logo.png'
 import Image from 'next/image'
 
@@ -12,7 +10,8 @@ interface AssignModuleCardProps {
   module: any
   handleModuleDelete: (id: number) => void
 }
-const AssignModuleCard = ({ title, module, handleModuleDelete }:AssignModuleCardProps) => {
+const AssignModuleCard = ({ title, module, handleModuleDelete }: AssignModuleCardProps) => {
+
   return (
     <>
       <div className={styles.card}>
@@ -21,7 +20,9 @@ const AssignModuleCard = ({ title, module, handleModuleDelete }:AssignModuleCard
             <TiDocumentText color="white" size={23} />
             <p>{title}</p>
           </div>
-          <AiOutlineDelete size={23} onClick={() => handleModuleDelete(module.id)} />
+          <button onClick={() => handleModuleDelete(module.id)}>
+            <AiTwotoneDelete size={23} color="red" />
+          </button>
         </div>
 
         <div className={styles.detailWrap}>
@@ -50,21 +51,15 @@ const AssignModuleCard = ({ title, module, handleModuleDelete }:AssignModuleCard
           <div className={styles.cardWrap}>
             {module?.topic.map((ele: any) => (
               <div className={styles.card2} key={ele.id}>
-                <div
-                  className={styles.innerWrap}
-                  // onClick={() => navigate.push("/")}
-                >
+                <div className={styles.innerWrap}>
                   <Image src={ele?.media_url || ful} width={70} height={50} alt="pic" />
                   <div className={styles.cardTextWrap}>
                     <h4>{ele?.title || 'language'}</h4>
-                    <p className={styles.downcardtext}>{ele?.title}loo</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <hr className={styles.line} />
-          <span className={styles.submission}>Submissions</span>
         </div>
       </div>
     </>

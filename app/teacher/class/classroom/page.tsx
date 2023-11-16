@@ -17,13 +17,11 @@ import GradebookView from '@/components/Views/GradebookView/GradebookView'
 import { PiBookOpenBold } from 'react-icons/pi'
 import { LuSettings } from 'react-icons/lu'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
-
 import { useSelector } from 'react-redux'
 import { addAssignmentFile } from '@/services/api/post'
 import { userData } from '@/services/redux/features/userSlice'
 import { useGetClasses, useGetTeacherClassStudent } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
-import { useGetStudents } from '@/services/api/school/student'
 import { useGetTeacherClasses } from '@/services/api/teacher/class'
 
 const tabData = [
@@ -62,7 +60,6 @@ const ClassRoom = () => {
 
   const tableHead = ['NAME', 'LANGUAGE', 'GENDER', '']
 
-
   const tableBody = () => {
     return teacherClassStudents?.length ? (
       <>
@@ -83,7 +80,9 @@ const ClassRoom = () => {
         })}
       </>
     ) : (
-      <tr className="w-full p-4"><td>No Student</td></tr>
+      <tr className="w-full p-4">
+        <td>No Student</td>
+      </tr>
     )
   }
   {
@@ -98,7 +97,9 @@ const ClassRoom = () => {
     <>
       <div>
         <BackNavigation />
-        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">{classRoomData?.class[0]?.name}{" "}{classRoomData?.class_arm[0]?.name}</h3>
+        <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">
+          {classRoomData?.class[0]?.name} {classRoomData?.class_arm[0]?.name}
+        </h3>
         <div className={styles.tabWrap}>
           <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
         </div>
@@ -136,14 +137,6 @@ const AssignmentViewWrapper = () => {
     teacher_id: `${teacherData?.teacher_id}`,
   })
 
-  // Delete module function
-  // const handleModuleDelete = (id) => {
-  //   deleteModule({
-  //     schoolID: teacherData?.school?.id,
-  //     teacherID: teacherData?.teacher_id,
-  //     id: id,
-  //   })
-  // }
 
   // Add module assignment
   const handleAddFile = async (payload: any, reset: () => void) => {
