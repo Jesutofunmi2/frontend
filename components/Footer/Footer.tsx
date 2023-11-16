@@ -34,7 +34,7 @@ const Footer = () => {
         </div>
         <hr className="border-white w-10 rotate-90 hidden lg:block" />
         <div className="text-sm text-left">
-          <p>Sign up for the special offers</p>
+          <p>Sign up for the special offerss</p>
           <div className="mt-2 text-left">
             <input
               type="email"
