@@ -52,12 +52,12 @@ const Home = () => {
           }}
           className="z-40 relative"
         >
-          <div className="flex flex-col lg:flex-row items-center font-medium justify-between px-8 lg:px-12 pt-12 pb-36 text-white">
+          <div className="flex flex-col lg:flex-row items-center font-medium justify-between pb-28 px-8 lg:px-12 pt-12 md:pb-36 text-white">
             <div className="basis-[40%] text-left">
               <h1 className="text-5xl">
                 Welcome to <span className="7xl font-bold"> Izesan!</span>
               </h1>
-              <p className="py-4 text-xl w-full font-bold">
+              <p className="py-4 text-[1.15rem] md:text-xl w-full font-bold">
                 Where tradition meets technology in language learning!
               </p>
               <div className="mx-auto md:ml-auto w-fit lg:w-auto">
@@ -72,7 +72,7 @@ const Home = () => {
                 </div>
               </div>
               <p className="text-lg pt-2">
-                Embark on a transformative journey with <strong>Izesan!</strong> , a pioneering
+                Embark on a transformative journey with <strong>Izesan!</strong>, a pioneering
                 e-learning platform designed to bring the richness of indigenous languages directly
                 to your fingertips.
               </p>
@@ -82,7 +82,7 @@ const Home = () => {
               alt="logo"
               height={100}
               width={100}
-              className="h-96 lg:h-[500px] w-auto"
+              className="md:h-96 lg:h-[500px] w-auto"
             />
           </div>
         </section>
@@ -151,7 +151,7 @@ const Home = () => {
                 <h2 className="text-3xl md:text-4xl font-bold lg:w-3/6 leading-normal mb-3">
                   Language learning for all
                 </h2>
-                <p className="text-justify mt-6">
+                <p className="text-lg md:text-base md:text-justify mt-6">
                   At<strong> Izesan!</strong> we stand on the pillars of heritage, authenticity, and
                   progress. Our commitment to preserving African languages goes beyond rhetoric;
                   it&apos;s a dedication to empowering communities through linguistic preservation.
@@ -195,7 +195,7 @@ const Home = () => {
                         </span>
                       </div>
                       <p className="text-[17px] font-bold">{ele.subtext}...</p>
-                      <p className="text-base text-justify">{ele.description}</p>
+                      <p className="text-lg md:text-base md:text-justify">{ele.description}</p>
                     </div>
                   </div>
                 )
@@ -246,26 +246,37 @@ const Home = () => {
             <span className="rounded-full bg-black p-1"></span>
             <hr className="border-black w-36" />
           </div>
-          <div className="flex items-center flex-col gap-4 lg:gap-8 md:flex-row flex-wrap justify-center  mt-12">
+          <div className="flex items-center  flex-col gap-4 lg:gap-8 md:flex-row flex-wrap justify-center mt-12">
             {[
               '/assets/images/landingpage/federal_ministry_logo.svg',
               '/assets/images/landingpage/nigerian_institute_logo.svg',
               '/assets/images/landingpage/universal_basic_education.svg',
             ].map((ele, index) => {
               return (
-                <div key={index}>
-                  <Image
+                <div
+                  key={index}
+                  style={{
+                    backgroundImage: `url(${ele})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                   
+                    backgroundPosition: 'center',
+                  }}
+                  className="w-72 md:w-[350px] h-24 "
+                >
+                  {/* <Image
+                  key={index}
                     src={ele}
                     alt="logo"
                     height={100}
                     width={100}
-                    className="w-[20em] h-[80px] lg:w-auto"
-                  />
+                    className="w-[500px] h-[80px] lg:w-auto"
+                  /> */}
                 </div>
               )
             })}
           </div>
-          <p className="text-justify md:text-center text-lg font-bold pt-8 md:pt-20 lg:px-20">
+          <p className="md:text-center text-lg font-bold pt-8 md:pt-20 lg:px-20">
             At Izesan! we take pride in being your premier language learning institution, dedicated
             to providing top-notch education in collaboration with the Federal Ministry of
             Education, the National Institute for Nigerian languages, and the Universal Basic
@@ -327,7 +338,7 @@ const Home = () => {
               height: '100px',
               backgroundPosition: 'center',
             }}
-            className='bg-no-repeat md:bg-repeat'
+            className="bg-no-repeat md:bg-repeat"
           ></div>
         </section>
       </main>
