@@ -16,8 +16,7 @@ const Lessons = () => {
   const { data: languageLessons, isLoading, error } = useGetLessons(languageID)
   const language = String(searchParams.get('language'))
   const [imageLoaded, setImageLoaded] = useState<null>(null)
-  // const lessonData = useSelector((state) => state?.lessons?.data);
-  // useSelector(userData).currentUser?.data.count_down!
+
 
   if (!languageLessons) return null
   if (isLoading) return <Loader />

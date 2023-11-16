@@ -5,7 +5,6 @@ import styles from "./page.module.css";
 import { GrAttachment } from "react-icons/gr";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
 import Button from "@/components/Button/Button";
-import { useGetLessons } from "@/services/api/lessons";
 import AddClassworkForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
 import Modal from "@/components/Modal/Modal";
 import AssignCard from "@/components/Card/AssignCard/AssignCard";
@@ -29,7 +28,7 @@ const AddQuizPage = () => {
   const [selectModule, setselectModule] = useState([]);
   const [selectQuiz, setselectQuiz] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data:lessons, isValidating } = useGetLessons(1); //assumed 1
+
   const [payloadData, setPayloadData] = useState({
     first_name: "",
     gendar: "",

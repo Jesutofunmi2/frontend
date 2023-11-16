@@ -137,7 +137,6 @@ const AssignmentViewWrapper = () => {
     teacher_id: `${teacherData?.teacher_id}`,
   })
 
-
   // Add module assignment
   const handleAddFile = async (payload: any, reset: () => void) => {
     let formdata = new FormData()

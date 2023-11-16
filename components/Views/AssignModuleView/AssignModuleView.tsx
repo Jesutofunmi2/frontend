@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import styles from './assignModuleView.module.css'
 import { useState } from 'react'
-import { getModules } from '@/services/api/lessons'
+import { useGetLessons } from '@/services/api/lessons'
 import Button from '@/components/Button/Button'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import Select from '../../Form/FormFields/Select/DropDown'
@@ -12,13 +11,8 @@ type Inputs = {
   module: ''
   deadline: Date
   no_attempt: number
-  time:""
+  time: ''
   mark: number
-}
-interface IOptions {
-  id: number
-  value: string
-  label: string
 }
 
 interface AssignModuleViewProps {
@@ -26,12 +20,11 @@ interface AssignModuleViewProps {
 }
 const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
   const { data: languages } = useGetLanguages()
-  const [isLoading, setLoading] = useState(false)
-  const [selectedModules, setSelectedModules] = useState<IOptions[]>([])
-  const [moduleOptions, setModuleOptions] = useState<IOptions[]>([])
   const [selectedLanguage, setSelectedLanguage] = useState<number>(0)
+  const { data: modulesData, isLoading } = useGetLessons(selectedLanguage)
+
   const languageOptions = languages?.map((item) => {
-    return { value: item?.id, label: item?.name }
+    return { value: item?.id, label: item?.name, disabled: item.status === 1 ? false : true }
   })
 
   let renderCount = 0
@@ -48,29 +41,20 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
     reset({
       module: '',
       deadline: new Date(),
-      no_attempt:0,
-      time: "",
+      no_attempt: 0,
+      time: '',
       mark: 0,
     })
     if (selectedLanguage) {
-      setLoading(true)
-      const fetchData = async () => {
-        try {
-          let modules = await getModules(selectedLanguage)
-          const moduleOptions = modules?.map((item: any) => {
-            return { value: item.id, label: item?.title }
-          })
-          setModuleOptions(moduleOptions)
-          setLoading(false)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-      fetchData()
+      setSelectedLanguage(selectedLanguage)
     } else {
       setSelectedLanguage(0)
     }
   }, [reset, selectedLanguage])
+
+  const moduleOptions = modulesData?.map((item: any) => {
+    return { value: item.id, label: item?.title }
+  })
 
   const handleLanguageChange = (selectedLanguage: any) => {
     setSelectedLanguage(selectedLanguage.value)
