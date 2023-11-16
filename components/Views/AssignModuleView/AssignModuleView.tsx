@@ -6,6 +6,7 @@ import Button from '@/components/Button/Button'
 import { Controller, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import Select from '../../Form/FormFields/Select/DropDown'
 import { TextInput } from '@/components/Form/FormFields/TextInput/TextInput'
+import { TbTrash } from 'react-icons/tb'
 
 type Inputs = {
   module: ''
@@ -50,7 +51,10 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
       mark: '',
     })
   }
-
+  const removeModule = (index: number) => {
+    remove(index)
+    setSelectedModules([])
+  }
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     handleModuleSubmit(selectedModules, data, reset)
   }
@@ -85,7 +89,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
               {fields.map((item, index) => (
                 <div key={item.id}>
                   <div className="shadow-lg p-6 w-[22em] relative ">
-                    <p className="my-5 font-bold text-xl">{selectedModules[index].value}</p>
+                    <p className="my-5 font-bold text-xl">{selectedModules[index]?.value}</p>
 
                     <div className="flex justify-between flex-wrap gap-6">
                       <TextInput
@@ -123,15 +127,13 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
                       />
                     </div>
 
-                    {/* <button
-                        type="button"
-                        onClick={() => removeModules()}
-                        className="absolute top-10 right-5"
-                      >
-                        {' '}
-                        {index}
-                        <TbTrash className="text-base" />
-                      </button> */}
+                    <button
+                      type="button"
+                      onClick={() => removeModule(index)}
+                      className="absolute top-10 right-5"
+                    >
+                      <TbTrash className="text-error text-base" />
+                    </button>
                   </div>
                 </div>
               ))}

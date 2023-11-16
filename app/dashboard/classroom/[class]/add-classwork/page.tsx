@@ -49,8 +49,8 @@ const AddClassworkPage = () => {
             <Tab2 handleToggle={handleToggle} data={tabData} toggle={toggle} />
           </div>
 
-          {toggle === 'Assign Classwork' ? (
-            <AssignClassworkView handleFormSubmit={handleFormSubmit} setModalOpen={setModalOpen} />
+          {/* {toggle === 'Assign Classwork' ? (
+            <AssignClassworkView handleFormSubmit={handleFormSubmit} />
           ) : (
             <AssignModuleView
             // language={language}
@@ -58,7 +58,7 @@ const AddClassworkPage = () => {
             //     setselectModule={setselectModule}
             //     selectModule={selectModule}
             />
-          )}
+          )} */}
 
           {/* <Button handleClick={handleModal} /> */}
         </div>
