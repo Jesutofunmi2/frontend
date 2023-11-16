@@ -89,14 +89,6 @@ const Teacher = () => {
     //   return
     // } else {
     if (teacherDetails) {
-      // editTeacher({
-      //   image_url: file,
-      //   name: payloadData.name,
-      //   email: payloadData.email,
-      //   address: 'bosss',
-      //   teacher_id: teacherDetails.teacher_id,
-      //   school_id: payloadData.school_id,
-      // })
     } else {
       const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
         return { class_id: item.class_id, classarm_id: item.class_arm_id }
@@ -115,27 +107,9 @@ const Teacher = () => {
         mutate()
       }
     }
-
     setModalOpen(false)
     reset()
-    // setFile(null)
-    // }
   }
-
-  // HANDLE SEARCH
-  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const filtered = teacherData?.data?.filter((item: ITeacher) => {
-  //     return (
-  //       item.email.toLowerCase().includes(e.target.value) ||
-  //       item.name.toLowerCase().includes(e.target.value)
-  //     )
-  //   })
-
-  //   if (filtered) {
-  //     setFilteredData(filtered)
-  //   } else {
-  //   }
-  // }
 
   // TABLE HEAD
   const tableHeading = ['', 'NAME', 'EMAIL', 'TEACHER ID', '']

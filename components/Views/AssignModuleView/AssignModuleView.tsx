@@ -1,108 +1,147 @@
-import React from "react";
-import styles from "./assignModuleView.module.css";
-import Select2 from "@/components/Form/FormFields/Select/select2";
-import AddModuleForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
-import Modal from "@/components/Modal/Modal";
-import { useState } from "react";
-import { useGetLessons } from "@/services/api/lessons";
-import AssignCard from "@/components/Card/AssignCard/AssignCard";
-import { useSelector } from "react-redux";
-import { usePathname, useSearchParams } from "next/navigation";
-import Button from "@/components/Button/Button";
-import { useAddModule } from "@/services/api/module";
-import { userData } from "@/services/redux/features/userSlice";
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { useGetLessons } from '@/services/api/lessons'
+import Button from '@/components/Button/Button'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import Select from '../../Form/FormFields/Select/DropDown'
+import { TextInput } from '@/components/Form/FormFields/TextInput/TextInput'
+import { useGetLanguages } from '@/services/api/languages'
 
-const AssignModuleView = ({}) => {
-  const teacherData = useSelector(userData).currentTeacher?.data!
-  // const IDs = useSelector((state) => state?.user?.currentTeacher?.data);
-  // const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const classID = searchParams.get("id");
-  const { data:lessonData } = useGetLessons(3);
-  const [addedModule, setAddedModule] = useState([]);
-  const [selectedModule, setSelectedModule] = useState(false);
-  // const { trigger } = useAddModule();
-  // const [payload, setPayload] = useState({
-  //   school_id: `${IDs?.school?.id}`,
-  //   teacher_id: `${IDs?.teacher_id}`,
-  //   class_id: classID,
-  //   data: [],
-  // });
+type Inputs = {
+  module: ''
+  deadline: Date
+  no_attempt: number
+  time: ''
+  mark: number
+}
 
-  // Options for Select component
-  const options = lessonData?.map((item) => {
-    return { value: item, label: item?.title };
-  });
+interface AssignModuleViewProps {
+  handleModuleSubmit: (data: Inputs | any, reset: (values: any) => void) => void
+}
+const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
+  const { data: languages } = useGetLanguages()
+  const [selectedLanguage, setSelectedLanguage] = useState<number>(0)
+  const { data: modulesData, isLoading } = useGetLessons(selectedLanguage)
 
-  // Handle remove card
-  // const handleRemoveCard = (param:any) => {
-  //   setAddedModule((current) => current.filter((item) => item.id !== param.id));
-  // };
+  const languageOptions = languages?.map((item) => {
+    return { value: item?.id, label: item?.name, disabled: item.status === 1 ? false : true }
+  })
 
-  // Handle Submit
-  const handleSubmit = () => {
-    // trigger(payload);
-  };
+  let renderCount = 0
+  const { register, handleSubmit, control, reset } = useForm<Inputs>({
+    defaultValues: {
+      module: '',
+      deadline: new Date(),
+      no_attempt: 0,
+      time: '',
+      mark: 0,
+    },
+  })
+  useEffect(() => {
+    reset({
+      module: '',
+      deadline: new Date(),
+      no_attempt: 0,
+      time: '',
+      mark: 0,
+    })
+    if (selectedLanguage) {
+      setSelectedLanguage(selectedLanguage)
+    } else {
+      setSelectedLanguage(0)
+    }
+  }, [reset, selectedLanguage])
 
-  // HANDLE ADD
-  // const handleAdd = (formdata) => {
-  //   const alreadyExisting = addedModule.find(
-  //     (item) => item.id === selectedModule?.id
-  //   );
-  //   if (alreadyExisting) {
-  //     alert("already exist");
-  //   } else {
-  //     const data = { ...payload };
-  //     data["data"].push({
-  //       module: selectedModule.id,
-  //       deadline: formdata?.date,
-  //       time: formdata?.time,
-  //       no_attempt: formdata?.no_attempt,
-  //       mark: formdata?.mark,
-  //     });
-  //     setPayload(data);
-  //     setAddedModule((current) => [...current, selectedModule]);
-  //     setSelectedModule(false);
-  //   }
-  // };
+  const moduleOptions = modulesData?.map((item: any) => {
+    return { value: item.id, label: item?.title }
+  })
 
+  const handleLanguageChange = (selectedLanguage: any) => {
+    setSelectedLanguage(selectedLanguage.value)
+  }
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    handleModuleSubmit(data, reset)
+  }
+
+  renderCount++
   return (
     <>
       <div>
-        <Select2
-          options={options}
-          title="SELECT MODULE"
-          // setSelectedModule={setSelectedModule}
-        />
-        <p className={styles.selectModuleTitle}></p>
-        {/* <ModulesSection
-          selectModule={selectModule}
-          setselectModule={setselectModule}
-          data={data}
-          isValidating={isValidating}
-        /> */}
-        {/* {addedModule.length > 0 ? (
-          <div className={styles.cardWrap}>
-            {addedModule?.map((item) => (
-              <AssignCard
-                item={item}
-                key={item.id}
-                handleDelete={handleRemoveCard}
-              />
-            ))}
-          </div>
-        ) : null} */}
+        <div className="mb-6">
+          <Select
+            onChange={handleLanguageChange}
+            label="Language"
+            defaultValue={'Select'}
+            options={languageOptions}
+          />
+        </div>
+        {selectedLanguage ? (
+          <form className="my-10" onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+              name="module"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  value={moduleOptions?.find((c) => c.value === value) || value}
+                  onChange={(val) => {
+                    onChange(val.value)
+                  }}
+                  label="Select Module"
+                  defaultValue={'Select'}
+                  options={moduleOptions}
+                  isLoading={isLoading}
+                />
+              )}
+            />
 
-        {addedModule.length > 0 ? (
-          <Button text="Submit"  handleClick={()=>handleSubmit()} />
+            <div className="w-full my-8">
+              <div className="flex w-full justify-between flex-wrap gap-8">
+                <TextInput
+                  register={{ ...register('deadline', { required: true }) }}
+                  label="Deadline"
+                  name={`deadline`}
+                  type="date"
+                  placeholder="Deadline"
+                  style={{ width: 350 }}
+                />
+                <TextInput
+                  register={{ ...register('no_attempt', { required: true }) }}
+                  label="No Of Attempts"
+                  name={`attempts`}
+                  type="number"
+                  placeholder="No of Attempts"
+                  style={{ width: 350 }}
+                />
+              </div>
+              <div className="flex w-full my-8  justify-between flex-wrap gap-8">
+                <TextInput
+                  register={{ ...register(`time`, { required: true }) }}
+                  label="Time(mins)"
+                  name={`time`}
+                  type="time"
+                  placeholder="Time(mins)"
+                  style={{ width: 350 }}
+                />
+                <TextInput
+                  register={{ ...register(`mark`, { required: true }) }}
+                  label="Mark"
+                  name={`mark`}
+                  type="number"
+                  placeholder="Mark"
+                  style={{ width: 350 }}
+                />
+              </div>
+            </div>
+
+            <div className="my-14 text-center">
+              <Button text="Submit" type="submit" />
+            </div>
+          </form>
         ) : null}
       </div>
-
-      {/* <Modal open={selectedModule ? true : false} setOpen={setSelectedModule}> */}
-        {/* <AddModuleForm handleClick={handleAdd} /> */}
-      {/* </Modal> */}
     </>
-  );
-};
+  )
+}
 
-export default AssignModuleView;
+export default AssignModuleView

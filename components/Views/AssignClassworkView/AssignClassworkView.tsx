@@ -15,10 +15,10 @@ type Inputs = {
   attachment: File | any
 }
 interface AssignClassworkViewProps {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+
   handleFormSubmit:(data:any, reset:()=>void)=>void
 }
-const AssignClassworkView = ({ setModalOpen,handleFormSubmit }: AssignClassworkViewProps) => {
+const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => {
   const searchParams = useSearchParams()
   const classID: any = searchParams.get('id')
   const teacherData = useSelector(userData).currentTeacher?.data!

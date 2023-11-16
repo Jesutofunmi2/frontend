@@ -6,7 +6,7 @@ import { Loader, Spinner } from '@/components/Loader/Loader'
 interface SelectProps {
   label: string
   options: any
-  onChange: (value: any) => void
+  onChange: (value: any, actionMeta:any) => void
   defaultValue?: any
   placeholder?: string
   isLoading?: boolean
@@ -59,6 +59,7 @@ const DropDown = ({
           isLoading={isLoading}
           noOptionsMessage={() => `No ${label} found`}
           components={{ LoadingIndicator }}
+          // isMulti
         />
       </div>
     </>

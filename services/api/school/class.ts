@@ -89,8 +89,60 @@ export const deleteClass = async (school_id: number, class_id: number) => {
     return err
   }
 }
+export const deleteTeacherClass = async (
+  school_id: number,
+  teacherID: string,
+  class_id: number,
+  languageID: number
+) => {
+  toast.loading('Deleting...', {
+    position: toast.POSITION.TOP_RIGHT,
+  })
+  try {
+    const res = await makeApiCall(
+      `api/v1/deleteTeacherClass?school_id=${school_id}&teacher_id=${teacherID}&class_id=${class_id}&language_id=${languageID}`,
+      'delete'
+    )
+    toast.dismiss()
 
+    if (res) {
+      toast.success('Class Deleted!', {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+    }
+    return res
+  } catch (err) {
+    toast.dismiss()
+    if (err) {
+      toast.error('Something went wrong', {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+    }
+
+    return err
+  }
+}
+
+// {{baseUrl}}/api/v1/classarm/students?class_id=1&teacher_id=Jay/2023/IZESAN/00001
 ///////////////////////////////////////////////////////////////////////////////////////////
+// export const useGetTeacherClassStudent = async (classID: number, teacherID: string) => {
+//   const res = await makeApiCall(
+//     `/api/v1/classarm/students?class_id=${classID}&teacher_id=${teacherID}`,
+//     'get'
+//   )
+//   return res.data
+// }
+
+export const useGetTeacherClassStudent  = (classID: number, teacherID: string) => {
+  const url = `/api/v1/classarm/students?class_id=${classID}&teacher_id=${teacherID}`
+  const fetcher = async (...args: string[]) => {
+    const res = await makeApiCall(url, 'get', ...args)
+    return res?.data
+  }
+  const { data, isLoading, error, mutate } = useSWR(url, fetcher)
+  return { data, isLoading, error, mutate }
+}
+
 //ADD CLASS ARM
 export const addClassArm = async (payloadData: ClassArmPayload | any) => {
   toast.loading('Submitting...', {
