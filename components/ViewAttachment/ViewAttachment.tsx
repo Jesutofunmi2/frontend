@@ -5,7 +5,7 @@ export default function ViewAttachment({ url }: string | any) {
 
   return (
     <>
-      {getExtension.toLowerCase() === 'pdf' ? (
+      {getExtension.toLowerCase() === 'pdf'||getExtension.toLowerCase() === 'mp4' ? (
         <div>
           <iframe src={url} width={'100%'} height={500} />
         </div>
