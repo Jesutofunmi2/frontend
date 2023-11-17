@@ -101,3 +101,9 @@ export const bulkAddStudent = async (payload: IBulkAddStudent) => {
     return err
   }
 }
+
+export const downloadStudents = async (schoolID: number) => {
+  const url = `/api/v1/studentsPdf?school_id=${schoolID}`
+  const res = await makeApiCall(url, 'get')
+  return res
+}

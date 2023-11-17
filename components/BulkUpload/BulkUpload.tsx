@@ -192,7 +192,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
                   <AiOutlineFileAdd color="green" />
                   <p className="text-base">Upload file </p>
                   <p className="font-italic text-xs">
-                    (<sup>*</sup>csv, .xls,.xlsx,<sup>*</sup> )
+                    (<sup>*</sup>csv, .xls, .xlsx<sup>*</sup> )
                   </p>
                 </div>
               </label>
