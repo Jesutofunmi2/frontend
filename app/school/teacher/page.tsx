@@ -81,7 +81,11 @@ const Teacher = () => {
   }
 
   // SUBMIT FORM CONDITION
-  const handleFormSubmit = async (values: any, selectedClassAndArm: any, reset: () => void) => {
+  const handleFormSubmit = async (
+    values: any,
+    selectedClassAndArm: any,
+    reset: (data: any) => void
+  ) => {
     // if (file === null) {
     //   toast.error('Upload image', {
     //     position: toast.POSITION.TOP_RIGHT,
@@ -107,8 +111,8 @@ const Teacher = () => {
         mutate()
       }
     }
-    setModalOpen(false)
-    reset()
+ 
+    reset({ name: '', email: '', address: '', class_id: '', classarm_id: '', image_url: '' })
   }
 
   // TABLE HEAD
@@ -150,10 +154,7 @@ const Teacher = () => {
         <div className={styles.actions}>
           <div className={styles.btnWrap}>
             <Button text="Add Teacher" handleClick={() => handleModalOpen('add', null)} />
-            <Button
-              text="Bulk Registration"
-              disabled
-            />
+            <Button text="Bulk Registration" disabled />
           </div>
         </div>
 
@@ -170,6 +171,7 @@ const Teacher = () => {
           file={file}
           classOptions={classOptions}
           schoolID={schoolID}
+          setModalOpen={setModalOpen}
         />
       </Modal>
       {/* MODAL TO MODIFY STUDENTS */}
