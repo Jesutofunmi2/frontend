@@ -31,7 +31,7 @@ const Favourites = () => {
   return (
     <>
       <div className={styles.container}>
-        <h3>Favourites</h3>
+        <h3 className='font-bold text-lg'>Favourites</h3>
         <Select options={options} onChange={handlechange} />
 
         <div className={styles.cardWrap}>

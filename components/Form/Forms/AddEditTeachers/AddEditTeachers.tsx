@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './addEditTeachers.module.css'
 import { TextInput } from '../../FormFields/TextInput/TextInput'
 import Button from '@/components/Button/Button'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import SelectImage from '@/components/SelectImage/SelectImage'
 import { IPayloadTeacher } from '@/types/teacher'
@@ -16,15 +16,16 @@ type Inputs = {
   name: string
   email: string
   address: string
-  class_id: number
-  classarm_id: number
-  image_url: File
+  class_id: number | any
+  classarm_id: number | any
+  image_url: File | any
 }
 
 interface AddEditTeacherProps {
   payloadData: IPayloadTeacher
   setPayloadData: React.Dispatch<React.SetStateAction<IPayloadTeacher>>
-  handleFormSubmit: (values: any, data: any, reset: any) => void
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  handleFormSubmit: (values: any, data: any, reset: (data: any) => void) => void
   teacherDetails: any
   title: string
   setFile: React.Dispatch<React.SetStateAction<File | null | any>>
@@ -36,6 +37,7 @@ const AddEditTeachers = ({
   schoolID,
   handleFormSubmit,
   teacherDetails,
+  setModalOpen,
   title,
   file,
   setFile,
@@ -79,7 +81,16 @@ const AddEditTeachers = ({
       classname: selectedOptionForClass.label,
       classarm: option.label,
     }
-    setSelectedClassAndArm([...selectedClassAndArm, data])
+    const checkDuplicated = selectedClassAndArm.find(
+      (ele) => ele.classname === data.classname && ele.classarm === data.classarm
+    )
+    if (checkDuplicated) {
+      toast.error('Class and Class-arm already selected!', {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+    } else {
+      setSelectedClassAndArm([...selectedClassAndArm, data])
+    }
   }
 
   const deleteViewSelectionItem = (itemIndex: number) => {
@@ -131,9 +142,21 @@ const AddEditTeachers = ({
     reset,
     clearErrors,
     formState: { errors },
-  } = useForm<Inputs>()
+  } = useForm<Inputs>({
+    defaultValues: {
+      name: '',
+      email: '',
+      address: '',
+      class_id: 0,
+      classarm_id: 0,
+      image_url: '',
+    },
+  })
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    handleFormSubmit(data, selectedClassAndArm, reset), setPreview('')
+    handleFormSubmit(data, selectedClassAndArm, reset),
+      setPreview(''),
+      setSelectedClassAndArm([]),
+      setModalOpen(false)
   }
 
   return (
@@ -183,14 +206,18 @@ const AddEditTeachers = ({
           <Controller
             name="class_id"
             control={control}
-            render={({ field }) => (
+            render={({ field: { onChange, value } }) => (
               <Select
                 onChange={(val) => {
-                  field.onChange(val.value), setSelectedOptionForClass(val)
+                  onChange(val.value), setSelectedOptionForClass(val)
                 }}
                 label="Class(mutiple selections)"
                 defaultValue={'Select'}
                 options={classOptions}
+                value={
+                  classOptions?.find((c: { value: number; label: string }) => c.value === value) ||
+                  value
+                }
               />
             )}
           />
@@ -198,11 +225,16 @@ const AddEditTeachers = ({
             <Controller
               name="classarm_id"
               control={control}
-              render={({ field }) => (
+              render={({ field: { onChange, value } }) => (
                 <Select
                   onChange={(val) => {
-                    field.onChange(val.value), getClassAndClassArmData(val)
+                    onChange(val.value), getClassAndClassArmData(val)
                   }}
+                  value={
+                    classArmoptions?.find(
+                      (c: { value: number; label: string }) => c.value === value
+                    ) || value
+                  }
                   label="Class Arm"
                   defaultValue={'Select'}
                   options={classArmoptions}

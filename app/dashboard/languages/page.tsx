@@ -35,7 +35,7 @@ const Languages = () => {
           <h2>Languages</h2>
           <p>Choose your native language</p>
         </div>
-        <div className={styles.wrapper}>
+        <div className="mt-10 gap-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
           {/* <Fade
            cascade
            damping={0.1}

@@ -139,9 +139,10 @@ const LessonGameOne = ({
         <div className={styles.wrapper}>
           {/* HEADING TEXT */}
           <div className={styles.textWrap}>
-            <h2>Translate this sentence</h2>
-            <h3>Question No. {questionIndex + 1}</h3>
-            <h3>{currentQtn?.title}</h3>
+          <h3 className='text-lg mb-4'>Question No. {questionIndex + 1}</h3>
+            <h2 className='text-xl'>Translate this sentence</h2>
+         
+            <h3 className='text-2xl font-bold'>{currentQtn?.title}</h3>
           </div>
 
           {/* IMAGE AND SPEAKER */}

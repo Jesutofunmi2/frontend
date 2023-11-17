@@ -23,7 +23,7 @@ const TeacherClass = () => {
   return (
     <>
       <div className={styles.dash}>
-        <h3 className="bg-white p-4 rounded-xl">
+        <h3 className="bg-white p-4 rounded-xl text-lg font-bold">
           {allTeacherClasses?.length > 1 ? 'Classes' : 'Class'}
         </h3>
 
