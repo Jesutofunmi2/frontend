@@ -103,7 +103,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
   return (
     <>
       <div className={styles.container}>
-        <h3 className="text-xl mb-4">Bulk Registration</h3>
+        <h3 className="text-lg mb-4 font-bold">Bulk Registration</h3>
         <hr />
 
         <form onSubmit={handleSubmit(onSubmit)}>

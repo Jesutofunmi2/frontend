@@ -146,14 +146,13 @@ const Teacher = () => {
   return (
     <>
       <div>
-        <h3 className="p-4 rounded-xl bg-white">Teacher Configuration</h3>
+        <h3 className="p-4 rounded-xl bg-white text-lg font-bold">Teacher Configuration</h3>
         <div className={styles.actions}>
           <div className={styles.btnWrap}>
             <Button text="Add Teacher" handleClick={() => handleModalOpen('add', null)} />
             <Button
               text="Bulk Registration"
-              backgroundColor="lightGreen"
-              handleClick={() => handleModalOpen('bulk', null)}
+              disabled
             />
           </div>
         </div>

@@ -34,8 +34,8 @@ const VideoCourseCard = ({ video }: VideoCourseCard) => {
               height={100}
               alt={video?.title}
             />
-            <hr className={styles.break} />
-            <h3>{video?.title}</h3>
+            {/* <hr className={styles.break} /> */}
+            <h3 className='text-xl mt-3'>{video?.title}</h3>
           </div>
         </Link>
       </div>

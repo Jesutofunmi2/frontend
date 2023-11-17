@@ -143,7 +143,7 @@ const Student = () => {
   return (
     <>
       <div>
-        <h3 className="p-4 rounded-xl bg-white">Student Configuration</h3>
+        <h3 className="p-4 rounded-xl bg-white text-lg font-bold">Student Configuration</h3>
 
         <div className={styles.btnWrap}>
           <Button text="Add Student" handleClick={() => handleModalOpen('add', null)} />

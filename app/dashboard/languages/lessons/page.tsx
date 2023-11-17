@@ -29,7 +29,7 @@ const Lessons = () => {
           <span className={styles.backIcon}>
             <BackNavigation />
           </span>
-          <h1 className="text-xl ml-4">Lessons</h1>
+          <h1 className="text-xl ml-4 font-bold">Lessons</h1>
         </div>
         <div className={styles.wrapper}>
           {languageLessons?.map((lesson: Lesson) => (
