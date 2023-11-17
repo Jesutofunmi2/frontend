@@ -90,4 +90,5 @@ export const schoolLogo = [
   '/assets/images/landingpage/school_logo/school65.jpeg',
   '/assets/images/landingpage/school_logo/school66.jpeg',
   '/assets/images/landingpage/school_logo/school67.jpeg',
+  '/assets/images/landingpage/school_logo/school68.jpeg',
 ]
