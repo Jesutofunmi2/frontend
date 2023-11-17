@@ -18,6 +18,9 @@ export const addClasswork = async (payload: any) => {
     return res
   } catch (err) {
     toast.dismiss()
+    toast.error('Request Failed! Check file type', {
+      position: toast.POSITION.TOP_RIGHT,
+    })
     return err
   }
 }

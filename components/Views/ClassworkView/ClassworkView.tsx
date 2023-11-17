@@ -41,31 +41,20 @@ const ClassworkView = () => {
       })
       return
     }
+
     let formData: any = new FormData()
     formData.append('media_url', data.attachment[0])
     formData.append('teacher_id', teacherData?.teacher_id)
     formData.append('class_id', classID)
     formData.append('school_id', teacherData?.school?.id)
     formData.append('name', data.name)
-    let res = await addClasswork(formData)
-    if (res) {
-      setModalOpen(false)
-      reset()
-      mutate()
-    }
+    await addClasswork(formData)
+    setModalOpen(false)
+    reset()
+    mutate()
   }
 
   const handleModuleSubmit = async (data: any, reset: (value: any) => void) => {
-    // const inputData = data.data.map((item, index) => {
-    //   return {
-    //     module: selectedModules[index].id,
-    //     deadline: item.deadline,
-    //     time: Math.ceil(Number(item.time.split(':')[0])),
-    //     no_attempt: item.attempts,
-    //     mark: item.mark,
-    //     notification: true,
-    //   }
-    // })
     let formdata = {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
