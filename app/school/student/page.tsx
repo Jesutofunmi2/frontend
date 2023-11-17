@@ -184,7 +184,7 @@ const Student = () => {
               <Spinner />
             ) : (
               <span>
-                Download <FiDownload className="inline ml-2 text-3xl" />
+                <FiDownload className="inline ml-2 text-2xl" />
               </span>
             )}
           </button>
