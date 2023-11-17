@@ -213,11 +213,11 @@ const Student = () => {
         />
       </Modal>
 
-      {previewDownload.length && (
+      {previewDownload.length ? (
         <Modal open={previewOpen} setOpen={setPreviewOpen}>
           <ViewAttachment url={previewDownload} />
         </Modal>
-      )}
+      ):null}
       <ToastContainer />
     </>
   )
