@@ -218,7 +218,7 @@ const BulkUpload = ({ schoolID, mutate, classOptions, setBulkOpen }: BulkUploadP
 
               {fileUploadError ? (
                 <div className="text-error flex items-center gap-2 absolute -bottom-3 right-16">
-                  <BiErrorCircle /> <p className=" text-error">Upload image!</p>
+                  <BiErrorCircle /> <p className=" text-error">Upload file!</p>
                 </div>
               ) : null}
             </div>
