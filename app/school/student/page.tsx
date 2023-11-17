@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import styles from './page.module.css'
 import Table from '@/components/Table/Table'
 import Modal from '@/components/Modal/Modal'
 import Button from '@/components/Button/Button'
@@ -11,26 +10,35 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { RiDeleteBin6Line, RiFileCopyLine } from 'react-icons/ri'
+import { FiDownload } from 'react-icons/fi'
 import { AiFillEdit } from 'react-icons/ai'
 import {
   addStudent,
   deleteStudent,
   editStudent,
+  downloadStudents,
   useGetStudents,
 } from '@/services/api/school/student'
 import BulkUpload from '@/components/BulkUpload/BulkUpload'
 import { useGetClasses } from '@/services/api/school/class'
-import { Loader } from '@/components/Loader/Loader'
+import { Loader, Spinner } from '@/components/Loader/Loader'
 import { userData } from '@/services/redux/features/userSlice'
 import { IFormStudent } from '@/types/student'
+
+import ViewAttachment from '@/components/ViewAttachment/ViewAttachment'
 
 const Student = () => {
   const schoolID = Number(useSelector(userData).currentSchool?.data.id!)
   const [studentDetails, setStudentDetails] = useState<any | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [bulkOpen, setBulkOpen] = useState(false)
+  const [previewOpen, setPreviewOpen] = useState(false)
+  const [isDownloading, setDownloading] = useState(false)
+  const [previewDownload, setPreviewDownload] = useState<any>('')
   const { data: allClasses } = useGetClasses(schoolID)
   const { error, data: allStudentsData, isLoading, mutate } = useGetStudents(schoolID)
+  // const { data: downloadStudents } = useDownloadStudents(schoolID)
+
   if (!allStudentsData) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
@@ -60,6 +68,22 @@ const Student = () => {
     })
   }
 
+  const handleDownload = async () => {
+    if (previewDownload.length) {
+      setPreviewOpen(true)
+    } else {
+      setDownloading(true)
+      try {
+        let res = await downloadStudents(schoolID)
+        setPreviewDownload(res.url)
+        setPreviewOpen(true)
+        setDownloading(false)
+      } catch (error) {
+        console.log(error)
+        setDownloading(false)
+      }
+    }
+  }
   // Options for classes Select component
   const classOptions = allClasses?.map((item) => {
     return { value: item.id, label: item?.classs_room_name }
@@ -145,13 +169,25 @@ const Student = () => {
       <div>
         <h3 className="p-4 rounded-xl bg-white text-lg font-bold">Student Configuration</h3>
 
-        <div className={styles.btnWrap}>
-          <Button text="Add Student" handleClick={() => handleModalOpen('add', null)} />
-          <Button
-            text="Bulk Registration"
-            backgroundColor="lightGreen"
-            handleClick={() => handleModalOpen('bulk', null)}
-          />
+        <div className="flex item-center mt-8 pt-8 pb-3 justify-between">
+          <div className="flex item-center gap-4">
+            <Button text="Add Student" handleClick={() => handleModalOpen('add', null)} />
+            <Button
+              text="Bulk Registration"
+              backgroundColor="lightGreen"
+              handleClick={() => handleModalOpen('bulk', null)}
+            />
+          </div>
+          <button type="button" className="mr-10" onClick={() => handleDownload()}>
+            {' '}
+            {isDownloading ? (
+              <Spinner />
+            ) : (
+              <span>
+                Download <FiDownload className="inline ml-2 text-3xl" />
+              </span>
+            )}
+          </button>
         </div>
         <Table head={tableHead} body={TableBody} />
       </div>
@@ -176,6 +212,12 @@ const Student = () => {
           setBulkOpen={setBulkOpen}
         />
       </Modal>
+
+      {previewDownload.length && (
+        <Modal open={previewOpen} setOpen={setPreviewOpen}>
+          <ViewAttachment url={previewDownload} />
+        </Modal>
+      )}
       <ToastContainer />
     </>
   )

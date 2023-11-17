@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function ViewAttachment({ url }: string | any) {
+  console.log(url)
   const getExtension = url.split('.').pop()
 
   return (
