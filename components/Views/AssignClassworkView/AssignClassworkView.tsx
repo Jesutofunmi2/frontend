@@ -45,7 +45,7 @@ const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => 
         <TextInput
           style={{ width: '300px' }}
           register={{ ...register('attachment', { required: true }) }}
-          label="Attachment"
+          label="Attachment(pdf, png, jpeg, csv)"
           name="attachment"
           type="file"
           placeholder="Enter topic name"
