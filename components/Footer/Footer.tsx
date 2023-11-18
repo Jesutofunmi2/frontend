@@ -9,7 +9,7 @@ import { FaXTwitter } from 'react-icons/fa6'
 const Footer = () => {
   return (
     <section className="bg-[#262626]">
-      <div className="flex  md:flex-row items-center flex-wrap p-4 md:p-8 justify-center gap-4">
+      <div className="flex md:flex-row items-center flex-wrap p-4 md:p-8 justify-center gap-4">
         <Image
           src={'/assets/images/landingpage/google-Image.svg'}
           alt="logo"
@@ -58,17 +58,17 @@ const Footer = () => {
         <hr className="border-white rotate-90 w-10 hidden lg:block" />
         <div className="flex gap-4 justify-center items-center ">
           {' '}
-          <Link className="text-xl hover:text-yellow" href="https://www.youtube.com/@izesan392">
+          <Link className="text-xl hover:text-yellow" target="_blank" href="https://www.youtube.com/@izesan392">
             <IoLogoYoutube />
           </Link>
-          <Link className="text-xl  hover:text-yellow" href="https://www.instagram.com/lzesan/">
+          <Link className="text-xl hover:text-yellow" target="_blank" href="https://www.instagram.com/lzesan/">
             <AiOutlineInstagram />
           </Link>
-          <Link className="text-xl  hover:text-yellow" href="https://twitter.com/lzesan">
+          <Link className="text-xl hover:text-yellow" target="_blank" href="https://twitter.com/lzesan">
             <FaXTwitter />
           </Link>
           <Link
-            className="text-xl  hover:text-yellow"
+            className="text-xl hover:text-yellow"
             href="https://www.facebook.com/izesanspeakesan/"
           >
             <BiLogoFacebook />
