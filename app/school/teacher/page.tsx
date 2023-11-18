@@ -86,12 +86,6 @@ const Teacher = () => {
     selectedClassAndArm: any,
     reset: (data: any) => void
   ) => {
-    // if (file === null) {
-    //   toast.error('Upload image', {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   })
-    //   return
-    // } else {
     if (teacherDetails) {
     } else {
       const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
@@ -99,17 +93,15 @@ const Teacher = () => {
       })
 
       const formData = {
-        image_url: 'https://course-material-dev.s3.us-east-2.amazonaws.com/logoi.png', //values.image"_url,
+        image_url: 'https://course-material-dev.s3.us-east-2.amazonaws.com/logoi.png',
         school_id: schoolID,
         name: values.name,
         email: values.email,
         address: values.address,
         data: classAndClassArmdata,
       }
-      const res = await addTeacher(formData)
-      if (res) {
-        mutate()
-      }
+      await addTeacher(formData)
+      mutate()
     }
  
     reset({ name: '', email: '', address: '', class_id: '', classarm_id: '', image_url: '' })
