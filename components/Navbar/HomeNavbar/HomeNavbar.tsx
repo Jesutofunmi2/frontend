@@ -21,7 +21,7 @@ const HomeNavbar = () => {
   ]
   return (
     <>
-      <nav className="flex items-center justify-between 2xl:justify-around px-6 py-2 bg-white">
+      <nav className="flex items-center justify-between px-6 2xl:px-48 py-2 bg-white">
         <Link href="/">
           <Image src="/assets/images/logo.png" height={57} width={57} alt="logo" />
         </Link>
