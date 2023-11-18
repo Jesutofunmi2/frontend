@@ -81,7 +81,11 @@ const Teacher = () => {
   }
 
   // SUBMIT FORM CONDITION
-  const handleFormSubmit = async (values: any, selectedClassAndArm: any, reset: () => void) => {
+  const handleFormSubmit = async (
+    values: any,
+    selectedClassAndArm: any,
+    reset: (data: any) => void
+  ) => {
     // if (file === null) {
     //   toast.error('Upload image', {
     //     position: toast.POSITION.TOP_RIGHT,
@@ -89,14 +93,6 @@ const Teacher = () => {
     //   return
     // } else {
     if (teacherDetails) {
-      // editTeacher({
-      //   image_url: file,
-      //   name: payloadData.name,
-      //   email: payloadData.email,
-      //   address: 'bosss',
-      //   teacher_id: teacherDetails.teacher_id,
-      //   school_id: payloadData.school_id,
-      // })
     } else {
       const classAndClassArmdata = selectedClassAndArm?.map((item: any) => {
         return { class_id: item.class_id, classarm_id: item.class_arm_id }
@@ -115,27 +111,9 @@ const Teacher = () => {
         mutate()
       }
     }
-
-    setModalOpen(false)
-    reset()
-    // setFile(null)
-    // }
+ 
+    reset({ name: '', email: '', address: '', class_id: '', classarm_id: '', image_url: '' })
   }
-
-  // HANDLE SEARCH
-  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const filtered = teacherData?.data?.filter((item: ITeacher) => {
-  //     return (
-  //       item.email.toLowerCase().includes(e.target.value) ||
-  //       item.name.toLowerCase().includes(e.target.value)
-  //     )
-  //   })
-
-  //   if (filtered) {
-  //     setFilteredData(filtered)
-  //   } else {
-  //   }
-  // }
 
   // TABLE HEAD
   const tableHeading = ['', 'NAME', 'EMAIL', 'TEACHER ID', '']
@@ -172,15 +150,11 @@ const Teacher = () => {
   return (
     <>
       <div>
-        <h3 className="p-4 rounded-xl bg-white">Teacher Configuration</h3>
+        <h3 className="p-4 rounded-xl bg-white text-lg font-bold">Teacher Configuration</h3>
         <div className={styles.actions}>
           <div className={styles.btnWrap}>
             <Button text="Add Teacher" handleClick={() => handleModalOpen('add', null)} />
-            <Button
-              text="Bulk Registration"
-              backgroundColor="lightGreen"
-              handleClick={() => handleModalOpen('bulk', null)}
-            />
+            <Button text="Bulk Registration" disabled />
           </div>
         </div>
 
@@ -197,6 +171,7 @@ const Teacher = () => {
           file={file}
           classOptions={classOptions}
           schoolID={schoolID}
+          setModalOpen={setModalOpen}
         />
       </Modal>
       {/* MODAL TO MODIFY STUDENTS */}

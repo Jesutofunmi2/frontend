@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './assignClassworkview.module.css'
 import { GrAttachment } from 'react-icons/gr'
-
 import Button from '@/components/Button/Button'
 import { useSelector } from 'react-redux'
 import { useSearchParams } from 'next/navigation'
@@ -15,16 +14,14 @@ type Inputs = {
   attachment: File | any
 }
 interface AssignClassworkViewProps {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-  handleFormSubmit:(data:any, reset:()=>void)=>void
+  handleFormSubmit: (data: any, reset: () => void) => void
 }
-const AssignClassworkView = ({ setModalOpen,handleFormSubmit }: AssignClassworkViewProps) => {
+const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => {
   const searchParams = useSearchParams()
   const classID: any = searchParams.get('id')
   const teacherData = useSelector(userData).currentTeacher?.data!
 
   // SUBMIT TO API
-
 
   const { register, handleSubmit, reset } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -42,15 +39,21 @@ const AssignClassworkView = ({ setModalOpen,handleFormSubmit }: AssignClassworkV
             placeholder="Enter topic name"
           />
         </div>
-        <TextInput
-          style={{ width: '300px' }}
-          register={{ ...register('attachment', { required: true }) }}
-          label="Attachment"
-          name="attachment"
-          type="file"
-          placeholder="Enter topic name"
-          Icon={<GrAttachment />}
-        />
+        <div>
+          <TextInput
+            style={{ width: '100%' }}
+            register={{ ...register('attachment', { required: true }) }}
+            label="Attachment"
+            name="attachment"
+            type="file"
+            placeholder="Enter topic name"
+            accept="image/*, .pdf, video/* audio/*"
+            Icon={<GrAttachment />}
+          />
+          <span className="text-gray-200 text-sm w-[40em] block">
+            (* pdf, zip, audio/mpeg, mpga, mp3, wav, mp4, flv, mov, jpeg, png, jpg *)
+          </span>
+        </div>
 
         <div className="mt-6 text-center">
           <Button type="submit" text="Submit" />

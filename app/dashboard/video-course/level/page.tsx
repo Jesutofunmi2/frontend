@@ -18,7 +18,7 @@ const LessonLevel = () => {
   return (
     <>
       <div className={styles.container}>
-        <h2>Select video lesson level</h2>
+        <h2 className="text-xl font-bold">Select video lesson level</h2>
         <div className={styles.cardWrap}>
           {fakedata?.map((item) => (
             <LevelCard item={item} key={item.text} />

@@ -9,6 +9,7 @@ interface InputProps {
   register: any
   style?: any
   Icon?: JSX.Element
+  accept?: any
   clearErrors?: () => void
   errors?: any
 }
@@ -16,7 +17,7 @@ interface InputValueProps {
   label: string
   defaultValue?: string
   name: string
-  type?:string
+  type?: string
 }
 export const TextInput = ({
   label,
@@ -26,6 +27,7 @@ export const TextInput = ({
   type,
   name,
   style,
+  accept,
   Icon,
   clearErrors,
   errors,
@@ -44,26 +46,32 @@ export const TextInput = ({
           placeholder={placeholder}
           className={styles.input}
           required
+          accept={accept}
         />
         {/* {Icon? <span>{Icon}</span>: null} */}
       </div>
       {errors?.term && errors?.term.type === 'required' ? (
         <div className="text-error flex items-center gap-2 absolute bottom-0 right-44">
-    <p className=" text-error">Upload image!</p>
+          <p className=" text-error">Upload image!</p>
         </div>
       ) : null}
     </>
   )
 }
 
-export const TextInputValue = ({ label, name, type,defaultValue }: InputValueProps) => {
+export const TextInputValue = ({ label, name, type, defaultValue }: InputValueProps) => {
   return (
     <>
       <div className={styles.inputWrap}>
         <label className="text-sm" htmlFor={name}>
           {label}
         </label>
-        <input defaultValue={defaultValue} type={type?type:'text'} className={styles.input} readOnly />
+        <input
+          defaultValue={defaultValue}
+          type={type ? type : 'text'}
+          className={styles.input}
+          readOnly
+        />
       </div>
     </>
   )

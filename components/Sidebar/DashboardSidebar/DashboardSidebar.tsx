@@ -34,7 +34,7 @@ const Sidebar = ({ school, teacher }: SidebarProps) => {
       router.push('/login')
     } else {
       dispatch(logout(null))
-      dispatch(surveyStatus(null))
+      // dispatch(surveyStatus(null))
       router.push('/login')
     }
   }

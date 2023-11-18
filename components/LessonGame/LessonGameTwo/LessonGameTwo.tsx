@@ -88,11 +88,11 @@ const LessonGameTwo = ({
       <div className={styles.LGTwoContainer}>
         <div className={styles.wrapper}>
           <div className={styles.textWrap}>
-            <h3>Question No. {questionIndex + 1}</h3>
+            <h3 className='text-xl'>Question No. {questionIndex + 1}</h3>
           </div>
 
           <div className={styles.questionWrap}>
-            <h3>{currentQtn?.title}</h3>
+            <h3 className='text-2xl font-bold'> {currentQtn?.title}</h3>
             <div className={styles.flashcardWrap}>
               {/* <Fade
                 cascade

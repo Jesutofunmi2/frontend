@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import makeApiCall from '.'
 
 //ADD MODULE FOR TEACHER
-export const useAddModule = async (payload: any) => {
+export const addAssignModule = async (payload: any) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
@@ -46,7 +46,7 @@ export const deleteModule = async (param: any) => {
   })
   try {
     const res = await makeApiCall(
-      `/api/v1/delete/assignedModule?school_id=${param?.school_id}&teacher_id=${param?.teacher_id}?id=${param.id}`,
+      `/api/v1/delete/assignedModule?school_id=${param?.school_id}&teacher_id=${param?.teacher_id}&id=${param.id}`,
       'delete'
     )
     toast.dismiss()
@@ -58,7 +58,6 @@ export const deleteModule = async (param: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-
     return err
   }
 }

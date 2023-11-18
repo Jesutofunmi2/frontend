@@ -16,8 +16,7 @@ const Lessons = () => {
   const { data: languageLessons, isLoading, error } = useGetLessons(languageID)
   const language = String(searchParams.get('language'))
   const [imageLoaded, setImageLoaded] = useState<null>(null)
-  // const lessonData = useSelector((state) => state?.lessons?.data);
-  // useSelector(userData).currentUser?.data.count_down!
+
 
   if (!languageLessons) return null
   if (isLoading) return <Loader />
@@ -30,7 +29,7 @@ const Lessons = () => {
           <span className={styles.backIcon}>
             <BackNavigation />
           </span>
-          <h1 className="text-xl ml-4">Lessons</h1>
+          <h1 className="text-xl ml-4 font-bold">Lessons</h1>
         </div>
         <div className={styles.wrapper}>
           {languageLessons?.map((lesson: Lesson) => (

@@ -27,11 +27,10 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
+    font-size: 16px;
 }
 
 .detail{
-    max-width: 230px;
-    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,7 +46,6 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    height: 180px;
     overflow-y: auto;
     padding: 7px;
 }
@@ -83,12 +81,13 @@
 
 .innerWrap{
     border-radius: 7px;
-    padding: 7px;
+    padding: 16px;
  width: 100%;
  height: 100%;
  box-sizing: border-box;
  display: flex;
  align-items: center;
+ justify-content: space-between;
  gap: 15px;
 }
 

@@ -8,14 +8,12 @@ import { ILanguage } from '@/types/languages'
 
 interface LanguageCardProps {
   card: ILanguage
-
 }
 
-const LanguageCard = ({ card}: LanguageCardProps) => {
-  
+const LanguageCard = ({ card }: LanguageCardProps) => {
   return (
     <>
-      <div  className={styles.container}>
+      <div className={styles.container}>
         {card?.status <= 0 ? <div className={styles.overlay}></div> : null}
         <Link
           href={{
@@ -35,8 +33,8 @@ const LanguageCard = ({ card}: LanguageCardProps) => {
             height={100}
             alt={card.name}
           />
-          <hr className={styles.break} />
-          <h3>{card.name}</h3>
+          {/* <hr className={styles.break} /> */}
+          <h3 className="mt-4 text-xl">{card.name}</h3>
         </Link>
       </div>
     </>

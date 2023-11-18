@@ -3,7 +3,7 @@ export const phoneImages = [
     name: 'Games',
     image: '/assets/images/landingpage/phone_game.svg',
     description:
-      'Dive into the world of Izesan! , where learning a new language feels like an epic adventure.',
+      'Dive into the world of Izesan! where learning a new language feels like an epic adventure.',
   },
   {
     name: 'Animation',
@@ -20,7 +20,6 @@ export const phoneImages = [
 ]
 
 export const schoolLogo = [
- 
   '/assets/images/landingpage/school_logo/school2.jpeg',
   '/assets/images/landingpage/school_logo/school3.jpeg',
   '/assets/images/landingpage/school_logo/school4.jpeg',
@@ -77,8 +76,19 @@ export const schoolLogo = [
   '/assets/images/landingpage/school_logo/school51.jpeg',
   '/assets/images/landingpage/school_logo/school52.jpeg',
   '/assets/images/landingpage/school_logo/school53.png',
- 
-
-
-
+  '/assets/images/landingpage/school_logo/school54.png',
+  '/assets/images/landingpage/school_logo/school55.jpeg',
+  '/assets/images/landingpage/school_logo/school56.jpeg',
+  '/assets/images/landingpage/school_logo/school57.png',
+  '/assets/images/landingpage/school_logo/school58.jpeg',
+  '/assets/images/landingpage/school_logo/school59.jpeg',
+  '/assets/images/landingpage/school_logo/school60.jpeg',
+  '/assets/images/landingpage/school_logo/school61.jpeg',
+  '/assets/images/landingpage/school_logo/school62.jpeg',
+  '/assets/images/landingpage/school_logo/school63.jpeg',
+  '/assets/images/landingpage/school_logo/school64.jpeg',
+  '/assets/images/landingpage/school_logo/school65.jpeg',
+  '/assets/images/landingpage/school_logo/school66.jpeg',
+  '/assets/images/landingpage/school_logo/school67.jpeg',
+  '/assets/images/landingpage/school_logo/school68.jpeg',
 ]

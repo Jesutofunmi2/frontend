@@ -76,7 +76,7 @@ const VideoPlay = () => {
           {!isLoading ? (
             <div className={styles.aboutVideo}>
               <div className={styles.menu}>
-                <span>Overview</span>
+                <span className='text-lg font-bold'>Overview</span>
               </div>
 
               <p className="languageText">{videoData?.objective}</p>

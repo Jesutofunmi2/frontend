@@ -10,11 +10,7 @@ interface TableProps {
   body?: any
 }
 
-const Table = ({
-  head,
-  body,
-} 
-: TableProps) => {
+const Table = ({ head, body }: TableProps) => {
   return (
     <div className={styles.container}>
       <table>
@@ -22,12 +18,7 @@ const Table = ({
           <tr className={styles.tr}>{head?.map((item, index) => <th key={index}>{item}</th>)}</tr>
         </thead>
 
-        <tbody className={styles.tbody}>
-          {body ? (
-            body()
-          ) : null
-          }
-        </tbody>
+        <tbody className={styles.tbody}>{body ? body() : null}</tbody>
       </table>
       {/* <Pagination
         data={data}

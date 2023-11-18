@@ -2,5 +2,11 @@
 // return error response for duplicated emails in creating teachers
 // duplicated class and class arm unacceptable
 // No duplicate on adding classes 
+// error handling - return error response
 
 
+
+// Sandy
+// error pages
+// page not found return home
+// What happens when there is no network

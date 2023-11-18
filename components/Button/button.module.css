@@ -4,7 +4,7 @@
     height: 40px;
     color: white;
     border-radius: 5px;
-
+font-weight: bold;
     font-size: 17px;
 
 }
@@ -21,6 +21,6 @@
   }
 
   .btn:disabled{
-    background-color: lightgray;
+    background-color:#80808021;
     cursor: not-allowed;
   }

@@ -34,7 +34,7 @@ const VideoCourseSidebar = ({ videoLessonData, setVideoData, setQuestionIndex, s
   return (
     <>
       <div className={styles.container}>
-        <h3>Course content</h3>
+        <h3 className='font-bold text-lg'>Course content</h3>
 
         { videoLessonData?.map((item:any) => (
           <div className={styles.listContainer} key={item.id}>
@@ -56,7 +56,7 @@ const VideoCourseSidebar = ({ videoLessonData, setVideoData, setQuestionIndex, s
                     onClick={() => handleVideoSelect(tpc)}
                   >
                     <div className={styles.dropTitleWrap}>
-                      <span>•</span>
+                      <span className='font-bold text-xl'>•</span>
                       <span className={styles.dropText}>{tpc.title}</span>
                     </div>
                     {/* <span className={styles.dropVideoTime}>

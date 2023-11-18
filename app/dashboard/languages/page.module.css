@@ -1,23 +1,20 @@
-.textWrap{
-    text-align: center;  
+.textWrap {
+  text-align: center;
 }
 
-.textWrap h2{
-    font-weight: 700;
-    font-size: 30px;
+.textWrap h2 {
+  font-weight: 700;
+  font-size: 25px;
 }
 
-.textWrap p{
-    margin-top: 5px;
-    font-size: 18px;
+.textWrap p {
+  margin-top: 5px;
+  font-size: 18px;
 }
 
-
-.wrapper{
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 25px;
+.wrapper {
+  /* margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 25px; */
 }
