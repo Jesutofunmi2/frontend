@@ -32,6 +32,7 @@ async function makeApiCall<T = any>(
         removeToken()
         // window.location.assign('/login')
       }
+
       throw new Error(error.response.data.message)
     }
 
