@@ -9,7 +9,6 @@ import { BiLogOut } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useDispatch } from 'react-redux'
 import { logout, schoolLogout } from '@/services/redux/features/userSlice'
-import { surveyStatus } from '@/services/redux/features/surveySlice'
 import { TOKEN_KEY } from '@/utils/constants'
 
 interface SidebarProps {
@@ -124,12 +123,12 @@ const Sidebar = ({ school, teacher }: SidebarProps) => {
                 </Link>
               )
             })}
-            <li className={styles.logout} onClick={() => handleLogout()}>
+            <button className={styles.logout} onClick={() => handleLogout()}>
               <span>
                 <BiLogOut size={25} />
               </span>
               <p>Logout</p>
-            </li>
+            </button>
           </ul>
         )}
       </div>
