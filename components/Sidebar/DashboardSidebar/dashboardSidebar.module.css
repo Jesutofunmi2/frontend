@@ -1,60 +1,58 @@
-.sidebarContainer{
-    /* flex: 1; */
-    width: 180px;
-    min-height: 100vh;
-    transform: translateX(1);
-    background-color: white;
-    padding: 20px 10px 0px 30px;
-    display: flex;
-    flex-direction: column;
-    transition: 0.3s ease-in;
+.sidebarContainer {
+  /* flex: 1; */
+  width: 180px;
+  min-height: 100vh;
+  transform: translateX(1);
+  background-color: white;
+  padding: 20px 10px 0px 30px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease-in;
 }
 
-.sidebarContainer ul{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.sidebarContainer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.sidebarContainer .list{
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    color:  gray;
-    font-size: 14px;
-
+.sidebarContainer .list {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: gray;
+  font-size: 14px;
 }
 
-.sidebarContainer li p{
+.sidebarContainer li p {
   visibility: visible;
 }
 
-.sidebarContainer li span{
+.sidebarContainer li span {
   min-width: 30px;
 }
 
-.sidebarContainer .list:hover{
-    color: gray;
-    cursor: pointer;
-
+.sidebarContainer .list:hover {
+  color: gray;
+  cursor: pointer;
 }
 
-.active{
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    color: var(--green-color);
-    /* font-weight: 900; */
-    font-size: 14px;
+.active {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--green-color);
+  /* font-weight: 900; */
+  font-size: 14px;
 }
 
-.dropIcon{
+.dropIcon {
   margin-left: auto;
   width: 20px;
   height: 20px;
 }
 
-.logout{
+.logout {
   margin-top: 80px;
   color: orange;
 
@@ -63,52 +61,28 @@
   gap: 7px;
   cursor: pointer;
 }
-  
-.childWrap{
+
+.childWrap {
   display: flex;
   flex-direction: column;
-    gap: 50px;
- 
-    background-color: #F9F9F9;
-    padding-bottom: 10px;
-    transition: 0.5s;
+  gap: 50px;
+
+  background-color: #f9f9f9;
+  padding-bottom: 10px;
+  transition: 0.5s;
 }
 
-
-.childWrap span{
+.childWrap span {
   font-size: 14px;
   margin-top: 20px;
   margin-left: 45px;
   cursor: pointer;
-  color:  gray;
+  color: gray;
 }
-
-
 
 /* MEDIA QUERIES */
-@media (max-width: 830px){
-
-  .sidebarContainer{
-    width: 50px;
-    transition: 0.3s;
-  }
-
-  .sidebarContainer li p{
+@media (max-width: 991px) {
+  .sidebarContainer {
     display: none;
   }
-}
-
-@media (max-width: 500px){
-
-  .sidebarContainer li span{
-    display: none;
-  }
-
-  .sidebarContainer{
-    visibility: hidden;
-    padding: 0;
-    width: 0px;
-    transform: translateY(0%);
-  }
-
 }
