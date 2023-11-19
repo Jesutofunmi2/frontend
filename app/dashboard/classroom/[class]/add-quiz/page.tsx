@@ -5,13 +5,13 @@ import styles from "./page.module.css";
 import { GrAttachment } from "react-icons/gr";
 import BackNavigation from "@/components/BackNavigation/BackNavigation";
 import Button from "@/components/Button/Button";
-import AddClassworkForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
+import AddClassworkForm from "@/components/Form/Forms/Assignment/AddModuleForm/AddModuleForm";
 import Modal from "@/components/Modal/Modal";
 import AssignCard from "@/components/Card/AssignCard/AssignCard";
 import { Spinner } from "@/components/Loader/Loader";
 import AssignQuizCard from "@/components/Card/AssignQuizCard/AssignQuizCard";
 import ModulesSection from "@/components/Sections/ModulesSection/ModulesSection";
-import AddModuleForm from "@/components/Form/Forms/AddModuleForm/AddModuleForm";
+import AddModuleForm from "@/components/Form/Forms/Assignment/AddModuleForm/AddModuleForm";
 
 const card = [
   { id: 1, title: "He/she is buying dog", lesson: "lesson No 1" },

@@ -18,7 +18,9 @@ export const addAssignModule = async (payload: any) => {
     return res
   } catch (err) {
     toast.dismiss()
-
+    toast.error('Request Failed!', {
+      position: toast.POSITION.TOP_RIGHT,
+    })
     return err
   }
 }
@@ -58,6 +60,9 @@ export const deleteModule = async (param: any) => {
     return res
   } catch (err) {
     toast.dismiss()
+    toast.error('Request Failed!', {
+      position: toast.POSITION.TOP_RIGHT,
+    })
     return err
   }
 }

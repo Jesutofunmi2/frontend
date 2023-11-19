@@ -37,7 +37,7 @@ const Student = () => {
   const [previewDownload, setPreviewDownload] = useState<any>('')
   const { data: allClasses } = useGetClasses(schoolID)
   const { error, data: allStudentsData, isLoading, mutate } = useGetStudents(schoolID)
-  // const { data: downloadStudents } = useDownloadStudents(schoolID)
+
 
   if (!allStudentsData) return null
   if (isLoading) return <Loader />

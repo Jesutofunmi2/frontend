@@ -12,7 +12,7 @@ import { Spinner } from '@/components/Loader/Loader'
 import Tab2 from '@/components/Tab/Tab2/Tab2'
 import AssignClassworkView from '@/components/Views/AssignClassworkView/AssignClassworkView'
 import AssignModuleView from '@/components/Views/AssignModuleView/AssignModuleView'
-import AddModuleForm from '@/components/Form/Forms/AddModuleForm/AddModuleForm'
+import AddModuleForm from '@/components/Form/Forms/Assignment/AddModuleForm/AddModuleForm'
 
 const tabData = [
   { id: 1, title: 'Assign Classwork' },

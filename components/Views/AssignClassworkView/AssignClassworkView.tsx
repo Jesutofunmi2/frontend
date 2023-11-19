@@ -29,6 +29,8 @@ const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => 
   }
   return (
     <>
+       <h1 className="font-bold text-lg mt-3">Add Classwork</h1>
+      <hr className='border-gray-300' />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
         <div className={styles.inputwrap}>
           <TextInput
