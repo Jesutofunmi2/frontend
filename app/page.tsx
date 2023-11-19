@@ -64,7 +64,7 @@ const Home = () => {
                   <span className="text-black font-bold"> Choose from 14 languages </span>
                   <Link
                     href="/login"
-                    className="py-2 px-6 bg-brown rounded-lg font-bold hover:bg-yellow w-48 text-center md:w-auto"
+                    className="py-3 px-6 bg-brown rounded-lg font-bold hover:bg-yellow w-48 text-center md:w-auto"
                   >
                     Join Now
                   </Link>
@@ -237,13 +237,13 @@ const Home = () => {
             width={100}
             className="hidden lg:block h-30 w-30 absolute top-0 left-0"
           />
-          <h2 className="text-[1.5rem] md:text-4xl lg:text-[2.3rem]">Our Partners</h2>
+          <h2 className="text-[1.8rem] md:text-4xl lg:text-[2.3rem]">Our Partners</h2>
           <div className="flex items-center my-4 justify-center gap-10">
             <hr className="border-black w-36" />
             <span className="rounded-full bg-black p-1"></span>
             <hr className="border-black w-36" />
           </div>
-          <div className="flex items-center flex-col sm:gap-4 lg:gap-8 md:flex-row flex-wrap justify-center mt-12">
+          <div className="flex items-center flex-col sm:gap-0 lg:gap-8 md:flex-row flex-wrap justify-center md:mt-12">
             {[
               '/assets/images/landingpage/federal_ministry_logo.svg',
               '/assets/images/landingpage/nigerian_institute_logo.svg',
@@ -259,8 +259,7 @@ const Home = () => {
                     backgroundPosition: 'center',
                   }}
                   className="w-48 sm:w-72 md:w-[350px] h-16 sm:h-24"
-                >
-                </div>
+                ></div>
               )
             })}
           </div>
@@ -279,7 +278,7 @@ const Home = () => {
           />
         </section>
         <section className="my-8 px-4 py-8 lg:py-20 bg-white text-black ">
-          <h2 className="text-[1.5rem] md:text-4xl lg:text-[2.3rem] font-bold">Our Subscribers</h2>
+          <h2 className="text-[1.8rem] md:text-4xl lg:text-[2.3rem] font-bold">Our Subscribers</h2>
           <div className="mx-auto my-12 w-[90%] lg:w-5/6 flex items-center justify-center">
             <button onClick={() => previoushandler()}>
               <BiSolidLeftArrow className="text-brown text-2xl md:text-3xl" />
