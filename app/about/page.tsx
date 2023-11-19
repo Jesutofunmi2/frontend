@@ -8,7 +8,7 @@ const About = () => {
     <>
       <HomeNavbar />
       <div>
-        <div className="py-8 px-8 lg:px-16">
+        <div className="py-8 px-4 md:px-8 lg:px-16">
           <h1 className="text-4xl lg:text-5xl font-bold 2xl:text-center 2xl:text-6xl my-0  2xl:my-12">
             Who we are
           </h1>
@@ -20,7 +20,7 @@ const About = () => {
           </p>
         </div>
         <hr className="border-yellow border-2" />
-        <div className="py-8 px-8 lg:px-16 flex flex-wrap items-center my-8 2xl:my-20 justify-between">
+        <div className="py-8 px-4 md:px-8 lg:px-16 flex flex-wrap items-center my-8 2xl:my-20 justify-between">
           <div
             className="rounded-full border-[14px] border-brown border-solid w-64 h-64 md:h-96 md:w-96 2xl:w-[30rem] 2xl:h-[30rem] mx-auto scale-20"
             style={{
@@ -31,7 +31,7 @@ const About = () => {
             }}
           ></div>
           <div className="my-6 md:my-0 text-center md:text-left lg:w-[45%]">
-            <h3 className="text-4xl 2xl:text-5xl mb-6 font-bold">The CEO</h3>
+            <h3 className="text-3xl md:text-4xl 2xl:text-5xl mb-6 font-bold">The CEO</h3>
 
             <p className="text-xl 2xl:text-[2.5rem] text-black leading-loose text-justify">
               Anthony Otaigbe founded the Izesan! app In 2019 for the Esan people of Nigeria both
