@@ -60,7 +60,7 @@ const Home = () => {
                 Where tradition meets technology in language learning!
               </p>
               <div className="mx-auto md:ml-auto w-fit lg:w-auto">
-                <div className="bg-white py-2 w-fit gap-6 md:gap-10 my-6 px-4 rounded-2xl flex items-center justify-between">
+                <div className="bg-white py-2 w-fit gap-6 md:gap-10 my-6 px-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between">
                   <span className="text-black font-bold"> Choose from 14 languages </span>
                   <Link
                     href="/login"
@@ -243,7 +243,7 @@ const Home = () => {
             <span className="rounded-full bg-black p-1"></span>
             <hr className="border-black w-36" />
           </div>
-          <div className="flex items-center  flex-col gap-4 lg:gap-8 md:flex-row flex-wrap justify-center mt-12">
+          <div className="flex items-center flex-col gap-4 lg:gap-8 md:flex-row flex-wrap justify-center mt-12">
             {[
               '/assets/images/landingpage/federal_ministry_logo.svg',
               '/assets/images/landingpage/nigerian_institute_logo.svg',
@@ -259,7 +259,7 @@ const Home = () => {
 
                     backgroundPosition: 'center',
                   }}
-                  className="w-72 md:w-[350px] h-24 "
+                  className="w-48 sm:w-72 md:w-[350px] h-16 sm:h-24"
                 >
                 </div>
               )
