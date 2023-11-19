@@ -21,7 +21,7 @@ const HomeNavbar = () => {
   ]
   return (
     <>
-      <nav className="flex items-center justify-between px-4 sm:px-6 2xl:px-48 py-2 bg-white">
+      <nav className="flex items-center justify-between px-4 md:px-6 2xl:px-48 py-2 bg-white">
         <Link href="/">
           <Image src="/assets/images/logo.png" height={57} width={57} alt="logo" />
         </Link>
@@ -53,7 +53,7 @@ const HomeNavbar = () => {
         )}
       </nav>
       {openMobileMenu ? (
-        <nav className="shadow-2xl h-full fixed bg-white w-[90%] z-40 top-0 right-0  pl-12 pr-6 py-2 bg-white">
+        <nav className="shadow-2xl h-full fixed bg-white w-[90%] z-40 top-0 right-0 pl-8 pr-6 py-2 bg-white">
           <div className="flex items-center justify-between">
             <Link href="/">
               <Image src="/assets/images/logo.png" height={57} width={57} alt="logo" />
@@ -64,7 +64,7 @@ const HomeNavbar = () => {
             </button>
           </div>
 
-          <div className="flex gap-6  mt-8 flex-col items-start">
+          <div className="flex gap-6 mt-8 flex-col items-start">
             {navLinks.map((ele) => {
               return (
                 <Link

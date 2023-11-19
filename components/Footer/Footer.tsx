@@ -25,7 +25,7 @@ const Footer = () => {
           className="h-[50px] md:w-auto"
         />
       </div>
-      <div className="p-10 flex flex-col lg:flex-row gap-8 lg:gap-6 justify-center items-start lg:items-center text-white bg-[#333333]">
+      <div className="px-4 md:px-10 py-10 flex flex-col lg:flex-row gap-8 lg:gap-6 justify-center items-start lg:items-center text-white bg-[#333333]">
         <Image src="/assets/images/logo.png" width="50" height="50" alt="logo" />
         <div className="text-sm text-left">
           <p>&copy; {new Date().getFullYear()}</p>

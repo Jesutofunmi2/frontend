@@ -19,8 +19,19 @@ const config: Config = {
       'gray-200': '#9E9E9E',
       yellow: 'hsl(38, 94%, 49%);',
     },
-   
+    screens: {
+      sm: '360px',
+
+      md: '768px',
+
+      lg: '1024px',
+
+      xl: '1280px',
+
+      '2xl': '1536px',
+    },
   },
+
   plugins: [],
 }
 export default config
