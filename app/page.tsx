@@ -54,7 +54,7 @@ const Home = () => {
           <div className="flex flex-col lg:flex-row items-center font-medium justify-between 2xl:justify-center pb-28 px-8 lg:px-12 pt-12 md:pb-36 text-white">
             <div className="basis-[40%] 2xl:basis-[30%] text-left">
               <h1 className="text-5xl">
-                Welcome to <span className="7xl font-bold"> Izesan!</span>
+                Welcome to <span className="font-bold"> Izesan!</span>
               </h1>
               <p className="py-4 text-[1.15rem] md:text-xl w-full font-bold">
                 Where tradition meets technology in language learning!
