@@ -14,9 +14,9 @@ export default function ViewAttachment({ url }: string | any) {
           style={{
             backgroundImage: `url(${url})`,
             backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             width: '100%',
-            height: '100vh',
+            height: '70vh',
             backgroundPosition: 'center',
           }}
         ></div>

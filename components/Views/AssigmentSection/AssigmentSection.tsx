@@ -3,7 +3,7 @@ import styles from "./assigmentSection.module.css";
 import Button from "../../Button/Button";
 import ClassworkCard from "../../Card/ClassworkCard/ClassworkCard";
 import Modal from "../../Modal/Modal";
-import AddClassWork from "../../Form/Forms/AddModuleForm/AddModuleForm";
+import AddClassWork from "../../Form/Forms/Assignment/AddModuleForm/AddModuleForm";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import AssignModuleCard from "../../Card/AssignModuleCard/AssignModuleCard";

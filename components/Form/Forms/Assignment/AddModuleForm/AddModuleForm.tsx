@@ -3,35 +3,23 @@ import styles from './addModuleForm.module.css'
 import Button from '@/components/Button/Button'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// import Date from '../../FormFields/Date/date'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { TextInput } from '../../FormFields/TextInput/TextInput'
+import { TextInput } from '../../../FormFields/TextInput/TextInput'
 
 type Inputs = {
   date: Date
   time: string
   no_attempt: number
   mark: number
- file:File
+  file: File
 }
 interface AddModuleFormProps {
-  handleFormSubmit: (values:any) => void
+  handleModuleAssignment: (values: any) => void
   file?: any
 }
-const AddModuleForm = ({handleFormSubmit, file }: AddModuleFormProps) => {
-  // const [formdata, setFormdata] = useState({
-  //   date: '',
-  //   time: 0,
-  //   no_attempt: 0,
-  //   mark: 0,
-  //   file: {},
-  // })
-
-  
-
-
+const AddModuleForm = ({ handleModuleAssignment, file }: AddModuleFormProps) => {
   const { register, handleSubmit, control } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => handleFormSubmit(data)
+  const onSubmit: SubmitHandler<Inputs> = (data) => handleModuleAssignment(data)
 
   return (
     <>
@@ -77,20 +65,20 @@ const AddModuleForm = ({handleFormSubmit, file }: AddModuleFormProps) => {
 
           {file ? (
             <div>
-                <TextInput
-            register={{ ...register('file', { required: true }) }}
-            label="Attachments"
-            type="file"
-             name="file"
-            placeholder="Attachments"
-          />
+              <TextInput
+                register={{ ...register('file', { required: true }) }}
+                label="Attachments"
+                type="file"
+                name="file"
+                placeholder="Attachments"
+              />
               {/* <input type="file" name="file" id="" onChange={(e) => handleChange(e)} required /> */}
             </div>
           ) : null}
         </div>
 
         <div className={styles.btn}>
-          <Button text="Add"  />
+          <Button text="Add" />
         </div>
       </form>
 
