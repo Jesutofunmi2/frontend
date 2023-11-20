@@ -1,47 +1,55 @@
-import React from "react";
-import styles from "./assignmentCard.module.css"
-import { TiDocumentText } from "react-icons/ti";
-import { AiOutlineDelete } from "react-icons/ai";
-import { RiAttachment2 } from "react-icons/ri";
+import React, { useState } from 'react'
+import styles from './assignmentCard.module.css'
+import { TiDocumentText } from 'react-icons/ti'
+import { AiOutlineDelete, AiTwotoneDelete } from 'react-icons/ai'
+import { RiAttachment2 } from 'react-icons/ri'
+import ViewAttachment from '@/components/ViewAttachment/ViewAttachment'
+import Modal from '@/components/Modal/Modal'
+import { TitleCase } from '@/utils'
 
-const AssignmentCard = () => {
+interface AssignmentCardProps {
+  ele: {
+    deadline: string
+    id: number
+    name: string
+    media_url: string
+  }
+  handleFileAssignmentDelete: (id: number) => void
+}
+const AssignmentCard = ({ ele, handleFileAssignmentDelete }: AssignmentCardProps) => {
+  const [previewOpen, setPreviewOpen] = useState(false)
   return (
     <>
       <div className={styles.card}>
         <div className={styles.titleWrap}>
           <div className={styles.textWrap}>
             <TiDocumentText color="white" size={23} />
-            <p>food</p>
+            <p>{TitleCase(ele.name)}</p>
           </div>
-          <AiOutlineDelete size={23} />
+          <button onClick={() => handleFileAssignmentDelete(ele.id)}>
+            <AiTwotoneDelete size={23} color="red" />
+          </button>
         </div>
 
         <div className={styles.detailWrap}>
           <div className={styles.detail}>
             <p>Deadline</p>
-            <p>08/03/2023</p>
+            <p>{ele.deadline}</p>
           </div>
-
-          <div className={styles.detail}>
-            <p>Points</p>
-            <p>20</p>
-          </div>
-
-
-          <hr className={styles.line} />
 
           <div className={styles.attachmentWrap}>
             <div className={styles.attachment}>
-                <RiAttachment2/>
-                <span>See Attachment</span>
+              <RiAttachment2 />
+              <button onClick={() => setPreviewOpen(true)}>View Attachment</button>
             </div>
-
-            <span>Submissions</span>
           </div>
         </div>
       </div>
+      <Modal open={previewOpen} setOpen={setPreviewOpen}>
+        <ViewAttachment url={ele.media_url} />
+      </Modal>
     </>
-  );
-};
+  )
+}
 
-export default AssignmentCard;
+export default AssignmentCard

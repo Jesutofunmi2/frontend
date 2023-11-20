@@ -67,8 +67,10 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
   renderCount++
   return (
     <>
-      <div>
-        <div className="mb-6">
+      <h1 className="font-bold text-lg mt-3">Add Module</h1>
+      <hr className='border-gray-300' />
+      <div className='my-10'>
+        <div className="">
           <Select
             onChange={handleLanguageChange}
             label="Language"

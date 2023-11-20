@@ -18,7 +18,6 @@ import { PiBookOpenBold } from 'react-icons/pi'
 import { LuSettings } from 'react-icons/lu'
 import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 import { useSelector } from 'react-redux'
-import { addAssignmentFile } from '@/services/api/post'
 import { userData } from '@/services/redux/features/userSlice'
 import { useGetClasses, useGetTeacherClassStudent } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
@@ -86,7 +85,7 @@ const ClassRoom = () => {
     )
   }
   {
-    ;<td>
+    ; <td>
       <div className="action">
         <AiFillEdit className="editIcon" />
         <RiDeleteBin6Line className="deleteIcon" />
@@ -112,7 +111,7 @@ const ClassRoom = () => {
             ) : activeTab === 'Classwork' ? (
               <ClassworkView />
             ) : activeTab === 'Assignment' ? (
-              <AssignmentViewWrapper />
+              <AssignmentView />
             ) : activeTab === 'Gradebook' ? (
               <GradebookView />
             ) : null}
@@ -125,46 +124,3 @@ const ClassRoom = () => {
 }
 
 export default ClassRoom
-
-// ASSIGNMENT VIEW WRAPPER
-const AssignmentViewWrapper = () => {
-  const searchParams = useSearchParams()
-  const classID: any = Number(searchParams.get('id'))
-  const teacherData = useSelector(userData).currentTeacher?.data!
-  const [openModal, setOpenModal] = useState(false)
-
-  // Get assigned module API request hook
-  const { data: assignedModule, mutate } = useGetAssignedModule({
-    school_id: `${teacherData?.school?.id}`,
-    teacher_id: `${teacherData?.teacher_id}`,
-  })
-
-  // Add module assignment
-  const handleAddFile = async (payload: any, reset: () => void) => {
-    let formdata = new FormData()
-    formdata.append('school_id', teacherData?.school?.id)
-    formdata.append('teacher_id', teacherData?.teacher_id)
-    formdata.append('class_id', classID)
-    formdata.append('date', payload.date)
-    formdata.append('name', payload.topic)
-    formdata.append('mark', payload.mark)
-    formdata.append('notification', '0')
-    formdata.append('media_url', payload.attachment[0])
-    let res = await addAssignmentFile(formdata)
-    if (res) {
-      mutate()
-      setOpenModal(false)
-      reset()
-    }
-  }
-
-  return (
-    <>
-      <AssignmentView
-        handleAddFile={handleAddFile}
-        setOpenModal={setOpenModal}
-        openModal={openModal}
-      />
-    </>
-  )
-}

@@ -7,17 +7,18 @@ import { useSearchParams } from 'next/navigation'
 import { Loader } from '@/components/Loader/Loader'
 import { addAssignModule, deleteModule, useGetAssignedModule } from '@/services/api/module'
 import { addClasswork, deleteClasswork, useGetClasswork } from '@/services/api/classwork'
-import AddClassworkPage from '@/components/Form/Forms/AddClassWork/page'
 import Modal from '@/components/Modal/Modal'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 import { toast } from 'react-toastify'
 import NotFound from '@/components/NotFound/NotFound'
+import AssignModuleView from '../AssignModuleView/AssignModuleView'
+import AssignClassworkView from '../AssignClassworkView/AssignClassworkView'
 
 const ClassworkView = () => {
   const searchParams = useSearchParams()
-  const [toggle, setToggle] = useState('Assign Classwork')
   const [modalOpen, setModalOpen] = useState(false)
+  const [selectedButton, setSelectedButton] = useState('')
   const teacherData = useSelector(userData).currentTeacher?.data!
   const classID = Number(searchParams.get('id'))
   const { data: assignedModule, mutate: mutateAssignedModule } = useGetAssignedModule({
@@ -30,8 +31,9 @@ const ClassworkView = () => {
     error,
   } = useGetClasswork(teacherData?.teacher_id, teacherData?.school?.id, classID)
 
-  const handleToggle = (toggle: string) => {
-    setToggle(toggle)
+  const handleToggle = (selectedButton: string) => {
+    setModalOpen(true)
+    setSelectedButton(selectedButton)
   }
 
   const handleFormSubmit = async (data: any, reset: () => void) => {
@@ -41,7 +43,6 @@ const ClassworkView = () => {
       })
       return
     }
-
     let formData: any = new FormData()
     formData.append('media_url', data.attachment[0])
     formData.append('teacher_id', teacherData?.teacher_id)
@@ -106,7 +107,7 @@ const ClassworkView = () => {
           <div className={styles.buttonWrap}>
             <Button
               handleClick={() => {
-                setModalOpen(true), handleToggle('Assign Classwork')
+                handleToggle('assign-classwork')
               }}
               text="Add Classwork"
             />
@@ -131,6 +132,14 @@ const ClassworkView = () => {
         </div>
         <div className={styles.cardWrap}>
           <p className={styles.cardTitle}>MODULE CLASSWORK</p>
+          <div className={styles.buttonWrap}>
+            <Button
+              handleClick={() => {
+                handleToggle('assign-module')
+              }}
+              text="Add Module"
+            />
+          </div>
           <div className={styles.cards}>
             {assignedModule?.length ? (
               assignedModule?.map((module: any) => (
@@ -152,12 +161,11 @@ const ClassworkView = () => {
         </div>
       </div>
       <Modal open={modalOpen} setOpen={setModalOpen}>
-        <AddClassworkPage
-          toggle={toggle}
-          handleToggle={handleToggle}
-          handleFormSubmit={handleFormSubmit}
-          handleModuleSubmit={handleModuleSubmit}
-        />
+        {selectedButton === 'assign-classwork' ? (
+          <AssignClassworkView handleFormSubmit={handleFormSubmit} />
+        ) : (
+          <AssignModuleView handleModuleSubmit={handleModuleSubmit} />
+        )}
       </Modal>
     </>
   )

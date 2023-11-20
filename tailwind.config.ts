@@ -18,7 +18,6 @@ const config: Config = {
       'gray-100': '#F9F8F4',
       'gray-200': '#9E9E9E',
       'gray-300': '#f5f5f5',
-
       yellow: 'hsl(38, 94%, 49%);',
     },
     screens: {

@@ -12,7 +12,6 @@ const VideoLesson = () => {
   if (!videoCourses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
-
   return (
     <>
       <div className={styles.container}>
