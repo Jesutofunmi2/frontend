@@ -17,17 +17,15 @@ const config: Config = {
       'brown-500': 'hsl(13.2deg 50% 19.61%)',
       'gray-100': '#F9F8F4',
       'gray-200': '#9E9E9E',
+      'gray-300': '#f5f5f5',
+
       yellow: 'hsl(38, 94%, 49%);',
     },
     screens: {
       sm: '360px',
-
       md: '768px',
-
       lg: '1024px',
-
       xl: '1280px',
-
       '2xl': '1536px',
     },
   },

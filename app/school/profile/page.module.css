@@ -1,67 +1,50 @@
- 
-/* LAYOUT CSS */
-.layout{
-    display: flex;
-    
+.layout {
+  display: flex;
 }
 
-.body{
-    flex: 8;
-    background-color: whitesmoke;
-    padding: 25px 30px;
-    box-sizing: border-box;
-    overflow: hidden;
-    border-radius: 20px;
+.body {
+  /* flex: 8;
+  background-color: whitesmoke;
+  padding: 25px 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 20px; */
 }
 
-
-
-/* PAGE CSS */
-
-
-/* .container{
-    
-} */
-
-
-.container hr{
-    border: .5px solid lightgrey;
+.container hr {
+  border: 0.5px solid lightgrey;
 }
 
-.title{
-    background-color: white;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-radius: 10px;
+.title {
+  background-color: white;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-
-.imageWrap{
-    display: flex;
-    justify-content: center;
+.imageWrap {
+  display: flex;
+  justify-content: center;
+}
+.details {
+  /* padding: 40px 25px;
+  background-color: white;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 30px;
+  border-radius: 10px; */
 }
 
-.details{
-    padding: 40px 25px;
-    background-color: white;
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 30px;
-    border-radius: 10px;
-
+.inputWrap {
+  display: grid;
+  gap: 5px;
 }
 
-.inputWrap{
-    display: grid;
-    gap: 5px;
-}
-
-
-.btnWrap{
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end;
+.btnWrap {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
 }

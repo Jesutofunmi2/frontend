@@ -13,9 +13,11 @@ const SchoolProfile = () => {
   return (
     <>
       <div className={styles.container}>
-        <h3 className="p-4 rounded-xl bg-white text-lg font-bold">{schoolProfileData?.school_name}</h3>
+        <h3 className="p-4 rounded-xl bg-white text-lg font-bold">
+          {schoolProfileData?.school_name}
+        </h3>
         <div>
-          <div className={styles.details}>
+          <div className="bg-white px-4 py-8 md:p-8 mt-12 rounded-lg grid grid-cols-1 gap-8 md:grid-cols-2">
             <TextInputValue
               name="school_name"
               defaultValue={schoolProfileData?.school_name}

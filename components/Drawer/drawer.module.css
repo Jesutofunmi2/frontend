@@ -76,7 +76,7 @@
   .overlayy{
     visibility: visible;
     position:fixed;
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     justify-content:flex-end;
     background: rgba(51, 51, 51, 0.5);
