@@ -160,7 +160,7 @@ const AssignmentView = () => {
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Add Video" handleClick={() => handleModalOpen('add-video')} />
+            <Button text="Add Video" disabled handleClick={() => handleModalOpen('add-video')} />
             <p className={styles.cardTitle}>VIDEO ASSIGNMENTS</p>
           </div>
 
@@ -170,7 +170,7 @@ const AssignmentView = () => {
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Add Quiz" handleClick={() => handleModalOpen('add-quiz')} />
+            <Button text="Add Quiz" disabled handleClick={() => handleModalOpen('add-quiz')} />
             <p className={styles.cardTitle}>QUIZ ASSIGNMENTS</p>
           </div>
           <div className={styles.cards}>{/* <AssignModuleCard /> */}</div>
