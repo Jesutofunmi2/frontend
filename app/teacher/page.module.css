@@ -6,12 +6,12 @@
 }
 
 .body{
-    flex: 8;
+    /* flex: 8;
     background-color: whitesmoke;
     padding: 25px 30px;
     box-sizing: border-box;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 20px; */
 }
 
 
@@ -45,13 +45,13 @@ font-weight: 800;
 }
 
 .details{
-    padding: 40px 25px;
+    /* padding: 40px 25px;
     background-color: white;
 
     display: grid;
     grid-template-columns: auto auto;
     gap: 16px;
-    border-radius: 10px;
+    border-radius: 10px; */
 }
 
 .inputWrap{

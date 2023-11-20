@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import styles from './page.module.css'
 import Sidebar from '@/components/Sidebar/DashboardSidebar/DashboardSidebar'
-import SchoolNavbar from '@/components/Navbar/SchoolNavbar/SchoolNavbar'
+import SchoolNavbar from '@/components/Navbar/Navbar/Navbar'
 import { getToken } from '@/services/api/token'
 import { useRouter } from 'next/navigation'
 

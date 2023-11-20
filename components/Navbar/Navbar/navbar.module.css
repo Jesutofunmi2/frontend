@@ -19,7 +19,6 @@
     height: 70px;
 }
 
-
 .detailsAndSoundWrap .icon{
     font-size: 27px;
     cursor: pointer;
@@ -86,51 +85,6 @@
     color: var(--green-color);
     font-size: 14px;
 }
-
-
-/* MEDIA QUERIES */
-/* @media (max-width: 830px){
-    .dashNav .headerText{
-        font-size: 20px;
-    }
-
-    .user span{
-        font-size: 17px;
-    }
-
-    .detailsAndSoundWrap .icon{
-        font-size: 25px;
-    }
-  }
-
-
-  @media (max-width: 690px){
-    .dashNav .headerText{
-        display: none;
-    }
-  } */
-
-
-  /* @media (max-width: 500px){
-
-    .logo{
-        width: 47px;
-        height: 62px;
-    }
-
-    .dashNav{
-        padding: 20px 15px 0px 15px;
-    }
-
-    .user span{
-        font-size: 15px;
-    }
-
-    .detailsAndSoundWrap .icon{
-        font-size: 20px;
-    }
-  } */
-
 
   @media (max-width: 991px){
 

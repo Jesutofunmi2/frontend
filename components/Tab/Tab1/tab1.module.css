@@ -4,6 +4,8 @@
     align-items: center;
     background-color: rgb(223, 220, 220);
     border-radius: 10px;
+    /* gap:40px */
+    width: max-content;
 }
 
 
@@ -12,20 +14,22 @@
     flex-direction: column;
     gap: 5px;
     align-items: center;
-    width: 100%;
+    width: 200px;
     height: 100%;
     justify-content: center;
     cursor: pointer;
     /* border-radius: 10px; */
     border-left: 0.5px solid rgb(220, 220, 220);
+    /* padding:2em; */
 }
 
 .active{
     display: flex;
+    /* padding:2em; */
     flex-direction: column;
     gap: 5px;
     align-items: center;
-    width: 100%;
+    width: 200px;
     height: 100%;
     background-color: white;
     border-bottom: 3px solid green;

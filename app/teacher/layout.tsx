@@ -1,13 +1,14 @@
 'use client'
 
 import React, { ReactNode, useEffect } from 'react'
-import SchoolNavbar from '@/components/Navbar/SchoolNavbar/SchoolNavbar'
+import SchoolNavbar from '@/components/Navbar/Navbar/Navbar'
 import Sidebar from '@/components/Sidebar/DashboardSidebar/DashboardSidebar'
 import { getToken } from '@/services/api/token'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { BaselineFormTeacher } from '@/components/Form/Forms/BaselineForm/BaselineForm'
 import { userSurvey } from '@/services/redux/features/surveySlice'
+import Navbar from '@/components/Navbar/Navbar/Navbar'
 
 interface ChildrenProps {
   children: ReactNode
@@ -28,10 +29,10 @@ const TeacherDashboardLayout = ({ children }: ChildrenProps) => {
     <>
       {currentUserSurvey ? (
         <>
-          <SchoolNavbar />
+          <Navbar />
           <div className="layout">
             <Sidebar teacher="true" />
-            <div className="main">{children}</div>
+            <div className="px-4 py-8 h-screen overflow-hidden md:p-8 bg-gray-300 grow">{children}</div>
           </div>
         </>
       ) : (

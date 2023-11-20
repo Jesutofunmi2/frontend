@@ -95,17 +95,18 @@ const ClassRoom = () => {
   }
   return (
     <>
-      <div>
+      <div className=''>
         <BackNavigation />
         <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">
           {classRoomData?.class[0]?.name} {classRoomData?.class_arm[0]?.name}
         </h3>
-        <div className={styles.tabWrap}>
+      <div className='overflow-auto'>
+      <div className={styles.tabWrap}>
           <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
         </div>
 
-        <div className={styles.views}>
-          <div className={styles.sectionWrap}>
+       
+          <div className='w-max md:w-auto mt-8'>
             {activeTab === 'Students' ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === 'Classwork' ? (
@@ -116,7 +117,8 @@ const ClassRoom = () => {
               <GradebookView />
             ) : null}
           </div>
-        </div>
+
+      </div>
       </div>
     </>
   )

@@ -35,7 +35,7 @@ const TeacherProfile = () => {
             />
           </div>
 
-          <div className={styles.details}>
+          <div className="bg-white px-4 py-8 md:p-8 mt-12 rounded-lg grid grid-cols-1 gap-8 md:grid-cols-2">
             <TextInputValue name="name" label="Name" defaultValue={teacherData?.name} />
             <TextInputValue name="email" label="Email" defaultValue={teacherData?.email} />
           </div>
