@@ -90,7 +90,7 @@
 
 
 /* MEDIA QUERIES */
-@media (max-width: 830px){
+/* @media (max-width: 830px){
     .dashNav .headerText{
         font-size: 20px;
     }
@@ -109,10 +109,10 @@
     .dashNav .headerText{
         display: none;
     }
-  }
+  } */
 
 
-  @media (max-width: 500px){
+  /* @media (max-width: 500px){
 
     .logo{
         width: 47px;
@@ -130,10 +130,10 @@
     .detailsAndSoundWrap .icon{
         font-size: 20px;
     }
-  }
+  } */
 
 
-  @media (max-width: 400px){
+  @media (max-width: 991px){
 
     .logo{
         display: none;
