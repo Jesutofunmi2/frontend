@@ -115,7 +115,7 @@ const LoginForm = () => {
           <h1 className="font-bold text-3xl">Login</h1>
           <hr className="border-brown border-[2px] w-20" />
         </div>
-        <div className="my-10 flex items-center text-lg flex-wrap justify-center font-bold text-brown gap-5">
+        <div className="my-10 flex items-center text-lg flex-wrap justify-center font-bold text-brown gap-4 sm:gap-5">
           {['School', 'Student', 'Teacher'].map((tab) => {
             return (
               <button
