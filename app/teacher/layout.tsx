@@ -32,7 +32,7 @@ const TeacherDashboardLayout = ({ children }: ChildrenProps) => {
           <Navbar />
           <div className="layout">
             <Sidebar teacher="true" />
-            <div className="px-4 py-8 h-screen overflow-hidden md:p-8 bg-gray-300 grow">{children}</div>
+            <div className="px-4 py-8 h-screen overflow-x-hidden md:p-8 bg-gray-300 grow">{children}</div>
           </div>
         </>
       ) : (

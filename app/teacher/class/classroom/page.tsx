@@ -85,7 +85,7 @@ const ClassRoom = () => {
     )
   }
   {
-    ; <td>
+    ;<td>
       <div className="action">
         <AiFillEdit className="editIcon" />
         <RiDeleteBin6Line className="deleteIcon" />
@@ -94,18 +94,17 @@ const ClassRoom = () => {
   }
   return (
     <>
-      <div className=''>
+      <div className="">
         <BackNavigation />
         <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">
           {classRoomData?.class[0]?.name} {classRoomData?.class_arm[0]?.name}
         </h3>
-      <div className='overflow-auto'>
-      <div className={styles.tabWrap}>
-          <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
-        </div>
+        <div className="overflow-auto">
+          <div className={styles.tabWrap}>
+            <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
+          </div>
 
-       
-          <div className='w-max md:w-auto mt-8'>
+          <div className=" md:w-auto mt-8">
             {activeTab === 'Students' ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === 'Classwork' ? (
@@ -116,8 +115,7 @@ const ClassRoom = () => {
               <GradebookView />
             ) : null}
           </div>
-
-      </div>
+        </div>
       </div>
     </>
   )
