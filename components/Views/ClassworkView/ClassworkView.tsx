@@ -109,7 +109,7 @@ const ClassworkView = () => {
               handleClick={() => {
                 handleToggle('assign-classwork')
               }}
-              text="Add Classwork"
+              text="Assign Classwork"
             />
           </div>
           <div className={styles.cards}>
@@ -137,7 +137,7 @@ const ClassworkView = () => {
               handleClick={() => {
                 handleToggle('assign-module')
               }}
-              text="Add Module"
+              text="Assign Module"
             />
           </div>
           <div className={styles.cards}>
