@@ -108,7 +108,7 @@ const AssignmentView = () => {
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Add File" handleClick={() => handleModalOpen('add-file')} />
+            <Button text="Assign File" handleClick={() => handleModalOpen('add-file')} />
             <p className={styles.cardTitle}>FILE ASSIGNMENTS</p>
           </div>
 
@@ -134,7 +134,7 @@ const AssignmentView = () => {
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Add Module" handleClick={() => handleModalOpen('add-module')} />
+            <Button text="Assign Module" handleClick={() => handleModalOpen('add-module')} />
             <p className={styles.cardTitle}>MODULE ASSIGNMENTS</p>
           </div>
           <div className={styles.cards}>
@@ -160,21 +160,21 @@ const AssignmentView = () => {
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Add Video" disabled handleClick={() => handleModalOpen('add-video')} />
-            <p className={styles.cardTitle}>VIDEO ASSIGNMENTS</p>
+            <Button text="Assign Quiz" disabled handleClick={() => handleModalOpen('add-quiz')} />
+            <p className={styles.cardTitle}>QUIZ ASSIGNMENTS</p>
           </div>
-
-          <LanguageVideoSelection />
+          <div className={styles.cards}>{/* <AssignModuleCard /> */}</div>
+          <p className="text-sm text-center">No Quiz Assignment</p>
         </div>
 
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Add Quiz" disabled handleClick={() => handleModalOpen('add-quiz')} />
-            <p className={styles.cardTitle}>QUIZ ASSIGNMENTS</p>
+            <Button text="Assign Video" disabled handleClick={() => handleModalOpen('add-video')} />
+            <p className={styles.cardTitle}>VIDEO ASSIGNMENTS</p>
           </div>
-          <div className={styles.cards}>{/* <AssignModuleCard /> */}</div>
-          <p className="text-sm text-center">No Quiz Assignment</p>
+
+          <LanguageVideoSelection />
         </div>
       </div>
 

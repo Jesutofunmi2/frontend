@@ -64,6 +64,44 @@ input[type='radio']:checked {
   border: 1px solid var(--yellow-color);
 }
 
+input[type='checkbox'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  width: 1.1em;
+  height: 1.1em;
+  border: 1px solid var(--yellow-color);
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type='checkbox']::before {
+  content: '';
+  width: 0.6em;
+  height: 0.6em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  /* transition: 10ms transform ease-in-out; */
+  background-color: CanvasText;
+}
+
+input[type='checkbox']:checked::before {
+  transform: scale(1);
+}
+input:checked:before {
+  background-color: var(--yellow-color);
+}
+
+input[type='checkbox']:disabled {
+  --form-control-color: var(--form-control-disabled);
+  color: var(--form-control-disabled);
+  cursor: not-allowed;
+}
+
 .copyBox {
   cursor: pointer;
   width: fit-content;
@@ -159,7 +197,19 @@ input[type='radio']:checked {
   margin: auto !important;
 }
 @media (min-width: 980px) {
-.slide {
-  min-width: 25% !important;
+  .slide {
+    min-width: 25% !important;
+  }
 }
+
+.swal2-confirm {
+  width: 100px;
+  font-weight: bold;
+}
+.swal2-confirm:active {
+  background: hsl(38, 94%, 49%) !important;
+}
+
+.swal2-confirm:focus {
+  box-shadow: none !important;
 }
