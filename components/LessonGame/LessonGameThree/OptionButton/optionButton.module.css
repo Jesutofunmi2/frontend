@@ -30,14 +30,10 @@
     padding: 15px 10px;
     background-color: var(--gray-color);
     cursor: pointer;
-    /* max-width: 650px; */
     min-height: 70px;
     width: 100%;
     border-bottom-left-radius: 15px;
     border-top-right-radius: 15px;
-    list-style-type: upper-latin;
-    list-style-position: inside;
-    display: list-item;
     align-items: center;
 }
 
