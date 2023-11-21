@@ -27,17 +27,12 @@ export const addAssignModule = async (payload: any) => {
 
 //GET MODULE FOR TEACHER
 export const useGetAssignedModule = (param: any) => {
+  let url = `/api/v1/teacher/assignedModule?school_id=${param.school_id}&teacher_id=${param.teacher_id}&type=${param.type}`
   const fetcher = async () => {
-    const res = await makeApiCall(
-      `/api/v1/teacher/assignedModule?school_id=${param.school_id}&teacher_id=${param.teacher_id}`,
-      'get'
-    )
+    const res = await makeApiCall(url, 'get')
     return res?.data
   }
-  const { data, isValidating, mutate } = useSWR(
-    `/api/v1/teacher/assignedModule?school_id=${param.school_id}&teacher_id=${param.teacher_id}`,
-    fetcher
-  )
+  const { data, isValidating, mutate } = useSWR(url, fetcher)
   return { data, isValidating, mutate }
 }
 

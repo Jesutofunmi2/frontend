@@ -24,6 +24,7 @@ const ClassworkView = () => {
   const { data: assignedModule, mutate: mutateAssignedModule } = useGetAssignedModule({
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
+    type:"classwork"
   })
   const {
     data: classworkData,
@@ -60,6 +61,7 @@ const ClassworkView = () => {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
       class_id: classID,
+      type: "classwork",
       data: [{ ...data, time: Math.ceil(Number(data.time.split(':')[0])), notification: true }],
     }
     await addAssignModule(formdata)
