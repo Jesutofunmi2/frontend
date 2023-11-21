@@ -25,6 +25,7 @@ import AssignModuleView from '../AssignModuleView/AssignModuleView'
 import NotFound from '@/components/NotFound/NotFound'
 import { Loader } from '@/components/Loader/Loader'
 import LanguageVideoSelection from '@/components/LanguageVideoSelection.tsx/LanguageVideoSelection'
+import { useGetTopics } from '@/services/api/topic'
 
 const AssignmentView = () => {
   const searchParams = useSearchParams()
@@ -44,7 +45,7 @@ const AssignmentView = () => {
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
   })
-
+  const { data: topics, isLoading:isLoadingTopics } = useGetTopics()
   const handleAddFileAssignment = async (payload: any, reset: () => void) => {
     let formdata = new FormData()
     formdata.append('school_id', teacherData?.school?.id)
@@ -160,7 +161,7 @@ const AssignmentView = () => {
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Assign Quiz" disabled handleClick={() => handleModalOpen('add-quiz')} />
+            <Button text="Assign Quiz" handleClick={() => handleModalOpen('add-quiz')} />
             <p className={styles.cardTitle}>QUIZ ASSIGNMENTS</p>
           </div>
           <div className={styles.cards}>{/* <AssignModuleCard /> */}</div>
@@ -187,7 +188,7 @@ const AssignmentView = () => {
         ) : selected === 'add-video' ? (
           <AddVideoForm handleVideoAssignment={handleVideoAssignment} />
         ) : (
-          <AddQuizForm handleQuizAssignment={handleQuizAssignment} />
+          <AddQuizForm topics={topics} handleQuizAssignment={handleQuizAssignment} />
         )}
       </Modal>
     </>
