@@ -71,6 +71,7 @@ export const BaselineFormStudent = () => {
         icon: 'success',
         allowOutsideClick: false,
         confirmButtonText: 'OK',
+        confirmButtonColor: 'hsl(38, 94%, 49%)',
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(surveyStatus(true))
@@ -191,6 +192,7 @@ export const BaselineFormTeacher = () => {
         icon: 'success',
         allowOutsideClick: false,
         confirmButtonText: 'OK',
+        confirmButtonColor: 'hsl(38, 94%, 49%)',
       }).then((result) => {
         if (result.isConfirmed) {
          

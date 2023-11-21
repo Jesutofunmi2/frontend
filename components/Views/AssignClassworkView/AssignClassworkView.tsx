@@ -29,8 +29,8 @@ const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => 
   }
   return (
     <>
-       <h1 className="font-bold text-lg mt-3">Add Classwork</h1>
-      <hr className='border-gray-300' />
+      <h1 className="font-bold text-lg mt-3">Add Classwork</h1>
+      <hr className="border-gray-300" />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
         <div className={styles.inputwrap}>
           <TextInput
@@ -52,8 +52,9 @@ const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => 
             accept="image/*, .pdf, video/* audio/*"
             Icon={<GrAttachment />}
           />
-          <span className="text-gray-200 text-sm w-[40em] block">
-            (* pdf, zip, audio/mpeg, mpga, mp3, wav, mp4, flv, mov, jpeg, png, jpg *)
+          <span className="text-gray-200 text-xs w-[40em] block">Max file size: 1.2MB</span>
+          <span className="text-gray-200 text-xs w-[40em] block">
+            Accept file type: pdf, mp3, wav, mp4, flv, mov, jpeg, png, jpg
           </span>
         </div>
 

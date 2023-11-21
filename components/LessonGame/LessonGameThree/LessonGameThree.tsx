@@ -121,8 +121,8 @@ const LessonGameOne = ({
 
           {/* PICK ANSWER BOX */}
           {/* <Fade cascade damping={0.1} style={{ width: '100%' }} duration={1300} direction="up"> */}
-          <ul className={styles.pickAnswerWrap}>
-            {currentQtn?.options?.map((option: any) => {
+          <div className={styles.pickAnswerWrap}>
+            {currentQtn?.options?.map((option: any, index) => {
               let chosenAnswer = selected === option.id ? 'orange' : '#E1E1E1'
               return (
                 <OptionButton
@@ -131,10 +131,11 @@ const LessonGameOne = ({
                   key={option.id}
                   handleClick={() => setSelected(option.id)}
                   id={option.id}
+                  index={index}
                 />
               )
             })}
-          </ul>
+          </div>
 
           <div
             style={{

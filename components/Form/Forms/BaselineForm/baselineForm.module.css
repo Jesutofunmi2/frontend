@@ -1,138 +1,125 @@
-.container{
-        visibility: visible;
-        position:fixed;
-        /* height: 90vh; */
-        overflow-y: auto;
-        /* min-height: 100%; */
-        display: block;
-        justify-content:center;
-        /* align-items: center; */
-        padding: 50px 100px;
-        background: rgba(51, 51, 51, 0.759);
-        z-index: 50;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+.container {
+  visibility: visible;
+  position: fixed;
+  /* height: 90vh; */
+  overflow-y: auto;
+  /* min-height: 100%; */
+  display: block;
+  justify-content: center;
+  /* align-items: center; */
+  padding: 50px 100px;
+  background: rgba(51, 51, 51, 0.759);
+  z-index: 50;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.form{
-    background-color: white;
-    padding:50px 80px;
-    box-sizing: border-box;
-    border-radius: 15px;
+.form {
+  background-color: white;
+  padding: 50px 80px;
+  box-sizing: border-box;
+  border-radius: 15px;
 }
 
-.title{
-    text-align: center;
+.title {
+  text-align: center;
 }
 
-
-.qtnWrap{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.qtnWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-
-.qtn{
-
-    line-height: 25px;
-    font-size: 17px;
+.qtn {
+  line-height: 25px;
+  font-size: 17px;
 }
 
-
-.intro{
-    margin-top: 40px;
-    line-height: 25px;
-    font-size: 18px;
-
+.intro {
+  margin-top: 40px;
+  line-height: 25px;
+  font-size: 18px;
 }
 
-.questions{
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+.questions {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
-.answers{
-    display: flex;
-    flex-direction: column;
-    gap: 90px;
-    font-size: 17px;
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  font-size: 17px;
 }
 
-.inputWrap{
-    display: flex;
-    align-items:center;
-    gap: 10px;
-    height: fit-content;
-
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: fit-content;
 }
 
-.input{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    height: 17px;
-    width: 17px;
-    accent-color: var(--orange-color);
-    background-color: white;
+.input {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  height: 17px;
+  width: 17px;
+  /* accent-color: var(--orange-color); */
+  background-color: white;
 }
 
-.btnWrap{
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
+.btnWrap {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
-.input:checked:before{
-    background-color:green;
-    }
+/* @@@@@@@@@@@@@ */
 
-
-
-    /* @@@@@@@@@@@@@ */
-
-    .form2{
-        background-color: white;
-        padding:70px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-        border-radius: 15px;
-    }
-
-
-.qtn2{
-    display: flex;
-    align-items: self-start;
-    gap: 10px;
+.form2 {
+  background-color: white;
+  padding: 70px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  border-radius: 15px;
 }
 
-.qtn2 p{
-    font-size: 20px;
-    line-height: 25px;
+.qtn2 {
+  display: flex;
+  align-items: self-start;
+  gap: 10px;
 }
 
-.qtnWrap textarea{
-    padding:0.5em;
-    line-height: 40px;
-    font-family: sans-serif;
-    font-size: 15px;
-    border:1px solid var(--orange-color);
-    border-radius: 10px;
-    width:100%;
-    margin-top:1em
+.qtn2 p {
+  font-size: 20px;
+  line-height: 25px;
 }
 
-.innput{
-    height: 80px;
-    text-align: left;
-    padding-left:0;
-    padding-top:0;
-    padding-bottom:0.4em;
-    padding-right: 0.4em;
+.qtnWrap textarea {
+  padding: 0.5em;
+  line-height: 40px;
+  font-family: sans-serif;
+  font-size: 15px;
+  border: 1px solid var(--orange-color);
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.innput {
+  height: 80px;
+  text-align: left;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0.4em;
+  padding-right: 0.4em;
 }

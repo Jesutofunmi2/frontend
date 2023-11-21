@@ -10,7 +10,7 @@ export const addFileAssignment = async (payload: any) => {
     const res = await makeApiCall('/api/v1/teacher/assignment/file', 'post', payload)
     toast.dismiss()
     if (res) {
-      toast.success('Module Created!', {
+      toast.success('File Assignment Created!', {
         position: toast.POSITION.TOP_RIGHT,
       })
     }
