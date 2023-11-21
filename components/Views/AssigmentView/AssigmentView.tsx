@@ -43,6 +43,7 @@ const AssignmentView = () => {
   const { data: assignedModule, mutate: mutateAssignedModule } = useGetAssignedModule({
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
+    type:"assignment"
   })
 
   const handleAddFileAssignment = async (payload: any, reset: () => void) => {
@@ -71,6 +72,7 @@ const AssignmentView = () => {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
       class_id: classID,
+      type: "assignment",
       data: [{ ...data, time: Math.ceil(Number(data.time.split(':')[0])), notification: true }],
     }
     await addAssignModule(formdata)
