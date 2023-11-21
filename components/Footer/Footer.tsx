@@ -25,11 +25,11 @@ const Footer = () => {
           className="h-[50px] md:w-auto"
         />
       </div>
-      <div className="p-10 flex flex-col lg:flex-row gap-8 lg:gap-6 justify-center items-start lg:items-center text-white bg-[#333333]">
+      <div className="px-4 md:px-10 py-10 flex flex-col lg:flex-row gap-8 lg:gap-6 justify-center items-start lg:items-center text-white bg-[#333333]">
         <Image src="/assets/images/logo.png" width="50" height="50" alt="logo" />
         <div className="text-sm text-left">
           <p>&copy; {new Date().getFullYear()}</p>
-          <p className='py-1'>Izesan. All right reserved.</p>
+          <p className="py-1">Izesan. All right reserved.</p>
           <p>A division of Otaigbe Groups</p>
         </div>
         <hr className="border-white w-10 rotate-90 hidden lg:block" />
@@ -39,7 +39,7 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Email"
-              className="border-transparent w-64 border-2 text-black rounded-lg outline-none p-2 focus-visible:border-2 focus-visible:border-solid focus-visible:border-yellow"
+              className="border-transparent w-64 sm:w-72 border-2 text-black rounded-lg outline-none p-2 focus-visible:border-2 focus-visible:border-solid focus-visible:border-yellow"
             />
             <button className="bg-primary rounded-lg px-6 mt-2 lg:mt-0 lg:ml-4 py-2 font-bold">
               Subscribed
@@ -58,13 +58,25 @@ const Footer = () => {
         <hr className="border-white rotate-90 w-10 hidden lg:block" />
         <div className="flex gap-4 justify-center items-center ">
           {' '}
-          <Link className="text-xl hover:text-yellow" target="_blank" href="https://www.youtube.com/@izesan392">
+          <Link
+            className="text-xl hover:text-yellow"
+            target="_blank"
+            href="https://www.youtube.com/@izesan392"
+          >
             <IoLogoYoutube />
           </Link>
-          <Link className="text-xl hover:text-yellow" target="_blank" href="https://www.instagram.com/lzesan/">
+          <Link
+            className="text-xl hover:text-yellow"
+            target="_blank"
+            href="https://www.instagram.com/lzesan/"
+          >
             <AiOutlineInstagram />
           </Link>
-          <Link className="text-xl hover:text-yellow" target="_blank" href="https://twitter.com/lzesan">
+          <Link
+            className="text-xl hover:text-yellow"
+            target="_blank"
+            href="https://twitter.com/lzesan"
+          >
             <FaXTwitter />
           </Link>
           <Link

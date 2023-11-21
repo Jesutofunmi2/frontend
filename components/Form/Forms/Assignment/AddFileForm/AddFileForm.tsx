@@ -53,7 +53,7 @@ const AddFileForm = ({ handleAddFileAssignment }: AddFileProps) => {
               placeholder="Add Attachment"
             />
             <span className="text-gray-200 text-sm block">
-              (*Accepted files: pdf, zip, audio/mpeg, mpga, mp3, wav, mp4, flv, mov, jpeg, png, jpg *)
+              (* pdf, zip, audio/mpeg, mpga, mp3, wav, mp4, flv, mov, jpeg, png, jpg *)
             </span>
           </div>
           <>
