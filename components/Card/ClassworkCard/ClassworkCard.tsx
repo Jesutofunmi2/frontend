@@ -4,6 +4,7 @@ import { AiTwotoneDelete } from 'react-icons/ai'
 import { RiAttachment2 } from 'react-icons/ri'
 import Modal from '@/components/Modal/Modal'
 import ViewAttachment from '@/components/ViewAttachment/ViewAttachment'
+import { TitleCase } from '@/utils'
 
 interface ClassworkCardProps {
   data: any
@@ -24,7 +25,7 @@ const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
         />
         <div className={styles.wrap}>
           <div className={styles.studentCount}>
-            <span>{data?.name}</span>
+            <span>{TitleCase(data?.name)}</span>
           </div>
           <button onClick={() => setModalOpen(true)} className={styles.attachment}>
             <RiAttachment2 size={22} /> See Attachment

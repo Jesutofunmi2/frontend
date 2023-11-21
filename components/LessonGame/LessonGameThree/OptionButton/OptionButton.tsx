@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './optionButton.module.css'
 
 interface OptionsProps {
+  index: number
   text: string
   color?: string
   backgroundColor: string
@@ -12,10 +13,11 @@ interface OptionsProps {
   size?: string
   maxWidth?: string
   disabled?: boolean
-  handleClick: (id:number) => void
+  handleClick: (id: number) => void
   id: number
 }
 const OptionButton = ({
+  index,
   text,
   color,
   backgroundColor,
@@ -27,9 +29,8 @@ const OptionButton = ({
   handleClick,
   id,
 }: OptionsProps) => {
-
   return (
-    <ul
+    <button
       style={{
         background: `${backgroundColor}`,
         color: `${color}`,
@@ -42,8 +43,11 @@ const OptionButton = ({
       className={styles.answer}
       // disabled={disabled}
     >
-      <span className={`${styles.listText} languageText`}>{text ? text : 'Button'}</span>
-    </ul>
+      <div className="text-left">
+        {String.fromCharCode(index + 65)}.
+        <span className={`${styles.listText} languageText`}>{text ? text : 'Button'}</span>
+      </div>
+    </button>
   )
 }
 

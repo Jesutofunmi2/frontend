@@ -22,6 +22,7 @@ import { userData } from '@/services/redux/features/userSlice'
 import { useGetClasses, useGetTeacherClassStudent } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
 import { useGetTeacherClasses } from '@/services/api/teacher/class'
+import { TitleCase } from '@/utils'
 
 const tabData = [
   { text: 'Students', icon: <BsPeople /> },
@@ -65,15 +66,9 @@ const ClassRoom = () => {
         {teacherClassStudents?.map((ele: any) => {
           return (
             <tr key={ele.id}>
-              <td>{ele?.first_name}</td>
-              <td>{ele?.language}</td>
-              <td>{ele?.gender}</td>
-              <td>
-                <div className="action">
-                  <AiFillEdit className="editIcon" />
-                  <RiDeleteBin6Line className="deleteIcon" />
-                </div>
-              </td>
+              <td>{TitleCase(ele?.first_name)}</td>
+              <td>{TitleCase(ele?.language)}</td>
+              <td>{TitleCase(ele?.gender)}</td>
             </tr>
           )
         })}
@@ -85,7 +80,7 @@ const ClassRoom = () => {
     )
   }
   {
-    ; <td>
+    ;<td>
       <div className="action">
         <AiFillEdit className="editIcon" />
         <RiDeleteBin6Line className="deleteIcon" />
