@@ -9,13 +9,17 @@ interface AssignQuizCardProps {
   handleQuizDelete: (id: number) => void
 }
 const AssignQuizCard = ({ quiz, handleQuizDelete }: AssignQuizCardProps) => {
+
   return (
     <>
       <div className={styles.card}>
         <div className={styles.titleWrap}>
           <div className={styles.textWrap}>
-            <TiDocumentText color="white" size={23} />
-            {/* <p>{quiz.title}</p> */}
+            <TiDocumentText className="text-yelow" size={23} />
+            <div>
+              <p>{quiz?.topic[0].title}</p>
+              <p>({quiz?.language[0].name})</p>
+            </div>
           </div>
           <button onClick={() => handleQuizDelete(quiz.id)}>
             <AiTwotoneDelete size={23} color="red" />
@@ -46,7 +50,7 @@ const AssignQuizCard = ({ quiz, handleQuizDelete }: AssignQuizCardProps) => {
 
           {/* TOPICS */}
           {/* <div className={styles.cardWrap}> */}
-            {/* {quiz?.topic.map((ele: any) => (
+          {/* {quiz?.topic.map((ele: any) => (
               <div className={styles.card2} key={ele.id}>
                 <div className={styles.innerWrap}>
                   <Image src={ele?.media_url || logo} width={70} height={50} alt="pic" />

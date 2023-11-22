@@ -60,8 +60,7 @@ export interface IQuizAssignment {
   time: number
   topic: [{ title: string }]
   type: string
-  language_id: number
-  module_id: string
+  language: [{name:string}]
   questions: []
 }
 

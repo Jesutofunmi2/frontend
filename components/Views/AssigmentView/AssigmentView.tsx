@@ -56,8 +56,6 @@ const AssignmentView = () => {
     type: 'assignment',
   })
 
-  console.log(quizAssignments)
-
   //File
   const handleAddFileAssignment = async (payload: any, reset: () => void) => {
     setOpenModal(false)
@@ -79,7 +77,7 @@ const AssignmentView = () => {
     await deleteFileAssignment(teacherData?.school?.id, teacherData?.teacher_id, id)
     mutate()
   }
-console.log(quizAssignments)
+
   // Module
   const handleModuleAssignment = async (data: any, reset: (value: any) => void) => {
     setOpenModal(false)
