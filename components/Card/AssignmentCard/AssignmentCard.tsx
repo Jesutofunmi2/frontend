@@ -6,14 +6,10 @@ import { RiAttachment2 } from 'react-icons/ri'
 import ViewAttachment from '@/components/ViewAttachment/ViewAttachment'
 import Modal from '@/components/Modal/Modal'
 import { TitleCase } from '@/utils'
+import { IFileAssignment } from '@/types/assignment'
 
 interface AssignmentCardProps {
-  ele: {
-    deadline: string
-    id: number
-    name: string
-    media_url: string
-  }
+  ele: IFileAssignment
   handleFileAssignmentDelete: (id: number) => void
 }
 const AssignmentCard = ({ ele, handleFileAssignmentDelete }: AssignmentCardProps) => {
@@ -23,14 +19,14 @@ const AssignmentCard = ({ ele, handleFileAssignmentDelete }: AssignmentCardProps
       <div className={styles.card}>
         <div className={styles.titleWrap}>
           <div className={styles.textWrap}>
-            <TiDocumentText color="white" size={23} />
+          <TiDocumentText classname="text-yellow" size={25} />
             <p>{TitleCase(ele.name)}</p>
           </div>
           <button onClick={() => handleFileAssignmentDelete(ele.id)}>
             <AiTwotoneDelete size={23} color="red" />
           </button>
         </div>
-
+        <hr className="border-gray-300 my-3" />
         <div className={styles.detailWrap}>
           <div className={styles.detail}>
             <p>Deadline</p>
