@@ -49,11 +49,11 @@ const AddFileForm = ({ handleAddFileAssignment }: AddFileProps) => {
               label="File Upload"
               name="attachment"
               type="file"
-              accept="image/png, image/jpeg, .pdf, video/* audio/*"
+              accept="image/png, image/jpeg, .pdf,"
               placeholder="Add Attachment"
             />
             <span className="text-gray-200 text-sm block">
-              (* pdf, zip, audio/mpeg, mpga, mp3, wav, mp4, flv, mov, jpeg, png, jpg *)
+              (* pdf, jpeg, png, jpg *)
             </span>
           </div>
           <>

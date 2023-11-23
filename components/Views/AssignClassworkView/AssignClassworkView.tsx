@@ -49,12 +49,12 @@ const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => 
             name="attachment"
             type="file"
             placeholder="Enter topic name"
-            accept="image/*, .pdf, video/* audio/*"
+            accept="image/*, .pdf,"
             Icon={<GrAttachment />}
           />
           <span className="text-gray-200 text-xs w-[40em] block">Max file size: 1.2MB</span>
           <span className="text-gray-200 text-xs w-[40em] block">
-            Accept file type: pdf, mp3, wav, mp4, flv, mov, jpeg, png, jpg
+            Accept file type: pdf, jpeg, png, jpg
           </span>
         </div>
 
