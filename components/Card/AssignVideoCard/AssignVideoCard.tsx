@@ -4,7 +4,6 @@ import { IVideoAssignment } from '@/types/assignment'
 import { TiDocumentText } from 'react-icons/ti'
 import { AiTwotoneDelete } from 'react-icons/ai'
 
-
 interface AssignVideoCardProps {
   video: IVideoAssignment
   handleVideoDelete: (id: number) => void
@@ -18,8 +17,8 @@ const AssignVideoCard = ({ video, handleVideoDelete }: AssignVideoCardProps) => 
           <div className={styles.textWrap}>
             <TiDocumentText className="text-yelow" size={23} />
             <div>
-              {/* <p>{video?.topic[0].title}</p> */}
-              {/* <p>({video?.language[0].name})</p> */}
+              <p>{video?.module_id[0].title}</p>
+              <p>({video?.course[0].title})</p>
             </div>
           </div>
           <button onClick={() => handleVideoDelete(video.id)}>
@@ -46,6 +45,10 @@ const AssignVideoCard = ({ video, handleVideoDelete }: AssignVideoCardProps) => 
           <div className={styles.detail}>
             <p>Time</p>
             <p>{video?.time} mins</p>
+          </div>
+          <div className={styles.detail}>
+            <p>Video(s)</p>
+            <p>{video?.videos_id.length}</p>
           </div>
           {/* <hr className={styles.line} /> */}
 

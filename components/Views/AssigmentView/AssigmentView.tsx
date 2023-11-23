@@ -187,7 +187,7 @@ const AssignmentView = () => {
     setSelected(selected)
     setOpenModal(true)
   }
-  console.log(quizAssignments)
+
   return (
     <>
       <div className="mt-20">

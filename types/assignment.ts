@@ -101,8 +101,10 @@ export interface IVideoAssignment {
   school_id: number
   teacher_id: string
   time: number
-  topic: [{ title: string }]
+  course:[{ title: string }]
+
+module_id: [{ title: string }]
   type: string
   language: [{name:string}]
- video: []
+ videos_id: []
 }
