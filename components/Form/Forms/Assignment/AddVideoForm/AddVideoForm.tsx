@@ -8,7 +8,6 @@ import { TitleCase, formattedDate } from '@/utils'
 import { useGetCourses } from '@/services/api/course'
 import { ICourses, IVideoLessons, IVideos } from '@/types/videos'
 import { useGetVideoCourse } from '@/services/api/videos'
-import { MdOutlineOndemandVideo } from 'react-icons/md'
 import { PiVideoLight } from 'react-icons/pi'
 import Modal from '@/components/Modal/Modal'
 type Inputs = {

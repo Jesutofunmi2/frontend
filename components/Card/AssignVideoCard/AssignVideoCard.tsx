@@ -1,12 +1,9 @@
 import React from 'react'
 import styles from './assignVideoCard.module.css'
-import { AiOutlineDelete } from 'react-icons/ai'
-import { BsFillPlayFill } from 'react-icons/bs'
-import { RiAttachment2 } from 'react-icons/ri'
 import { IVideoAssignment } from '@/types/assignment'
 import { TiDocumentText } from 'react-icons/ti'
 import { AiTwotoneDelete } from 'react-icons/ai'
-import { IQuizAssignment } from '@/types/assignment'
+
 
 interface AssignVideoCardProps {
   video: IVideoAssignment
