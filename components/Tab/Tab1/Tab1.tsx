@@ -13,7 +13,7 @@ const Tab1 = ({ tabData, activeTab, handleActiveTab }: TabProps) => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className="flex h-[100px] items-center bg-[#dfdcdc] w-max md:w-auto rounded-lg justify-between ">
         {tabData?.map((item:any) => (
           <div
             className={activeTab === item.text ? styles.active : styles.card}

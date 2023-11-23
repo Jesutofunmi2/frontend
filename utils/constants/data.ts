@@ -18,6 +18,7 @@ export const phoneImages = [
       "Embark on linguistic adventure with Izesan's stories that transport you to new worlds and cultures.",
   },
 ]
+// const alphabetIndex=[]
 
 export const schoolLogo = [
   '/assets/images/landingpage/school_logo/school2.jpeg',
@@ -92,3 +93,5 @@ export const schoolLogo = [
   '/assets/images/landingpage/school_logo/school67.jpeg',
   '/assets/images/landingpage/school_logo/school68.jpeg',
 ]
+
+
