@@ -21,8 +21,8 @@
 
 .textWrap{
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    align-items: center;
+    gap: 16px;
 }
 
 .detailWrap{
