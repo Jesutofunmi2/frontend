@@ -1,5 +1,6 @@
 import useSWR from "swr"
 import makeApiCall from "."
+import { ITopics } from "@/types/topics"
 
 export const useGetTopics = (language_id:number|null) => {
     const url = `api/v1/type?type=standalone&language_id=${language_id}`
@@ -7,7 +8,7 @@ export const useGetTopics = (language_id:number|null) => {
       const res = await makeApiCall(url, 'get')
       return res?.data
     }
-    const { data, isLoading, error, mutate } = useSWR(url, fetcher)
+    const { data, isLoading, error, mutate } = useSWR< ITopics[] ,Error>(url, fetcher)
     return { error, data, isLoading, mutate }
   }
   

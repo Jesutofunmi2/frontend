@@ -1,22 +1,21 @@
 'use client'
 
-import ProgressBar from '@/components/ProgressBar/ProgressBar'
 import VideoCourseSidebar from '@/components/Sidebar/VideoCourseSidebar/VideoCourseSidebar'
 import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import VideoLessonQuestion from '@/components/videoLessonQuestion/VideoLessonQuestion'
-import { useGetVideoPlay } from '@/services/api/videoplay'
+import { useGetVideoCourse } from '@/services/api/videos'
 import { Loader } from '@/components/Loader/Loader'
 import useMediaQuery from '@/utils/hooks/useMediaQuery'
-import { IVideoLessons } from '@/types/videocourse'
+import { IVideos } from '@/types/videos'
 
 const VideoPlay = () => {
   const courseID = String(sessionStorage.getItem('courseID'))
   const matches = useMediaQuery('(max-width: 1000px)')
   const [questionsPopup, setQuestionsPopup] = useState(false)
-  const { data: videoLesson, isLoading } = useGetVideoPlay(courseID)
-  const [videoData, setVideoData] = useState<IVideoLessons | any>()
-  const [videoLessonData, setVideoLessonData] = useState<IVideoLessons[]>([])
+  const { data: videoLesson, isLoading } = useGetVideoCourse(courseID)
+  const [videoData, setVideoData] = useState<IVideos | any>()
+  const [videoLessonData, setVideoLessonData] = useState<IVideos[]>([])
   const [questionIndex, setQuestionIndex] = useState(0)
 
   useEffect(() => {
@@ -76,7 +75,7 @@ const VideoPlay = () => {
           {!isLoading ? (
             <div className={styles.aboutVideo}>
               <div className={styles.menu}>
-                <span className='text-lg font-bold'>Overview</span>
+                <span className="text-lg font-bold">Overview</span>
               </div>
 
               <p className="languageText">{videoData?.objective}</p>

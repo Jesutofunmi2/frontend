@@ -46,6 +46,10 @@ const AssignQuizCard = ({ quiz, handleQuizDelete }: AssignQuizCardProps) => {
             <p>Time</p>
             <p>{quiz?.time} mins</p>
           </div>
+          <div className={styles.detail}>
+            <p>Question(s)</p>
+            <p>{quiz?.questions.length}</p>
+          </div>
           {/* <hr className={styles.line} /> */}
 
           {/* TOPICS */}

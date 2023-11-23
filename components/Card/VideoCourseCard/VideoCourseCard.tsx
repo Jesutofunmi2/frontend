@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './videoCourseCard.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { VideoCourse } from '@/types/videocourse'
+import { VideoCourse } from '@/types/videos'
 
 interface VideoCourseCard {
   video: VideoCourse

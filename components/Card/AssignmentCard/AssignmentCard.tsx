@@ -19,7 +19,7 @@ const AssignmentCard = ({ ele, handleFileAssignmentDelete }: AssignmentCardProps
       <div className={styles.card}>
         <div className={styles.titleWrap}>
           <div className={styles.textWrap}>
-          <TiDocumentText classname="text-yellow" size={25} />
+          <TiDocumentText className="text-yellow" size={25} />
             <p>{TitleCase(ele.name)}</p>
           </div>
           <button onClick={() => handleFileAssignmentDelete(ele.id)}>

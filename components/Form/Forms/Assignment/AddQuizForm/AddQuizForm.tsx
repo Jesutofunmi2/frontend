@@ -8,6 +8,8 @@ import { Spinner } from '@/components/Loader/Loader'
 import Button from '@/components/Button/Button'
 import { TextInput } from '@/components/Form/FormFields/TextInput/TextInput'
 import { formattedDate } from '@/utils'
+import { ITopics } from '@/types/topics'
+import { ILanguage } from '@/types/languages'
 
 
 type Inputs = {
@@ -68,12 +70,14 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
     }
   }, [selectedTopic, selectedLanguage])
 
-  const languageOptions = languages?.map((item) => {
-    return { value: item?.id, label: item?.name, disabled: item.status === 1 ? false : true }
+  const languageOptions = languages?.map((language:ILanguage) => {
+    return { value: language?.id, label:language?.name, disabled: language.status === 1 ? false : true }
   })
-  const topicOptions = topics?.map((item: any, index: number) => {
-    return { index: index, value: item?.id, label: item?.title }
+  
+  const topicOptions = topics?.map((topic: ITopics, index: number) => {
+    return { index: index, value: topic?.id, label: topic?.title }
   })
+
 
   return (
     <>
@@ -116,11 +120,11 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
             />
             <div className="mt-6 ">
               <h3 className="py-3">Select Question(s)</h3>
-              <div className="flex items-center gap-4 flex-wrap h-48 overflow-auto border border-gray-300 rounded-lg p-4">
+              <div className="flex items-center justify-start gap-7 py-8 px-6 flex-wrap h-48 overflow-auto border border-gray-300 rounded-lg p-4">
                 {lessonQuestions?.length ? (
                   lessonQuestions?.map((ele: any) => {
                     return (
-                      <div className={`p-4 shadow-xl flex items-center gap-4`} key={ele.id}>
+                      <div className={`p-4 shadow-xl flex items-center text-sm gap-4 w-52`} key={ele.id}>
                         <input
                           {...register('questions_id', { required: true })}
                           type="checkbox"
@@ -140,7 +144,7 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
                           htmlFor="check"
                           className={`${
                             checkedList.includes(ele.id) ? 'text-yellow' : 'text-black'
-                          }`}
+                          } w-5/6`}
                         >
                           {ele.title}
                         </label>

@@ -8,10 +8,13 @@ import AddFileForm from '@/components/Form/Forms/Assignment/AddFileForm/AddFileF
 import {
   addFileAssignment,
   addQuizAssignment,
+  addVideoAssignment,
   deleteFileAssignment,
   deleteQuizAssignment,
+  deleteVideoAssignment,
   useGetFileAssignments,
   useGetQuizAssignments,
+  useGetVideoAssignments,
 } from '@/services/api/assignment'
 import { useSearchParams } from 'next/navigation'
 import { useSelector } from 'react-redux'
@@ -22,7 +25,6 @@ import { addAssignModule, deleteModule, useGetAssignedModule } from '@/services/
 import AssignModuleView from '../AssignModuleView/AssignModuleView'
 import NotFound from '@/components/NotFound/NotFound'
 import { Loader } from '@/components/Loader/Loader'
-import LanguageVideoSelection from '@/components/LanguageVideoSelection.tsx/LanguageVideoSelection'
 import AssignQuizCard from '@/components/Card/AssignQuizCard/AssignQuizCard'
 import {
   IFileAssignment,
@@ -30,7 +32,10 @@ import {
   IModuleAssignmentPayload,
   IQuizAssignment,
   IQuizAssignmentPayload,
+  IVideoAssignment,
+  IVideoAssignmentPayload,
 } from '@/types/assignment'
+import AssignVideoCard from '@/components/Card/AssignVideoCard/AssignVideoCard'
 
 const AssignmentView = () => {
   const searchParams = useSearchParams()
@@ -44,11 +49,6 @@ const AssignmentView = () => {
     error,
     mutate,
   } = useGetFileAssignments(teacherData.school.id, classID, teacherData.teacher_id)
-  const { data: quizAssignments, mutate: mutateQuizAssignments } = useGetQuizAssignments(
-    teacherData.school.id,
-    classID,
-    teacherData.teacher_id
-  )
 
   const { data: moduleAssignments, mutate: mutateAssignedModule } = useGetAssignedModule({
     school_id: teacherData?.school.id,
@@ -56,18 +56,29 @@ const AssignmentView = () => {
     type: 'assignment',
   })
 
+  const { data: quizAssignments, mutate: mutateQuizAssignments } = useGetQuizAssignments(
+    teacherData.school.id,
+    classID,
+    teacherData.teacher_id
+  )
+  const { data: videoAssignments, mutate: mutateVideoAssignments } = useGetVideoAssignments(
+    teacherData.school.id,
+    classID,
+    teacherData.teacher_id
+  )
+
   //File
-  const handleAddFileAssignment = async (payload: any, reset: () => void) => {
+  const handleAddFileAssignment = async (formValues: any, reset: () => void) => {
     setOpenModal(false)
     let formdata = new FormData()
     formdata.append('school_id', teacherData?.school?.id)
     formdata.append('teacher_id', teacherData?.teacher_id)
     formdata.append('class_id', String(classID))
-    formdata.append('date', payload.date)
-    formdata.append('name', payload.topic)
-    formdata.append('mark', payload.mark)
+    formdata.append('date', formValues.date)
+    formdata.append('name', formValues.topic)
+    formdata.append('mark', formValues.mark)
     formdata.append('notification', '0')
-    formdata.append('media_url', payload.attachment[0])
+    formdata.append('media_url', formValues.attachment[0])
     await addFileAssignment(formdata)
     mutate()
     reset()
@@ -79,14 +90,20 @@ const AssignmentView = () => {
   }
 
   // Module
-  const handleModuleAssignment = async (data: any, reset: (value: any) => void) => {
+  const handleModuleAssignment = async (formValues: any, reset: (value: any) => void) => {
     setOpenModal(false)
     let payload: IModuleAssignmentPayload = {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
       class_id: Number(classID),
       type: 'assignment',
-      data: [{ ...data, time: Math.ceil(Number(data.time.split(':')[0])), notification: true }],
+      data: [
+        {
+          ...formValues,
+          time: Math.ceil(Number(formValues.time.split(':')[0])),
+          notification: true,
+        },
+      ],
     }
     await addAssignModule(payload)
     mutateAssignedModule()
@@ -110,18 +127,15 @@ const AssignmentView = () => {
     }
   }
 
-  // Video
-  const handleVideoAssignment = async () => {}
-
   // Quiz
-  const handleQuizAssignment = async (data: any, reset: (inputValues: any) => void) => {
+  const handleQuizAssignment = async (formValues: any, reset: (inputValues: any) => void) => {
     setOpenModal(false)
     let payload: IQuizAssignmentPayload = {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
       class_id: classID,
       notification: true,
-      ...data,
+      ...formValues,
     }
     await addQuizAssignment(payload)
     reset({
@@ -141,11 +155,39 @@ const AssignmentView = () => {
     mutateQuizAssignments()
   }
 
+  // Video
+  const handleVideoAssignment = async (formValues: any, reset: (inputValues: any) => void) => {
+    setOpenModal(false)
+    let payload: IVideoAssignmentPayload = {
+      school_id: teacherData.school.id,
+      teacher_id: teacherData.teacher_id,
+      class_id: classID,
+      notification: true,
+      ...formValues,
+    }
+    await addVideoAssignment(payload)
+    reset({
+      questions_id: [],
+      module_id: '',
+      deadline: new Date(),
+      no_attempt: 0,
+      language_id: 0,
+      time: '',
+      mark: 0,
+    })
+    mutateVideoAssignments()
+  }
+
+  const handleVideoDelete = async (id: number) => {
+    await deleteVideoAssignment(teacherData?.school?.id, classID, teacherData?.teacher_id, id)
+    mutateVideoAssignments()
+  }
+
   const handleModalOpen = (selected: string) => {
     setSelected(selected)
     setOpenModal(true)
   }
-
+  console.log(quizAssignments)
   return (
     <>
       <div className="mt-20">
@@ -222,11 +264,26 @@ const AssignmentView = () => {
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-start gap-48 mb-10">
             {' '}
-            <Button text="Assign Video" disabled handleClick={() => handleModalOpen('add-video')} />
+            <Button text="Assign Video" handleClick={() => handleModalOpen('add-video')} />
             <p className={styles.cardTitle}>VIDEO ASSIGNMENTS</p>
           </div>
-          <p className="text-sm text-center">No Video Assignment</p>
-          {/* <LanguageVideoSelection /> */}
+          <div className={styles.cards}>
+            {videoAssignments?.length ? (
+              videoAssignments?.map((video: IVideoAssignment) => (
+                <AssignVideoCard
+                  video={video}
+                  key={video.id}
+                  handleVideoDelete={handleVideoDelete}
+                />
+              ))
+            ) : videoAssignments?.length === 0 ? (
+              <p className="text-sm text-center">No Video Assignment</p>
+            ) : error ? (
+              <NotFound text={'Server Error'} />
+            ) : (
+              <Loader />
+            )}
+          </div>
         </div>
       </div>
 

@@ -68,15 +68,41 @@ export interface IQuizAssignmentPayload {
   school_id: number
   teacher_id: string
   class_id: number
-  date: string
+  notification: string
+  questions_id: []
+  module_id: number
+  deadline: string
+  no_attempt: number
+  language_id: number
+  time: number
+  mark: number
+}
+export interface IVideoAssignmentPayload {
+  school_id: number
+  teacher_id: string
+  class_id: number
   mark: number
   notification: string
-  media_url: string | File
-  topic: string
   module_id: number
   deadline: string
   time: number
   no_attempt: number
   language_id: number
-  questions_id: []
+  videos_id: []
+}
+
+export interface IVideoAssignment {
+  class_id: number
+  deadline: string
+  id: number
+  mark: number
+  no_attempt: number
+  notification: number
+  school_id: number
+  teacher_id: string
+  time: number
+  topic: [{ title: string }]
+  type: string
+  language: [{name:string}]
+ video: []
 }

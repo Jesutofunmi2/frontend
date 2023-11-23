@@ -16,7 +16,7 @@ const AssignModuleCard = ({ module, handleModuleDelete }: AssignModuleCardProps)
       <div className={styles.card}>
         <div className={styles.titleWrap}>
           <div className={styles.textWrap}>
-            <TiDocumentText classname="text-yellow" size={25} />
+            <TiDocumentText className="text-yellow" size={25} />
             <p className="text-[17px]">{module?.topic[0].title}</p>
           </div>
           <button onClick={() => handleModuleDelete(module.id)}>
