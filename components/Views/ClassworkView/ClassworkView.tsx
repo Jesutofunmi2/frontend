@@ -106,8 +106,8 @@ const ClassworkView = () => {
     <>
       <div className={styles.container}>
         <div className={styles.cardWrap}>
-          <p className={styles.cardTitle}>CLASSWORK</p>
-          <div className={styles.buttonWrap}>
+        <div className="flex items-center justify-between mb-6">
+            <p className={styles.cardTitle}>CLASSWORK</p>
             <Button
               handleClick={() => {
                 handleToggle('assign-classwork')
@@ -115,7 +115,7 @@ const ClassworkView = () => {
               text="Assign File"
             />
           </div>
-          <div className={styles.cards}>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
             {classworkData?.length ? (
               classworkData?.map((item: any) => (
                 <ClassworkCard
@@ -125,17 +125,13 @@ const ClassworkView = () => {
                 />
               ))
             ) : classworkData?.length === 0 ? (
-              <span className={styles.noItem}>No Classwork</span>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+              <span className="text-sm">No Classwork</span>
+            ) : null}
           </div>
         </div>
         <div className={styles.cardWrap}>
-          <p className={styles.cardTitle}>MODULE CLASSWORK</p>
-          <div className={styles.buttonWrap}>
+        <div className="flex items-center justify-between mb-6">
+            <p className={styles.cardTitle}>MODULE CLASSWORK</p>
             <Button
               handleClick={() => {
                 handleToggle('assign-module')
@@ -143,7 +139,7 @@ const ClassworkView = () => {
               text="Assign Module"
             />
           </div>
-          <div className={styles.cards}>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
             {assignedModule?.length ? (
               assignedModule?.map((module: any) => (
                 <AssignModuleCard
@@ -153,12 +149,8 @@ const ClassworkView = () => {
                 />
               ))
             ) : assignedModule?.length === 0 ? (
-              <span className={styles.noItem}>No Module</span>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+              <span className="text-sm">No Module</span>
+            ) : null}
           </div>
         </div>
       </div>

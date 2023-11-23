@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin:70px 20px
 }
 
-.cardWrap {
-  margin-top: 20px;
+/* .cardWrap {
   margin-bottom: 70px;
-}
+} */
 
 .cards {
   justify-content: flex-start;
@@ -19,20 +19,12 @@
 .cardTitle {
   font-size: 18px;
   font-weight: bold;
-  margin-left: 10px;
-  margin-bottom: 25px;
   text-align: center;
 }
 
 .buttonWrap {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
-  margin-bottom: 30px;
-}
-
-.noItem {
-  margin: 10px 0px;
-  text-align: center;
-  width: 100%;
 }

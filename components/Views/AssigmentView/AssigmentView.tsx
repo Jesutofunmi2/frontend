@@ -190,38 +190,35 @@ const AssignmentView = () => {
 
   return (
     <>
-      <div className="mt-20">
+      <div className="mx-[20px] my-[70px]">
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign File" handleClick={() => handleModalOpen('add-file')} />
             <p className={styles.cardTitle}>FILE ASSIGNMENTS</p>
+            <Button text="Assign File" handleClick={() => handleModalOpen('add-file')} />
           </div>
-
-          {fileAssignments?.length ? (
-            <div className={styles.cards}>
-              {fileAssignments?.map((ele: IFileAssignment) => {
-                return (
-                  <AssignmentCard
-                    ele={ele}
-                    key={ele.id}
-                    handleFileAssignmentDelete={handleFileAssignmentDelete}
-                  />
-                )
-              })}
-            </div>
-          ) : (
-            <p className="text-sm text-center">No File Assignment</p>
-          )}
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
+            {fileAssignments?.length ? (
+              fileAssignments?.map((ele: IFileAssignment) => (
+                <AssignmentCard
+                  ele={ele}
+                  key={ele.id}
+                  handleFileAssignmentDelete={handleFileAssignmentDelete}
+                />
+              ))
+            ) : fileAssignments?.length === 0 ? (
+              <p className="text-sm">No File Assignment</p>
+            ) : null}
+          </div>
         </div>
 
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign Module" handleClick={() => handleModalOpen('add-module')} />
             <p className={styles.cardTitle}>MODULE ASSIGNMENTS</p>
+            <Button text="Assign Module" handleClick={() => handleModalOpen('add-module')} />
           </div>
-          <div className={styles.cards}>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
             {moduleAssignments?.length ? (
               moduleAssignments?.map((module: IModuleAssignment) => (
                 <AssignModuleCard
@@ -231,43 +228,35 @@ const AssignmentView = () => {
                 />
               ))
             ) : moduleAssignments?.length === 0 ? (
-              <p className=" text-sm text-center">No Module Assignment</p>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+              <p className="text-sm">No Module Assignment</p>
+            ) : null}
           </div>
         </div>
 
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign Quiz" handleClick={() => handleModalOpen('add-quiz')} />
             <p className={styles.cardTitle}>QUIZ ASSIGNMENTS</p>
+            <Button text="Assign Quiz" handleClick={() => handleModalOpen('add-quiz')} />
           </div>
-          <div className={styles.cards}>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
             {quizAssignments?.length ? (
               quizAssignments?.map((quiz: IQuizAssignment) => (
                 <AssignQuizCard quiz={quiz} key={quiz.id} handleQuizDelete={handleQuizDelete} />
               ))
             ) : quizAssignments?.length === 0 ? (
-              <p className="text-sm text-center">No Quiz Assignment</p>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+              <p className="text-sm">No Quiz Assignment</p>
+            ) : null}
           </div>
         </div>
         {/* AssignQuizCard  */}
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign Video" handleClick={() => handleModalOpen('add-video')} />
             <p className={styles.cardTitle}>VIDEO ASSIGNMENTS</p>
+            <Button text="Assign Video" handleClick={() => handleModalOpen('add-video')} />
           </div>
-          <div className={styles.cards}>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
             {videoAssignments?.length ? (
               videoAssignments?.map((video: IVideoAssignment) => (
                 <AssignVideoCard
@@ -277,12 +266,8 @@ const AssignmentView = () => {
                 />
               ))
             ) : videoAssignments?.length === 0 ? (
-              <p className="text-sm text-center">No Video Assignment</p>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+              <p className="text-sm">No Video Assignment</p>
+            ) : null}
           </div>
         </div>
       </div>

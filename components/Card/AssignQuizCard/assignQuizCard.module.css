@@ -10,7 +10,6 @@
 }
 
 .titleWrap{
-    /* background-color: var(--orange-color); */
     color: var(--orange-color);
     display: flex;
     align-items: center;
@@ -38,7 +37,6 @@
     align-items: center;
     justify-content: space-between;
     color: gray;
-
     font-size: 15px;
 }
 

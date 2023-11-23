@@ -100,7 +100,7 @@ const ClassRoom = () => {
             <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
           </div>
 
-          <div className=" md:w-auto mt-8">
+          <div className=" md:w-auto">
             {activeTab === 'Students' ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === 'Classwork' ? (

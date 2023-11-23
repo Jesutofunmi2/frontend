@@ -4,16 +4,16 @@
   margin: 30px 0px;
   justify-content: center;
   gap: 20px;
+
 }
 
 .cardTitle {
   font-size: 18px;
-  margin-left: 10px;
   font-weight: 700;
 }
 
 .cardWrap {
-  margin: 120px 20px;
+
 }
 
 .notAvailable {
@@ -22,10 +22,10 @@
 }
 
 .cards {
+  width:900px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 25px;
-  margin-top: 20px;
   flex-wrap: wrap;
   justify-content: space-between;
 }

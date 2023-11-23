@@ -178,7 +178,7 @@ export const deleteVideoAssignment = async (
     )
     toast.dismiss()
     if (res) {
-      toast.success('Quiz Assignment Deleted!', {
+      toast.success('VIdeo Assignment Deleted!', {
         position: toast.POSITION.TOP_RIGHT,
       })
     }
