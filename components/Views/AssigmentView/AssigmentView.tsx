@@ -167,13 +167,13 @@ const AssignmentView = () => {
     }
     await addVideoAssignment(payload)
     reset({
-      questions_id: [],
+      videos_id: [],
       module_id: '',
       deadline: new Date(),
-      no_attempt: 0,
-      language_id: 0,
+      no_attempt: "",
+      language_id:"",
       time: '',
-      mark: 0,
+      mark: "",
     })
     mutateVideoAssignments()
   }

@@ -43,7 +43,7 @@ export default function AddVideoForm({ handleVideoAssignment }: AddVideoFormProp
     },
   })
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+
     handleVideoAssignment(
       {
         ...data,
