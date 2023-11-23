@@ -1,38 +1,38 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.cardWrap{
-    margin-top: 20px;
-    margin-bottom: 70px;
+.cardWrap {
+  margin-top: 20px;
+  margin-bottom: 70px;
 }
 
-.cards{
-justify-content: flex-start;
-    display:flex;
-    flex-wrap: wrap;
-gap: 30px;
+.cards {
+  justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
 }
 
-.cardTitle{
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 10px;
-    margin-bottom: 25px;
-    text-align: center;
+.cardTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-.buttonWrap{
-    display: flex;
-    align-items: center;
+.buttonWrap {
+  display: flex;
+  align-items: center;
 
   margin-bottom: 30px;
 }
 
-.noItem{
-    margin: 10px 0px;
-    text-align: center;
-    width: 100%;
+.noItem {
+  margin: 10px 0px;
+  text-align: center;
+  width: 100%;
 }

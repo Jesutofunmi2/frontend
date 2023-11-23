@@ -2,12 +2,9 @@ import React from 'react'
 import styles from './assignClassworkview.module.css'
 import { GrAttachment } from 'react-icons/gr'
 import Button from '@/components/Button/Button'
-import { useSelector } from 'react-redux'
-import { useSearchParams } from 'next/navigation'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { TextInput } from '@/components/Form/FormFields/TextInput/TextInput'
-import { userData } from '@/services/redux/features/userSlice'
-import { ToastContainer, toast } from 'react-toastify'
+
 
 type Inputs = {
   name: string
@@ -17,11 +14,6 @@ interface AssignClassworkViewProps {
   handleFormSubmit: (data: any, reset: () => void) => void
 }
 const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => {
-  const searchParams = useSearchParams()
-  const classID: any = searchParams.get('id')
-  const teacherData = useSelector(userData).currentTeacher?.data!
-
-  // SUBMIT TO API
 
   const { register, handleSubmit, reset } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -62,7 +54,6 @@ const AssignClassworkView = ({ handleFormSubmit }: AssignClassworkViewProps) => 
           <Button type="submit" text="Submit" />
         </div>
       </form>
-      <ToastContainer />
     </>
   )
 }

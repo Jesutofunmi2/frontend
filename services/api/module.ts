@@ -1,9 +1,10 @@
 import useSWR from 'swr'
 import { toast } from 'react-toastify'
 import makeApiCall from '.'
+import { IModuleAssignment, IModuleAssignmentPayload } from '@/types/assignment'
 
 //ADD MODULE FOR TEACHER
-export const addAssignModule = async (payload: any) => {
+export const addAssignModule = async (payload: IModuleAssignmentPayload) => {
   toast.loading('Submitting...', {
     position: toast.POSITION.TOP_RIGHT,
   })
@@ -32,7 +33,7 @@ export const useGetAssignedModule = (param: any) => {
     const res = await makeApiCall(url, 'get')
     return res?.data
   }
-  const { data, isValidating, mutate } = useSWR(url, fetcher)
+  const { data, isValidating, mutate } = useSWR<IModuleAssignment[], Error>(url, fetcher)
   return { data, isValidating, mutate }
 }
 

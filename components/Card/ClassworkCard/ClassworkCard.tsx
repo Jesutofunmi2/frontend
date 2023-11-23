@@ -28,7 +28,7 @@ const ClassworkCard = ({ data, handleDeleteClasswork }: ClassworkCardProps) => {
             <span>{TitleCase(data?.name)}</span>
           </div>
           <button onClick={() => setModalOpen(true)} className={styles.attachment}>
-            <RiAttachment2 size={22} /> See Attachment
+          <RiAttachment2 /> View Attachment
           </button>
         </div>
       </div>

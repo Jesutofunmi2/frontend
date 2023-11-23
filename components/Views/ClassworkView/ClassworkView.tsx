@@ -14,6 +14,7 @@ import { toast } from 'react-toastify'
 import NotFound from '@/components/NotFound/NotFound'
 import AssignModuleView from '../AssignModuleView/AssignModuleView'
 import AssignClassworkView from '../AssignClassworkView/AssignClassworkView'
+import { IModuleAssignmentPayload } from '@/types/assignment'
 
 const ClassworkView = () => {
   const searchParams = useSearchParams()
@@ -24,7 +25,7 @@ const ClassworkView = () => {
   const { data: assignedModule, mutate: mutateAssignedModule } = useGetAssignedModule({
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
-    type:"classwork"
+    type: 'classwork',
   })
   const {
     data: classworkData,
@@ -57,11 +58,11 @@ const ClassworkView = () => {
   }
 
   const handleModuleSubmit = async (data: any, reset: (value: any) => void) => {
-    let formdata = {
+    let formdata: IModuleAssignmentPayload = {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
       class_id: classID,
-      type: "classwork",
+      type: 'classwork',
       data: [{ ...data, time: Math.ceil(Number(data.time.split(':')[0])), notification: true }],
     }
     await addAssignModule(formdata)
@@ -146,7 +147,6 @@ const ClassworkView = () => {
             {assignedModule?.length ? (
               assignedModule?.map((module: any) => (
                 <AssignModuleCard
-                  title={module.title}
                   module={module}
                   key={module.id}
                   handleModuleDelete={handleModuleDelete}

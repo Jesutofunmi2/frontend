@@ -1,22 +1,27 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './videoCourseSidebar.module.css'
 import { IoIosArrowDown } from 'react-icons/io'
 import { TbPlayerPlay } from 'react-icons/tb'
 import { useState } from 'react'
-import { IVideoLessons } from '@/types/videocourse'
+import { IVideos } from '@/types/videos'
 
 interface VideoCourseSidebarProps {
-  videoLessonData:IVideoLessons[]
-  setVideoData: React.Dispatch<React.SetStateAction<IVideoLessons | undefined>>
+  videoLessonData: IVideos[]
+  setVideoData: React.Dispatch<React.SetStateAction<IVideos | undefined>>
   setQuestionIndex: React.Dispatch<React.SetStateAction<number>>
   setQuestionsPopup: React.Dispatch<React.SetStateAction<boolean>>
 }
-const VideoCourseSidebar = ({ videoLessonData, setVideoData, setQuestionIndex, setQuestionsPopup }: VideoCourseSidebarProps) => {
+const VideoCourseSidebar = ({
+  videoLessonData,
+  setVideoData,
+  setQuestionIndex,
+  setQuestionsPopup,
+}: VideoCourseSidebarProps) => {
   const [dropdown, setDropdown] = useState<any>(false)
 
-  const handleToggle = (id:number) => {
+  const handleToggle = (id: number) => {
     if (dropdown === id) {
       setDropdown(false)
     } else {
@@ -24,19 +29,18 @@ const VideoCourseSidebar = ({ videoLessonData, setVideoData, setQuestionIndex, s
     }
   }
 
-  const handleVideoSelect = (arg:any) => {
+  const handleVideoSelect = (arg: any) => {
     setVideoData(arg)
     setQuestionIndex(0)
     setQuestionsPopup(false)
-    
   }
 
   return (
     <>
       <div className={styles.container}>
-        <h3 className='font-bold text-lg'>Course content</h3>
+        <h3 className="font-bold text-lg">Course content</h3>
 
-        { videoLessonData?.map((item:any) => (
+        {videoLessonData?.map((item: any) => (
           <div className={styles.listContainer} key={item.id}>
             <ul className={styles.listWrap} onClick={() => handleToggle(item.id)}>
               <li className={styles.list}>
@@ -49,14 +53,14 @@ const VideoCourseSidebar = ({ videoLessonData, setVideoData, setQuestionIndex, s
             </ul>
             {dropdown === item.id ? (
               <ul className={styles.dropwrap}>
-                {item?.topics?.map((tpc:any) => (
+                {item?.topics?.map((tpc: any) => (
                   <li
                     className={styles.dropListWrap}
                     key={tpc.id}
                     onClick={() => handleVideoSelect(tpc)}
                   >
                     <div className={styles.dropTitleWrap}>
-                      <span className='font-bold text-xl'>•</span>
+                      <span className="font-bold text-xl">•</span>
                       <span className={styles.dropText}>{tpc.title}</span>
                     </div>
                     {/* <span className={styles.dropVideoTime}>

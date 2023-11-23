@@ -6,6 +6,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import Select from '../../Form/FormFields/Select/DropDown'
 import { TextInput } from '@/components/Form/FormFields/TextInput/TextInput'
 import { useGetLanguages } from '@/services/api/languages'
+import { formattedDate } from '@/utils'
 
 type Inputs = {
   module: ''
@@ -104,6 +105,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
                   label="Deadline"
                   name={`deadline`}
                   type="date"
+                  min={formattedDate()}
                   placeholder="Deadline"
                   style={{ width: 350 }}
                 />

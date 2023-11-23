@@ -18,7 +18,7 @@ interface AddModuleFormProps {
   file?: any
 }
 const AddModuleForm = ({ handleModuleAssignment, file }: AddModuleFormProps) => {
-  const { register, handleSubmit, control } = useForm<Inputs>()
+  const { register, handleSubmit} = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => handleModuleAssignment(data)
 
   return (
@@ -58,9 +58,6 @@ const AddModuleForm = ({ handleModuleAssignment, file }: AddModuleFormProps) => 
             type="number"
             name="mark"
             placeholder="Mark"
-            // className={styles.Input}
-            // onChange={(e) => handleChange(e)}
-            // required
           />
 
           {file ? (
@@ -72,7 +69,6 @@ const AddModuleForm = ({ handleModuleAssignment, file }: AddModuleFormProps) => 
                 name="file"
                 placeholder="Attachments"
               />
-              {/* <input type="file" name="file" id="" onChange={(e) => handleChange(e)} required /> */}
             </div>
           ) : null}
         </div>

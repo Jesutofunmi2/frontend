@@ -10,6 +10,8 @@ interface InputProps {
   style?: any
   Icon?: JSX.Element
   accept?: any
+  min?: any
+  max?: any
   clearErrors?: () => void
   errors?: any
 }
@@ -28,6 +30,8 @@ export const TextInput = ({
   name,
   style,
   accept,
+  min,
+  max,
   Icon,
   clearErrors,
   errors,
@@ -46,7 +50,9 @@ export const TextInput = ({
           placeholder={placeholder}
           className={styles.input}
           required
-          accept={accept}
+          min={min ? min : null}
+          max={max ? max : null}
+          accept={accept ? accept : null}
         />
         {/* {Icon? <span>{Icon}</span>: null} */}
       </div>

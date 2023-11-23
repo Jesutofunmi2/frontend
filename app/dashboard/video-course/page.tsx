@@ -2,13 +2,13 @@
 
 import React from 'react'
 import styles from './page.module.css'
-import { useGetVideoCourse } from '@/services/api/videoCourse'
+import { useGetCourses } from '@/services/api/course'
 import VideoCourseCard from '@/components/Card/VideoCourseCard/VideoCourseCard'
 import { Loader } from '@/components/Loader/Loader'
-import { VideoCourse } from '@/types/videocourse'
+import { ICourses } from '@/types/videos'
 
 const VideoLesson = () => {
-  const { data: videoCourses, isLoading, error } = useGetVideoCourse()
+  const { data: videoCourses, isLoading, error } = useGetCourses()
   if (!videoCourses) return null
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
@@ -18,7 +18,7 @@ const VideoLesson = () => {
         <h2 className="text-center text-2xl font-bold">Select Language</h2>
 
         <div className="mt-10 gap-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
-          {videoCourses.map((video: VideoCourse) => (
+          {videoCourses.map((video: ICourses) => (
             <VideoCourseCard video={video} key={video.id} />
           ))}
         </div>
