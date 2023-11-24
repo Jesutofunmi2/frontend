@@ -10,14 +10,20 @@ interface AssignModuleCardProps {
   module: IModuleAssignment
   handleModuleDelete: (id: number) => void
 }
+
 const AssignModuleCard = ({ module, handleModuleDelete }: AssignModuleCardProps) => {
+
   return (
     <>
       <div className={styles.card}>
         <div className={styles.titleWrap}>
           <div className={styles.textWrap}>
             <TiDocumentText className="text-yellow" size={25} />
-            <p className="text-[17px]">{module?.topic[0].title}</p>
+            <div>
+              {/* <p>{video?.module_id[0].title}</p> */}
+              <p className="text-[17px]">{module?.topic[0].title}</p>
+            </div>
+           
           </div>
           <button onClick={() => handleModuleDelete(module.id)}>
             <AiTwotoneDelete size={23} color="red" />

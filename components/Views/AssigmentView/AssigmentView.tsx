@@ -2,9 +2,19 @@ import React, { useState } from 'react'
 import styles from './assigmentView.module.css'
 import Button from '../../Button/Button'
 import Modal from '../../Modal/Modal'
+import { useSearchParams } from 'next/navigation'
+import { useSelector } from 'react-redux'
+import { userData } from '@/services/redux/features/userSlice'
 import AssignModuleCard from '../../Card/AssignModuleCard/AssignModuleCard'
 import AssignmentCard from '@/components/Card/AssignmentCard/AssignmentCard'
 import AddFileForm from '@/components/Form/Forms/Assignment/AddFileForm/AddFileForm'
+import AddVideoForm from '@/components/Form/Forms/Assignment/AddVideoForm/AddVideoForm'
+import AddQuizForm from '@/components/Form/Forms/Assignment/AddQuizForm/AddQuizForm'
+import { addAssignModule, deleteModule, useGetAssignedModule } from '@/services/api/module'
+import AssignModuleView from '../AssignModuleView/AssignModuleView'
+import { Loader } from '@/components/Loader/Loader'
+import AssignQuizCard from '@/components/Card/AssignQuizCard/AssignQuizCard'
+import AssignVideoCard from '@/components/Card/AssignVideoCard/AssignVideoCard'
 import {
   addFileAssignment,
   addQuizAssignment,
@@ -16,16 +26,6 @@ import {
   useGetQuizAssignments,
   useGetVideoAssignments,
 } from '@/services/api/assignment'
-import { useSearchParams } from 'next/navigation'
-import { useSelector } from 'react-redux'
-import { userData } from '@/services/redux/features/userSlice'
-import AddVideoForm from '@/components/Form/Forms/Assignment/AddVideoForm/AddVideoForm'
-import AddQuizForm from '@/components/Form/Forms/Assignment/AddQuizForm/AddQuizForm'
-import { addAssignModule, deleteModule, useGetAssignedModule } from '@/services/api/module'
-import AssignModuleView from '../AssignModuleView/AssignModuleView'
-import NotFound from '@/components/NotFound/NotFound'
-import { Loader } from '@/components/Loader/Loader'
-import AssignQuizCard from '@/components/Card/AssignQuizCard/AssignQuizCard'
 import {
   IFileAssignment,
   IModuleAssignment,
@@ -35,7 +35,6 @@ import {
   IVideoAssignment,
   IVideoAssignmentPayload,
 } from '@/types/assignment'
-import AssignVideoCard from '@/components/Card/AssignVideoCard/AssignVideoCard'
 
 const AssignmentView = () => {
   const searchParams = useSearchParams()
@@ -45,27 +44,37 @@ const AssignmentView = () => {
   const [selected, setSelected] = useState('')
   const {
     data: fileAssignments,
-    isLoading,
-    error,
+    isLoading: isLoadingFile,
+    error: errorFile,
     mutate,
   } = useGetFileAssignments(teacherData.school.id, classID, teacherData.teacher_id)
 
-  const { data: moduleAssignments, mutate: mutateAssignedModule } = useGetAssignedModule({
+  const {
+    data: moduleAssignments,
+    mutate: mutateAssignedModule,
+    isLoading: isLoadingModule,
+    error: errorModule,
+  } = useGetAssignedModule({
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
     type: 'assignment',
   })
 
-  const { data: quizAssignments, mutate: mutateQuizAssignments } = useGetQuizAssignments(
-    teacherData.school.id,
-    classID,
-    teacherData.teacher_id
-  )
-  const { data: videoAssignments, mutate: mutateVideoAssignments } = useGetVideoAssignments(
-    teacherData.school.id,
-    classID,
-    teacherData.teacher_id
-  )
+  const {
+    data: quizAssignments,
+    mutate: mutateQuizAssignments,
+    isLoading: isLoadingQuiz,
+    error: errorQuiz,
+  } = useGetQuizAssignments(teacherData.school.id, classID, teacherData.teacher_id)
+  const {
+    data: videoAssignments,
+    mutate: mutateVideoAssignments,
+    isLoading: isLoadingVideo,
+    error: errorVideo,
+  } = useGetVideoAssignments(teacherData.school.id, classID, teacherData.teacher_id)
+  if (isLoadingFile || isLoadingModule || isLoadingQuiz || isLoadingVideo) return <Loader />
+  if (errorVideo || errorQuiz || errorModule || errorFile)
+    return <p className="text-error">Server Error</p>
 
   //File
   const handleAddFileAssignment = async (formValues: any, reset: () => void) => {
@@ -115,6 +124,7 @@ const AssignmentView = () => {
       mark: '',
     })
   }
+
   const handleModuleDelete = async (id: number) => {
     let payload = {
       school_id: Number(teacherData?.school.id),
@@ -170,10 +180,10 @@ const AssignmentView = () => {
       videos_id: [],
       module_id: '',
       deadline: new Date(),
-      no_attempt: "",
-      language_id:"",
+      no_attempt: '',
+      language_id: '',
       time: '',
-      mark: "",
+      mark: '',
     })
     mutateVideoAssignments()
   }
@@ -249,7 +259,7 @@ const AssignmentView = () => {
             ) : null}
           </div>
         </div>
-        {/* AssignQuizCard  */}
+
         <div className={styles.cardWrap}>
           <div className="flex items-center justify-between mb-6">
             {' '}
@@ -272,7 +282,6 @@ const AssignmentView = () => {
         </div>
       </div>
 
-      {/* MODALs */}
       <Modal open={openModal} setOpen={setOpenModal}>
         {selected === 'add-file' ? (
           <AddFileForm handleAddFileAssignment={handleAddFileAssignment} />
