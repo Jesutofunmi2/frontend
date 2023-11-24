@@ -11,7 +11,6 @@ import Modal from '@/components/Modal/Modal'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
 import { toast } from 'react-toastify'
-import NotFound from '@/components/NotFound/NotFound'
 import AssignModuleView from '../AssignModuleView/AssignModuleView'
 import AssignClassworkView from '../AssignClassworkView/AssignClassworkView'
 import { IModuleAssignmentPayload } from '@/types/assignment'
@@ -22,7 +21,12 @@ const ClassworkView = () => {
   const [selectedButton, setSelectedButton] = useState('')
   const teacherData = useSelector(userData).currentTeacher?.data!
   const classID = Number(searchParams.get('id'))
-  const { data: assignedModule, mutate: mutateAssignedModule } = useGetAssignedModule({
+  const {
+    data: assignedModule,
+    mutate: mutateAssignedModule,
+    isLoading,
+    error,
+  } = useGetAssignedModule({
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
     type: 'classwork',
@@ -30,8 +34,11 @@ const ClassworkView = () => {
   const {
     data: classworkData,
     mutate,
-    error,
+    isLoading: isLoadingClasswork,
+    error: errorClasswork,
   } = useGetClasswork(teacherData?.teacher_id, teacherData?.school?.id, classID)
+  if (isLoading || isLoadingClasswork) return <Loader />
+  if (errorClasswork || error) return <p className="text-error">Server Error</p>
 
   const handleToggle = (selectedButton: string) => {
     setModalOpen(true)

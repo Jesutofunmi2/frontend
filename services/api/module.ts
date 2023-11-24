@@ -33,8 +33,8 @@ export const useGetAssignedModule = (param: any) => {
     const res = await makeApiCall(url, 'get')
     return res?.data
   }
-  const { data, isValidating, mutate } = useSWR<IModuleAssignment[], Error>(url, fetcher)
-  return { data, isValidating, mutate }
+  const { data, error, mutate ,isLoading} = useSWR<IModuleAssignment[], Error>(url, fetcher)
+  return { data, error, mutate,isLoading }
 }
 
 // DELETE MODULE

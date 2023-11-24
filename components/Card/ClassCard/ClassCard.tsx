@@ -23,11 +23,11 @@ const ClassCard = ({ classroom, url }: ClassCardProps) => {
           className={styles.wrap}
         >
           <div className={styles.titleWrap}>
-            <span>{classroom.class[0]?.name}</span>
+            <span className='text-lg'>{classroom.class[0]?.name}</span>
           </div>
           <div className={styles.studentCount}>
             <FaPeopleGroup size={20} className={styles.icon} />
-            <span>{classroom.class_arm[0]?.name}</span>
+            <span className='text-sm'>Class Arm: {classroom.class_arm[0]?.name}</span>
           </div>
         </Link>
       </div>

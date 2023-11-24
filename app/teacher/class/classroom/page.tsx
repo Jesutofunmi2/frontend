@@ -16,10 +16,9 @@ import AssignmentView from '@/components/Views/AssigmentView/AssigmentView'
 import GradebookView from '@/components/Views/GradebookView/GradebookView'
 import { PiBookOpenBold } from 'react-icons/pi'
 import { LuSettings } from 'react-icons/lu'
-import { deleteModule, useGetAssignedModule } from '@/services/api/module'
 import { useSelector } from 'react-redux'
 import { userData } from '@/services/redux/features/userSlice'
-import { useGetClasses, useGetTeacherClassStudent } from '@/services/api/school/class'
+import { useGetTeacherClassStudent } from '@/services/api/school/class'
 import { Loader } from '@/components/Loader/Loader'
 import { useGetTeacherClasses } from '@/services/api/teacher/class'
 import { TitleCase } from '@/utils'
@@ -54,7 +53,6 @@ const ClassRoom = () => {
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
-  
   const classRoomData = allTeacherClasses.find((classroom: any) => classroom.id === classroomID)
   const handleActiveTab = (activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') =>
     setActiveTab(activeTab)
