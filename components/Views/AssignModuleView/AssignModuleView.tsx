@@ -12,7 +12,7 @@ type Inputs = {
   module: ''
   deadline: Date
   no_attempt: number
-  time: ''
+  time: number
   mark: number
 }
 
@@ -34,7 +34,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
       module: '',
       deadline: new Date(),
       no_attempt: 0,
-      time: '',
+      time: 0,
       mark: 0,
     },
   })
@@ -43,7 +43,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
       module: '',
       deadline: new Date(),
       no_attempt: 0,
-      time: '',
+      time: 0,
       mark: 0,
     })
     if (selectedLanguage) {
@@ -70,7 +70,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
     <>
       <h1 className="font-bold text-lg mt-3">Add Module</h1>
       <hr className="border-gray-300" />
-      <div className="my-10">
+      <form className="my-10" onSubmit={handleSubmit(onSubmit)}>
         <div className="">
           <Select
             onChange={handleLanguageChange}
@@ -80,7 +80,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
           />
         </div>
         {selectedLanguage ? (
-          <form className="my-10" onSubmit={handleSubmit(onSubmit)}>
+          <div className="mt-6">
             <Controller
               name="module"
               control={control}
@@ -114,6 +114,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
                   label="No Of Attempts"
                   name={`attempts`}
                   type="number"
+                  min="0"
                   placeholder="No of Attempts"
                   style={{ width: 350 }}
                 />
@@ -121,10 +122,11 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
               <div className="flex w-full my-8  justify-between flex-wrap gap-8">
                 <TextInput
                   register={{ ...register(`time`, { required: true }) }}
-                  label="Time(mins)"
+                  label="Duration(mins)"
                   name={`time`}
-                  type="time"
-                  placeholder="Time(mins)"
+                  type="number"
+                  min="0"
+                  placeholder="(mins)"
                   style={{ width: 350 }}
                 />
                 <TextInput
@@ -132,6 +134,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
                   label="Mark"
                   name={`mark`}
                   type="number"
+                  min="0"
                   placeholder="Mark"
                   style={{ width: 350 }}
                 />
@@ -141,9 +144,9 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
             <div className="my-14 text-center">
               <Button text="Submit" type="submit" />
             </div>
-          </form>
+          </div>
         ) : null}
-      </div>
+      </form>
     </>
   )
 }

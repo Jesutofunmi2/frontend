@@ -17,7 +17,7 @@ type Inputs = {
   module_id: string
   questions_id: []
   deadline: Date
-  time: string
+  time: number
   no_attempt: string
   mark: string
 }
@@ -42,7 +42,7 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
       deadline: new Date(),
       no_attempt: '',
       language_id: 0,
-      time: '',
+      time: 0,
       mark: '',
     },
   })
@@ -52,7 +52,6 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
         ...data,
         mark: Number(data.mark),
         no_attempt: Number(data.no_attempt),
-        time: Math.ceil(Number(data.time.split(':')[0])),
       },
       reset
     )
@@ -169,10 +168,11 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
 
               <TextInput
                 register={{ ...register('time', { required: true }) }}
-                label="Time(mins)"
-                type="time"
+                label="Duration(mins)"
+                type="number"
                 name="time"
-                placeholder="Minutes"
+                min="0"
+                placeholder="mins"
                 style={{ width: '350px' }}
               />
 
@@ -180,6 +180,7 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
                 register={{ ...register('no_attempt', { required: true }) }}
                 label="No of attempts"
                 type="number"
+                min="0"
                 name="no_attempt"
                 placeholder="No of attempts"
                 style={{ width: '350px' }}
@@ -190,6 +191,7 @@ export default function AddQuizForm({ handleQuizAssignment }: AddQuizFormProps) 
                 label="Mark"
                 type="number"
                 name="mark"
+                min="0"
                 placeholder="Mark"
                 style={{ width: '350px' }}
               />

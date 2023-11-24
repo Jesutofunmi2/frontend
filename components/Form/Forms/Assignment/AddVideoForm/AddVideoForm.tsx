@@ -15,7 +15,7 @@ type Inputs = {
   module_id: number
   videos_id: []
   deadline: Date
-  time: string
+  time: number
   no_attempt: string
   mark: string
 }
@@ -38,7 +38,7 @@ export default function AddVideoForm({ handleVideoAssignment }: AddVideoFormProp
       deadline: new Date(),
       no_attempt: '',
       language_id: 0,
-      time: '',
+      time: 0,
       mark: '',
     },
   })
@@ -48,8 +48,7 @@ export default function AddVideoForm({ handleVideoAssignment }: AddVideoFormProp
       {
         ...data,
         mark: Number(data.mark),
-        no_attempt: Number(data.no_attempt),
-        time: Math.ceil(Number(data.time.split(':')[0])),
+        no_attempt: Number(data.no_attempt)
       },
       reset
     )
@@ -180,9 +179,10 @@ export default function AddVideoForm({ handleVideoAssignment }: AddVideoFormProp
 
               <TextInput
                 register={{ ...register('time', { required: true }) }}
-                label="Time(mins)"
-                type="time"
+                label="Duration(mins)"
+                type="number"
                 name="time"
+                min="0"
                 placeholder="Minutes"
                 style={{ width: '350px' }}
               />
@@ -192,6 +192,7 @@ export default function AddVideoForm({ handleVideoAssignment }: AddVideoFormProp
                 label="No of attempts"
                 type="number"
                 name="no_attempt"
+                min="0"
                 placeholder="No of attempts"
                 style={{ width: '350px' }}
               />
@@ -200,6 +201,7 @@ export default function AddVideoForm({ handleVideoAssignment }: AddVideoFormProp
                 register={{ ...register('mark', { required: true }) }}
                 label="Mark"
                 type="number"
+                min="0"
                 name="mark"
                 placeholder="Mark"
                 style={{ width: '350px' }}
