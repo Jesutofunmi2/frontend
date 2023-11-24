@@ -119,7 +119,7 @@ const AssignmentView = () => {
     reset({
       module: '',
       deadline: '',
-      time: '',
+      time: 0,
       no_attempt: '',
       mark: '',
     })
@@ -154,7 +154,7 @@ const AssignmentView = () => {
       deadline: new Date(),
       no_attempt: 0,
       language_id: 0,
-      time: '',
+      time: 0,
       mark: 0,
     })
     mutateQuizAssignments()
@@ -182,7 +182,7 @@ const AssignmentView = () => {
       deadline: new Date(),
       no_attempt: '',
       language_id: '',
-      time: '',
+      time: 0,
       mark: '',
     })
     mutateVideoAssignments()

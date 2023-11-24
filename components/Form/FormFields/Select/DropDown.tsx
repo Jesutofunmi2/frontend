@@ -21,7 +21,6 @@ export const reactSelectCustomStyles = (): StylesConfig => ({
 })
 const DropDown = ({
   placeholder,
-
   value,
   isLoading,
   label,
@@ -35,7 +34,7 @@ const DropDown = ({
   return (
     <>
       <div className={styles.selectWrap}>
-        <label>{label}</label>
+        <label className='mb-2 block'>{label}</label>
         <AsyncSelect
           className={styles.input}
           defaultValue={defaultValue}

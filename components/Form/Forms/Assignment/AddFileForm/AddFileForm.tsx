@@ -62,6 +62,7 @@ const AddFileForm = ({ handleAddFileAssignment }: AddFileProps) => {
               label="Mark"
               name="mark"
               type="number"
+              min="0"
               placeholder="Mark"
             />
           </>

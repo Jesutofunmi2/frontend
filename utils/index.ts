@@ -3,7 +3,9 @@ export const TitleCase = (str: string) => {
 }
 
 export const formattedDate = () => {
-  const date = new Date()
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+  
+const  currentDate = new Date();
+currentDate.setDate(currentDate.getDate() + 1);
+  return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
 
 }
