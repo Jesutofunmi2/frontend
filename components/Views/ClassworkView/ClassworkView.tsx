@@ -38,32 +38,40 @@ const ClassworkView = () => {
     setSelectedButton(selectedButton)
   }
 
-  const handleFormSubmit = async (data: any, reset: () => void) => {
-    if (data.attachment[0].size > 1000000) {
+  const handleFormSubmit = async (formValues: any, reset: () => void) => {
+    if (formValues.attachment[0].size > 1000000) {
       toast.error('File is too large', {
         position: toast.POSITION.TOP_RIGHT,
       })
       return
     }
     let formData: any = new FormData()
-    formData.append('media_url', data.attachment[0])
+    formData.append('media_url', formValues.attachment[0])
     formData.append('teacher_id', teacherData?.teacher_id)
     formData.append('class_id', classID)
     formData.append('school_id', teacherData?.school?.id)
-    formData.append('name', data.name)
+    formData.append('name', formValues.name)
     await addClasswork(formData)
     setModalOpen(false)
     reset()
     mutate()
   }
 
-  const handleModuleSubmit = async (data: any, reset: (value: any) => void) => {
+  const handleModuleSubmit = async (formValues: any, reset: (value: any) => void) => {
     let formdata: IModuleAssignmentPayload = {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
       class_id: classID,
       type: 'classwork',
-      data: [{ ...data, time: Math.ceil(Number(data.time.split(':')[0])), notification: true }],
+      data: [
+        {
+          ...formValues,
+          no_attempt: Number(formValues.no_attempt),
+          mark: Number(formValues.mark),
+          time: Math.ceil(Number(formValues.time.split(':')[0])),
+          notification: true,
+        },
+      ],
     }
     await addAssignModule(formdata)
     mutateAssignedModule()
@@ -106,7 +114,7 @@ const ClassworkView = () => {
     <>
       <div className={styles.container}>
         <div className={styles.cardWrap}>
-        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6">
             <p className={styles.cardTitle}>CLASSWORK</p>
             <Button
               handleClick={() => {
@@ -130,7 +138,7 @@ const ClassworkView = () => {
           </div>
         </div>
         <div className={styles.cardWrap}>
-        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6">
             <p className={styles.cardTitle}>MODULE CLASSWORK</p>
             <Button
               handleClick={() => {

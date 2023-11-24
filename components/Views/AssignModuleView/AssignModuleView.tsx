@@ -69,8 +69,8 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
   return (
     <>
       <h1 className="font-bold text-lg mt-3">Add Module</h1>
-      <hr className='border-gray-300' />
-      <div className='my-10'>
+      <hr className="border-gray-300" />
+      <div className="my-10">
         <div className="">
           <Select
             onChange={handleLanguageChange}
