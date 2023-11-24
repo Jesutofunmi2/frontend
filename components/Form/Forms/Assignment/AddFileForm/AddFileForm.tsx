@@ -30,7 +30,7 @@ const AddFileForm = ({ handleAddFileAssignment }: AddFileProps) => {
         <div className="grid grid-cols-2 gap-8 mt-10">
           <TextInput
             register={{ ...register('date', { required: true }) }}
-            label="Date"
+            label="Deadline"
             name="date"
             type="date"
             min={formattedDate()}

@@ -169,7 +169,7 @@ export default function AddVideoForm({ handleVideoAssignment }: AddVideoFormProp
             <div className="flex justify-between items-center flex-wrap my-10 gap-8">
               <TextInput
                 register={{ ...register('deadline', { required: true }) }}
-                label="Date"
+                label="Deadline"
                 type="date"
                 name="date"
                 placeholder="Date"
