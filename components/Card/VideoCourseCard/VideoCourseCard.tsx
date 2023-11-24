@@ -2,13 +2,13 @@ import React from 'react'
 import styles from './videoCourseCard.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { VideoCourse } from '@/types/videocourse'
+import { ICourses } from '@/types/videos'
 
 interface VideoCourseCard {
-  video: VideoCourse
+  video: ICourses
 }
 const VideoCourseCard = ({ video }: VideoCourseCard) => {
-  const handleclick = (video: VideoCourse) => {
+  const handleclick = (video: ICourses) => {
     sessionStorage.setItem('courseID', video?.id)
   }
 
@@ -35,7 +35,7 @@ const VideoCourseCard = ({ video }: VideoCourseCard) => {
               alt={video?.title}
             />
             {/* <hr className={styles.break} /> */}
-            <h3 className='text-xl mt-3'>{video?.title}</h3>
+            <h3 className="text-xl mt-3">{video?.title}</h3>
           </div>
         </Link>
       </div>

@@ -6,6 +6,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import Select from '../../Form/FormFields/Select/DropDown'
 import { TextInput } from '@/components/Form/FormFields/TextInput/TextInput'
 import { useGetLanguages } from '@/services/api/languages'
+import { formattedDate } from '@/utils'
 
 type Inputs = {
   module: ''
@@ -68,8 +69,8 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
   return (
     <>
       <h1 className="font-bold text-lg mt-3">Add Module</h1>
-      <hr className='border-gray-300' />
-      <div className='my-10'>
+      <hr className="border-gray-300" />
+      <div className="my-10">
         <div className="">
           <Select
             onChange={handleLanguageChange}
@@ -104,6 +105,7 @@ const AssignModuleView = ({ handleModuleSubmit }: AssignModuleViewProps) => {
                   label="Deadline"
                   name={`deadline`}
                   type="date"
+                  min={formattedDate()}
                   placeholder="Deadline"
                   style={{ width: 350 }}
                 />

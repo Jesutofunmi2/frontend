@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 import styles from './assigmentView.module.css'
 import Button from '../../Button/Button'
 import Modal from '../../Modal/Modal'
-
-import AssignVideoCard from '@/components/Card/AssignVideoCard/AssignVideoCard'
 import AssignModuleCard from '../../Card/AssignModuleCard/AssignModuleCard'
 import AssignmentCard from '@/components/Card/AssignmentCard/AssignmentCard'
-// import AssignmentForm from '@/components/Form/Forms/AssignmentForm/AssignmentForm'
-import AssignVideoForm from '@/components/Form/Forms/AssignVideoForm/AssignVideoForm'
-import AddModuleForm from '../../Form/Forms/Assignment/AddModuleForm/AddModuleForm'
 import AddFileForm from '@/components/Form/Forms/Assignment/AddFileForm/AddFileForm'
 import {
   addFileAssignment,
+  addQuizAssignment,
+  addVideoAssignment,
   deleteFileAssignment,
+  deleteQuizAssignment,
+  deleteVideoAssignment,
   useGetFileAssignments,
+  useGetQuizAssignments,
+  useGetVideoAssignments,
 } from '@/services/api/assignment'
 import { useSearchParams } from 'next/navigation'
 import { useSelector } from 'react-redux'
@@ -24,15 +25,24 @@ import { addAssignModule, deleteModule, useGetAssignedModule } from '@/services/
 import AssignModuleView from '../AssignModuleView/AssignModuleView'
 import NotFound from '@/components/NotFound/NotFound'
 import { Loader } from '@/components/Loader/Loader'
-import LanguageVideoSelection from '@/components/LanguageVideoSelection.tsx/LanguageVideoSelection'
+import AssignQuizCard from '@/components/Card/AssignQuizCard/AssignQuizCard'
+import {
+  IFileAssignment,
+  IModuleAssignment,
+  IModuleAssignmentPayload,
+  IQuizAssignment,
+  IQuizAssignmentPayload,
+  IVideoAssignment,
+  IVideoAssignmentPayload,
+} from '@/types/assignment'
+import AssignVideoCard from '@/components/Card/AssignVideoCard/AssignVideoCard'
 
 const AssignmentView = () => {
   const searchParams = useSearchParams()
-  const classID: any = Number(searchParams.get('id'))
+  const classID: Number = Number(searchParams.get('id'))
   const teacherData = useSelector(userData).currentTeacher?.data!
   const [openModal, setOpenModal] = useState(false)
   const [selected, setSelected] = useState('')
-
   const {
     data: fileAssignments,
     isLoading,
@@ -40,25 +50,37 @@ const AssignmentView = () => {
     mutate,
   } = useGetFileAssignments(teacherData.school.id, classID, teacherData.teacher_id)
 
-  const { data: assignedModule, mutate: mutateAssignedModule } = useGetAssignedModule({
+  const { data: moduleAssignments, mutate: mutateAssignedModule } = useGetAssignedModule({
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
-    type:"assignment"
+    type: 'assignment',
   })
 
-  const handleAddFileAssignment = async (payload: any, reset: () => void) => {
+  const { data: quizAssignments, mutate: mutateQuizAssignments } = useGetQuizAssignments(
+    teacherData.school.id,
+    classID,
+    teacherData.teacher_id
+  )
+  const { data: videoAssignments, mutate: mutateVideoAssignments } = useGetVideoAssignments(
+    teacherData.school.id,
+    classID,
+    teacherData.teacher_id
+  )
+
+  //File
+  const handleAddFileAssignment = async (formValues: any, reset: () => void) => {
+    setOpenModal(false)
     let formdata = new FormData()
     formdata.append('school_id', teacherData?.school?.id)
     formdata.append('teacher_id', teacherData?.teacher_id)
     formdata.append('class_id', String(classID))
-    formdata.append('date', payload.date)
-    formdata.append('name', payload.topic)
-    formdata.append('mark', payload.mark)
+    formdata.append('date', formValues.date)
+    formdata.append('name', formValues.topic)
+    formdata.append('mark', formValues.mark)
     formdata.append('notification', '0')
-    formdata.append('media_url', payload.attachment[0])
+    formdata.append('media_url', formValues.attachment[0])
     await addFileAssignment(formdata)
     mutate()
-    setOpenModal(false)
     reset()
   }
 
@@ -67,17 +89,24 @@ const AssignmentView = () => {
     mutate()
   }
 
-  const handleModuleAssignment = async (data: any, reset: (value: any) => void) => {
-    let formdata = {
+  // Module
+  const handleModuleAssignment = async (formValues: any, reset: (value: any) => void) => {
+    setOpenModal(false)
+    let payload: IModuleAssignmentPayload = {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
-      class_id: classID,
-      type: "assignment",
-      data: [{ ...data, time: Math.ceil(Number(data.time.split(':')[0])), notification: true }],
+      class_id: Number(classID),
+      type: 'assignment',
+      data: [
+        {
+          ...formValues,
+          time: Math.ceil(Number(formValues.time.split(':')[0])),
+          notification: true,
+        },
+      ],
     }
-    await addAssignModule(formdata)
+    await addAssignModule(payload)
     mutateAssignedModule()
-    setOpenModal(false)
     reset({
       module: '',
       deadline: '',
@@ -97,8 +126,63 @@ const AssignmentView = () => {
       mutateAssignedModule()
     }
   }
-  const handleVideoAssignment = () => {}
-  const handleQuizAssignment = () => {}
+
+  // Quiz
+  const handleQuizAssignment = async (formValues: any, reset: (inputValues: any) => void) => {
+    setOpenModal(false)
+    let payload: IQuizAssignmentPayload = {
+      school_id: teacherData.school.id,
+      teacher_id: teacherData.teacher_id,
+      class_id: classID,
+      notification: true,
+      ...formValues,
+    }
+    await addQuizAssignment(payload)
+    reset({
+      questions_id: [],
+      module_id: '',
+      deadline: new Date(),
+      no_attempt: 0,
+      language_id: 0,
+      time: '',
+      mark: 0,
+    })
+    mutateQuizAssignments()
+  }
+
+  const handleQuizDelete = async (id: number) => {
+    await deleteQuizAssignment(teacherData?.school?.id, classID, teacherData?.teacher_id, id)
+    mutateQuizAssignments()
+  }
+
+  // Video
+  const handleVideoAssignment = async (formValues: any, reset: (inputValues: any) => void) => {
+    setOpenModal(false)
+    let payload: IVideoAssignmentPayload = {
+      school_id: teacherData.school.id,
+      teacher_id: teacherData.teacher_id,
+      class_id: classID,
+      notification: true,
+      ...formValues,
+    }
+    await addVideoAssignment(payload)
+    reset({
+      videos_id: [],
+      module_id: '',
+      deadline: new Date(),
+      no_attempt: "",
+      language_id:"",
+      time: '',
+      mark: "",
+    })
+    mutateVideoAssignments()
+  }
+
+  const handleVideoDelete = async (id: number) => {
+    await deleteVideoAssignment(teacherData?.school?.id, classID, teacherData?.teacher_id, id)
+    mutateVideoAssignments()
+  }
+
   const handleModalOpen = (selected: string) => {
     setSelected(selected)
     setOpenModal(true)
@@ -106,77 +190,85 @@ const AssignmentView = () => {
 
   return (
     <>
-      <div className="mt-20">
+      <div className="mx-[20px] my-[70px]">
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign File" handleClick={() => handleModalOpen('add-file')} />
             <p className={styles.cardTitle}>FILE ASSIGNMENTS</p>
+            <Button text="Assign File" handleClick={() => handleModalOpen('add-file')} />
           </div>
-
-          {fileAssignments?.length ? (
-            <div className={styles.cards}>
-              {fileAssignments?.map(
-                (ele: { deadline: string; id: number; name: string; media_url: string }) => {
-                  return (
-                    <AssignmentCard
-                      ele={ele}
-                      key={ele.id}
-                      handleFileAssignmentDelete={handleFileAssignmentDelete}
-                    />
-                  )
-                }
-              )}
-            </div>
-          ) : (
-            <p className="text-sm text-center">No File Assignment</p>
-          )}
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
+            {fileAssignments?.length ? (
+              fileAssignments?.map((ele: IFileAssignment) => (
+                <AssignmentCard
+                  ele={ele}
+                  key={ele.id}
+                  handleFileAssignmentDelete={handleFileAssignmentDelete}
+                />
+              ))
+            ) : fileAssignments?.length === 0 ? (
+              <p className="text-sm">No File Assignment</p>
+            ) : null}
+          </div>
         </div>
 
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign Module" handleClick={() => handleModalOpen('add-module')} />
             <p className={styles.cardTitle}>MODULE ASSIGNMENTS</p>
+            <Button text="Assign Module" handleClick={() => handleModalOpen('add-module')} />
           </div>
-          <div className={styles.cards}>
-            {assignedModule?.length ? (
-              assignedModule?.map((module: any) => (
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
+            {moduleAssignments?.length ? (
+              moduleAssignments?.map((module: IModuleAssignment) => (
                 <AssignModuleCard
-                  title={module.title}
                   module={module}
                   key={module.id}
                   handleModuleDelete={handleModuleDelete}
                 />
               ))
-            ) : assignedModule?.length === 0 ? (
-              <p className=" text-sm text-center">No Module Assignment</p>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+            ) : moduleAssignments?.length === 0 ? (
+              <p className="text-sm">No Module Assignment</p>
+            ) : null}
           </div>
         </div>
 
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign Quiz" disabled handleClick={() => handleModalOpen('add-quiz')} />
             <p className={styles.cardTitle}>QUIZ ASSIGNMENTS</p>
+            <Button text="Assign Quiz" handleClick={() => handleModalOpen('add-quiz')} />
           </div>
-          <div className={styles.cards}>{/* <AssignModuleCard /> */}</div>
-          <p className="text-sm text-center">No Quiz Assignment</p>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
+            {quizAssignments?.length ? (
+              quizAssignments?.map((quiz: IQuizAssignment) => (
+                <AssignQuizCard quiz={quiz} key={quiz.id} handleQuizDelete={handleQuizDelete} />
+              ))
+            ) : quizAssignments?.length === 0 ? (
+              <p className="text-sm">No Quiz Assignment</p>
+            ) : null}
+          </div>
         </div>
-
+        {/* AssignQuizCard  */}
         <div className={styles.cardWrap}>
-          <div className="flex items-center justify-start gap-48 mb-10">
+          <div className="flex items-center justify-between mb-6">
             {' '}
-            <Button text="Assign Video" disabled handleClick={() => handleModalOpen('add-video')} />
             <p className={styles.cardTitle}>VIDEO ASSIGNMENTS</p>
+            <Button text="Assign Video" handleClick={() => handleModalOpen('add-video')} />
           </div>
-
-          <LanguageVideoSelection />
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
+            {videoAssignments?.length ? (
+              videoAssignments?.map((video: IVideoAssignment) => (
+                <AssignVideoCard
+                  video={video}
+                  key={video.id}
+                  handleVideoDelete={handleVideoDelete}
+                />
+              ))
+            ) : videoAssignments?.length === 0 ? (
+              <p className="text-sm">No Video Assignment</p>
+            ) : null}
+          </div>
         </div>
       </div>
 

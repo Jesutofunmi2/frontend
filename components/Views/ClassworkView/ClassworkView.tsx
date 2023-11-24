@@ -14,6 +14,7 @@ import { toast } from 'react-toastify'
 import NotFound from '@/components/NotFound/NotFound'
 import AssignModuleView from '../AssignModuleView/AssignModuleView'
 import AssignClassworkView from '../AssignClassworkView/AssignClassworkView'
+import { IModuleAssignmentPayload } from '@/types/assignment'
 
 const ClassworkView = () => {
   const searchParams = useSearchParams()
@@ -24,7 +25,7 @@ const ClassworkView = () => {
   const { data: assignedModule, mutate: mutateAssignedModule } = useGetAssignedModule({
     school_id: teacherData?.school.id,
     teacher_id: `${teacherData?.teacher_id}`,
-    type:"classwork"
+    type: 'classwork',
   })
   const {
     data: classworkData,
@@ -37,32 +38,40 @@ const ClassworkView = () => {
     setSelectedButton(selectedButton)
   }
 
-  const handleFormSubmit = async (data: any, reset: () => void) => {
-    if (data.attachment[0].size > 1000000) {
+  const handleFormSubmit = async (formValues: any, reset: () => void) => {
+    if (formValues.attachment[0].size > 1000000) {
       toast.error('File is too large', {
         position: toast.POSITION.TOP_RIGHT,
       })
       return
     }
     let formData: any = new FormData()
-    formData.append('media_url', data.attachment[0])
+    formData.append('media_url', formValues.attachment[0])
     formData.append('teacher_id', teacherData?.teacher_id)
     formData.append('class_id', classID)
     formData.append('school_id', teacherData?.school?.id)
-    formData.append('name', data.name)
+    formData.append('name', formValues.name)
     await addClasswork(formData)
     setModalOpen(false)
     reset()
     mutate()
   }
 
-  const handleModuleSubmit = async (data: any, reset: (value: any) => void) => {
-    let formdata = {
+  const handleModuleSubmit = async (formValues: any, reset: (value: any) => void) => {
+    let formdata: IModuleAssignmentPayload = {
       school_id: teacherData.school.id,
       teacher_id: teacherData.teacher_id,
       class_id: classID,
-      type: "classwork",
-      data: [{ ...data, time: Math.ceil(Number(data.time.split(':')[0])), notification: true }],
+      type: 'classwork',
+      data: [
+        {
+          ...formValues,
+          no_attempt: Number(formValues.no_attempt),
+          mark: Number(formValues.mark),
+          time: Math.ceil(Number(formValues.time.split(':')[0])),
+          notification: true,
+        },
+      ],
     }
     await addAssignModule(formdata)
     mutateAssignedModule()
@@ -105,8 +114,8 @@ const ClassworkView = () => {
     <>
       <div className={styles.container}>
         <div className={styles.cardWrap}>
-          <p className={styles.cardTitle}>CLASSWORK</p>
-          <div className={styles.buttonWrap}>
+          <div className="flex items-center justify-between mb-6">
+            <p className={styles.cardTitle}>CLASSWORK</p>
             <Button
               handleClick={() => {
                 handleToggle('assign-classwork')
@@ -114,7 +123,7 @@ const ClassworkView = () => {
               text="Assign File"
             />
           </div>
-          <div className={styles.cards}>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
             {classworkData?.length ? (
               classworkData?.map((item: any) => (
                 <ClassworkCard
@@ -124,17 +133,13 @@ const ClassworkView = () => {
                 />
               ))
             ) : classworkData?.length === 0 ? (
-              <span className={styles.noItem}>No Classwork</span>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+              <span className="text-sm">No Classwork</span>
+            ) : null}
           </div>
         </div>
         <div className={styles.cardWrap}>
-          <p className={styles.cardTitle}>MODULE CLASSWORK</p>
-          <div className={styles.buttonWrap}>
+          <div className="flex items-center justify-between mb-6">
+            <p className={styles.cardTitle}>MODULE CLASSWORK</p>
             <Button
               handleClick={() => {
                 handleToggle('assign-module')
@@ -142,23 +147,18 @@ const ClassworkView = () => {
               text="Assign Module"
             />
           </div>
-          <div className={styles.cards}>
+          <div className="mb-20 flex items-center gap-8 flex-wrap justify-start">
             {assignedModule?.length ? (
               assignedModule?.map((module: any) => (
                 <AssignModuleCard
-                  title={module.title}
                   module={module}
                   key={module.id}
                   handleModuleDelete={handleModuleDelete}
                 />
               ))
             ) : assignedModule?.length === 0 ? (
-              <span className={styles.noItem}>No Module</span>
-            ) : error ? (
-              <NotFound text={'Server Error'} />
-            ) : (
-              <Loader />
-            )}
+              <span className="text-sm">No Module</span>
+            ) : null}
           </div>
         </div>
       </div>

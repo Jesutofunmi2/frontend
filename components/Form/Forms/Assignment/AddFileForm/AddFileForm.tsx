@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { TextInput } from '../../../FormFields/TextInput/TextInput'
+import { formattedDate } from '@/utils'
 
 type Inputs = {
   date: Date
@@ -24,14 +25,15 @@ const AddFileForm = ({ handleAddFileAssignment }: AddFileProps) => {
     <>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <h1 className="font-bold text-lg">Add File Assignment</h1>
-        <hr  />
+        <hr />
 
         <div className="grid grid-cols-2 gap-8 mt-10">
           <TextInput
             register={{ ...register('date', { required: true }) }}
-            label="Date(Select date after today)"
+            label="Date"
             name="date"
             type="date"
+            min={formattedDate()}
             placeholder="Enter Date"
           />
 
@@ -52,9 +54,7 @@ const AddFileForm = ({ handleAddFileAssignment }: AddFileProps) => {
               accept="image/png, image/jpeg, .pdf,"
               placeholder="Add Attachment"
             />
-            <span className="text-gray-200 text-sm block">
-              (* pdf, jpeg, png, jpg *)
-            </span>
+            <span className="text-gray-200 text-sm block">(* pdf, jpeg, png, jpg *)</span>
           </div>
           <>
             <TextInput

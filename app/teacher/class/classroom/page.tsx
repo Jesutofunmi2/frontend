@@ -54,6 +54,7 @@ const ClassRoom = () => {
   if (isLoading) return <Loader />
   if (error) return <p>error page</p>
 
+  
   const classRoomData = allTeacherClasses.find((classroom: any) => classroom.id === classroomID)
   const handleActiveTab = (activeTab: 'Students' | 'Classwork' | 'Assignment' | 'Gradebook') =>
     setActiveTab(activeTab)
@@ -89,17 +90,17 @@ const ClassRoom = () => {
   }
   return (
     <>
-      <div>
+      <div className="">
         <BackNavigation />
         <h3 className="p-4 mt-3 text-xl rounded-lg bg-white">
           {classRoomData?.class[0]?.name} {classRoomData?.class_arm[0]?.name}
         </h3>
-        <div className={styles.tabWrap}>
-          <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
-        </div>
+        <div className="overflow-auto">
+          <div className={styles.tabWrap}>
+            <Tab1 tabData={tabData} handleActiveTab={handleActiveTab} activeTab={activeTab} />
+          </div>
 
-        <div className={styles.views}>
-          <div className={styles.sectionWrap}>
+          <div className=" md:w-auto">
             {activeTab === 'Students' ? (
               <Table head={tableHead} body={tableBody} />
             ) : activeTab === 'Classwork' ? (

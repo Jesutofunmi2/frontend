@@ -6,7 +6,7 @@ const GradebookView = () => {
     <>
     <div>
         <div>
-            <GradeBookCard/>
+            {/* <GradeBookCard/> */}
         </div>
     </div>
     </>

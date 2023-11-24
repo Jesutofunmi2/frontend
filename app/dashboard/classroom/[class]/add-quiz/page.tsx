@@ -68,7 +68,7 @@ const AddQuizPage = () => {
             /> */}
           </div>
 
-          {selectModule.length > 0 ? (
+          {/* {selectModule.length > 0 ? (
             <div>
               <p className={styles.selectModuleTitle}>SELECT QUIZ</p>
               <div className={styles.cardWrap}>
@@ -84,10 +84,9 @@ const AddQuizPage = () => {
                   );
                 })}
 
-                {/* {isValidating ? <Spinner /> : null} */}
               </div>
             </div>
-          ) : null}
+          ) : null} */}
 
           {/* {selectQuiz.length > 0 ? <AddModuleForm /> : null} */}
 

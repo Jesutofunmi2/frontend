@@ -31,7 +31,7 @@ const LessonGame = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const { data: lessonQuestions, isLoading, error } = useGetLessonQuestions(languageID, lessonID)
+  const { data: lessonQuestions, isLoading, error } = useGetLessonQuestions(languageID,Number( lessonID))
   if (isLoading || !lessonQuestions) return <Loader />
   if (error) return <p>error page</p>
 
